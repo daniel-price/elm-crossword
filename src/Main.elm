@@ -1,8 +1,7 @@
 module Main exposing (..)
 
 import Browser
-import Debug exposing (log)
-import Html exposing (Html, div, input, pre)
+import Html exposing (Html, div, input)
 import Html.Attributes exposing (..)
 import Html.Events exposing (onInput)
 import List.Extra
@@ -21,8 +20,10 @@ main =
 -- MODEL
 
 
-type alias Cell =
-    Maybe Char
+type Cell
+    = Filled Char
+    | Empty
+    | Blank
 
 
 type alias Grid =
@@ -35,7 +36,7 @@ type alias Model =
 
 init : Model
 init =
-    { grid = [ [ Just 'a', Just 'b', Just 'c' ], [ Just 'd', Just 'e', Just 'f' ] ] }
+    { grid = [ [ Empty, Blank, Filled 'c' ], [ Filled 'd', Filled 'e', Filled 'f' ] ] }
 
 
 
@@ -59,8 +60,18 @@ updateGrid grid x y newContent =
         |> List.Extra.updateIfIndex ((==) x)
             (\row ->
                 row
-                    |> List.Extra.updateIfIndex ((==) y) (\_ -> List.head (List.reverse (String.toList newContent)))
+                    |> List.Extra.updateIfIndex ((==) y) (\_ -> getCell newContent)
             )
+
+
+getCell : String -> Cell
+getCell s =
+    case List.head (List.reverse (String.toList s)) of
+        Nothing ->
+            Empty
+
+        Just a ->
+            Filled a
 
 
 
@@ -86,31 +97,41 @@ viewGrid grid =
 
 viewRow : Int -> List Cell -> Html Msg
 viewRow x row =
-    pre
-        [ style "display" "flex"
-        ]
+    div
+        [ style "display" "flex" ]
         (List.indexedMap (viewCell x) row)
 
 
 viewCell : Int -> Int -> Cell -> Html Msg
 viewCell x y cell =
-    div
-        []
-        [ input
-            [ placeholder ""
-            , value
-                (case cell of
-                    Nothing ->
-                        ""
+    case cell of
+        Empty ->
+            input
+                [ placeholder ""
+                , value ""
+                , onInput (Change x y)
+                , style "border" "1px solid black"
+                , style "height" "20px"
+                , style "width" "20px"
+                ]
+                []
 
-                    Just '~' ->
-                        ""
+        Filled a ->
+            input
+                [ placeholder ""
+                , value (String.fromChar a)
+                , onInput (Change x y)
+                , style "border" "1px solid black"
+                , style "height" "20px"
+                , style "width" "20px"
+                ]
+                []
 
-                    Just a ->
-                        String.fromChar a
-                )
-            , onInput (Change x y)
-            , style "border" "1px solid black"
-            ]
-            []
-        ]
+        Blank ->
+            div
+                [ style "border" "1px solid black"
+                , style "background-color" "black"
+                , style "height" "20px"
+                , style "width" "20px"
+                ]
+                []
