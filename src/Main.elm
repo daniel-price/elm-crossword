@@ -21,13 +21,12 @@ main =
 
 
 type Cell
-    = Filled Char
-    | Empty
-    | Blank
+    = White String
+    | Black
 
 
 type alias Grid =
-    List (List Cell)
+    List Cell
 
 
 type alias Model =
@@ -36,7 +35,178 @@ type alias Model =
 
 init : Model
 init =
-    { grid = [ [ Empty, Blank, Filled 'c' ], [ Filled 'd', Filled 'e', Filled 'f' ] ] }
+    { grid =
+        [ Black
+        , White ""
+        , White ""
+        , Black
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        , White ""
+        ]
+    }
 
 
 
@@ -44,34 +214,20 @@ init =
 
 
 type Msg
-    = Change Int Int String
+    = Change Int String
 
 
 update : Msg -> Model -> Model
 update msg model =
     case msg of
-        Change x y newContent ->
-            { model | grid = updateGrid model.grid x y newContent }
+        Change index newContent ->
+            { model | grid = updateGrid model.grid index newContent }
 
 
-updateGrid : Grid -> Int -> Int -> String -> Grid
-updateGrid grid x y newContent =
+updateGrid : Grid -> Int -> String -> Grid
+updateGrid grid index newContent =
     grid
-        |> List.Extra.updateIfIndex ((==) x)
-            (\row ->
-                row
-                    |> List.Extra.updateIfIndex ((==) y) (\_ -> getCell newContent)
-            )
-
-
-getCell : String -> Cell
-getCell s =
-    case List.head (List.reverse (String.toList s)) of
-        Nothing ->
-            Empty
-
-        Just a ->
-            Filled a
+        |> List.Extra.updateIfIndex ((==) index) (\_ -> White (String.right 1 newContent))
 
 
 
@@ -85,53 +241,50 @@ view model =
 
 viewPuzzle : Model -> Html Msg
 viewPuzzle model =
-    div []
+    div
+        []
         [ viewGrid model.grid
         ]
 
 
 viewGrid : Grid -> Html Msg
 viewGrid grid =
-    div [] (List.indexedMap viewRow grid)
-
-
-viewRow : Int -> List Cell -> Html Msg
-viewRow x row =
     div
-        [ style "display" "flex" ]
-        (List.indexedMap (viewCell x) row)
+        [ style "border" "1px solid black"
+        , style "display" "grid"
+        , style "height" "650px"
+        , style "width" "650px"
+        , style "padding" "0"
+        , style "margin" "0"
+        , style "grid-template" "repeat(13, 7.6923076923%)/repeat(13, 7.6923076923%)"
+        , style "list-style-type" "none"
+        ]
+        (List.indexedMap viewCell grid)
 
 
-viewCell : Int -> Int -> Cell -> Html Msg
-viewCell x y cell =
+viewCell : Int -> Cell -> Html Msg
+viewCell index cell =
     case cell of
-        Empty ->
+        White a ->
             input
                 [ placeholder ""
-                , value ""
-                , onInput (Change x y)
+                , value a
+                , onInput (Change index)
+                , style "text-transform" "uppercase"
+                , style "box-sizing" "border-box"
                 , style "border" "1px solid black"
-                , style "height" "20px"
-                , style "width" "20px"
+                , style "outline" "none"
+                , style "text-align" "center"
+                , style "font-size" "20px"
+                , style "font-weight" "bold"
+                , style "z-index" "100"
+                , style "background" "transparent"
                 ]
                 []
 
-        Filled a ->
-            input
-                [ placeholder ""
-                , value (String.fromChar a)
-                , onInput (Change x y)
-                , style "border" "1px solid black"
-                , style "height" "20px"
-                , style "width" "20px"
-                ]
-                []
-
-        Blank ->
+        Black ->
             div
-                [ style "border" "1px solid black"
-                , style "background-color" "black"
-                , style "height" "20px"
-                , style "width" "20px"
+                [ style "background-color" "black"
+                , style "z-index" "100"
                 ]
                 []
