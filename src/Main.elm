@@ -1,11 +1,14 @@
 module Main exposing (..)
 
+-- import Debug exposing (log)
+
 import Browser
 import Browser.Dom as Dom
-import Debug exposing (log)
+import Browser.Events
 import Html exposing (Html, div, input, text)
 import Html.Attributes exposing (..)
-import Html.Events exposing (onInput)
+import Html.Events exposing (onFocus, onInput)
+import Json.Decode as Decode
 import List.Extra
 import Task
 
@@ -16,7 +19,7 @@ import Task
 
 main : Program () Model Msg
 main =
-    Browser.element { init = \_ -> init, update = update, view = view, subscriptions = always Sub.none }
+    Browser.element { init = \_ -> init, update = update, view = view, subscriptions = subscriptions }
 
 
 
@@ -34,13 +37,44 @@ type alias Grid =
 
 
 type alias Model =
-    { grid : Grid }
+    { grid : Grid, currentIndex : Int }
 
 
 init : ( Model, Cmd Msg )
 init =
-    ( { grid =
+    ( { currentIndex = 0
+      , grid =
             [ Black
+            , NumberedItem 1 ""
+            , Item ""
+            , NumberedItem 2 ""
+            , Item ""
+            , NumberedItem 3 ""
+            , Item ""
+            , NumberedItem 4 ""
+            , Item ""
+            , NumberedItem 5 ""
+            , Black
+            , NumberedItem 6 ""
+            , Item ""
+            , NumberedItem 7 ""
+            , Item ""
+            , Black
+            , Item ""
+            , Black
+            , Item ""
+            , Black
+            , Item ""
+            , Black
+            , Item ""
+            , Black
+            , Item ""
+            , Black
+            , Item ""
+            , Black
+            , Item ""
+            , Black
+            , NumberedItem 8 ""
             , Item ""
             , Item ""
             , Item ""
@@ -48,14 +82,14 @@ init =
             , Item ""
             , Item ""
             , Item ""
-            , Item ""
+            , Black
             , NumberedItem 9 ""
             , Item ""
             , Item ""
             , Item ""
             , Item ""
             , Item ""
-            , Item ""
+            , Black
             , Item ""
             , Black
             , Item ""
@@ -76,9 +110,7 @@ init =
             , Item ""
             , Item ""
             , Item ""
-            , Item ""
-            , Item ""
-            , Item ""
+            , Black
             , NumberedItem 11 ""
             , Item ""
             , Item ""
@@ -88,9 +120,11 @@ init =
             , Item ""
             , Item ""
             , Black
-            , Item ""
+            , Black
             , Black
             , Item ""
+            , Black
+            , Black
             , Black
             , Item ""
             , Black
@@ -101,82 +135,50 @@ init =
             , Item ""
             , Black
             , NumberedItem 12 ""
-            , Item ""
-            , Item ""
-            , Item ""
-            , Item ""
             , NumberedItem 13 ""
             , Item ""
             , Item ""
             , Item ""
-            , Item ""
-            , Item ""
             , NumberedItem 14 ""
-            , Item ""
-            , Item ""
-            , Item ""
-            , Item ""
-            , Item ""
             , Black
-            , Item ""
-            , Black
-            , Item ""
-            , Black
-            , Item ""
-            , Black
-            , Item ""
-            , Black
-            , Item ""
-            , Black
-            , Item ""
-            , Black
-            , Black
-            , Item ""
             , NumberedItem 15 ""
             , Item ""
             , Item ""
             , Item ""
             , Item ""
             , Item ""
+            , Item ""
+            , Item ""
+            , Black
+            , Item ""
+            , Black
+            , Black
+            , Black
+            , Item ""
+            , Black
+            , Black
+            , Black
+            , Item ""
+            , Black
+            , Black
+            , Black
+            , Item ""
+            , Black
             , NumberedItem 16 ""
             , Item ""
             , Item ""
-            , Item ""
-            , Item ""
-            , Item ""
-            , Black
-            , Black
             , NumberedItem 17 ""
-            , Black
             , Item ""
-            , Black
             , Item ""
-            , Black
+            , Item ""
             , NumberedItem 18 ""
             , Black
-            , Item ""
-            , Black
-            , Item ""
-            , Black
             , NumberedItem 19 ""
-            , Black
+            , Item ""
             , NumberedItem 20 ""
             , Item ""
             , Item ""
             , Item ""
-            , Item ""
-            , Item ""
-            , Item ""
-            , Item ""
-            , Item ""
-            , Item ""
-            , Item ""
-            , Item ""
-            , Item ""
-            , Item ""
-            , Item ""
-            , Item ""
-            , Item ""
             , Black
             , Item ""
             , Black
@@ -186,38 +188,47 @@ init =
             , Black
             , Item ""
             , Black
-            , Item ""
+            , Black
             , Black
             , Item ""
+            , Black
+            , Black
             , Black
             , NumberedItem 21 ""
             , Item ""
             , Item ""
+            , Item ""
+            , Item ""
+            , Item ""
+            , Item ""
+            , Item ""
+            , Black
             , NumberedItem 22 ""
             , Item ""
             , Item ""
             , Item ""
             , NumberedItem 23 ""
             , Item ""
+            , Black
+            , Item ""
+            , Black
+            , Item ""
+            , Black
+            , Item ""
+            , Black
+            , Item ""
+            , Black
+            , Item ""
+            , Black
+            , Item ""
+            , Black
+            , Item ""
+            , Black
             , NumberedItem 24 ""
             , Item ""
             , Item ""
             , Item ""
             , Item ""
-            , Item ""
-            , Item ""
-            , Item ""
-            , Black
-            , Item ""
-            , Black
-            , Item ""
-            , Black
-            , Item ""
-            , Black
-            , Item ""
-            , Black
-            , Item ""
-            , Black
             , Item ""
             , Black
             , NumberedItem 25 ""
@@ -227,42 +238,35 @@ init =
             , Item ""
             , Item ""
             , Item ""
+            , Item ""
+            , Black
+            , Item ""
+            , Black
+            , Item ""
+            , Black
+            , Item ""
+            , Black
+            , Item ""
+            , Black
+            , Item ""
+            , Black
+            , Item ""
+            , Black
+            , Item ""
+            , Black
             , NumberedItem 26 ""
             , Item ""
             , Item ""
             , Item ""
-            , Item ""
-            , Item ""
-            , Item ""
-            , Item ""
-            , Item ""
-            , Item ""
             , Black
+            , NumberedItem 27 ""
             , Item ""
-            , Black
             , Item ""
-            , Black
             , Item ""
-            , Black
             , Item ""
-            , Black
             , Item ""
-            , Black
             , Item ""
-            , Black
-            , Black
             , Item ""
-            , Black
-            , Item ""
-            , Black
-            , Item ""
-            , Black
-            , Item ""
-            , Black
-            , Item ""
-            , Black
-            , Item ""
-            , Black
             , Item ""
             , Black
             ]
@@ -277,22 +281,86 @@ init =
 
 type Msg
     = Change Int String
+    | Focus Int
     | FocusResult (Result Dom.Error ())
+    | KeyReleasedMsg KeyEventMsg
+
+
+focusCell : Int -> Cmd Msg
+focusCell index =
+    Dom.focus (String.fromInt index) |> Task.attempt FocusResult
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
+        Change _ " " ->
+            ( model, Cmd.none )
+
+        Change index "" ->
+            ( { model | grid = updateGrid model.grid index "" }, Cmd.none )
+
         Change index newContent ->
-            ( { model | grid = updateGrid model.grid index newContent }, Dom.focus (String.fromInt (getNextIndex model.grid index)) |> Task.attempt FocusResult )
+            let
+                nextIndex =
+                    getNextWhiteIndex model.grid index
+            in
+            ( { model | grid = updateGrid model.grid index newContent, currentIndex = nextIndex }, focusCell nextIndex )
+
+        Focus index ->
+            ( { model | currentIndex = index }, Cmd.none )
 
         FocusResult _ ->
             ( model, Cmd.none )
 
+        KeyReleasedMsg keyEventMsg ->
+            case keyEventMsg of
+                Left ->
+                    let
+                        nextIndex =
+                            getLeftWhiteIndex model.grid model.currentIndex
+                    in
+                    ( { model | currentIndex = nextIndex }, focusCell nextIndex )
 
-getNextIndex : Grid -> Int -> Int
-getNextIndex grid index =
-    case List.Extra.findIndex isWhiteSquare (Tuple.second (List.Extra.splitAt (index + 1) grid)) of
+                Right ->
+                    let
+                        nextIndex =
+                            getNextWhiteIndex model.grid model.currentIndex
+                    in
+                    ( { model | currentIndex = nextIndex }, focusCell nextIndex )
+
+                KeyEventShift ->
+                    ( model, Cmd.none )
+
+                _ ->
+                    ( model, Cmd.none )
+
+
+getLeftWhiteIndex : Grid -> Int -> Int
+getLeftWhiteIndex grid index =
+    let
+        previousSquares =
+            List.reverse (Tuple.first (List.Extra.splitAt index grid))
+
+        offset =
+            List.Extra.findIndex isWhiteSquare previousSquares
+    in
+    case offset of
+        Just n ->
+            index - n - 1
+
+        Nothing ->
+            -- reached the first square
+            index
+
+
+getNextWhiteIndex : Grid -> Int -> Int
+getNextWhiteIndex grid index =
+    let
+        nextSquares =
+            Tuple.second (List.Extra.splitAt (index + 1) grid)
+    in
+    case List.Extra.findIndex isWhiteSquare nextSquares of
         Just n ->
             index + 1 + n
 
@@ -384,6 +452,7 @@ viewCell index cell =
                 , placeholder ""
                 , value a
                 , onInput (Change index)
+                , onFocus (Focus index)
                 , style "text-transform" "uppercase"
                 , style "box-sizing" "border-box"
                 , style "border" "1px solid black"
@@ -401,12 +470,14 @@ viewCell index cell =
                 [ div
                     [ style "position" "absolute"
                     ]
-                    [ text (String.fromInt number) ]
+                    [ text (String.fromInt number)
+                    ]
                 , input
                     [ id (String.fromInt index)
                     , placeholder ""
                     , value letter
                     , onInput (Change index)
+                    , onFocus (Focus index)
                     , style "text-transform" "uppercase"
                     , style "box-sizing" "border-box"
                     , style "border" "1px solid black"
@@ -426,3 +497,44 @@ viewCell index cell =
                 [ style "background-color" "black"
                 ]
                 []
+
+
+subscriptions : Model -> Sub Msg
+subscriptions _ =
+    Sub.batch
+        [ Browser.Events.onKeyDown keyReleasedDecoder
+        ]
+
+
+type KeyEventMsg
+    = KeyEventControl
+    | KeyEventAlt
+    | KeyEventShift
+    | KeyEventMeta
+    | KeyEventLetter Char
+    | KeyEventUnknown String
+    | Left
+    | Right
+
+
+keyReleasedDecoder : Decode.Decoder Msg
+keyReleasedDecoder =
+    Decode.map (toKeyEventMsg >> KeyReleasedMsg) (Decode.field "key" Decode.string)
+
+
+toKeyEventMsg : String -> KeyEventMsg
+toKeyEventMsg eventKeyString =
+    case eventKeyString of
+        "ArrowLeft" ->
+            Left
+
+        "ArrowRight" ->
+            Right
+
+        string_ ->
+            case String.uncons string_ of
+                Just ( char, "" ) ->
+                    KeyEventLetter char
+
+                _ ->
+                    KeyEventUnknown eventKeyString
