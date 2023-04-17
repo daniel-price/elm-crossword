@@ -1,10 +1,9 @@
 module Main exposing (..)
 
--- import Debug exposing (log)
-
 import Browser
 import Browser.Dom as Dom
 import Browser.Events
+import Debug exposing (log)
 import Html exposing (Html, div, input, text)
 import Html.Attributes exposing (..)
 import Html.Events exposing (onFocus, onInput)
@@ -37,12 +36,14 @@ type alias Grid =
 
 
 type alias Model =
-    { grid : Grid, currentIndex : Int }
+    { grid : Grid, currentIndex : Int, numberOfColumns : Int, numberOfRows : Int }
 
 
 init : ( Model, Cmd Msg )
 init =
     ( { currentIndex = 0
+      , numberOfColumns = 15
+      , numberOfRows = 15
       , grid =
             [ Black
             , NumberedItem 1 ""
@@ -303,7 +304,7 @@ update msg model =
         Change index newContent ->
             let
                 nextIndex =
-                    getNextWhiteIndex model.grid index
+                    getRightWhiteIndex model.grid index
             in
             ( { model | grid = updateGrid model.grid index newContent, currentIndex = nextIndex }, focusCell nextIndex )
 
@@ -325,12 +326,23 @@ update msg model =
                 Right ->
                     let
                         nextIndex =
-                            getNextWhiteIndex model.grid model.currentIndex
+                            getRightWhiteIndex model.grid model.currentIndex
                     in
                     ( { model | currentIndex = nextIndex }, focusCell nextIndex )
 
-                KeyEventShift ->
-                    ( model, Cmd.none )
+                Up ->
+                    let
+                        nextIndex =
+                            getUpWhiteIndex model
+                    in
+                    ( { model | currentIndex = nextIndex }, focusCell nextIndex )
+
+                Down ->
+                    let
+                        nextIndex =
+                            getRightWhiteIndex model.grid model.currentIndex
+                    in
+                    ( { model | currentIndex = nextIndex }, focusCell nextIndex )
 
                 _ ->
                     ( model, Cmd.none )
@@ -354,8 +366,64 @@ getLeftWhiteIndex grid index =
             index
 
 
-getNextWhiteIndex : Grid -> Int -> Int
-getNextWhiteIndex grid index =
+getUpWhiteIndex : Model -> Int
+getUpWhiteIndex model =
+    let
+        columnNumber =
+            currentColumnNumber model
+
+        rowNumber =
+            currentRowNumber model
+
+        columnSquares =
+            takeEveryNthIndexes (log "" columnNumber) model.grid
+
+        columnsUp =
+            List.reverse (Tuple.first (List.Extra.splitAt (log "rowNumber" rowNumber) columnSquares))
+
+        index =
+            List.Extra.findIndex isWhiteSquare (log "cols" columnsUp)
+    in
+    case log "index" index of
+        Just n ->
+            model.currentIndex - (model.numberOfRows * (n + 1))
+
+        Nothing ->
+            -- reached the last square
+            model.currentIndex
+
+
+currentColumnNumber : Model -> Int
+currentColumnNumber model =
+    modBy model.numberOfColumns model.currentIndex + 1
+
+
+getColumnNumber : Int -> Int -> Int
+getColumnNumber numberOfColumns index =
+    modBy numberOfColumns index + 1
+
+
+currentRowNumber : Model -> Int
+currentRowNumber model =
+    floor (toFloat model.currentIndex / toFloat model.numberOfColumns) + 1
+
+
+takeEveryNthIndexes : Int -> List a -> List a
+takeEveryNthIndexes n l =
+    l
+        |> List.indexedMap
+            (\i x ->
+                if (i |> modBy n) == 0 then
+                    Just x
+
+                else
+                    Nothing
+            )
+        |> List.filterMap identity
+
+
+getRightWhiteIndex : Grid -> Int -> Int
+getRightWhiteIndex grid index =
     let
         nextSquares =
             Tuple.second (List.Extra.splitAt (index + 1) grid)
@@ -507,14 +575,12 @@ subscriptions _ =
 
 
 type KeyEventMsg
-    = KeyEventControl
-    | KeyEventAlt
-    | KeyEventShift
-    | KeyEventMeta
-    | KeyEventLetter Char
+    = KeyEventLetter Char
     | KeyEventUnknown String
     | Left
     | Right
+    | Up
+    | Down
 
 
 keyReleasedDecoder : Decode.Decoder Msg
@@ -530,6 +596,12 @@ toKeyEventMsg eventKeyString =
 
         "ArrowRight" ->
             Right
+
+        "ArrowUp" ->
+            Up
+
+        "ArrowDown" ->
+            Down
 
         string_ ->
             case String.uncons string_ of
