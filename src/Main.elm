@@ -376,10 +376,10 @@ getUpWhiteIndex model =
             currentRowNumber model
 
         columnSquares =
-            takeEveryNthIndexes (log "" columnNumber) model.grid
+            takeEveryNthIndexesFromIndex (log "" model.numberOfRows) columnNumber model.grid
 
         columnsUp =
-            List.reverse (Tuple.first (List.Extra.splitAt (log "rowNumber" rowNumber) columnSquares))
+            List.reverse (Tuple.first (List.Extra.splitAt (rowNumber - 1) (log "columnSquares" columnSquares)))
 
         index =
             List.Extra.findIndex isWhiteSquare (log "cols" columnsUp)
@@ -413,9 +413,13 @@ getRowNumber numberOfColumns index =
     floor (toFloat index / toFloat numberOfColumns) + 1
 
 
-takeEveryNthIndexes : Int -> List a -> List a
-takeEveryNthIndexes n l =
-    l
+takeEveryNthIndexesFromIndex : Int -> Int -> List a -> List a
+takeEveryNthIndexesFromIndex n initialIndex l =
+    let
+        cellsFromIndex =
+            log "rows" (Tuple.second (List.Extra.splitAt (initialIndex - 1) l))
+    in
+    log "cellsFromIndex" cellsFromIndex
         |> List.indexedMap
             (\i x ->
                 if (i |> modBy n) == 0 then
