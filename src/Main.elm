@@ -340,7 +340,7 @@ update msg model =
                 Down ->
                     let
                         nextIndex =
-                            getRightWhiteIndex model.grid model.currentIndex
+                            getDownWhiteIndex model
                     in
                     ( { model | currentIndex = nextIndex }, focusCell nextIndex )
 
@@ -366,6 +366,33 @@ getLeftWhiteIndex grid index =
             index
 
 
+getDownWhiteIndex : Model -> Int
+getDownWhiteIndex model =
+    let
+        columnNumber =
+            currentColumnNumber model
+
+        rowNumber =
+            currentRowNumber model
+
+        columnSquares =
+            takeEveryNthIndexesFromIndex model.numberOfRows columnNumber model.grid
+
+        columnsDown =
+            Tuple.second (List.Extra.splitAt rowNumber columnSquares)
+
+        index =
+            List.Extra.findIndex isWhiteSquare columnsDown
+    in
+    case index of
+        Just n ->
+            model.currentIndex + (model.numberOfRows * (n + 1))
+
+        Nothing ->
+            -- reached the last square
+            model.currentIndex
+
+
 getUpWhiteIndex : Model -> Int
 getUpWhiteIndex model =
     let
@@ -376,15 +403,15 @@ getUpWhiteIndex model =
             currentRowNumber model
 
         columnSquares =
-            takeEveryNthIndexesFromIndex (log "" model.numberOfRows) columnNumber model.grid
+            takeEveryNthIndexesFromIndex model.numberOfRows columnNumber model.grid
 
         columnsUp =
-            List.reverse (Tuple.first (List.Extra.splitAt (rowNumber - 1) (log "columnSquares" columnSquares)))
+            List.reverse (Tuple.first (List.Extra.splitAt (rowNumber - 1) columnSquares))
 
         index =
-            List.Extra.findIndex isWhiteSquare (log "cols" columnsUp)
+            List.Extra.findIndex isWhiteSquare columnsUp
     in
-    case log "index" index of
+    case index of
         Just n ->
             model.currentIndex - (model.numberOfRows * (n + 1))
 
@@ -417,9 +444,9 @@ takeEveryNthIndexesFromIndex : Int -> Int -> List a -> List a
 takeEveryNthIndexesFromIndex n initialIndex l =
     let
         cellsFromIndex =
-            log "rows" (Tuple.second (List.Extra.splitAt (initialIndex - 1) l))
+            Tuple.second (List.Extra.splitAt (initialIndex - 1) l)
     in
-    log "cellsFromIndex" cellsFromIndex
+    cellsFromIndex
         |> List.indexedMap
             (\i x ->
                 if (i |> modBy n) == 0 then
