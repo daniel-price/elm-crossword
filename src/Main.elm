@@ -395,7 +395,7 @@ getUpWhiteIndex model =
 
 currentColumnNumber : Model -> Int
 currentColumnNumber model =
-    modBy model.numberOfColumns model.currentIndex + 1
+    getColumnNumber model.numberOfColumns model.currentIndex
 
 
 getColumnNumber : Int -> Int -> Int
@@ -405,7 +405,12 @@ getColumnNumber numberOfColumns index =
 
 currentRowNumber : Model -> Int
 currentRowNumber model =
-    floor (toFloat model.currentIndex / toFloat model.numberOfColumns) + 1
+    getRowNumber model.numberOfColumns model.currentIndex
+
+
+getRowNumber : Int -> Int -> Int
+getRowNumber numberOfColumns index =
+    floor (toFloat index / toFloat numberOfColumns) + 1
 
 
 takeEveryNthIndexes : Int -> List a -> List a
