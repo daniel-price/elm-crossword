@@ -31,12 +31,21 @@ type Cell
     | Black
 
 
+type Direction
+    = Across
+    | Down
+
+
+type alias Clue =
+    ( Int, String )
+
+
 type alias Grid =
     List Cell
 
 
 type alias Model =
-    { grid : Grid, currentIndex : Int, numberOfColumns : Int, numberOfRows : Int }
+    { grid : Grid, currentIndex : Int, numberOfColumns : Int, numberOfRows : Int, clues : { across : List Clue, down : List Clue }, currentClue : Int }
 
 
 init : ( Model, Cmd Msg )
@@ -44,6 +53,15 @@ init =
     ( { currentIndex = 0
       , numberOfColumns = 15
       , numberOfRows = 15
+      , currentClue = 1
+      , clues =
+            { across =
+                [ ( 1, "Woman's tucked into ridiculously pricey dessert (6,3)" )
+                ]
+            , down =
+                [ ( 1, "Barrel that is holding feline or marine invertebrate (8)" )
+                ]
+            }
       , grid =
             [ Black
             , NumberedItem 1 ""
@@ -309,7 +327,7 @@ update msg model =
             ( { model | grid = updateGrid model.grid index newContent, currentIndex = nextIndex }, focusCell nextIndex )
 
         Focus index ->
-            ( { model | currentIndex = index }, Cmd.none )
+            ( { model | currentIndex = index, currentClue = 5 }, Cmd.none )
 
         FocusResult _ ->
             ( model, Cmd.none )
@@ -337,7 +355,7 @@ update msg model =
                     in
                     ( { model | currentIndex = nextIndex }, focusCell nextIndex )
 
-                Down ->
+                KeyDown ->
                     let
                         nextIndex =
                             getDownWhiteIndex model
@@ -515,8 +533,61 @@ view model =
 viewPuzzle : Model -> Html Msg
 viewPuzzle model =
     div
-        []
+        [ style "display" "flex"
+        ]
         [ viewGrid model.grid
+        , viewCluesSection Across model.clues.across
+        , viewCluesSection Down model.clues.down
+        , textDiv (String.fromInt model.currentClue)
+        ]
+
+
+viewCluesSection : Direction -> List Clue -> Html Msg
+viewCluesSection direction clues =
+    div
+        [ style "display" "flex"
+        , style "flex-direction" "column"
+        ]
+        [ textDiv (directionToString direction)
+        , viewClues clues
+        ]
+
+
+directionToString : Direction -> String
+directionToString direction =
+    case direction of
+        Across ->
+            "Across"
+
+        Down ->
+            "Down"
+
+
+viewClues : List Clue -> Html Msg
+viewClues clues =
+    div
+        [ style "display" "flex"
+        , style "flex-direction" "column"
+        ]
+        (List.map viewClue clues)
+
+
+viewClue : Clue -> Html Msg
+viewClue clue =
+    div
+        [ style "display" "flex"
+        , style "flex-direction" "row"
+        ]
+        [ textDiv (String.fromInt (Tuple.first clue))
+        , textDiv (Tuple.second clue)
+        ]
+
+
+textDiv : String -> Html Msg
+textDiv string =
+    div
+        []
+        [ text string
         ]
 
 
@@ -616,7 +687,7 @@ type KeyEventMsg
     | Left
     | Right
     | Up
-    | Down
+    | KeyDown
 
 
 keyReleasedDecoder : Decode.Decoder Msg
@@ -637,7 +708,7 @@ toKeyEventMsg eventKeyString =
             Up
 
         "ArrowDown" ->
-            Down
+            KeyDown
 
         string_ ->
             case String.uncons string_ of
