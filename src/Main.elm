@@ -56,12 +56,24 @@ type alias Grid =
 
 
 type alias Model =
-    { grid : Grid, currentIndex : Int, numberOfColumns : Int, numberOfRows : Int, clues : { across : List Clue, down : List Clue }, currentClue : ( Direction, Int ), currentRow : Int, currentColumn : Int, currentDirection : Direction, shiftHeld : Bool }
+    { showDebug : Bool
+    , grid : Grid
+    , currentIndex : Int
+    , numberOfColumns : Int
+    , numberOfRows : Int
+    , clues : { across : List Clue, down : List Clue }
+    , currentClue : ( Direction, Int )
+    , currentRow : Int
+    , currentColumn : Int
+    , currentDirection : Direction
+    , shiftHeld : Bool
+    }
 
 
 init : ( Model, Cmd Msg )
 init =
-    ( { shiftHeld = False
+    ( { showDebug = False
+      , shiftHeld = False
       , currentDirection = Across
       , currentRow = 0
       , currentColumn = 0
@@ -677,7 +689,11 @@ view : Model -> Html Msg
 view model =
     div []
         [ viewPuzzle model
-        , debug model
+        , if model.showDebug then
+            debug model
+
+          else
+            div [] []
         ]
 
 
@@ -724,12 +740,12 @@ debug model =
                     "None selected"
     in
     div []
-        [ viewLog "Current Cell" cellString
-        , viewLog "curentClue" (String.concat [ String.fromInt (Tuple.second model.currentClue), directionToString (Tuple.first model.currentClue) ])
-        , viewLogInt "currentIndex" model.currentIndex
-        , viewLogInt "currentRow" model.currentRow
-        , viewLogInt "currentColumn" model.currentColumn
-        , viewLog "currentDirection" (directionToString model.currentDirection)
+        [ viewDebug "Current Cell" cellString
+        , viewDebug "curentClue" (String.concat [ String.fromInt (Tuple.second model.currentClue), directionToString (Tuple.first model.currentClue) ])
+        , viewDebugInt "currentIndex" model.currentIndex
+        , viewDebugInt "currentRow" model.currentRow
+        , viewDebugInt "currentColumn" model.currentColumn
+        , viewDebug "currentDirection" (directionToString model.currentDirection)
         ]
 
 
@@ -739,8 +755,8 @@ viewPuzzle model =
         [ style "display" "flex"
         ]
         [ viewGrid model
-        , viewCluesSection Across model.clues.across
-        , viewCluesSection Down model.clues.down
+        , viewCluesSection model Across model.clues.across
+        , viewCluesSection model Down model.clues.down
         ]
 
 
@@ -754,8 +770,8 @@ type Printable
     | PrintableString String
 
 
-viewLog : String -> String -> Html Msg
-viewLog string value =
+viewDebug : String -> String -> Html Msg
+viewDebug string value =
     div
         [ style "display" "flex"
         , style "flex-direction" "flex"
@@ -764,19 +780,19 @@ viewLog string value =
         ]
 
 
-viewLogInt : String -> Int -> Html Msg
-viewLogInt string value =
-    viewLog string (String.fromInt value)
+viewDebugInt : String -> Int -> Html Msg
+viewDebugInt string value =
+    viewDebug string (String.fromInt value)
 
 
-viewCluesSection : Direction -> List Clue -> Html Msg
-viewCluesSection direction clues =
+viewCluesSection : Model -> Direction -> List Clue -> Html Msg
+viewCluesSection model direction clues =
     div
         [ style "display" "flex"
         , style "flex-direction" "column"
         ]
         [ textDiv (directionToString direction)
-        , viewClues clues
+        , viewClues model direction clues
         ]
 
 
@@ -790,20 +806,29 @@ directionToString direction =
             "Down"
 
 
-viewClues : List Clue -> Html Msg
-viewClues clues =
+viewClues : Model -> Direction -> List Clue -> Html Msg
+viewClues model direction clues =
     div
         [ style "display" "flex"
         , style "flex-direction" "column"
         ]
-        (List.map viewClue clues)
+        (List.map (viewClueAndModelAndDirection model direction) clues)
 
 
-viewClue : Clue -> Html Msg
-viewClue clue =
+viewClueAndModelAndDirection : Model -> Direction -> Clue -> Html Msg
+viewClueAndModelAndDirection model direction clue =
+    let
+        backgroundColor =
+            if Tuple.second model.currentClue == Tuple.first clue && direction == Tuple.first model.currentClue then
+                "yellow"
+
+            else
+                "white"
+    in
     div
         [ style "display" "flex"
         , style "flex-direction" "row"
+        , style "background-color" backgroundColor
         ]
         [ textDiv (String.fromInt (Tuple.first clue))
         , textDiv (Tuple.second clue)
