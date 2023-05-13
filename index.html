@@ -7466,9 +7466,10 @@ var $author$project$Main$debug = function (model) {
 			]));
 };
 var $elm$core$Debug$log = _Debug_log;
-var $author$project$Main$viewClueAndModelAndDirection = F3(
-	function (model, direction, clue) {
-		var backgroundColor = (_Utils_eq(model.currentClue.b, clue.a) && _Utils_eq(direction, model.currentClue.a)) ? 'yellow' : 'white';
+var $elm$virtual_dom$VirtualDom$lazy2 = _VirtualDom_lazy2;
+var $elm$html$Html$Lazy$lazy2 = $elm$virtual_dom$VirtualDom$lazy2;
+var $author$project$Main$viewClue = F2(
+	function (backgroundColor, clue) {
 		return A2(
 			$elm$html$Html$div,
 			_List_fromArray(
@@ -7483,6 +7484,11 @@ var $author$project$Main$viewClueAndModelAndDirection = F3(
 					$elm$core$String$fromInt(clue.a)),
 					$author$project$Main$textDiv(clue.b)
 				]));
+	});
+var $author$project$Main$viewClueAndModelAndDirection = F3(
+	function (model, direction, clue) {
+		var backgroundColor = (_Utils_eq(model.currentClue.b, clue.a) && _Utils_eq(direction, model.currentClue.a)) ? 'yellow' : 'white';
+		return A3($elm$html$Html$Lazy$lazy2, $author$project$Main$viewClue, backgroundColor, clue);
 	});
 var $author$project$Main$viewClues = F3(
 	function (model, direction, clues) {
@@ -7534,6 +7540,18 @@ var $author$project$Main$getGridTemplate = function (model) {
 				'%)'
 			]));
 };
+var $elm$virtual_dom$VirtualDom$lazy6 = _VirtualDom_lazy6;
+var $elm$html$Html$Lazy$lazy6 = $elm$virtual_dom$VirtualDom$lazy6;
+var $author$project$Main$shouldHighlight = F2(
+	function (model, cellData) {
+		var _v0 = cellData.clueId2;
+		if (_v0.$ === 'Just') {
+			var x = _v0.a;
+			return (_Utils_eq(x, model.currentClue) && _Utils_eq(x.a, model.currentDirection)) || _Utils_eq(cellData.clueId1, model.currentClue);
+		} else {
+			return _Utils_eq(cellData.clueId1, model.currentClue);
+		}
+	});
 var $author$project$Main$Change = F2(
 	function (a, b) {
 		return {$: 'Change', a: a, b: b};
@@ -7611,35 +7629,9 @@ var $elm$html$Html$Events$onInput = function (tagger) {
 			A2($elm$json$Json$Decode$map, tagger, $elm$html$Html$Events$targetValue)));
 };
 var $elm$html$Html$Attributes$placeholder = $elm$html$Html$Attributes$stringProperty('placeholder');
-var $author$project$Main$shouldHighlight = F2(
-	function (model, cellData) {
-		var _v0 = cellData.clueId2;
-		if (_v0.$ === 'Just') {
-			var x = _v0.a;
-			return (_Utils_eq(x, model.currentClue) && _Utils_eq(x.a, model.currentDirection)) || _Utils_eq(cellData.clueId1, model.currentClue);
-		} else {
-			return _Utils_eq(cellData.clueId1, model.currentClue);
-		}
-	});
 var $elm$html$Html$Attributes$value = $elm$html$Html$Attributes$stringProperty('value');
-var $author$project$Main$viewCellAndModel = F3(
-	function (model, index, cell) {
-		var selected = _Utils_eq(index, model.currentIndex);
-		var zIndex = selected ? A2($elm$html$Html$Attributes$style, 'z-index', '10') : A2($elm$html$Html$Attributes$style, 'z-index', '1');
-		var highlight = function () {
-			switch (cell.$) {
-				case 'Black':
-					return false;
-				case 'Item':
-					var cellData = cell.a;
-					return A2($author$project$Main$shouldHighlight, model, cellData);
-				default:
-					var cellData = cell.b;
-					return A2($author$project$Main$shouldHighlight, model, cellData);
-			}
-		}();
-		var border = selected ? A2($elm$html$Html$Attributes$style, 'border', '3px solid DodgerBlue') : A2($elm$html$Html$Attributes$style, 'border', '0px solid black');
-		var backgroundColor = highlight ? 'yellow' : 'white';
+var $author$project$Main$viewCell = F6(
+	function (cell, index, border, zIndex, backgroundColor, selected) {
 		switch (cell.$) {
 			case 'Item':
 				var cellData = cell.a;
@@ -7678,11 +7670,11 @@ var $author$project$Main$viewCellAndModel = F3(
 									A2($elm$html$Html$Attributes$style, 'height', '50px'),
 									A2($elm$html$Html$Attributes$style, 'width', '50px'),
 									A2($elm$html$Html$Attributes$style, 'background-color', backgroundColor),
-									_Utils_eq(index, model.currentIndex) ? A2($elm$html$Html$Attributes$style, 'outline', '3px solid DodgerBlue') : A2($elm$html$Html$Attributes$style, 'outline', '0px'),
+									selected ? A2($elm$html$Html$Attributes$style, 'outline', '3px solid DodgerBlue') : A2($elm$html$Html$Attributes$style, 'outline', '0px'),
 									A2(
 									$elm$html$Html$Attributes$style,
 									'border-width',
-									_Utils_eq(index, model.currentIndex) ? '3px' : '1px')
+									selected ? '3px' : '1px')
 								]),
 							_List_Nil)
 						]));
@@ -7736,11 +7728,11 @@ var $author$project$Main$viewCellAndModel = F3(
 									A2($elm$html$Html$Attributes$style, 'width', '50px'),
 									A2($elm$html$Html$Attributes$style, 'height', '50px'),
 									A2($elm$html$Html$Attributes$style, 'background-color', backgroundColor),
-									_Utils_eq(index, model.currentIndex) ? A2($elm$html$Html$Attributes$style, 'outline', '3px solid DodgerBlue') : A2($elm$html$Html$Attributes$style, 'outline', '0px'),
+									selected ? A2($elm$html$Html$Attributes$style, 'outline', '3px solid DodgerBlue') : A2($elm$html$Html$Attributes$style, 'outline', '0px'),
 									A2(
 									$elm$html$Html$Attributes$style,
 									'border-width',
-									_Utils_eq(index, model.currentIndex) ? '3px' : '1px')
+									selected ? '3px' : '1px')
 								]),
 							_List_Nil)
 						]));
@@ -7753,6 +7745,26 @@ var $author$project$Main$viewCellAndModel = F3(
 						]),
 					_List_Nil);
 		}
+	});
+var $author$project$Main$viewCellAndModel = F3(
+	function (model, index, cell) {
+		var selected = _Utils_eq(index, model.currentIndex);
+		var zIndex = selected ? A2($elm$html$Html$Attributes$style, 'z-index', '10') : A2($elm$html$Html$Attributes$style, 'z-index', '1');
+		var highlight = function () {
+			switch (cell.$) {
+				case 'Black':
+					return false;
+				case 'Item':
+					var cellData = cell.a;
+					return A2($author$project$Main$shouldHighlight, model, cellData);
+				default:
+					var cellData = cell.b;
+					return A2($author$project$Main$shouldHighlight, model, cellData);
+			}
+		}();
+		var border = selected ? A2($elm$html$Html$Attributes$style, 'border', '3px solid DodgerBlue') : A2($elm$html$Html$Attributes$style, 'border', '0px solid black');
+		var backgroundColor = highlight ? 'yellow' : 'white';
+		return A7($elm$html$Html$Lazy$lazy6, $author$project$Main$viewCell, cell, index, border, zIndex, backgroundColor, selected);
 	});
 var $author$project$Main$viewGrid = function (model) {
 	return A2(

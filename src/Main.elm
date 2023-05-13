@@ -6,6 +6,7 @@ import Browser.Events
 import Html exposing (Html, div, input, text)
 import Html.Attributes exposing (..)
 import Html.Events exposing (on, onClick, onFocus, onInput)
+import Html.Lazy
 import Json.Decode as Decode
 import List.Extra
 import Task
@@ -690,7 +691,8 @@ updateGrid grid index newContent =
 
 view : Model -> Html Msg
 view model =
-    div []
+    div
+        []
         [ viewPuzzle model
         , if model.showDebug then
             Debug.log "debug = true" (debug model)
@@ -818,6 +820,18 @@ viewClues model direction clues =
         (List.map (viewClueAndModelAndDirection model direction) clues)
 
 
+viewClue : String -> ( Int, String ) -> Html Msg
+viewClue backgroundColor clue =
+    div
+        [ style "display" "flex"
+        , style "flex-direction" "row"
+        , style "background-color" backgroundColor
+        ]
+        [ textDiv (String.fromInt (Tuple.first clue))
+        , textDiv (Tuple.second clue)
+        ]
+
+
 viewClueAndModelAndDirection : Model -> Direction -> Clue -> Html Msg
 viewClueAndModelAndDirection model direction clue =
     let
@@ -828,14 +842,7 @@ viewClueAndModelAndDirection model direction clue =
             else
                 "white"
     in
-    div
-        [ style "display" "flex"
-        , style "flex-direction" "row"
-        , style "background-color" backgroundColor
-        ]
-        [ textDiv (String.fromInt (Tuple.first clue))
-        , textDiv (Tuple.second clue)
-        ]
+    Html.Lazy.lazy2 viewClue backgroundColor clue
 
 
 textDiv : String -> Html Msg
@@ -887,44 +894,8 @@ shouldHighlight model cellData =
             cellData.clueId1 == model.currentClue
 
 
-viewCellAndModel : Model -> Int -> Cell -> Html Msg
-viewCellAndModel model index cell =
-    let
-        highlight =
-            case cell of
-                Black ->
-                    False
-
-                Item cellData ->
-                    shouldHighlight model cellData
-
-                NumberedItem _ cellData ->
-                    shouldHighlight model cellData
-
-        backgroundColor =
-            if highlight then
-                "yellow"
-
-            else
-                "white"
-
-        selected =
-            index == model.currentIndex
-
-        zIndex =
-            if selected then
-                style "z-index" "10"
-
-            else
-                style "z-index" "1"
-
-        border =
-            if selected then
-                style "border" "3px solid DodgerBlue"
-
-            else
-                style "border" "0px solid black"
-    in
+viewCell : Cell -> Int -> Html.Attribute Msg -> Html.Attribute Msg -> String -> Bool -> Html Msg
+viewCell cell index border zIndex backgroundColor selected =
     case cell of
         Item cellData ->
             div
@@ -950,13 +921,13 @@ viewCellAndModel model index cell =
                     , style "height" "50px"
                     , style "width" "50px"
                     , style "background-color" backgroundColor
-                    , if index == model.currentIndex then
+                    , if selected then
                         style "outline" "3px solid DodgerBlue"
 
                       else
                         style "outline" "0px"
                     , style "border-width"
-                        (if index == model.currentIndex then
+                        (if selected then
                             "3px"
 
                          else
@@ -998,13 +969,13 @@ viewCellAndModel model index cell =
                     , style "width" "50px"
                     , style "height" "50px"
                     , style "background-color" backgroundColor
-                    , if index == model.currentIndex then
+                    , if selected then
                         style "outline" "3px solid DodgerBlue"
 
                       else
                         style "outline" "0px"
                     , style "border-width"
-                        (if index == model.currentIndex then
+                        (if selected then
                             "3px"
 
                          else
@@ -1019,6 +990,47 @@ viewCellAndModel model index cell =
                 [ style "background-color" "black"
                 ]
                 []
+
+
+viewCellAndModel : Model -> Int -> Cell -> Html Msg
+viewCellAndModel model index cell =
+    let
+        highlight =
+            case cell of
+                Black ->
+                    False
+
+                Item cellData ->
+                    shouldHighlight model cellData
+
+                NumberedItem _ cellData ->
+                    shouldHighlight model cellData
+
+        backgroundColor =
+            if highlight then
+                "yellow"
+
+            else
+                "white"
+
+        selected =
+            index == model.currentIndex
+
+        zIndex =
+            if selected then
+                style "z-index" "10"
+
+            else
+                style "z-index" "1"
+
+        border =
+            if selected then
+                style "border" "3px solid DodgerBlue"
+
+            else
+                style "border" "0px solid black"
+    in
+    Html.Lazy.lazy6 viewCell cell index border zIndex backgroundColor selected
 
 
 subscriptions : Model -> Sub Msg
