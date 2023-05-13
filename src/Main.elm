@@ -3,7 +3,6 @@ module Main exposing (..)
 import Browser
 import Browser.Dom as Dom
 import Browser.Events
-import Debug exposing (log)
 import Html exposing (Html, div, input, text)
 import Html.Attributes exposing (..)
 import Html.Events exposing (on, onClick, onFocus, onInput)
@@ -463,10 +462,10 @@ update msg model =
             ( { model | grid = updateGrid model.grid index newContent, currentIndex = nextIndex }, focusCell nextIndex )
 
         Focus index cellData ->
-            log "focus" calculateModelAfterFocus model index cellData
+            calculateModelAfterFocus model index cellData
 
         Click index cellData ->
-            log "click" calculateModelAfterClick model index cellData
+            calculateModelAfterClick model index cellData
 
         FocusResult _ ->
             ( model, Cmd.none )
@@ -690,7 +689,7 @@ view model =
     div []
         [ viewPuzzle model
         , if model.showDebug then
-            debug model
+            Debug.log "debug = true" (debug model)
 
           else
             div [] []
