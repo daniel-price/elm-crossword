@@ -72,9 +72,37 @@ init =
       , clues =
             { across =
                 [ ( 1, "Woman's tucked into ridiculously pricey dessert (6,3)" )
+                , ( 6, "Exercise with walks occasionally on top of a mountain (4)" )
+                , ( 8, "Lyrics discovered in jotter Bill returned (8)" )
+                , ( 9, "Think about body shape (6)" )
+                , ( 10, "Liberal leader's cagey about inheritance (6)" )
+                , ( 11, "Market put up inside old church (8)" )
+                , ( 12, "Harpoons fish, filling ship (6)" )
+                , ( 15, "Understand flipping idiots caught cheating (8)" )
+                , ( 16, "Hoping painkiller's good (8)" )
+                , ( 19, "Realise student dropped out to get less stressed (6)" )
+                , ( 21, "A family briefly squeeze in post-winter sports activity (5-3)" )
+                , ( 22, "Barrels with untaxed liquor initially hidden inside cellars (6)" )
+                , ( 24, "Popular archaeological site has nothing in the shade (6)" )
+                , ( 25, "Customs document chap provided is in French (8)" )
+                , ( 26, "Jam's without sharpness (4)" )
+                , ( 27, "Reportedly praise soldiers protecting former PM and civic dignitary (4,5)" )
                 ]
             , down =
-                [ ( 1, "Barrel that is holding feline or marine invertebrate (8)" )
+                [ ( 1, "Scold child with proof of age he's defaced (5)" )
+                , ( 2, "Allocate English vessel to take on board a Royal Marine (7)" )
+                , ( 3, "It's unknowns supporting Radiohead — splendid! (5)" )
+                , ( 4, "Design for college is set in stone (7)" )
+                , ( 5, "Iron both ways, beginning with crease and ribbon round top of vest, working well (9)" )
+                , ( 6, "Summon soldier for parade (7)" )
+                , ( 7, "Excessive pride in hideous orange car (9)" )
+                , ( 13, "Put off by pressure working in new depots (9)" )
+                , ( 14, "Small women's group with case of supplies, bread and cake (5,4)" )
+                , ( 17, "List articles about Italy and Spain (7)" )
+                , ( 18, "Suggestion Emma endlessly upset girl running around (7)" )
+                , ( 20, "Question doubtful point before getting drunk (7)" )
+                , ( 22, "Bitterness against reduced cashback (5)" )
+                , ( 23, "Stun with outrageous rates (5)" )
                 ]
             }
       , grid =
