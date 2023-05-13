@@ -457,7 +457,11 @@ update msg model =
         Change index newContent ->
             let
                 nextIndex =
-                    getRightWhiteIndex model.grid index
+                    if model.currentDirection == Across then
+                        getRightWhiteIndex model.grid index
+
+                    else
+                        getDownWhiteIndex model
             in
             ( { model | grid = updateGrid model.grid index newContent, currentIndex = nextIndex }, focusCell nextIndex )
 

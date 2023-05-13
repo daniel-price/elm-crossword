@@ -7230,7 +7230,7 @@ var $author$project$Main$update = F2(
 					default:
 						var index = msg.a;
 						var newContent = msg.b;
-						var nextIndex = A2($author$project$Main$getRightWhiteIndex, model.grid, index);
+						var nextIndex = _Utils_eq(model.currentDirection, $author$project$Main$Across) ? A2($author$project$Main$getRightWhiteIndex, model.grid, index) : $author$project$Main$getDownWhiteIndex(model);
 						return _Utils_Tuple2(
 							_Utils_update(
 								model,
