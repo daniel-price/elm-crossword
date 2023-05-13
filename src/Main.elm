@@ -6,7 +6,7 @@ import Browser.Events
 import Debug exposing (log)
 import Html exposing (Html, div, input, text)
 import Html.Attributes exposing (..)
-import Html.Events exposing (onFocus, onInput)
+import Html.Events exposing (on, onClick, onFocus, onInput)
 import Json.Decode as Decode
 import List.Extra
 import Task
@@ -25,10 +25,21 @@ main =
 -- MODEL
 
 
+type alias CellData =
+    { value : String
+    , clueId1 : ClueId
+    , clueId2 : Maybe ClueId
+    }
+
+
 type Cell
-    = Item String
-    | NumberedItem Int String
+    = Item CellData
+    | NumberedItem Int CellData
     | Black
+
+
+type alias ClueId =
+    ( Direction, Int )
 
 
 type Direction
@@ -45,15 +56,19 @@ type alias Grid =
 
 
 type alias Model =
-    { grid : Grid, currentIndex : Int, numberOfColumns : Int, numberOfRows : Int, clues : { across : List Clue, down : List Clue }, currentClue : Int }
+    { grid : Grid, currentIndex : Int, numberOfColumns : Int, numberOfRows : Int, clues : { across : List Clue, down : List Clue }, currentClue : ( Direction, Int ), currentRow : Int, currentColumn : Int, currentDirection : Direction, shiftHeld : Bool }
 
 
 init : ( Model, Cmd Msg )
 init =
-    ( { currentIndex = 0
+    ( { shiftHeld = False
+      , currentDirection = Across
+      , currentRow = 0
+      , currentColumn = 0
+      , currentIndex = 0
       , numberOfColumns = 15
       , numberOfRows = 15
-      , currentClue = 1
+      , currentClue = ( Across, 1 )
       , clues =
             { across =
                 [ ( 1, "Woman's tucked into ridiculously pricey dessert (6,3)" )
@@ -64,229 +79,229 @@ init =
             }
       , grid =
             [ Black
-            , NumberedItem 1 ""
-            , Item ""
-            , NumberedItem 2 ""
-            , Item ""
-            , NumberedItem 3 ""
-            , Item ""
-            , NumberedItem 4 ""
-            , Item ""
-            , NumberedItem 5 ""
+            , NumberedItem 1 { value = "", clueId1 = ( Across, 1 ), clueId2 = Just ( Down, 1 ) }
+            , Item { value = "", clueId1 = ( Across, 1 ), clueId2 = Nothing }
+            , Item { value = "", clueId1 = ( Across, 1 ), clueId2 = Just ( Down, 2 ) }
+            , Item { value = "", clueId1 = ( Across, 1 ), clueId2 = Nothing }
+            , Item { value = "", clueId1 = ( Across, 1 ), clueId2 = Just ( Down, 3 ) }
+            , Item { value = "", clueId1 = ( Across, 1 ), clueId2 = Nothing }
+            , Item { value = "", clueId1 = ( Across, 1 ), clueId2 = Just ( Down, 4 ) }
+            , Item { value = "", clueId1 = ( Across, 1 ), clueId2 = Nothing }
+            , Item { value = "", clueId1 = ( Across, 1 ), clueId2 = Just ( Down, 5 ) }
             , Black
-            , NumberedItem 6 ""
-            , Item ""
-            , NumberedItem 7 ""
-            , Item ""
+            , NumberedItem 6 { value = "", clueId1 = ( Across, 6 ), clueId2 = Just ( Down, 6 ) }
+            , Item { value = "", clueId1 = ( Across, 6 ), clueId2 = Nothing }
+            , Item { value = "", clueId1 = ( Across, 6 ), clueId2 = Just ( Down, 7 ) }
+            , Item { value = "", clueId1 = ( Across, 6 ), clueId2 = Nothing }
             , Black
-            , Item ""
+            , Item { value = "", clueId1 = ( Down, 1 ), clueId2 = Nothing }
             , Black
-            , Item ""
+            , Item { value = "", clueId1 = ( Down, 2 ), clueId2 = Nothing }
             , Black
-            , Item ""
+            , Item { value = "", clueId1 = ( Down, 3 ), clueId2 = Nothing }
             , Black
-            , Item ""
+            , Item { value = "", clueId1 = ( Down, 4 ), clueId2 = Nothing }
             , Black
-            , Item ""
+            , Item { value = "", clueId1 = ( Down, 5 ), clueId2 = Nothing }
             , Black
-            , Item ""
+            , Item { value = "", clueId1 = ( Down, 6 ), clueId2 = Nothing }
             , Black
-            , Item ""
+            , Item { value = "", clueId1 = ( Down, 7 ), clueId2 = Nothing }
             , Black
-            , NumberedItem 8 ""
-            , Item ""
-            , Item ""
-            , Item ""
-            , Item ""
-            , Item ""
-            , Item ""
-            , Item ""
+            , NumberedItem 8 { value = "", clueId1 = ( Across, 8 ), clueId2 = Nothing }
+            , Item { value = "", clueId1 = ( Across, 8 ), clueId2 = Just ( Down, 1 ) }
+            , Item { value = "", clueId1 = ( Across, 8 ), clueId2 = Nothing }
+            , Item { value = "", clueId1 = ( Across, 8 ), clueId2 = Just ( Down, 2 ) }
+            , Item { value = "", clueId1 = ( Across, 8 ), clueId2 = Nothing }
+            , Item { value = "", clueId1 = ( Across, 8 ), clueId2 = Just ( Down, 3 ) }
+            , Item { value = "", clueId1 = ( Across, 8 ), clueId2 = Nothing }
+            , Item { value = "", clueId1 = ( Across, 8 ), clueId2 = Just ( Down, 4 ) }
             , Black
-            , NumberedItem 9 ""
-            , Item ""
-            , Item ""
-            , Item ""
-            , Item ""
-            , Item ""
+            , NumberedItem 9 { value = "", clueId1 = ( Across, 9 ), clueId2 = Just ( Down, 5 ) }
+            , Item { value = "", clueId1 = ( Across, 9 ), clueId2 = Nothing }
+            , Item { value = "", clueId1 = ( Across, 9 ), clueId2 = Just ( Down, 6 ) }
+            , Item { value = "", clueId1 = ( Across, 9 ), clueId2 = Nothing }
+            , Item { value = "", clueId1 = ( Across, 9 ), clueId2 = Just ( Down, 7 ) }
+            , Item { value = "", clueId1 = ( Across, 9 ), clueId2 = Nothing }
             , Black
-            , Item ""
+            , Item { value = "", clueId1 = ( Down, 1 ), clueId2 = Nothing }
             , Black
-            , Item ""
+            , Item { value = "", clueId1 = ( Down, 2 ), clueId2 = Nothing }
             , Black
-            , Item ""
+            , Item { value = "", clueId1 = ( Down, 3 ), clueId2 = Nothing }
             , Black
-            , Item ""
+            , Item { value = "", clueId1 = ( Down, 4 ), clueId2 = Nothing }
             , Black
-            , Item ""
+            , Item { value = "", clueId1 = ( Down, 5 ), clueId2 = Nothing }
             , Black
-            , Item ""
+            , Item { value = "", clueId1 = ( Down, 6 ), clueId2 = Nothing }
             , Black
-            , Item ""
+            , Item { value = "", clueId1 = ( Down, 7 ), clueId2 = Nothing }
             , Black
-            , NumberedItem 10 ""
-            , Item ""
-            , Item ""
-            , Item ""
-            , Item ""
-            , Item ""
+            , NumberedItem 10 { value = "", clueId1 = ( Across, 10 ), clueId2 = Nothing }
+            , Item { value = "", clueId1 = ( Across, 10 ), clueId2 = Just ( Down, 1 ) }
+            , Item { value = "", clueId1 = ( Across, 10 ), clueId2 = Nothing }
+            , Item { value = "", clueId1 = ( Across, 10 ), clueId2 = Just ( Down, 2 ) }
+            , Item { value = "", clueId1 = ( Across, 10 ), clueId2 = Nothing }
+            , Item { value = "", clueId1 = ( Across, 10 ), clueId2 = Just ( Down, 3 ) }
             , Black
-            , NumberedItem 11 ""
-            , Item ""
-            , Item ""
-            , Item ""
-            , Item ""
-            , Item ""
-            , Item ""
-            , Item ""
+            , NumberedItem 11 { value = "", clueId1 = ( Across, 11 ), clueId2 = Just ( Down, 4 ) }
+            , Item { value = "", clueId1 = ( Across, 11 ), clueId2 = Nothing }
+            , Item { value = "", clueId1 = ( Across, 11 ), clueId2 = Just ( Down, 5 ) }
+            , Item { value = "", clueId1 = ( Across, 11 ), clueId2 = Nothing }
+            , Item { value = "", clueId1 = ( Across, 11 ), clueId2 = Just ( Down, 6 ) }
+            , Item { value = "", clueId1 = ( Across, 11 ), clueId2 = Nothing }
+            , Item { value = "", clueId1 = ( Across, 11 ), clueId2 = Just ( Down, 7 ) }
+            , Item { value = "", clueId1 = ( Across, 11 ), clueId2 = Nothing }
             , Black
             , Black
             , Black
-            , Item ""
+            , Item { value = "", clueId1 = ( Down, 2 ), clueId2 = Nothing }
             , Black
             , Black
             , Black
-            , Item ""
+            , Item { value = "", clueId1 = ( Down, 4 ), clueId2 = Nothing }
             , Black
-            , Item ""
+            , Item { value = "", clueId1 = ( Down, 5 ), clueId2 = Nothing }
             , Black
-            , Item ""
+            , Item { value = "", clueId1 = ( Down, 6 ), clueId2 = Nothing }
             , Black
-            , Item ""
+            , Item { value = "", clueId1 = ( Down, 7 ), clueId2 = Nothing }
             , Black
-            , NumberedItem 12 ""
-            , NumberedItem 13 ""
-            , Item ""
-            , Item ""
-            , Item ""
-            , NumberedItem 14 ""
+            , NumberedItem 12 { value = "", clueId1 = ( Across, 12 ), clueId2 = Nothing }
+            , Item { value = "", clueId1 = ( Across, 12 ), clueId2 = Just ( Down, 13 ) }
+            , Item { value = "", clueId1 = ( Across, 12 ), clueId2 = Nothing }
+            , Item { value = "", clueId1 = ( Across, 12 ), clueId2 = Just ( Down, 2 ) }
+            , Item { value = "", clueId1 = ( Across, 12 ), clueId2 = Nothing }
+            , Item { value = "", clueId1 = ( Across, 12 ), clueId2 = Just ( Down, 14 ) }
             , Black
-            , NumberedItem 15 ""
-            , Item ""
-            , Item ""
-            , Item ""
-            , Item ""
-            , Item ""
-            , Item ""
-            , Item ""
+            , NumberedItem 15 { value = "", clueId1 = ( Across, 15 ), clueId2 = Just ( Down, 4 ) }
+            , Item { value = "", clueId1 = ( Across, 15 ), clueId2 = Nothing }
+            , Item { value = "", clueId1 = ( Across, 15 ), clueId2 = Just ( Down, 5 ) }
+            , Item { value = "", clueId1 = ( Across, 15 ), clueId2 = Nothing }
+            , Item { value = "", clueId1 = ( Across, 15 ), clueId2 = Just ( Down, 6 ) }
+            , Item { value = "", clueId1 = ( Across, 15 ), clueId2 = Nothing }
+            , Item { value = "", clueId1 = ( Across, 15 ), clueId2 = Just ( Down, 7 ) }
+            , Item { value = "", clueId1 = ( Across, 15 ), clueId2 = Nothing }
             , Black
-            , Item ""
+            , Item { value = "", clueId1 = ( Down, 13 ), clueId2 = Nothing }
             , Black
             , Black
             , Black
-            , Item ""
+            , Item { value = "", clueId1 = ( Down, 14 ), clueId2 = Nothing }
             , Black
             , Black
             , Black
-            , Item ""
+            , Item { value = "", clueId1 = ( Down, 5 ), clueId2 = Nothing }
             , Black
             , Black
             , Black
-            , Item ""
+            , Item { value = "", clueId1 = ( Down, 7 ), clueId2 = Nothing }
             , Black
-            , NumberedItem 16 ""
-            , Item ""
-            , Item ""
-            , NumberedItem 17 ""
-            , Item ""
-            , Item ""
-            , Item ""
-            , NumberedItem 18 ""
+            , NumberedItem 16 { value = "", clueId1 = ( Across, 16 ), clueId2 = Nothing }
+            , Item { value = "", clueId1 = ( Across, 16 ), clueId2 = Just ( Down, 13 ) }
+            , Item { value = "", clueId1 = ( Across, 16 ), clueId2 = Nothing }
+            , Item { value = "", clueId1 = ( Across, 16 ), clueId2 = Just ( Down, 17 ) }
+            , Item { value = "", clueId1 = ( Across, 16 ), clueId2 = Nothing }
+            , Item { value = "", clueId1 = ( Across, 16 ), clueId2 = Just ( Down, 14 ) }
+            , Item { value = "", clueId1 = ( Across, 16 ), clueId2 = Nothing }
+            , Item { value = "", clueId1 = ( Across, 16 ), clueId2 = Just ( Down, 18 ) }
             , Black
-            , NumberedItem 19 ""
-            , Item ""
-            , NumberedItem 20 ""
-            , Item ""
-            , Item ""
-            , Item ""
+            , NumberedItem 19 { value = "", clueId1 = ( Across, 19 ), clueId2 = Just ( Down, 5 ) }
+            , Item { value = "", clueId1 = ( Across, 19 ), clueId2 = Nothing }
+            , Item { value = "", clueId1 = ( Across, 19 ), clueId2 = Just ( Down, 20 ) }
+            , Item { value = "", clueId1 = ( Across, 19 ), clueId2 = Nothing }
+            , Item { value = "", clueId1 = ( Across, 19 ), clueId2 = Just ( Down, 7 ) }
+            , Item { value = "", clueId1 = ( Across, 19 ), clueId2 = Nothing }
             , Black
-            , Item ""
+            , Item { value = "", clueId1 = ( Down, 13 ), clueId2 = Nothing }
             , Black
-            , Item ""
+            , Item { value = "", clueId1 = ( Down, 17 ), clueId2 = Nothing }
             , Black
-            , Item ""
+            , Item { value = "", clueId1 = ( Down, 14 ), clueId2 = Nothing }
             , Black
-            , Item ""
+            , Item { value = "", clueId1 = ( Down, 18 ), clueId2 = Nothing }
             , Black
             , Black
             , Black
-            , Item ""
+            , Item { value = "", clueId1 = ( Down, 20 ), clueId2 = Nothing }
             , Black
             , Black
             , Black
-            , NumberedItem 21 ""
-            , Item ""
-            , Item ""
-            , Item ""
-            , Item ""
-            , Item ""
-            , Item ""
-            , Item ""
+            , NumberedItem 21 { value = "", clueId1 = ( Across, 21 ), clueId2 = Nothing }
+            , Item { value = "", clueId1 = ( Across, 21 ), clueId2 = Just ( Down, 13 ) }
+            , Item { value = "", clueId1 = ( Across, 21 ), clueId2 = Nothing }
+            , Item { value = "", clueId1 = ( Across, 21 ), clueId2 = Just ( Down, 17 ) }
+            , Item { value = "", clueId1 = ( Across, 21 ), clueId2 = Nothing }
+            , Item { value = "", clueId1 = ( Across, 21 ), clueId2 = Just ( Down, 14 ) }
+            , Item { value = "", clueId1 = ( Across, 21 ), clueId2 = Nothing }
+            , Item { value = "", clueId1 = ( Across, 21 ), clueId2 = Just ( Down, 18 ) }
             , Black
-            , NumberedItem 22 ""
-            , Item ""
-            , Item ""
-            , Item ""
-            , NumberedItem 23 ""
-            , Item ""
+            , NumberedItem 22 { value = "", clueId1 = ( Across, 22 ), clueId2 = Just ( Down, 22 ) }
+            , Item { value = "", clueId1 = ( Across, 22 ), clueId2 = Nothing }
+            , Item { value = "", clueId1 = ( Across, 22 ), clueId2 = Just ( Down, 20 ) }
+            , Item { value = "", clueId1 = ( Across, 22 ), clueId2 = Nothing }
+            , Item { value = "", clueId1 = ( Across, 22 ), clueId2 = Just ( Down, 23 ) }
+            , Item { value = "", clueId1 = ( Across, 22 ), clueId2 = Nothing }
             , Black
-            , Item ""
+            , Item { value = "", clueId1 = ( Down, 13 ), clueId2 = Nothing }
             , Black
-            , Item ""
+            , Item { value = "", clueId1 = ( Down, 17 ), clueId2 = Nothing }
             , Black
-            , Item ""
+            , Item { value = "", clueId1 = ( Down, 14 ), clueId2 = Nothing }
             , Black
-            , Item ""
+            , Item { value = "", clueId1 = ( Down, 18 ), clueId2 = Nothing }
             , Black
-            , Item ""
+            , Item { value = "", clueId1 = ( Down, 22 ), clueId2 = Nothing }
             , Black
-            , Item ""
+            , Item { value = "", clueId1 = ( Down, 20 ), clueId2 = Nothing }
             , Black
-            , Item ""
+            , Item { value = "", clueId1 = ( Down, 23 ), clueId2 = Nothing }
             , Black
-            , NumberedItem 24 ""
-            , Item ""
-            , Item ""
-            , Item ""
-            , Item ""
-            , Item ""
+            , NumberedItem 24 { value = "", clueId1 = ( Across, 24 ), clueId2 = Nothing }
+            , Item { value = "", clueId1 = ( Across, 24 ), clueId2 = Just ( Down, 13 ) }
+            , Item { value = "", clueId1 = ( Across, 24 ), clueId2 = Nothing }
+            , Item { value = "", clueId1 = ( Across, 24 ), clueId2 = Just ( Down, 17 ) }
+            , Item { value = "", clueId1 = ( Across, 24 ), clueId2 = Nothing }
+            , Item { value = "", clueId1 = ( Across, 24 ), clueId2 = Just ( Down, 14 ) }
             , Black
-            , NumberedItem 25 ""
-            , Item ""
-            , Item ""
-            , Item ""
-            , Item ""
-            , Item ""
-            , Item ""
-            , Item ""
+            , NumberedItem 25 { value = "", clueId1 = ( Across, 25 ), clueId2 = Just ( Down, 18 ) }
+            , Item { value = "", clueId1 = ( Across, 25 ), clueId2 = Nothing }
+            , Item { value = "", clueId1 = ( Across, 25 ), clueId2 = Just ( Down, 22 ) }
+            , Item { value = "", clueId1 = ( Across, 25 ), clueId2 = Nothing }
+            , Item { value = "", clueId1 = ( Across, 25 ), clueId2 = Just ( Down, 20 ) }
+            , Item { value = "", clueId1 = ( Across, 25 ), clueId2 = Nothing }
+            , Item { value = "", clueId1 = ( Across, 25 ), clueId2 = Just ( Down, 23 ) }
+            , Item { value = "", clueId1 = ( Across, 25 ), clueId2 = Nothing }
             , Black
-            , Item ""
+            , Item { value = "", clueId1 = ( Down, 13 ), clueId2 = Nothing }
             , Black
-            , Item ""
+            , Item { value = "", clueId1 = ( Down, 17 ), clueId2 = Nothing }
             , Black
-            , Item ""
+            , Item { value = "", clueId1 = ( Down, 14 ), clueId2 = Nothing }
             , Black
-            , Item ""
+            , Item { value = "", clueId1 = ( Down, 18 ), clueId2 = Nothing }
             , Black
-            , Item ""
+            , Item { value = "", clueId1 = ( Down, 22 ), clueId2 = Nothing }
             , Black
-            , Item ""
+            , Item { value = "", clueId1 = ( Down, 20 ), clueId2 = Nothing }
             , Black
-            , Item ""
+            , Item { value = "", clueId1 = ( Down, 23 ), clueId2 = Nothing }
             , Black
-            , NumberedItem 26 ""
-            , Item ""
-            , Item ""
-            , Item ""
+            , NumberedItem 26 { value = "", clueId1 = ( Across, 26 ), clueId2 = Nothing }
+            , Item { value = "", clueId1 = ( Across, 26 ), clueId2 = Just ( Down, 13 ) }
+            , Item { value = "", clueId1 = ( Across, 26 ), clueId2 = Nothing }
+            , Item { value = "", clueId1 = ( Across, 26 ), clueId2 = Just ( Down, 17 ) }
             , Black
-            , NumberedItem 27 ""
-            , Item ""
-            , Item ""
-            , Item ""
-            , Item ""
-            , Item ""
-            , Item ""
-            , Item ""
-            , Item ""
+            , NumberedItem 27 { value = "", clueId1 = ( Across, 27 ), clueId2 = Just ( Down, 14 ) }
+            , Item { value = "", clueId1 = ( Across, 27 ), clueId2 = Nothing }
+            , Item { value = "", clueId1 = ( Across, 27 ), clueId2 = Just ( Down, 18 ) }
+            , Item { value = "", clueId1 = ( Across, 27 ), clueId2 = Nothing }
+            , Item { value = "", clueId1 = ( Across, 27 ), clueId2 = Just ( Down, 22 ) }
+            , Item { value = "", clueId1 = ( Across, 27 ), clueId2 = Nothing }
+            , Item { value = "", clueId1 = ( Across, 27 ), clueId2 = Just ( Down, 20 ) }
+            , Item { value = "", clueId1 = ( Across, 27 ), clueId2 = Nothing }
+            , Item { value = "", clueId1 = ( Across, 27 ), clueId2 = Just ( Down, 23 ) }
             , Black
             ]
       }
@@ -300,14 +315,95 @@ init =
 
 type Msg
     = Change Int String
-    | Focus Int
+    | Focus Int CellData
+    | Click Int CellData
     | FocusResult (Result Dom.Error ())
-    | KeyReleasedMsg KeyEventMsg
+    | KeyTouched KeyEventMsg
 
 
 focusCell : Int -> Cmd Msg
 focusCell index =
     Dom.focus (String.fromInt index) |> Task.attempt FocusResult
+
+
+onCellSelected : msg -> Html.Attribute msg
+onCellSelected message =
+    on "click" (Decode.succeed message)
+
+
+elementAtIndex : Int -> List a -> Maybe a
+elementAtIndex index list =
+    if List.length list >= index then
+        List.take index list
+            |> List.reverse
+            |> List.head
+
+    else
+        Nothing
+
+
+calculateModelAfterClick : Model -> Int -> CellData -> ( Model, Cmd Msg )
+calculateModelAfterClick model index cellData =
+    let
+        newDirection =
+            case cellData.clueId2 of
+                Just clue ->
+                    if model.currentDirection == Down then
+                        Across
+
+                    else
+                        Down
+
+                Nothing ->
+                    Tuple.first cellData.clueId1
+    in
+    ( { model
+        | currentIndex = index
+        , currentClue =
+            if Tuple.first cellData.clueId1 == newDirection then
+                cellData.clueId1
+
+            else
+                case cellData.clueId2 of
+                    Just clue ->
+                        clue
+
+                    Nothing ->
+                        cellData.clueId1
+        , currentDirection = newDirection
+      }
+    , Cmd.none
+    )
+
+
+calculateModelAfterFocus : Model -> Int -> CellData -> ( Model, Cmd Msg )
+calculateModelAfterFocus model index cellData =
+    let
+        newDirection =
+            case cellData.clueId2 of
+                Just clue ->
+                    model.currentDirection
+
+                Nothing ->
+                    Tuple.first cellData.clueId1
+    in
+    ( { model
+        | currentIndex = index
+        , currentClue =
+            if Tuple.first cellData.clueId1 == newDirection then
+                cellData.clueId1
+
+            else
+                case cellData.clueId2 of
+                    Just clue ->
+                        clue
+
+                    Nothing ->
+                        cellData.clueId1
+        , currentDirection = newDirection
+      }
+    , Cmd.none
+    )
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -326,41 +422,65 @@ update msg model =
             in
             ( { model | grid = updateGrid model.grid index newContent, currentIndex = nextIndex }, focusCell nextIndex )
 
-        Focus index ->
-            ( { model | currentIndex = index, currentClue = 5 }, Cmd.none )
+        Focus index cellData ->
+            log "focus" calculateModelAfterFocus model index cellData
+
+        Click index cellData ->
+            log "click" calculateModelAfterClick model index cellData
 
         FocusResult _ ->
             ( model, Cmd.none )
 
-        KeyReleasedMsg keyEventMsg ->
+        KeyTouched keyEventMsg ->
             case keyEventMsg of
-                Left ->
+                TabPressed ->
+                    if model.shiftHeld == True then
+                        let
+                            nextIndex =
+                                getLeftWhiteIndex model.grid model.currentIndex
+                        in
+                        ( { model | currentIndex = nextIndex, currentDirection = Across }, focusCell nextIndex )
+
+                    else
+                        let
+                            nextIndex =
+                                getRightWhiteIndex model.grid model.currentIndex
+                        in
+                        ( { model | currentIndex = nextIndex, currentDirection = Across }, focusCell nextIndex )
+
+                ShiftPressed ->
+                    ( { model | shiftHeld = True }, Cmd.none )
+
+                ShiftReleased ->
+                    ( { model | shiftHeld = False }, Cmd.none )
+
+                LeftPressed ->
                     let
                         nextIndex =
                             getLeftWhiteIndex model.grid model.currentIndex
                     in
-                    ( { model | currentIndex = nextIndex }, focusCell nextIndex )
+                    ( { model | currentIndex = nextIndex, currentDirection = Across }, focusCell nextIndex )
 
-                Right ->
+                RightPressed ->
                     let
                         nextIndex =
                             getRightWhiteIndex model.grid model.currentIndex
                     in
-                    ( { model | currentIndex = nextIndex }, focusCell nextIndex )
+                    ( { model | currentIndex = nextIndex, currentDirection = Across }, focusCell nextIndex )
 
-                Up ->
+                UpPressed ->
                     let
                         nextIndex =
                             getUpWhiteIndex model
                     in
-                    ( { model | currentIndex = nextIndex }, focusCell nextIndex )
+                    ( { model | currentIndex = nextIndex, currentDirection = Down }, focusCell nextIndex )
 
-                KeyDown ->
+                KeyPressed ->
                     let
                         nextIndex =
                             getDownWhiteIndex model
                     in
-                    ( { model | currentIndex = nextIndex }, focusCell nextIndex )
+                    ( { model | currentIndex = nextIndex, currentDirection = Down }, focusCell nextIndex )
 
                 _ ->
                     ( model, Cmd.none )
@@ -510,11 +630,11 @@ updateGrid grid index newContent =
         |> List.Extra.updateIfIndex ((==) index)
             (\item ->
                 case item of
-                    NumberedItem number _ ->
-                        NumberedItem number (String.right 1 newContent)
+                    NumberedItem number cellData ->
+                        NumberedItem number { cellData | value = String.right 1 newContent }
 
-                    Item _ ->
-                        Item (String.right 1 newContent)
+                    Item cellData ->
+                        Item { cellData | value = String.right 1 newContent }
 
                     Black ->
                         Black
@@ -527,7 +647,62 @@ updateGrid grid index newContent =
 
 view : Model -> Html Msg
 view model =
-    viewPuzzle model
+    div []
+        [ viewPuzzle model
+        , debug model
+        ]
+
+
+clueIdToString : ClueId -> String
+clueIdToString clue =
+    String.concat
+        [ "("
+        , String.fromInt (Tuple.second clue)
+        , " "
+        , directionToString (Tuple.first clue)
+        , ")"
+        ]
+
+
+cellDataToString : CellData -> String
+cellDataToString cellData =
+    String.concat
+        [ clueIdToString cellData.clueId1
+        , " "
+        , case cellData.clueId2 of
+            Just clue ->
+                clueIdToString clue
+
+            Nothing ->
+                ""
+        ]
+
+
+debug : Model -> Html Msg
+debug model =
+    let
+        cellString =
+            case elementAtIndex (model.currentIndex + 1) model.grid of
+                Just Black ->
+                    "Black"
+
+                Just (Item cellData) ->
+                    String.concat [ "Item ", cellDataToString cellData ]
+
+                Just (NumberedItem number cellData) ->
+                    String.concat [ "NumberedItem ", String.fromInt number, " ", cellDataToString cellData ]
+
+                Nothing ->
+                    "None selected"
+    in
+    div []
+        [ viewLog "Current Cell" cellString
+        , viewLog "curentClue" (String.concat [ String.fromInt (Tuple.second model.currentClue), directionToString (Tuple.first model.currentClue) ])
+        , viewLogInt "currentIndex" model.currentIndex
+        , viewLogInt "currentRow" model.currentRow
+        , viewLogInt "currentColumn" model.currentColumn
+        , viewLog "currentDirection" (directionToString model.currentDirection)
+        ]
 
 
 viewPuzzle : Model -> Html Msg
@@ -535,11 +710,35 @@ viewPuzzle model =
     div
         [ style "display" "flex"
         ]
-        [ viewGrid model.grid
+        [ viewGrid model
         , viewCluesSection Across model.clues.across
         , viewCluesSection Down model.clues.down
-        , textDiv (String.fromInt model.currentClue)
         ]
+
+
+type PrintableUnion
+    = Int
+    | String
+
+
+type Printable
+    = PrintableInt Int
+    | PrintableString String
+
+
+viewLog : String -> String -> Html Msg
+viewLog string value =
+    div
+        [ style "display" "flex"
+        , style "flex-direction" "flex"
+        ]
+        [ textDiv (String.concat [ string, ": ", value ])
+        ]
+
+
+viewLogInt : String -> Int -> Html Msg
+viewLogInt string value =
+    viewLog string (String.fromInt value)
 
 
 viewCluesSection : Direction -> List Clue -> Html Msg
@@ -591,26 +790,26 @@ textDiv string =
         ]
 
 
-viewGrid : Grid -> Html Msg
-viewGrid grid =
+viewGrid : Model -> Html Msg
+viewGrid model =
     div
         [ style "border" "1px solid black"
         , style "display" "grid"
-        , style "height" "650px"
-        , style "width" "650px"
+        , style "height" "750px"
+        , style "width" "750px"
         , style "padding" "0"
         , style "margin" "0"
-        , style "grid-template" (getGridTemplate grid)
+        , style "grid-template" (getGridTemplate model)
         , style "list-style-type" "none"
         ]
-        (List.indexedMap viewCell grid)
+        (List.indexedMap (viewCellAndModel model) model.grid)
 
 
-getGridTemplate : Grid -> String
-getGridTemplate grid =
+getGridTemplate : Model -> String
+getGridTemplate model =
     let
         rowCount =
-            sqrt (toFloat (List.length grid))
+            sqrt (toFloat (List.length model.grid))
 
         singleCellPercentage =
             100 / rowCount
@@ -618,51 +817,143 @@ getGridTemplate grid =
     String.concat [ "repeat(", String.fromFloat rowCount, ", ", String.fromFloat singleCellPercentage, "%)/repeat(", String.fromFloat rowCount, ", ", String.fromFloat singleCellPercentage, "%)" ]
 
 
-viewCell : Int -> Cell -> Html Msg
-viewCell index cell =
-    case cell of
-        Item a ->
-            input
-                [ id (String.fromInt index)
-                , placeholder ""
-                , value a
-                , onInput (Change index)
-                , onFocus (Focus index)
-                , style "text-transform" "uppercase"
-                , style "box-sizing" "border-box"
-                , style "border" "1px solid black"
-                , style "outline" "none"
-                , style "text-align" "center"
-                , style "font-size" "20px"
-                , style "font-weight" "bold"
-                , style "background" "transparent"
-                ]
-                []
 
-        NumberedItem number letter ->
+-- NumberedItem 1 { value = "", clue1 = ( Across, 1 ), clue2 = Just ( Down, 1 ) }
+
+
+shouldHighlight : Model -> CellData -> Bool
+shouldHighlight model cellData =
+    case cellData.clueId2 of
+        Just x ->
+            (x == model.currentClue && Tuple.first x == model.currentDirection) || cellData.clueId1 == model.currentClue
+
+        Nothing ->
+            cellData.clueId1 == model.currentClue
+
+
+viewCellAndModel : Model -> Int -> Cell -> Html Msg
+viewCellAndModel model index cell =
+    let
+        highlight =
+            case cell of
+                Black ->
+                    False
+
+                Item cellData ->
+                    shouldHighlight model cellData
+
+                NumberedItem _ cellData ->
+                    shouldHighlight model cellData
+
+        backgroundColor =
+            if highlight then
+                "yellow"
+
+            else
+                "white"
+
+        selected =
+            index == model.currentIndex
+
+        zIndex =
+            if selected then
+                style "z-index" "10"
+
+            else
+                style "z-index" "1"
+
+        border =
+            if selected then
+                style "border" "3px solid DodgerBlue"
+
+            else
+                style "border" "0px solid black"
+    in
+    case cell of
+        Item cellData ->
             div
-                []
-                [ div
-                    [ style "position" "absolute"
-                    ]
-                    [ text (String.fromInt number)
-                    ]
-                , input
+                [ style "position" "relative"
+                ]
+                [ input
                     [ id (String.fromInt index)
                     , placeholder ""
-                    , value letter
+                    , value cellData.value
                     , onInput (Change index)
-                    , onFocus (Focus index)
+                    , onFocus (Focus index cellData)
+                    , onClick (Click index cellData)
                     , style "text-transform" "uppercase"
                     , style "box-sizing" "border-box"
-                    , style "border" "1px solid black"
+                    , border
+                    , zIndex
+                    , style "position" "relative"
                     , style "outline" "none"
                     , style "text-align" "center"
                     , style "font-size" "20px"
                     , style "font-weight" "bold"
                     , style "background" "transparent"
-                    , style "width" "100%"
-                    , style "height" "100%"
+                    , style "height" "50px"
+                    , style "width" "50px"
+                    , style "background-color" backgroundColor
+                    , if index == model.currentIndex then
+                        style "outline" "3px solid DodgerBlue"
+
+                      else
+                        style "outline" "0px"
+                    , style "border-width"
+                        (if index == model.currentIndex then
+                            "3px"
+
+                         else
+                            "1px"
+                        )
+                    ]
+                    []
+                ]
+
+        NumberedItem number cellData ->
+            div
+                [ style "position" "relative"
+                ]
+                [ div
+                    [ style "position" "absolute"
+                    , style "z-index" "20"
+                    ]
+                    [ text (String.fromInt number)
+                    ]
+                , input
+                    [ id (String.fromInt index)
+                    , style
+                        "position"
+                        "relative"
+                    , placeholder ""
+                    , value cellData.value
+                    , onInput (Change index)
+                    , onFocus (Focus index cellData)
+                    , onClick (Click index cellData)
+                    , border
+                    , zIndex
+                    , style "text-transform" "uppercase"
+                    , style "box-sizing" "border-box"
+                    , style "outline" "none"
+                    , style "text-align" "center"
+                    , style "font-size" "20px"
+                    , style "font-weight" "bold"
+                    , style "background" "transparent"
+                    , style "width" "50px"
+                    , style "height" "50px"
+                    , style "background-color" backgroundColor
+                    , if index == model.currentIndex then
+                        style "outline" "3px solid DodgerBlue"
+
+                      else
+                        style "outline" "0px"
+                    , style "border-width"
+                        (if index == model.currentIndex then
+                            "3px"
+
+                         else
+                            "1px"
+                        )
                     ]
                     []
                 ]
@@ -677,41 +968,66 @@ viewCell index cell =
 subscriptions : Model -> Sub Msg
 subscriptions _ =
     Sub.batch
-        [ Browser.Events.onKeyDown keyReleasedDecoder
+        [ Browser.Events.onKeyDown keyPressedDecoder
+        , Browser.Events.onKeyUp keyReleasedDecoder
         ]
 
 
 type KeyEventMsg
     = KeyEventLetter Char
     | KeyEventUnknown String
-    | Left
-    | Right
-    | Up
-    | KeyDown
+    | TabPressed
+    | ShiftPressed
+    | ShiftReleased
+    | LeftPressed
+    | RightPressed
+    | UpPressed
+    | KeyPressed
 
 
 keyReleasedDecoder : Decode.Decoder Msg
 keyReleasedDecoder =
-    Decode.map (toKeyEventMsg >> KeyReleasedMsg) (Decode.field "key" Decode.string)
+    Decode.map (keyReleasedToKeyEventMsg >> KeyTouched) (Decode.field "key" Decode.string)
 
 
-toKeyEventMsg : String -> KeyEventMsg
-toKeyEventMsg eventKeyString =
+keyPressedDecoder : Decode.Decoder Msg
+keyPressedDecoder =
+    Decode.map (keyPressedToKeyEventMsg >> KeyTouched) (Decode.field "key" Decode.string)
+
+
+keyReleasedToKeyEventMsg : String -> KeyEventMsg
+keyReleasedToKeyEventMsg eventKeyString =
+    case eventKeyString of
+        "Shift" ->
+            ShiftReleased
+
+        _ ->
+            KeyEventUnknown eventKeyString
+
+
+keyPressedToKeyEventMsg : String -> KeyEventMsg
+keyPressedToKeyEventMsg eventKeyString =
     case eventKeyString of
         "ArrowLeft" ->
-            Left
+            LeftPressed
+
+        "Shift" ->
+            ShiftPressed
+
+        "Tab" ->
+            TabPressed
 
         "ArrowRight" ->
-            Right
+            RightPressed
 
         "ArrowUp" ->
-            Up
+            UpPressed
 
         "ArrowDown" ->
-            KeyDown
+            KeyPressed
 
-        string_ ->
-            case String.uncons string_ of
+        string ->
+            case String.uncons string of
                 Just ( char, "" ) ->
                     KeyEventLetter char
 
