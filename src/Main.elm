@@ -56,7 +56,8 @@ type alias Grid =
 
 
 type alias Model =
-    { showDebug : Bool
+    { version : Int
+    , showDebug : Bool
     , grid : Grid
     , currentIndex : Int
     , numberOfColumns : Int
@@ -72,7 +73,8 @@ type alias Model =
 
 init : ( Model, Cmd Msg )
 init =
-    ( { showDebug = True
+    ( { version = 1
+      , showDebug = True
       , shiftHeld = False
       , currentDirection = Across
       , currentRow = 0
@@ -748,7 +750,8 @@ debug model =
                     "None selected"
     in
     div []
-        [ viewDebug "Current Cell" cellString
+        [ viewDebugInt "Current version" model.version
+        , viewDebug "Current Cell" cellString
         , viewDebug "curentClue" (String.concat [ String.fromInt (Tuple.second model.currentClue), directionToString (Tuple.first model.currentClue) ])
         , viewDebugInt "currentIndex" model.currentIndex
         , viewDebugInt "currentRow" model.currentRow

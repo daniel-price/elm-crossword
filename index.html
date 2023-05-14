@@ -6331,7 +6331,8 @@ var $author$project$Main$init = _Utils_Tuple2(
 		numberOfColumns: 15,
 		numberOfRows: 15,
 		shiftHeld: false,
-		showDebug: true
+		showDebug: true,
+		version: 1
 	},
 	$elm$core$Platform$Cmd$none);
 var $elm$core$Platform$Sub$batch = _Platform_batch;
@@ -7478,6 +7479,7 @@ var $author$project$Main$debug = function (model) {
 		_List_Nil,
 		_List_fromArray(
 			[
+				A2($author$project$Main$viewDebugInt, 'Current version', model.version),
 				A2($author$project$Main$viewDebug, 'Current Cell', cellString),
 				A2(
 				$author$project$Main$viewDebug,
