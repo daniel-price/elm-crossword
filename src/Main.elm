@@ -73,7 +73,7 @@ type alias Model =
 
 init : ( Model, Cmd Msg )
 init =
-    ( { version = 1
+    ( { version = 2
       , showDebug = True
       , shiftHeld = False
       , currentDirection = Across
@@ -389,7 +389,7 @@ calculateModelAfterClick model index cellData =
     let
         newDirection =
             case cellData.clueId2 of
-                Just clue ->
+                Just _ ->
                     if model.currentDirection == Down then
                         Across
 
@@ -423,7 +423,7 @@ calculateModelAfterFocus model index cellData =
     let
         newDirection =
             case cellData.clueId2 of
-                Just clue ->
+                Just _ ->
                     model.currentDirection
 
                 Nothing ->
@@ -450,88 +450,86 @@ calculateModelAfterFocus model index cellData =
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
-    Debug.log "update"
-        (case msg of
-            Change _ " " ->
-                ( model, Cmd.none )
+    case msg of
+        Change _ " " ->
+            ( model, Cmd.none )
 
-            Change index "" ->
-                ( { model | grid = updateGrid model.grid index "" }, Cmd.none )
+        Change index "" ->
+            ( { model | grid = updateGrid model.grid index "" }, Cmd.none )
 
-            Change index newContent ->
-                let
-                    nextIndex =
-                        if model.currentDirection == Across then
-                            getRightWhiteIndex model.grid index
+        Change index newContent ->
+            let
+                nextIndex =
+                    if model.currentDirection == Across then
+                        getRightWhiteIndex model.grid index
 
-                        else
-                            getDownWhiteIndex model
-                in
-                ( { model | grid = updateGrid model.grid index newContent, currentIndex = nextIndex }, focusCell nextIndex )
+                    else
+                        getDownWhiteIndex model
+            in
+            ( { model | grid = updateGrid model.grid index newContent, currentIndex = nextIndex }, focusCell nextIndex )
 
-            Focus index cellData ->
-                calculateModelAfterFocus model index cellData
+        Focus index cellData ->
+            calculateModelAfterFocus model index cellData
 
-            Click index cellData ->
-                calculateModelAfterClick model index cellData
+        Click index cellData ->
+            calculateModelAfterClick model index cellData
 
-            FocusResult _ ->
-                ( model, Cmd.none )
+        FocusResult _ ->
+            ( model, Cmd.none )
 
-            KeyTouched keyEventMsg ->
-                case keyEventMsg of
-                    TabPressed ->
-                        if model.shiftHeld == True then
-                            let
-                                nextIndex =
-                                    getLeftWhiteIndex model.grid model.currentIndex
-                            in
-                            ( { model | currentIndex = nextIndex, currentDirection = Across }, focusCell nextIndex )
-
-                        else
-                            let
-                                nextIndex =
-                                    getRightWhiteIndex model.grid model.currentIndex
-                            in
-                            ( { model | currentIndex = nextIndex, currentDirection = Across }, focusCell nextIndex )
-
-                    ShiftPressed ->
-                        ( { model | shiftHeld = True }, Cmd.none )
-
-                    ShiftReleased ->
-                        ( { model | shiftHeld = False }, Cmd.none )
-
-                    LeftPressed ->
+        KeyTouched keyEventMsg ->
+            case keyEventMsg of
+                TabPressed ->
+                    if model.shiftHeld == True then
                         let
                             nextIndex =
                                 getLeftWhiteIndex model.grid model.currentIndex
                         in
                         ( { model | currentIndex = nextIndex, currentDirection = Across }, focusCell nextIndex )
 
-                    RightPressed ->
+                    else
                         let
                             nextIndex =
                                 getRightWhiteIndex model.grid model.currentIndex
                         in
                         ( { model | currentIndex = nextIndex, currentDirection = Across }, focusCell nextIndex )
 
-                    UpPressed ->
-                        let
-                            nextIndex =
-                                getUpWhiteIndex model
-                        in
-                        ( { model | currentIndex = nextIndex, currentDirection = Down }, focusCell nextIndex )
+                ShiftPressed ->
+                    ( { model | shiftHeld = True }, Cmd.none )
 
-                    KeyPressed ->
-                        let
-                            nextIndex =
-                                getDownWhiteIndex model
-                        in
-                        ( { model | currentIndex = nextIndex, currentDirection = Down }, focusCell nextIndex )
+                ShiftReleased ->
+                    ( { model | shiftHeld = False }, Cmd.none )
 
-                    _ ->
-                        ( model, Cmd.none )
-        )
+                LeftPressed ->
+                    let
+                        nextIndex =
+                            getLeftWhiteIndex model.grid model.currentIndex
+                    in
+                    ( { model | currentIndex = nextIndex, currentDirection = Across }, focusCell nextIndex )
+
+                RightPressed ->
+                    let
+                        nextIndex =
+                            getRightWhiteIndex model.grid model.currentIndex
+                    in
+                    ( { model | currentIndex = nextIndex, currentDirection = Across }, focusCell nextIndex )
+
+                UpPressed ->
+                    let
+                        nextIndex =
+                            getUpWhiteIndex model
+                    in
+                    ( { model | currentIndex = nextIndex, currentDirection = Down }, focusCell nextIndex )
+
+                KeyPressed ->
+                    let
+                        nextIndex =
+                            getDownWhiteIndex model
+                    in
+                    ( { model | currentIndex = nextIndex, currentDirection = Down }, focusCell nextIndex )
+
+                _ ->
+                    ( model, Cmd.none )
 
 
 getLeftWhiteIndex : Grid -> Int -> Int
@@ -695,15 +693,9 @@ updateGrid grid index newContent =
 
 view : Model -> Html Msg
 view model =
-    Debug.log "view"
-        div
+    div
         []
         [ viewPuzzle model
-        , if model.showDebug then
-            Debug.log "debug = true" (debug model)
-
-          else
-            div [] []
         ]
 
 
@@ -828,8 +820,7 @@ viewClues model direction clues =
 
 viewClue : String -> ( Int, String ) -> Html Msg
 viewClue backgroundColor clue =
-    Debug.log "viewClue"
-        div
+    div
         [ style "display" "flex"
         , style "flex-direction" "row"
         , style "background-color" backgroundColor
@@ -901,179 +892,102 @@ shouldHighlight model cellData =
             cellData.clueId1 == model.currentClue
 
 
-
--- viewCell1 : Cell -> Int -> Html.Attribute Msg -> Html.Attribute Msg -> String -> Bool -> Html Msg
--- viewCell1 cell index border zIndex backgroundColor selected =
-
-
-viewCell1 : Cell -> Int -> string -> Html Msg
-viewCell1 cell index string =
-    Debug.log (String.concat [ "viewCell1 " ])
-        (case cell of
-            Item cellData ->
-                div
-                    [ style "position" "relative"
-                    ]
-                    [ input
-                        [ id (String.fromInt index)
-                        , placeholder ""
-                        , value cellData.value
-                        , onInput (Change index)
-                        , onFocus (Focus index cellData)
-                        , onClick (Click index cellData)
-                        , style "text-transform" "uppercase"
-                        , style "box-sizing" "border-box"
-                        , style "position" "relative"
-                        , style "outline" "none"
-                        , style "text-align" "center"
-                        , style "font-size" "20px"
-                        , style "font-weight" "bold"
-                        , style "background" "transparent"
-                        , style "height" "50px"
-                        , style "width" "50px"
-                        ]
-                        []
-                    ]
-
-            NumberedItem number cellData ->
-                div
-                    [ style "position" "relative"
-                    ]
-                    [ div
-                        [ style "position" "absolute"
-                        , style "z-index" "20"
-                        ]
-                        [ text (String.fromInt number)
-                        ]
-                    , input
-                        [ id (String.fromInt index)
-                        , style
-                            "position"
-                            "relative"
-                        , placeholder ""
-                        , value cellData.value
-                        , onInput (Change index)
-                        , onFocus (Focus index cellData)
-                        , onClick (Click index cellData)
-                        , style "text-transform" "uppercase"
-                        , style "box-sizing" "border-box"
-                        , style "outline" "none"
-                        , style "text-align" "center"
-                        , style "font-size" "20px"
-                        , style "font-weight" "bold"
-                        , style "background" "transparent"
-                        , style "width" "50px"
-                        , style "height" "50px"
-                        ]
-                        []
-                    ]
-
-            Black ->
-                div
-                    [ style "background-color" "black"
-                    ]
-                    []
-        )
-
-
 viewCell : Cell -> Int -> String -> String -> String -> Bool -> Html Msg
 viewCell cell index border zIndex backgroundColor selected =
-    Debug.log (String.concat [ "viewCell ", String.fromInt index, " " ])
-        (case cell of
-            Item cellData ->
-                div
-                    [ style "position" "relative"
-                    ]
-                    [ input
-                        [ id (String.fromInt index)
-                        , placeholder ""
-                        , value cellData.value
-                        , onInput (Change index)
-                        , onFocus (Focus index cellData)
-                        , onClick (Click index cellData)
-                        , style "text-transform" "uppercase"
-                        , style "box-sizing" "border-box"
-                        , style "border" border
-                        , style "z-index" zIndex
-                        , style "position" "relative"
-                        , style "outline" "none"
-                        , style "text-align" "center"
-                        , style "font-size" "20px"
-                        , style "font-weight" "bold"
-                        , style "background" "transparent"
-                        , style "height" "50px"
-                        , style "width" "50px"
-                        , style "background-color" backgroundColor
-                        , if selected then
-                            style "outline" "3px solid DodgerBlue"
+    case cell of
+        Item cellData ->
+            div
+                [ style "position" "relative"
+                ]
+                [ input
+                    [ id (String.fromInt index)
+                    , placeholder ""
+                    , value cellData.value
+                    , onInput (Change index)
+                    , onFocus (Focus index cellData)
+                    , onClick (Click index cellData)
+                    , style "text-transform" "uppercase"
+                    , style "box-sizing" "border-box"
+                    , style "border" border
+                    , style "z-index" zIndex
+                    , style "position" "relative"
+                    , style "outline" "none"
+                    , style "text-align" "center"
+                    , style "font-size" "20px"
+                    , style "font-weight" "bold"
+                    , style "background" "transparent"
+                    , style "height" "50px"
+                    , style "width" "50px"
+                    , style "background-color" backgroundColor
+                    , if selected then
+                        style "outline" "3px solid DodgerBlue"
 
-                          else
-                            style "outline" "0px"
-                        , style "border-width"
-                            (if selected then
-                                "3px"
+                      else
+                        style "outline" "0px"
+                    , style "border-width"
+                        (if selected then
+                            "3px"
 
-                             else
-                                "1px"
-                            )
-                        ]
-                        []
-                    ]
-
-            NumberedItem number cellData ->
-                div
-                    [ style "position" "relative"
-                    ]
-                    [ div
-                        [ style "position" "absolute"
-                        , style "z-index" "20"
-                        ]
-                        [ text (String.fromInt number)
-                        ]
-                    , input
-                        [ id (String.fromInt index)
-                        , style
-                            "position"
-                            "relative"
-                        , placeholder ""
-                        , value cellData.value
-                        , onInput (Change index)
-                        , onFocus (Focus index cellData)
-                        , onClick (Click index cellData)
-                        , style "border" border
-                        , style "z-index" zIndex
-                        , style "text-transform" "uppercase"
-                        , style "box-sizing" "border-box"
-                        , style "outline" "none"
-                        , style "text-align" "center"
-                        , style "font-size" "20px"
-                        , style "font-weight" "bold"
-                        , style "background" "transparent"
-                        , style "width" "50px"
-                        , style "height" "50px"
-                        , style "background-color" backgroundColor
-                        , if selected then
-                            style "outline" "3px solid DodgerBlue"
-
-                          else
-                            style "outline" "0px"
-                        , style "border-width"
-                            (if selected then
-                                "3px"
-
-                             else
-                                "1px"
-                            )
-                        ]
-                        []
-                    ]
-
-            Black ->
-                div
-                    [ style "background-color" "black"
+                         else
+                            "1px"
+                        )
                     ]
                     []
-        )
+                ]
+
+        NumberedItem number cellData ->
+            div
+                [ style "position" "relative"
+                ]
+                [ div
+                    [ style "position" "absolute"
+                    , style "z-index" "20"
+                    ]
+                    [ text (String.fromInt number)
+                    ]
+                , input
+                    [ id (String.fromInt index)
+                    , style
+                        "position"
+                        "relative"
+                    , placeholder ""
+                    , value cellData.value
+                    , onInput (Change index)
+                    , onFocus (Focus index cellData)
+                    , onClick (Click index cellData)
+                    , style "border" border
+                    , style "z-index" zIndex
+                    , style "text-transform" "uppercase"
+                    , style "box-sizing" "border-box"
+                    , style "outline" "none"
+                    , style "text-align" "center"
+                    , style "font-size" "20px"
+                    , style "font-weight" "bold"
+                    , style "background" "transparent"
+                    , style "width" "50px"
+                    , style "height" "50px"
+                    , style "background-color" backgroundColor
+                    , if selected then
+                        style "outline" "3px solid DodgerBlue"
+
+                      else
+                        style "outline" "0px"
+                    , style "border-width"
+                        (if selected then
+                            "3px"
+
+                         else
+                            "1px"
+                        )
+                    ]
+                    []
+                ]
+
+        Black ->
+            div
+                [ style "background-color" "black"
+                ]
+                []
 
 
 viewCellAndModel : Model -> Int -> Cell -> Html Msg
@@ -1139,16 +1053,14 @@ type KeyEventMsg
 
 keyReleasedDecoder : Decode.Decoder Msg
 keyReleasedDecoder =
-    Debug.log "keyReleasedDecoder"
-        Decode.map
+    Decode.map
         (keyReleasedToKeyEventMsg >> KeyTouched)
         (Decode.field "key" Decode.string)
 
 
 keyPressedDecoder : Decode.Decoder Msg
 keyPressedDecoder =
-    Debug.log "keyPressedDecoder"
-        Decode.map
+    Decode.map
         (keyPressedToKeyEventMsg >> KeyTouched)
         (Decode.field "key" Decode.string)
 
