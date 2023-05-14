@@ -26,7 +26,7 @@ main =
 
 
 type alias CellData =
-    { value : Char
+    { value : Maybe Char
     , clueId1 : ClueId
     , clueId2 : Maybe ClueId
     }
@@ -121,229 +121,229 @@ init =
             }
       , grid =
             [ Black
-            , NumberedItem 1 { value = ' ', clueId1 = ( Across, 1 ), clueId2 = Just ( Down, 1 ) }
-            , Item { value = ' ', clueId1 = ( Across, 1 ), clueId2 = Nothing }
-            , NumberedItem 2 { value = ' ', clueId1 = ( Across, 1 ), clueId2 = Just ( Down, 2 ) }
-            , Item { value = ' ', clueId1 = ( Across, 1 ), clueId2 = Nothing }
-            , NumberedItem 3 { value = ' ', clueId1 = ( Across, 1 ), clueId2 = Just ( Down, 3 ) }
-            , Item { value = ' ', clueId1 = ( Across, 1 ), clueId2 = Nothing }
-            , NumberedItem 4 { value = ' ', clueId1 = ( Across, 1 ), clueId2 = Just ( Down, 4 ) }
-            , Item { value = ' ', clueId1 = ( Across, 1 ), clueId2 = Nothing }
-            , NumberedItem 5 { value = ' ', clueId1 = ( Across, 1 ), clueId2 = Just ( Down, 5 ) }
+            , NumberedItem 1 { value = Nothing, clueId1 = ( Across, 1 ), clueId2 = Just ( Down, 1 ) }
+            , Item { value = Nothing, clueId1 = ( Across, 1 ), clueId2 = Nothing }
+            , NumberedItem 2 { value = Nothing, clueId1 = ( Across, 1 ), clueId2 = Just ( Down, 2 ) }
+            , Item { value = Nothing, clueId1 = ( Across, 1 ), clueId2 = Nothing }
+            , NumberedItem 3 { value = Nothing, clueId1 = ( Across, 1 ), clueId2 = Just ( Down, 3 ) }
+            , Item { value = Nothing, clueId1 = ( Across, 1 ), clueId2 = Nothing }
+            , NumberedItem 4 { value = Nothing, clueId1 = ( Across, 1 ), clueId2 = Just ( Down, 4 ) }
+            , Item { value = Nothing, clueId1 = ( Across, 1 ), clueId2 = Nothing }
+            , NumberedItem 5 { value = Nothing, clueId1 = ( Across, 1 ), clueId2 = Just ( Down, 5 ) }
             , Black
-            , NumberedItem 6 { value = ' ', clueId1 = ( Across, 6 ), clueId2 = Just ( Down, 6 ) }
-            , Item { value = ' ', clueId1 = ( Across, 6 ), clueId2 = Nothing }
-            , NumberedItem 7 { value = ' ', clueId1 = ( Across, 6 ), clueId2 = Just ( Down, 7 ) }
-            , Item { value = ' ', clueId1 = ( Across, 6 ), clueId2 = Nothing }
+            , NumberedItem 6 { value = Nothing, clueId1 = ( Across, 6 ), clueId2 = Just ( Down, 6 ) }
+            , Item { value = Nothing, clueId1 = ( Across, 6 ), clueId2 = Nothing }
+            , NumberedItem 7 { value = Nothing, clueId1 = ( Across, 6 ), clueId2 = Just ( Down, 7 ) }
+            , Item { value = Nothing, clueId1 = ( Across, 6 ), clueId2 = Nothing }
             , Black
-            , Item { value = ' ', clueId1 = ( Down, 1 ), clueId2 = Nothing }
+            , Item { value = Nothing, clueId1 = ( Down, 1 ), clueId2 = Nothing }
             , Black
-            , Item { value = ' ', clueId1 = ( Down, 2 ), clueId2 = Nothing }
+            , Item { value = Nothing, clueId1 = ( Down, 2 ), clueId2 = Nothing }
             , Black
-            , Item { value = ' ', clueId1 = ( Down, 3 ), clueId2 = Nothing }
+            , Item { value = Nothing, clueId1 = ( Down, 3 ), clueId2 = Nothing }
             , Black
-            , Item { value = ' ', clueId1 = ( Down, 4 ), clueId2 = Nothing }
+            , Item { value = Nothing, clueId1 = ( Down, 4 ), clueId2 = Nothing }
             , Black
-            , Item { value = ' ', clueId1 = ( Down, 5 ), clueId2 = Nothing }
+            , Item { value = Nothing, clueId1 = ( Down, 5 ), clueId2 = Nothing }
             , Black
-            , Item { value = ' ', clueId1 = ( Down, 6 ), clueId2 = Nothing }
+            , Item { value = Nothing, clueId1 = ( Down, 6 ), clueId2 = Nothing }
             , Black
-            , Item { value = ' ', clueId1 = ( Down, 7 ), clueId2 = Nothing }
+            , Item { value = Nothing, clueId1 = ( Down, 7 ), clueId2 = Nothing }
             , Black
-            , NumberedItem 8 { value = ' ', clueId1 = ( Across, 8 ), clueId2 = Nothing }
-            , Item { value = ' ', clueId1 = ( Across, 8 ), clueId2 = Just ( Down, 1 ) }
-            , Item { value = ' ', clueId1 = ( Across, 8 ), clueId2 = Nothing }
-            , Item { value = ' ', clueId1 = ( Across, 8 ), clueId2 = Just ( Down, 2 ) }
-            , Item { value = ' ', clueId1 = ( Across, 8 ), clueId2 = Nothing }
-            , Item { value = ' ', clueId1 = ( Across, 8 ), clueId2 = Just ( Down, 3 ) }
-            , Item { value = ' ', clueId1 = ( Across, 8 ), clueId2 = Nothing }
-            , Item { value = ' ', clueId1 = ( Across, 8 ), clueId2 = Just ( Down, 4 ) }
+            , NumberedItem 8 { value = Nothing, clueId1 = ( Across, 8 ), clueId2 = Nothing }
+            , Item { value = Nothing, clueId1 = ( Across, 8 ), clueId2 = Just ( Down, 1 ) }
+            , Item { value = Nothing, clueId1 = ( Across, 8 ), clueId2 = Nothing }
+            , Item { value = Nothing, clueId1 = ( Across, 8 ), clueId2 = Just ( Down, 2 ) }
+            , Item { value = Nothing, clueId1 = ( Across, 8 ), clueId2 = Nothing }
+            , Item { value = Nothing, clueId1 = ( Across, 8 ), clueId2 = Just ( Down, 3 ) }
+            , Item { value = Nothing, clueId1 = ( Across, 8 ), clueId2 = Nothing }
+            , Item { value = Nothing, clueId1 = ( Across, 8 ), clueId2 = Just ( Down, 4 ) }
             , Black
-            , NumberedItem 9 { value = ' ', clueId1 = ( Across, 9 ), clueId2 = Just ( Down, 5 ) }
-            , Item { value = ' ', clueId1 = ( Across, 9 ), clueId2 = Nothing }
-            , Item { value = ' ', clueId1 = ( Across, 9 ), clueId2 = Just ( Down, 6 ) }
-            , Item { value = ' ', clueId1 = ( Across, 9 ), clueId2 = Nothing }
-            , Item { value = ' ', clueId1 = ( Across, 9 ), clueId2 = Just ( Down, 7 ) }
-            , Item { value = ' ', clueId1 = ( Across, 9 ), clueId2 = Nothing }
+            , NumberedItem 9 { value = Nothing, clueId1 = ( Across, 9 ), clueId2 = Just ( Down, 5 ) }
+            , Item { value = Nothing, clueId1 = ( Across, 9 ), clueId2 = Nothing }
+            , Item { value = Nothing, clueId1 = ( Across, 9 ), clueId2 = Just ( Down, 6 ) }
+            , Item { value = Nothing, clueId1 = ( Across, 9 ), clueId2 = Nothing }
+            , Item { value = Nothing, clueId1 = ( Across, 9 ), clueId2 = Just ( Down, 7 ) }
+            , Item { value = Nothing, clueId1 = ( Across, 9 ), clueId2 = Nothing }
             , Black
-            , Item { value = ' ', clueId1 = ( Down, 1 ), clueId2 = Nothing }
+            , Item { value = Nothing, clueId1 = ( Down, 1 ), clueId2 = Nothing }
             , Black
-            , Item { value = ' ', clueId1 = ( Down, 2 ), clueId2 = Nothing }
+            , Item { value = Nothing, clueId1 = ( Down, 2 ), clueId2 = Nothing }
             , Black
-            , Item { value = ' ', clueId1 = ( Down, 3 ), clueId2 = Nothing }
+            , Item { value = Nothing, clueId1 = ( Down, 3 ), clueId2 = Nothing }
             , Black
-            , Item { value = ' ', clueId1 = ( Down, 4 ), clueId2 = Nothing }
+            , Item { value = Nothing, clueId1 = ( Down, 4 ), clueId2 = Nothing }
             , Black
-            , Item { value = ' ', clueId1 = ( Down, 5 ), clueId2 = Nothing }
+            , Item { value = Nothing, clueId1 = ( Down, 5 ), clueId2 = Nothing }
             , Black
-            , Item { value = ' ', clueId1 = ( Down, 6 ), clueId2 = Nothing }
+            , Item { value = Nothing, clueId1 = ( Down, 6 ), clueId2 = Nothing }
             , Black
-            , Item { value = ' ', clueId1 = ( Down, 7 ), clueId2 = Nothing }
+            , Item { value = Nothing, clueId1 = ( Down, 7 ), clueId2 = Nothing }
             , Black
-            , NumberedItem 10 { value = ' ', clueId1 = ( Across, 10 ), clueId2 = Nothing }
-            , Item { value = ' ', clueId1 = ( Across, 10 ), clueId2 = Just ( Down, 1 ) }
-            , Item { value = ' ', clueId1 = ( Across, 10 ), clueId2 = Nothing }
-            , Item { value = ' ', clueId1 = ( Across, 10 ), clueId2 = Just ( Down, 2 ) }
-            , Item { value = ' ', clueId1 = ( Across, 10 ), clueId2 = Nothing }
-            , Item { value = ' ', clueId1 = ( Across, 10 ), clueId2 = Just ( Down, 3 ) }
+            , NumberedItem 10 { value = Nothing, clueId1 = ( Across, 10 ), clueId2 = Nothing }
+            , Item { value = Nothing, clueId1 = ( Across, 10 ), clueId2 = Just ( Down, 1 ) }
+            , Item { value = Nothing, clueId1 = ( Across, 10 ), clueId2 = Nothing }
+            , Item { value = Nothing, clueId1 = ( Across, 10 ), clueId2 = Just ( Down, 2 ) }
+            , Item { value = Nothing, clueId1 = ( Across, 10 ), clueId2 = Nothing }
+            , Item { value = Nothing, clueId1 = ( Across, 10 ), clueId2 = Just ( Down, 3 ) }
             , Black
-            , NumberedItem 11 { value = ' ', clueId1 = ( Across, 11 ), clueId2 = Just ( Down, 4 ) }
-            , Item { value = ' ', clueId1 = ( Across, 11 ), clueId2 = Nothing }
-            , Item { value = ' ', clueId1 = ( Across, 11 ), clueId2 = Just ( Down, 5 ) }
-            , Item { value = ' ', clueId1 = ( Across, 11 ), clueId2 = Nothing }
-            , Item { value = ' ', clueId1 = ( Across, 11 ), clueId2 = Just ( Down, 6 ) }
-            , Item { value = ' ', clueId1 = ( Across, 11 ), clueId2 = Nothing }
-            , Item { value = ' ', clueId1 = ( Across, 11 ), clueId2 = Just ( Down, 7 ) }
-            , Item { value = ' ', clueId1 = ( Across, 11 ), clueId2 = Nothing }
+            , NumberedItem 11 { value = Nothing, clueId1 = ( Across, 11 ), clueId2 = Just ( Down, 4 ) }
+            , Item { value = Nothing, clueId1 = ( Across, 11 ), clueId2 = Nothing }
+            , Item { value = Nothing, clueId1 = ( Across, 11 ), clueId2 = Just ( Down, 5 ) }
+            , Item { value = Nothing, clueId1 = ( Across, 11 ), clueId2 = Nothing }
+            , Item { value = Nothing, clueId1 = ( Across, 11 ), clueId2 = Just ( Down, 6 ) }
+            , Item { value = Nothing, clueId1 = ( Across, 11 ), clueId2 = Nothing }
+            , Item { value = Nothing, clueId1 = ( Across, 11 ), clueId2 = Just ( Down, 7 ) }
+            , Item { value = Nothing, clueId1 = ( Across, 11 ), clueId2 = Nothing }
             , Black
             , Black
             , Black
-            , Item { value = ' ', clueId1 = ( Down, 2 ), clueId2 = Nothing }
+            , Item { value = Nothing, clueId1 = ( Down, 2 ), clueId2 = Nothing }
             , Black
             , Black
             , Black
-            , Item { value = ' ', clueId1 = ( Down, 4 ), clueId2 = Nothing }
+            , Item { value = Nothing, clueId1 = ( Down, 4 ), clueId2 = Nothing }
             , Black
-            , Item { value = ' ', clueId1 = ( Down, 5 ), clueId2 = Nothing }
+            , Item { value = Nothing, clueId1 = ( Down, 5 ), clueId2 = Nothing }
             , Black
-            , Item { value = ' ', clueId1 = ( Down, 6 ), clueId2 = Nothing }
+            , Item { value = Nothing, clueId1 = ( Down, 6 ), clueId2 = Nothing }
             , Black
-            , Item { value = ' ', clueId1 = ( Down, 7 ), clueId2 = Nothing }
+            , Item { value = Nothing, clueId1 = ( Down, 7 ), clueId2 = Nothing }
             , Black
-            , NumberedItem 12 { value = ' ', clueId1 = ( Across, 12 ), clueId2 = Nothing }
-            , NumberedItem 13 { value = ' ', clueId1 = ( Across, 12 ), clueId2 = Just ( Down, 13 ) }
-            , Item { value = ' ', clueId1 = ( Across, 12 ), clueId2 = Nothing }
-            , Item { value = ' ', clueId1 = ( Across, 12 ), clueId2 = Just ( Down, 2 ) }
-            , Item { value = ' ', clueId1 = ( Across, 12 ), clueId2 = Nothing }
-            , NumberedItem 14 { value = ' ', clueId1 = ( Across, 12 ), clueId2 = Just ( Down, 14 ) }
+            , NumberedItem 12 { value = Nothing, clueId1 = ( Across, 12 ), clueId2 = Nothing }
+            , NumberedItem 13 { value = Nothing, clueId1 = ( Across, 12 ), clueId2 = Just ( Down, 13 ) }
+            , Item { value = Nothing, clueId1 = ( Across, 12 ), clueId2 = Nothing }
+            , Item { value = Nothing, clueId1 = ( Across, 12 ), clueId2 = Just ( Down, 2 ) }
+            , Item { value = Nothing, clueId1 = ( Across, 12 ), clueId2 = Nothing }
+            , NumberedItem 14 { value = Nothing, clueId1 = ( Across, 12 ), clueId2 = Just ( Down, 14 ) }
             , Black
-            , NumberedItem 15 { value = ' ', clueId1 = ( Across, 15 ), clueId2 = Just ( Down, 4 ) }
-            , Item { value = ' ', clueId1 = ( Across, 15 ), clueId2 = Nothing }
-            , Item { value = ' ', clueId1 = ( Across, 15 ), clueId2 = Just ( Down, 5 ) }
-            , Item { value = ' ', clueId1 = ( Across, 15 ), clueId2 = Nothing }
-            , Item { value = ' ', clueId1 = ( Across, 15 ), clueId2 = Just ( Down, 6 ) }
-            , Item { value = ' ', clueId1 = ( Across, 15 ), clueId2 = Nothing }
-            , Item { value = ' ', clueId1 = ( Across, 15 ), clueId2 = Just ( Down, 7 ) }
-            , Item { value = ' ', clueId1 = ( Across, 15 ), clueId2 = Nothing }
+            , NumberedItem 15 { value = Nothing, clueId1 = ( Across, 15 ), clueId2 = Just ( Down, 4 ) }
+            , Item { value = Nothing, clueId1 = ( Across, 15 ), clueId2 = Nothing }
+            , Item { value = Nothing, clueId1 = ( Across, 15 ), clueId2 = Just ( Down, 5 ) }
+            , Item { value = Nothing, clueId1 = ( Across, 15 ), clueId2 = Nothing }
+            , Item { value = Nothing, clueId1 = ( Across, 15 ), clueId2 = Just ( Down, 6 ) }
+            , Item { value = Nothing, clueId1 = ( Across, 15 ), clueId2 = Nothing }
+            , Item { value = Nothing, clueId1 = ( Across, 15 ), clueId2 = Just ( Down, 7 ) }
+            , Item { value = Nothing, clueId1 = ( Across, 15 ), clueId2 = Nothing }
             , Black
-            , Item { value = ' ', clueId1 = ( Down, 13 ), clueId2 = Nothing }
+            , Item { value = Nothing, clueId1 = ( Down, 13 ), clueId2 = Nothing }
             , Black
             , Black
             , Black
-            , Item { value = ' ', clueId1 = ( Down, 14 ), clueId2 = Nothing }
+            , Item { value = Nothing, clueId1 = ( Down, 14 ), clueId2 = Nothing }
             , Black
             , Black
             , Black
-            , Item { value = ' ', clueId1 = ( Down, 5 ), clueId2 = Nothing }
+            , Item { value = Nothing, clueId1 = ( Down, 5 ), clueId2 = Nothing }
             , Black
             , Black
             , Black
-            , Item { value = ' ', clueId1 = ( Down, 7 ), clueId2 = Nothing }
+            , Item { value = Nothing, clueId1 = ( Down, 7 ), clueId2 = Nothing }
             , Black
-            , NumberedItem 16 { value = ' ', clueId1 = ( Across, 16 ), clueId2 = Nothing }
-            , Item { value = ' ', clueId1 = ( Across, 16 ), clueId2 = Just ( Down, 13 ) }
-            , Item { value = ' ', clueId1 = ( Across, 16 ), clueId2 = Nothing }
-            , NumberedItem 17 { value = ' ', clueId1 = ( Across, 16 ), clueId2 = Just ( Down, 17 ) }
-            , Item { value = ' ', clueId1 = ( Across, 16 ), clueId2 = Nothing }
-            , Item { value = ' ', clueId1 = ( Across, 16 ), clueId2 = Just ( Down, 14 ) }
-            , Item { value = ' ', clueId1 = ( Across, 16 ), clueId2 = Nothing }
-            , NumberedItem 18 { value = ' ', clueId1 = ( Across, 16 ), clueId2 = Just ( Down, 18 ) }
+            , NumberedItem 16 { value = Nothing, clueId1 = ( Across, 16 ), clueId2 = Nothing }
+            , Item { value = Nothing, clueId1 = ( Across, 16 ), clueId2 = Just ( Down, 13 ) }
+            , Item { value = Nothing, clueId1 = ( Across, 16 ), clueId2 = Nothing }
+            , NumberedItem 17 { value = Nothing, clueId1 = ( Across, 16 ), clueId2 = Just ( Down, 17 ) }
+            , Item { value = Nothing, clueId1 = ( Across, 16 ), clueId2 = Nothing }
+            , Item { value = Nothing, clueId1 = ( Across, 16 ), clueId2 = Just ( Down, 14 ) }
+            , Item { value = Nothing, clueId1 = ( Across, 16 ), clueId2 = Nothing }
+            , NumberedItem 18 { value = Nothing, clueId1 = ( Across, 16 ), clueId2 = Just ( Down, 18 ) }
             , Black
-            , NumberedItem 19 { value = ' ', clueId1 = ( Across, 19 ), clueId2 = Just ( Down, 5 ) }
-            , Item { value = ' ', clueId1 = ( Across, 19 ), clueId2 = Nothing }
-            , NumberedItem 20 { value = ' ', clueId1 = ( Across, 19 ), clueId2 = Just ( Down, 20 ) }
-            , Item { value = ' ', clueId1 = ( Across, 19 ), clueId2 = Nothing }
-            , Item { value = ' ', clueId1 = ( Across, 19 ), clueId2 = Just ( Down, 7 ) }
-            , Item { value = ' ', clueId1 = ( Across, 19 ), clueId2 = Nothing }
+            , NumberedItem 19 { value = Nothing, clueId1 = ( Across, 19 ), clueId2 = Just ( Down, 5 ) }
+            , Item { value = Nothing, clueId1 = ( Across, 19 ), clueId2 = Nothing }
+            , NumberedItem 20 { value = Nothing, clueId1 = ( Across, 19 ), clueId2 = Just ( Down, 20 ) }
+            , Item { value = Nothing, clueId1 = ( Across, 19 ), clueId2 = Nothing }
+            , Item { value = Nothing, clueId1 = ( Across, 19 ), clueId2 = Just ( Down, 7 ) }
+            , Item { value = Nothing, clueId1 = ( Across, 19 ), clueId2 = Nothing }
             , Black
-            , Item { value = ' ', clueId1 = ( Down, 13 ), clueId2 = Nothing }
+            , Item { value = Nothing, clueId1 = ( Down, 13 ), clueId2 = Nothing }
             , Black
-            , Item { value = ' ', clueId1 = ( Down, 17 ), clueId2 = Nothing }
+            , Item { value = Nothing, clueId1 = ( Down, 17 ), clueId2 = Nothing }
             , Black
-            , Item { value = ' ', clueId1 = ( Down, 14 ), clueId2 = Nothing }
+            , Item { value = Nothing, clueId1 = ( Down, 14 ), clueId2 = Nothing }
             , Black
-            , Item { value = ' ', clueId1 = ( Down, 18 ), clueId2 = Nothing }
+            , Item { value = Nothing, clueId1 = ( Down, 18 ), clueId2 = Nothing }
             , Black
             , Black
             , Black
-            , Item { value = ' ', clueId1 = ( Down, 20 ), clueId2 = Nothing }
+            , Item { value = Nothing, clueId1 = ( Down, 20 ), clueId2 = Nothing }
             , Black
             , Black
             , Black
-            , NumberedItem 21 { value = ' ', clueId1 = ( Across, 21 ), clueId2 = Nothing }
-            , Item { value = ' ', clueId1 = ( Across, 21 ), clueId2 = Just ( Down, 13 ) }
-            , Item { value = ' ', clueId1 = ( Across, 21 ), clueId2 = Nothing }
-            , Item { value = ' ', clueId1 = ( Across, 21 ), clueId2 = Just ( Down, 17 ) }
-            , Item { value = ' ', clueId1 = ( Across, 21 ), clueId2 = Nothing }
-            , Item { value = ' ', clueId1 = ( Across, 21 ), clueId2 = Just ( Down, 14 ) }
-            , Item { value = ' ', clueId1 = ( Across, 21 ), clueId2 = Nothing }
-            , Item { value = ' ', clueId1 = ( Across, 21 ), clueId2 = Just ( Down, 18 ) }
+            , NumberedItem 21 { value = Nothing, clueId1 = ( Across, 21 ), clueId2 = Nothing }
+            , Item { value = Nothing, clueId1 = ( Across, 21 ), clueId2 = Just ( Down, 13 ) }
+            , Item { value = Nothing, clueId1 = ( Across, 21 ), clueId2 = Nothing }
+            , Item { value = Nothing, clueId1 = ( Across, 21 ), clueId2 = Just ( Down, 17 ) }
+            , Item { value = Nothing, clueId1 = ( Across, 21 ), clueId2 = Nothing }
+            , Item { value = Nothing, clueId1 = ( Across, 21 ), clueId2 = Just ( Down, 14 ) }
+            , Item { value = Nothing, clueId1 = ( Across, 21 ), clueId2 = Nothing }
+            , Item { value = Nothing, clueId1 = ( Across, 21 ), clueId2 = Just ( Down, 18 ) }
             , Black
-            , NumberedItem 22 { value = ' ', clueId1 = ( Across, 22 ), clueId2 = Just ( Down, 22 ) }
-            , Item { value = ' ', clueId1 = ( Across, 22 ), clueId2 = Nothing }
-            , Item { value = ' ', clueId1 = ( Across, 22 ), clueId2 = Just ( Down, 20 ) }
-            , Item { value = ' ', clueId1 = ( Across, 22 ), clueId2 = Nothing }
-            , NumberedItem 23 { value = ' ', clueId1 = ( Across, 22 ), clueId2 = Just ( Down, 23 ) }
-            , Item { value = ' ', clueId1 = ( Across, 22 ), clueId2 = Nothing }
+            , NumberedItem 22 { value = Nothing, clueId1 = ( Across, 22 ), clueId2 = Just ( Down, 22 ) }
+            , Item { value = Nothing, clueId1 = ( Across, 22 ), clueId2 = Nothing }
+            , Item { value = Nothing, clueId1 = ( Across, 22 ), clueId2 = Just ( Down, 20 ) }
+            , Item { value = Nothing, clueId1 = ( Across, 22 ), clueId2 = Nothing }
+            , NumberedItem 23 { value = Nothing, clueId1 = ( Across, 22 ), clueId2 = Just ( Down, 23 ) }
+            , Item { value = Nothing, clueId1 = ( Across, 22 ), clueId2 = Nothing }
             , Black
-            , Item { value = ' ', clueId1 = ( Down, 13 ), clueId2 = Nothing }
+            , Item { value = Nothing, clueId1 = ( Down, 13 ), clueId2 = Nothing }
             , Black
-            , Item { value = ' ', clueId1 = ( Down, 17 ), clueId2 = Nothing }
+            , Item { value = Nothing, clueId1 = ( Down, 17 ), clueId2 = Nothing }
             , Black
-            , Item { value = ' ', clueId1 = ( Down, 14 ), clueId2 = Nothing }
+            , Item { value = Nothing, clueId1 = ( Down, 14 ), clueId2 = Nothing }
             , Black
-            , Item { value = ' ', clueId1 = ( Down, 18 ), clueId2 = Nothing }
+            , Item { value = Nothing, clueId1 = ( Down, 18 ), clueId2 = Nothing }
             , Black
-            , Item { value = ' ', clueId1 = ( Down, 22 ), clueId2 = Nothing }
+            , Item { value = Nothing, clueId1 = ( Down, 22 ), clueId2 = Nothing }
             , Black
-            , Item { value = ' ', clueId1 = ( Down, 20 ), clueId2 = Nothing }
+            , Item { value = Nothing, clueId1 = ( Down, 20 ), clueId2 = Nothing }
             , Black
-            , Item { value = ' ', clueId1 = ( Down, 23 ), clueId2 = Nothing }
+            , Item { value = Nothing, clueId1 = ( Down, 23 ), clueId2 = Nothing }
             , Black
-            , NumberedItem 24 { value = ' ', clueId1 = ( Across, 24 ), clueId2 = Nothing }
-            , Item { value = ' ', clueId1 = ( Across, 24 ), clueId2 = Just ( Down, 13 ) }
-            , Item { value = ' ', clueId1 = ( Across, 24 ), clueId2 = Nothing }
-            , Item { value = ' ', clueId1 = ( Across, 24 ), clueId2 = Just ( Down, 17 ) }
-            , Item { value = ' ', clueId1 = ( Across, 24 ), clueId2 = Nothing }
-            , Item { value = ' ', clueId1 = ( Across, 24 ), clueId2 = Just ( Down, 14 ) }
+            , NumberedItem 24 { value = Nothing, clueId1 = ( Across, 24 ), clueId2 = Nothing }
+            , Item { value = Nothing, clueId1 = ( Across, 24 ), clueId2 = Just ( Down, 13 ) }
+            , Item { value = Nothing, clueId1 = ( Across, 24 ), clueId2 = Nothing }
+            , Item { value = Nothing, clueId1 = ( Across, 24 ), clueId2 = Just ( Down, 17 ) }
+            , Item { value = Nothing, clueId1 = ( Across, 24 ), clueId2 = Nothing }
+            , Item { value = Nothing, clueId1 = ( Across, 24 ), clueId2 = Just ( Down, 14 ) }
             , Black
-            , NumberedItem 25 { value = ' ', clueId1 = ( Across, 25 ), clueId2 = Just ( Down, 18 ) }
-            , Item { value = ' ', clueId1 = ( Across, 25 ), clueId2 = Nothing }
-            , Item { value = ' ', clueId1 = ( Across, 25 ), clueId2 = Just ( Down, 22 ) }
-            , Item { value = ' ', clueId1 = ( Across, 25 ), clueId2 = Nothing }
-            , Item { value = ' ', clueId1 = ( Across, 25 ), clueId2 = Just ( Down, 20 ) }
-            , Item { value = ' ', clueId1 = ( Across, 25 ), clueId2 = Nothing }
-            , Item { value = ' ', clueId1 = ( Across, 25 ), clueId2 = Just ( Down, 23 ) }
-            , Item { value = ' ', clueId1 = ( Across, 25 ), clueId2 = Nothing }
+            , NumberedItem 25 { value = Nothing, clueId1 = ( Across, 25 ), clueId2 = Just ( Down, 18 ) }
+            , Item { value = Nothing, clueId1 = ( Across, 25 ), clueId2 = Nothing }
+            , Item { value = Nothing, clueId1 = ( Across, 25 ), clueId2 = Just ( Down, 22 ) }
+            , Item { value = Nothing, clueId1 = ( Across, 25 ), clueId2 = Nothing }
+            , Item { value = Nothing, clueId1 = ( Across, 25 ), clueId2 = Just ( Down, 20 ) }
+            , Item { value = Nothing, clueId1 = ( Across, 25 ), clueId2 = Nothing }
+            , Item { value = Nothing, clueId1 = ( Across, 25 ), clueId2 = Just ( Down, 23 ) }
+            , Item { value = Nothing, clueId1 = ( Across, 25 ), clueId2 = Nothing }
             , Black
-            , Item { value = ' ', clueId1 = ( Down, 13 ), clueId2 = Nothing }
+            , Item { value = Nothing, clueId1 = ( Down, 13 ), clueId2 = Nothing }
             , Black
-            , Item { value = ' ', clueId1 = ( Down, 17 ), clueId2 = Nothing }
+            , Item { value = Nothing, clueId1 = ( Down, 17 ), clueId2 = Nothing }
             , Black
-            , Item { value = ' ', clueId1 = ( Down, 14 ), clueId2 = Nothing }
+            , Item { value = Nothing, clueId1 = ( Down, 14 ), clueId2 = Nothing }
             , Black
-            , Item { value = ' ', clueId1 = ( Down, 18 ), clueId2 = Nothing }
+            , Item { value = Nothing, clueId1 = ( Down, 18 ), clueId2 = Nothing }
             , Black
-            , Item { value = ' ', clueId1 = ( Down, 22 ), clueId2 = Nothing }
+            , Item { value = Nothing, clueId1 = ( Down, 22 ), clueId2 = Nothing }
             , Black
-            , Item { value = ' ', clueId1 = ( Down, 20 ), clueId2 = Nothing }
+            , Item { value = Nothing, clueId1 = ( Down, 20 ), clueId2 = Nothing }
             , Black
-            , Item { value = ' ', clueId1 = ( Down, 23 ), clueId2 = Nothing }
+            , Item { value = Nothing, clueId1 = ( Down, 23 ), clueId2 = Nothing }
             , Black
-            , NumberedItem 26 { value = ' ', clueId1 = ( Across, 26 ), clueId2 = Nothing }
-            , Item { value = ' ', clueId1 = ( Across, 26 ), clueId2 = Just ( Down, 13 ) }
-            , Item { value = ' ', clueId1 = ( Across, 26 ), clueId2 = Nothing }
-            , Item { value = ' ', clueId1 = ( Across, 26 ), clueId2 = Just ( Down, 17 ) }
+            , NumberedItem 26 { value = Nothing, clueId1 = ( Across, 26 ), clueId2 = Nothing }
+            , Item { value = Nothing, clueId1 = ( Across, 26 ), clueId2 = Just ( Down, 13 ) }
+            , Item { value = Nothing, clueId1 = ( Across, 26 ), clueId2 = Nothing }
+            , Item { value = Nothing, clueId1 = ( Across, 26 ), clueId2 = Just ( Down, 17 ) }
             , Black
-            , NumberedItem 27 { value = ' ', clueId1 = ( Across, 27 ), clueId2 = Just ( Down, 14 ) }
-            , Item { value = ' ', clueId1 = ( Across, 27 ), clueId2 = Nothing }
-            , Item { value = ' ', clueId1 = ( Across, 27 ), clueId2 = Just ( Down, 18 ) }
-            , Item { value = ' ', clueId1 = ( Across, 27 ), clueId2 = Nothing }
-            , Item { value = ' ', clueId1 = ( Across, 27 ), clueId2 = Just ( Down, 22 ) }
-            , Item { value = ' ', clueId1 = ( Across, 27 ), clueId2 = Nothing }
-            , Item { value = ' ', clueId1 = ( Across, 27 ), clueId2 = Just ( Down, 20 ) }
-            , Item { value = ' ', clueId1 = ( Across, 27 ), clueId2 = Nothing }
-            , Item { value = ' ', clueId1 = ( Across, 27 ), clueId2 = Just ( Down, 23 ) }
+            , NumberedItem 27 { value = Nothing, clueId1 = ( Across, 27 ), clueId2 = Just ( Down, 14 ) }
+            , Item { value = Nothing, clueId1 = ( Across, 27 ), clueId2 = Nothing }
+            , Item { value = Nothing, clueId1 = ( Across, 27 ), clueId2 = Just ( Down, 18 ) }
+            , Item { value = Nothing, clueId1 = ( Across, 27 ), clueId2 = Nothing }
+            , Item { value = Nothing, clueId1 = ( Across, 27 ), clueId2 = Just ( Down, 22 ) }
+            , Item { value = Nothing, clueId1 = ( Across, 27 ), clueId2 = Nothing }
+            , Item { value = Nothing, clueId1 = ( Across, 27 ), clueId2 = Just ( Down, 20 ) }
+            , Item { value = Nothing, clueId1 = ( Across, 27 ), clueId2 = Nothing }
+            , Item { value = Nothing, clueId1 = ( Across, 27 ), clueId2 = Just ( Down, 23 ) }
             , Black
             ]
       }
@@ -451,9 +451,6 @@ calculateModelAfterFocus model index cellData =
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
-        Change _ ' ' ->
-            ( model, Cmd.none )
-
         Change index newContent ->
             let
                 nextIndex =
@@ -463,7 +460,7 @@ update msg model =
                     else
                         getDownWhiteIndex model
             in
-            ( { model | grid = updateGrid model.grid index newContent, currentIndex = nextIndex }, focusCell nextIndex )
+            ( { model | grid = updateGrid model.grid index (Just newContent), currentIndex = nextIndex }, focusCell nextIndex )
 
         Focus index cellData ->
             calculateModelAfterFocus model index cellData
@@ -476,6 +473,21 @@ update msg model =
 
         KeyTouched keyEventMsg ->
             case keyEventMsg of
+                BackspacePressed ->
+                    let
+                        currentCellChar =
+                            getCurrentCellChar model
+
+                        nextIndex =
+                            case currentCellChar of
+                                Nothing ->
+                                    getLeftWhiteIndex model.grid model.currentIndex
+
+                                _ ->
+                                    model.currentIndex
+                    in
+                    ( { model | currentIndex = nextIndex, grid = updateGrid model.grid model.currentIndex Nothing }, focusCell nextIndex )
+
                 TabPressed ->
                     if model.shiftHeld == True then
                         let
@@ -530,6 +542,23 @@ update msg model =
 
                 _ ->
                     ( model, Cmd.none )
+
+
+getCurrentCellChar : Model -> Maybe Char
+getCurrentCellChar model =
+    let
+        cell =
+            elementAtIndex model.currentIndex model.grid
+    in
+    case cell of
+        Just (Item cellData) ->
+            cellData.value
+
+        Just (NumberedItem _ cellData) ->
+            cellData.value
+
+        _ ->
+            Nothing
 
 
 getCurrentCell : Model -> Maybe CellData
@@ -683,7 +712,7 @@ isWhiteSquare cell =
             False
 
 
-updateGrid : Grid -> Int -> Char -> Grid
+updateGrid : Grid -> Int -> Maybe Char -> Grid
 updateGrid grid index newChar =
     grid
         |> List.Extra.updateIfIndex ((==) index)
@@ -898,7 +927,7 @@ getGridTemplate model =
 
 
 
--- NumberedItem 1 { value = ' ', clue1 = ( Across, 1 ), clue2 = Just ( Down, 1 ) }
+-- NumberedItem 1 { value = Nothing, clue1 = ( Across, 1 ), clue2 = Just ( Down, 1 ) }
 
 
 shouldHighlight : Model -> CellData -> Bool
@@ -911,6 +940,16 @@ shouldHighlight model cellData =
             cellData.clueId1 == model.currentClue
 
 
+charToString : Maybe Char -> String
+charToString char =
+    case char of
+        Just c ->
+            String.fromChar c
+
+        Nothing ->
+            ""
+
+
 viewCell : Cell -> Int -> String -> String -> String -> Bool -> Html Msg
 viewCell cell index border zIndex backgroundColor selected =
     case cell of
@@ -921,7 +960,7 @@ viewCell cell index border zIndex backgroundColor selected =
                 [ input
                     [ id (String.fromInt index)
                     , placeholder ""
-                    , value (String.fromChar cellData.value)
+                    , value (charToString cellData.value)
                     , onFocus (Focus index cellData)
                     , onClick (Click index cellData)
                     , style "text-transform" "uppercase"
@@ -969,7 +1008,7 @@ viewCell cell index border zIndex backgroundColor selected =
                         "position"
                         "relative"
                     , placeholder ""
-                    , value (String.fromChar cellData.value)
+                    , value (charToString cellData.value)
                     , onFocus (Focus index cellData)
                     , onClick (Click index cellData)
                     , style "border" border
@@ -1060,6 +1099,7 @@ type KeyEventMsg
     = KeyEventLetter Char
     | KeyEventUnknown String
     | TabPressed
+    | BackspacePressed
     | ShiftPressed
     | ShiftReleased
     | LeftPressed
@@ -1103,6 +1143,9 @@ keyPressedToKeyEventMsg eventKeyString =
 
         "Tab" ->
             TabPressed
+
+        "Backspace" ->
+            BackspacePressed
 
         "ArrowRight" ->
             RightPressed

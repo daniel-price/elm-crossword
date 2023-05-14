@@ -4776,25 +4776,25 @@ var $elm$core$Array$treeFromBuilder = F2(
 	});
 var $elm$core$Array$builderToArray = F2(
 	function (reverseNodeList, builder) {
-		if (!builder.k) {
+		if (!builder.l) {
 			return A4(
 				$elm$core$Array$Array_elm_builtin,
-				$elm$core$Elm$JsArray$length(builder.m),
+				$elm$core$Elm$JsArray$length(builder.n),
 				$elm$core$Array$shiftStep,
 				$elm$core$Elm$JsArray$empty,
-				builder.m);
+				builder.n);
 		} else {
-			var treeLen = builder.k * $elm$core$Array$branchFactor;
+			var treeLen = builder.l * $elm$core$Array$branchFactor;
 			var depth = $elm$core$Basics$floor(
 				A2($elm$core$Basics$logBase, $elm$core$Array$branchFactor, treeLen - 1));
-			var correctNodeList = reverseNodeList ? $elm$core$List$reverse(builder.n) : builder.n;
-			var tree = A2($elm$core$Array$treeFromBuilder, correctNodeList, builder.k);
+			var correctNodeList = reverseNodeList ? $elm$core$List$reverse(builder.o) : builder.o;
+			var tree = A2($elm$core$Array$treeFromBuilder, correctNodeList, builder.l);
 			return A4(
 				$elm$core$Array$Array_elm_builtin,
-				$elm$core$Elm$JsArray$length(builder.m) + treeLen,
+				$elm$core$Elm$JsArray$length(builder.n) + treeLen,
 				A2($elm$core$Basics$max, 5, depth * $elm$core$Array$shiftStep),
 				tree,
-				builder.m);
+				builder.n);
 		}
 	});
 var $elm$core$Basics$idiv = _Basics_idiv;
@@ -4807,7 +4807,7 @@ var $elm$core$Array$initializeHelp = F5(
 				return A2(
 					$elm$core$Array$builderToArray,
 					false,
-					{n: nodeList, k: (len / $elm$core$Array$branchFactor) | 0, m: tail});
+					{o: nodeList, l: (len / $elm$core$Array$branchFactor) | 0, n: tail});
 			} else {
 				var leaf = $elm$core$Array$Leaf(
 					A3($elm$core$Elm$JsArray$initialize, $elm$core$Array$branchFactor, fromIndex, fn));
@@ -5207,10 +5207,10 @@ var $author$project$Main$init = _Utils_Tuple2(
 		},
 		A: _Utils_Tuple2(0, 1),
 		aw: 0,
-		p: 0,
+		q: 0,
 		f: 0,
 		ax: 0,
-		r: _List_fromArray(
+		j: _List_fromArray(
 			[
 				$author$project$Main$Black,
 				A2(
@@ -5220,13 +5220,13 @@ var $author$project$Main$init = _Utils_Tuple2(
 					a: _Utils_Tuple2(0, 1),
 					b: $elm$core$Maybe$Just(
 						_Utils_Tuple2(1, 1)),
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(0, 1),
 					b: $elm$core$Maybe$Nothing,
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				A2(
 				$author$project$Main$NumberedItem,
@@ -5235,13 +5235,13 @@ var $author$project$Main$init = _Utils_Tuple2(
 					a: _Utils_Tuple2(0, 1),
 					b: $elm$core$Maybe$Just(
 						_Utils_Tuple2(1, 2)),
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(0, 1),
 					b: $elm$core$Maybe$Nothing,
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				A2(
 				$author$project$Main$NumberedItem,
@@ -5250,13 +5250,13 @@ var $author$project$Main$init = _Utils_Tuple2(
 					a: _Utils_Tuple2(0, 1),
 					b: $elm$core$Maybe$Just(
 						_Utils_Tuple2(1, 3)),
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(0, 1),
 					b: $elm$core$Maybe$Nothing,
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				A2(
 				$author$project$Main$NumberedItem,
@@ -5265,13 +5265,13 @@ var $author$project$Main$init = _Utils_Tuple2(
 					a: _Utils_Tuple2(0, 1),
 					b: $elm$core$Maybe$Just(
 						_Utils_Tuple2(1, 4)),
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(0, 1),
 					b: $elm$core$Maybe$Nothing,
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				A2(
 				$author$project$Main$NumberedItem,
@@ -5280,7 +5280,7 @@ var $author$project$Main$init = _Utils_Tuple2(
 					a: _Utils_Tuple2(0, 1),
 					b: $elm$core$Maybe$Just(
 						_Utils_Tuple2(1, 5)),
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Black,
 				A2(
@@ -5290,13 +5290,13 @@ var $author$project$Main$init = _Utils_Tuple2(
 					a: _Utils_Tuple2(0, 6),
 					b: $elm$core$Maybe$Just(
 						_Utils_Tuple2(1, 6)),
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(0, 6),
 					b: $elm$core$Maybe$Nothing,
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				A2(
 				$author$project$Main$NumberedItem,
@@ -5305,62 +5305,62 @@ var $author$project$Main$init = _Utils_Tuple2(
 					a: _Utils_Tuple2(0, 6),
 					b: $elm$core$Maybe$Just(
 						_Utils_Tuple2(1, 7)),
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(0, 6),
 					b: $elm$core$Maybe$Nothing,
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Black,
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(1, 1),
 					b: $elm$core$Maybe$Nothing,
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Black,
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(1, 2),
 					b: $elm$core$Maybe$Nothing,
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Black,
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(1, 3),
 					b: $elm$core$Maybe$Nothing,
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Black,
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(1, 4),
 					b: $elm$core$Maybe$Nothing,
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Black,
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(1, 5),
 					b: $elm$core$Maybe$Nothing,
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Black,
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(1, 6),
 					b: $elm$core$Maybe$Nothing,
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Black,
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(1, 7),
 					b: $elm$core$Maybe$Nothing,
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Black,
 				A2(
@@ -5369,53 +5369,53 @@ var $author$project$Main$init = _Utils_Tuple2(
 				{
 					a: _Utils_Tuple2(0, 8),
 					b: $elm$core$Maybe$Nothing,
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(0, 8),
 					b: $elm$core$Maybe$Just(
 						_Utils_Tuple2(1, 1)),
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(0, 8),
 					b: $elm$core$Maybe$Nothing,
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(0, 8),
 					b: $elm$core$Maybe$Just(
 						_Utils_Tuple2(1, 2)),
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(0, 8),
 					b: $elm$core$Maybe$Nothing,
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(0, 8),
 					b: $elm$core$Maybe$Just(
 						_Utils_Tuple2(1, 3)),
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(0, 8),
 					b: $elm$core$Maybe$Nothing,
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(0, 8),
 					b: $elm$core$Maybe$Just(
 						_Utils_Tuple2(1, 4)),
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Black,
 				A2(
@@ -5425,88 +5425,88 @@ var $author$project$Main$init = _Utils_Tuple2(
 					a: _Utils_Tuple2(0, 9),
 					b: $elm$core$Maybe$Just(
 						_Utils_Tuple2(1, 5)),
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(0, 9),
 					b: $elm$core$Maybe$Nothing,
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(0, 9),
 					b: $elm$core$Maybe$Just(
 						_Utils_Tuple2(1, 6)),
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(0, 9),
 					b: $elm$core$Maybe$Nothing,
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(0, 9),
 					b: $elm$core$Maybe$Just(
 						_Utils_Tuple2(1, 7)),
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(0, 9),
 					b: $elm$core$Maybe$Nothing,
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Black,
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(1, 1),
 					b: $elm$core$Maybe$Nothing,
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Black,
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(1, 2),
 					b: $elm$core$Maybe$Nothing,
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Black,
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(1, 3),
 					b: $elm$core$Maybe$Nothing,
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Black,
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(1, 4),
 					b: $elm$core$Maybe$Nothing,
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Black,
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(1, 5),
 					b: $elm$core$Maybe$Nothing,
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Black,
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(1, 6),
 					b: $elm$core$Maybe$Nothing,
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Black,
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(1, 7),
 					b: $elm$core$Maybe$Nothing,
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Black,
 				A2(
@@ -5515,40 +5515,40 @@ var $author$project$Main$init = _Utils_Tuple2(
 				{
 					a: _Utils_Tuple2(0, 10),
 					b: $elm$core$Maybe$Nothing,
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(0, 10),
 					b: $elm$core$Maybe$Just(
 						_Utils_Tuple2(1, 1)),
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(0, 10),
 					b: $elm$core$Maybe$Nothing,
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(0, 10),
 					b: $elm$core$Maybe$Just(
 						_Utils_Tuple2(1, 2)),
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(0, 10),
 					b: $elm$core$Maybe$Nothing,
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(0, 10),
 					b: $elm$core$Maybe$Just(
 						_Utils_Tuple2(1, 3)),
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Black,
 				A2(
@@ -5558,52 +5558,52 @@ var $author$project$Main$init = _Utils_Tuple2(
 					a: _Utils_Tuple2(0, 11),
 					b: $elm$core$Maybe$Just(
 						_Utils_Tuple2(1, 4)),
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(0, 11),
 					b: $elm$core$Maybe$Nothing,
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(0, 11),
 					b: $elm$core$Maybe$Just(
 						_Utils_Tuple2(1, 5)),
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(0, 11),
 					b: $elm$core$Maybe$Nothing,
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(0, 11),
 					b: $elm$core$Maybe$Just(
 						_Utils_Tuple2(1, 6)),
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(0, 11),
 					b: $elm$core$Maybe$Nothing,
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(0, 11),
 					b: $elm$core$Maybe$Just(
 						_Utils_Tuple2(1, 7)),
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(0, 11),
 					b: $elm$core$Maybe$Nothing,
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Black,
 				$author$project$Main$Black,
@@ -5612,7 +5612,7 @@ var $author$project$Main$init = _Utils_Tuple2(
 				{
 					a: _Utils_Tuple2(1, 2),
 					b: $elm$core$Maybe$Nothing,
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Black,
 				$author$project$Main$Black,
@@ -5621,28 +5621,28 @@ var $author$project$Main$init = _Utils_Tuple2(
 				{
 					a: _Utils_Tuple2(1, 4),
 					b: $elm$core$Maybe$Nothing,
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Black,
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(1, 5),
 					b: $elm$core$Maybe$Nothing,
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Black,
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(1, 6),
 					b: $elm$core$Maybe$Nothing,
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Black,
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(1, 7),
 					b: $elm$core$Maybe$Nothing,
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Black,
 				A2(
@@ -5651,7 +5651,7 @@ var $author$project$Main$init = _Utils_Tuple2(
 				{
 					a: _Utils_Tuple2(0, 12),
 					b: $elm$core$Maybe$Nothing,
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				A2(
 				$author$project$Main$NumberedItem,
@@ -5660,26 +5660,26 @@ var $author$project$Main$init = _Utils_Tuple2(
 					a: _Utils_Tuple2(0, 12),
 					b: $elm$core$Maybe$Just(
 						_Utils_Tuple2(1, 13)),
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(0, 12),
 					b: $elm$core$Maybe$Nothing,
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(0, 12),
 					b: $elm$core$Maybe$Just(
 						_Utils_Tuple2(1, 2)),
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(0, 12),
 					b: $elm$core$Maybe$Nothing,
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				A2(
 				$author$project$Main$NumberedItem,
@@ -5688,7 +5688,7 @@ var $author$project$Main$init = _Utils_Tuple2(
 					a: _Utils_Tuple2(0, 12),
 					b: $elm$core$Maybe$Just(
 						_Utils_Tuple2(1, 14)),
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Black,
 				A2(
@@ -5698,59 +5698,59 @@ var $author$project$Main$init = _Utils_Tuple2(
 					a: _Utils_Tuple2(0, 15),
 					b: $elm$core$Maybe$Just(
 						_Utils_Tuple2(1, 4)),
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(0, 15),
 					b: $elm$core$Maybe$Nothing,
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(0, 15),
 					b: $elm$core$Maybe$Just(
 						_Utils_Tuple2(1, 5)),
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(0, 15),
 					b: $elm$core$Maybe$Nothing,
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(0, 15),
 					b: $elm$core$Maybe$Just(
 						_Utils_Tuple2(1, 6)),
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(0, 15),
 					b: $elm$core$Maybe$Nothing,
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(0, 15),
 					b: $elm$core$Maybe$Just(
 						_Utils_Tuple2(1, 7)),
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(0, 15),
 					b: $elm$core$Maybe$Nothing,
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Black,
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(1, 13),
 					b: $elm$core$Maybe$Nothing,
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Black,
 				$author$project$Main$Black,
@@ -5759,7 +5759,7 @@ var $author$project$Main$init = _Utils_Tuple2(
 				{
 					a: _Utils_Tuple2(1, 14),
 					b: $elm$core$Maybe$Nothing,
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Black,
 				$author$project$Main$Black,
@@ -5768,7 +5768,7 @@ var $author$project$Main$init = _Utils_Tuple2(
 				{
 					a: _Utils_Tuple2(1, 5),
 					b: $elm$core$Maybe$Nothing,
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Black,
 				$author$project$Main$Black,
@@ -5777,7 +5777,7 @@ var $author$project$Main$init = _Utils_Tuple2(
 				{
 					a: _Utils_Tuple2(1, 7),
 					b: $elm$core$Maybe$Nothing,
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Black,
 				A2(
@@ -5786,20 +5786,20 @@ var $author$project$Main$init = _Utils_Tuple2(
 				{
 					a: _Utils_Tuple2(0, 16),
 					b: $elm$core$Maybe$Nothing,
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(0, 16),
 					b: $elm$core$Maybe$Just(
 						_Utils_Tuple2(1, 13)),
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(0, 16),
 					b: $elm$core$Maybe$Nothing,
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				A2(
 				$author$project$Main$NumberedItem,
@@ -5808,26 +5808,26 @@ var $author$project$Main$init = _Utils_Tuple2(
 					a: _Utils_Tuple2(0, 16),
 					b: $elm$core$Maybe$Just(
 						_Utils_Tuple2(1, 17)),
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(0, 16),
 					b: $elm$core$Maybe$Nothing,
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(0, 16),
 					b: $elm$core$Maybe$Just(
 						_Utils_Tuple2(1, 14)),
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(0, 16),
 					b: $elm$core$Maybe$Nothing,
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				A2(
 				$author$project$Main$NumberedItem,
@@ -5836,7 +5836,7 @@ var $author$project$Main$init = _Utils_Tuple2(
 					a: _Utils_Tuple2(0, 16),
 					b: $elm$core$Maybe$Just(
 						_Utils_Tuple2(1, 18)),
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Black,
 				A2(
@@ -5846,13 +5846,13 @@ var $author$project$Main$init = _Utils_Tuple2(
 					a: _Utils_Tuple2(0, 19),
 					b: $elm$core$Maybe$Just(
 						_Utils_Tuple2(1, 5)),
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(0, 19),
 					b: $elm$core$Maybe$Nothing,
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				A2(
 				$author$project$Main$NumberedItem,
@@ -5861,54 +5861,54 @@ var $author$project$Main$init = _Utils_Tuple2(
 					a: _Utils_Tuple2(0, 19),
 					b: $elm$core$Maybe$Just(
 						_Utils_Tuple2(1, 20)),
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(0, 19),
 					b: $elm$core$Maybe$Nothing,
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(0, 19),
 					b: $elm$core$Maybe$Just(
 						_Utils_Tuple2(1, 7)),
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(0, 19),
 					b: $elm$core$Maybe$Nothing,
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Black,
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(1, 13),
 					b: $elm$core$Maybe$Nothing,
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Black,
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(1, 17),
 					b: $elm$core$Maybe$Nothing,
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Black,
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(1, 14),
 					b: $elm$core$Maybe$Nothing,
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Black,
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(1, 18),
 					b: $elm$core$Maybe$Nothing,
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Black,
 				$author$project$Main$Black,
@@ -5917,7 +5917,7 @@ var $author$project$Main$init = _Utils_Tuple2(
 				{
 					a: _Utils_Tuple2(1, 20),
 					b: $elm$core$Maybe$Nothing,
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Black,
 				$author$project$Main$Black,
@@ -5928,53 +5928,53 @@ var $author$project$Main$init = _Utils_Tuple2(
 				{
 					a: _Utils_Tuple2(0, 21),
 					b: $elm$core$Maybe$Nothing,
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(0, 21),
 					b: $elm$core$Maybe$Just(
 						_Utils_Tuple2(1, 13)),
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(0, 21),
 					b: $elm$core$Maybe$Nothing,
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(0, 21),
 					b: $elm$core$Maybe$Just(
 						_Utils_Tuple2(1, 17)),
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(0, 21),
 					b: $elm$core$Maybe$Nothing,
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(0, 21),
 					b: $elm$core$Maybe$Just(
 						_Utils_Tuple2(1, 14)),
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(0, 21),
 					b: $elm$core$Maybe$Nothing,
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(0, 21),
 					b: $elm$core$Maybe$Just(
 						_Utils_Tuple2(1, 18)),
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Black,
 				A2(
@@ -5984,26 +5984,26 @@ var $author$project$Main$init = _Utils_Tuple2(
 					a: _Utils_Tuple2(0, 22),
 					b: $elm$core$Maybe$Just(
 						_Utils_Tuple2(1, 22)),
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(0, 22),
 					b: $elm$core$Maybe$Nothing,
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(0, 22),
 					b: $elm$core$Maybe$Just(
 						_Utils_Tuple2(1, 20)),
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(0, 22),
 					b: $elm$core$Maybe$Nothing,
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				A2(
 				$author$project$Main$NumberedItem,
@@ -6012,62 +6012,62 @@ var $author$project$Main$init = _Utils_Tuple2(
 					a: _Utils_Tuple2(0, 22),
 					b: $elm$core$Maybe$Just(
 						_Utils_Tuple2(1, 23)),
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(0, 22),
 					b: $elm$core$Maybe$Nothing,
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Black,
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(1, 13),
 					b: $elm$core$Maybe$Nothing,
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Black,
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(1, 17),
 					b: $elm$core$Maybe$Nothing,
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Black,
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(1, 14),
 					b: $elm$core$Maybe$Nothing,
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Black,
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(1, 18),
 					b: $elm$core$Maybe$Nothing,
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Black,
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(1, 22),
 					b: $elm$core$Maybe$Nothing,
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Black,
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(1, 20),
 					b: $elm$core$Maybe$Nothing,
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Black,
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(1, 23),
 					b: $elm$core$Maybe$Nothing,
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Black,
 				A2(
@@ -6076,40 +6076,40 @@ var $author$project$Main$init = _Utils_Tuple2(
 				{
 					a: _Utils_Tuple2(0, 24),
 					b: $elm$core$Maybe$Nothing,
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(0, 24),
 					b: $elm$core$Maybe$Just(
 						_Utils_Tuple2(1, 13)),
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(0, 24),
 					b: $elm$core$Maybe$Nothing,
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(0, 24),
 					b: $elm$core$Maybe$Just(
 						_Utils_Tuple2(1, 17)),
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(0, 24),
 					b: $elm$core$Maybe$Nothing,
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(0, 24),
 					b: $elm$core$Maybe$Just(
 						_Utils_Tuple2(1, 14)),
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Black,
 				A2(
@@ -6119,101 +6119,101 @@ var $author$project$Main$init = _Utils_Tuple2(
 					a: _Utils_Tuple2(0, 25),
 					b: $elm$core$Maybe$Just(
 						_Utils_Tuple2(1, 18)),
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(0, 25),
 					b: $elm$core$Maybe$Nothing,
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(0, 25),
 					b: $elm$core$Maybe$Just(
 						_Utils_Tuple2(1, 22)),
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(0, 25),
 					b: $elm$core$Maybe$Nothing,
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(0, 25),
 					b: $elm$core$Maybe$Just(
 						_Utils_Tuple2(1, 20)),
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(0, 25),
 					b: $elm$core$Maybe$Nothing,
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(0, 25),
 					b: $elm$core$Maybe$Just(
 						_Utils_Tuple2(1, 23)),
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(0, 25),
 					b: $elm$core$Maybe$Nothing,
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Black,
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(1, 13),
 					b: $elm$core$Maybe$Nothing,
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Black,
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(1, 17),
 					b: $elm$core$Maybe$Nothing,
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Black,
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(1, 14),
 					b: $elm$core$Maybe$Nothing,
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Black,
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(1, 18),
 					b: $elm$core$Maybe$Nothing,
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Black,
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(1, 22),
 					b: $elm$core$Maybe$Nothing,
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Black,
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(1, 20),
 					b: $elm$core$Maybe$Nothing,
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Black,
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(1, 23),
 					b: $elm$core$Maybe$Nothing,
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Black,
 				A2(
@@ -6222,27 +6222,27 @@ var $author$project$Main$init = _Utils_Tuple2(
 				{
 					a: _Utils_Tuple2(0, 26),
 					b: $elm$core$Maybe$Nothing,
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(0, 26),
 					b: $elm$core$Maybe$Just(
 						_Utils_Tuple2(1, 13)),
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(0, 26),
 					b: $elm$core$Maybe$Nothing,
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(0, 26),
 					b: $elm$core$Maybe$Just(
 						_Utils_Tuple2(1, 17)),
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Black,
 				A2(
@@ -6252,59 +6252,59 @@ var $author$project$Main$init = _Utils_Tuple2(
 					a: _Utils_Tuple2(0, 27),
 					b: $elm$core$Maybe$Just(
 						_Utils_Tuple2(1, 14)),
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(0, 27),
 					b: $elm$core$Maybe$Nothing,
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(0, 27),
 					b: $elm$core$Maybe$Just(
 						_Utils_Tuple2(1, 18)),
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(0, 27),
 					b: $elm$core$Maybe$Nothing,
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(0, 27),
 					b: $elm$core$Maybe$Just(
 						_Utils_Tuple2(1, 22)),
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(0, 27),
 					b: $elm$core$Maybe$Nothing,
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(0, 27),
 					b: $elm$core$Maybe$Just(
 						_Utils_Tuple2(1, 20)),
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(0, 27),
 					b: $elm$core$Maybe$Nothing,
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Item(
 				{
 					a: _Utils_Tuple2(0, 27),
 					b: $elm$core$Maybe$Just(
 						_Utils_Tuple2(1, 23)),
-					c: ' '
+					c: $elm$core$Maybe$Nothing
 				}),
 				$author$project$Main$Black
 			]),
@@ -6325,18 +6325,19 @@ var $elm$core$Basics$composeR = F3(
 			f(x));
 	});
 var $elm$json$Json$Decode$field = _Json_decodeField;
+var $author$project$Main$BackspacePressed = {$: 3};
 var $author$project$Main$KeyEventLetter = function (a) {
 	return {$: 0, a: a};
 };
 var $author$project$Main$KeyEventUnknown = function (a) {
 	return {$: 1, a: a};
 };
-var $author$project$Main$KeyPressed = {$: 8};
-var $author$project$Main$LeftPressed = {$: 5};
-var $author$project$Main$RightPressed = {$: 6};
-var $author$project$Main$ShiftPressed = {$: 3};
+var $author$project$Main$KeyPressed = {$: 9};
+var $author$project$Main$LeftPressed = {$: 6};
+var $author$project$Main$RightPressed = {$: 7};
+var $author$project$Main$ShiftPressed = {$: 4};
 var $author$project$Main$TabPressed = {$: 2};
-var $author$project$Main$UpPressed = {$: 7};
+var $author$project$Main$UpPressed = {$: 8};
 var $author$project$Main$keyPressedToKeyEventMsg = function (eventKeyString) {
 	switch (eventKeyString) {
 		case 'ArrowLeft':
@@ -6345,6 +6346,8 @@ var $author$project$Main$keyPressedToKeyEventMsg = function (eventKeyString) {
 			return $author$project$Main$ShiftPressed;
 		case 'Tab':
 			return $author$project$Main$TabPressed;
+		case 'Backspace':
+			return $author$project$Main$BackspacePressed;
 		case 'ArrowRight':
 			return $author$project$Main$RightPressed;
 		case 'ArrowUp':
@@ -6368,7 +6371,7 @@ var $author$project$Main$keyPressedDecoder = A2(
 	$elm$json$Json$Decode$map,
 	A2($elm$core$Basics$composeR, $author$project$Main$keyPressedToKeyEventMsg, $author$project$Main$KeyTouched),
 	A2($elm$json$Json$Decode$field, 'key', $elm$json$Json$Decode$string));
-var $author$project$Main$ShiftReleased = {$: 4};
+var $author$project$Main$ShiftReleased = {$: 5};
 var $author$project$Main$keyReleasedToKeyEventMsg = function (eventKeyString) {
 	if (eventKeyString === 'Shift') {
 		return $author$project$Main$ShiftReleased;
@@ -6799,7 +6802,7 @@ var $author$project$Main$calculateModelAfterClick = F3(
 		var newDirection = function () {
 			var _v1 = cellData.b;
 			if (!_v1.$) {
-				return (model.p === 1) ? 0 : 1;
+				return (model.q === 1) ? 0 : 1;
 			} else {
 				return cellData.a.a;
 			}
@@ -6821,7 +6824,7 @@ var $author$project$Main$calculateModelAfterClick = F3(
 							}
 						}
 					}(),
-					p: newDirection,
+					q: newDirection,
 					f: index
 				}),
 			$elm$core$Platform$Cmd$none);
@@ -6831,7 +6834,7 @@ var $author$project$Main$calculateModelAfterFocus = F3(
 		var newDirection = function () {
 			var _v1 = cellData.b;
 			if (!_v1.$) {
-				return model.p;
+				return model.q;
 			} else {
 				return cellData.a.a;
 			}
@@ -6853,7 +6856,7 @@ var $author$project$Main$calculateModelAfterFocus = F3(
 							}
 						}
 					}(),
-					p: newDirection,
+					q: newDirection,
 					f: index
 				}),
 			$elm$core$Platform$Cmd$none);
@@ -6892,80 +6895,16 @@ var $author$project$Main$focusCell = function (index) {
 		$elm$browser$Browser$Dom$focus(
 			$elm$core$String$fromInt(index)));
 };
-var $elm$core$Basics$modBy = _Basics_modBy;
-var $author$project$Main$getColumnNumber = F2(
-	function (numberOfColumns, index) {
-		return A2($elm$core$Basics$modBy, numberOfColumns, index) + 1;
-	});
-var $author$project$Main$currentColumnNumber = function (model) {
-	return A2($author$project$Main$getColumnNumber, model.aq, model.f);
-};
-var $author$project$Main$getRowNumber = F2(
-	function (numberOfColumns, index) {
-		return $elm$core$Basics$floor(index / numberOfColumns) + 1;
-	});
-var $author$project$Main$currentRowNumber = function (model) {
-	return A2($author$project$Main$getRowNumber, model.aq, model.f);
-};
-var $elm_community$list_extra$List$Extra$findIndexHelp = F3(
-	function (index, predicate, list) {
-		findIndexHelp:
-		while (true) {
-			if (!list.b) {
-				return $elm$core$Maybe$Nothing;
-			} else {
-				var x = list.a;
-				var xs = list.b;
-				if (predicate(x)) {
-					return $elm$core$Maybe$Just(index);
-				} else {
-					var $temp$index = index + 1,
-						$temp$predicate = predicate,
-						$temp$list = xs;
-					index = $temp$index;
-					predicate = $temp$predicate;
-					list = $temp$list;
-					continue findIndexHelp;
-				}
-			}
-		}
-	});
-var $elm_community$list_extra$List$Extra$findIndex = $elm_community$list_extra$List$Extra$findIndexHelp(0);
-var $author$project$Main$isWhiteSquare = function (cell) {
-	switch (cell.$) {
-		case 0:
-			return true;
-		case 1:
-			return true;
-		default:
-			return false;
+var $elm$core$Basics$ge = _Utils_ge;
+var $elm$core$List$head = function (list) {
+	if (list.b) {
+		var x = list.a;
+		var xs = list.b;
+		return $elm$core$Maybe$Just(x);
+	} else {
+		return $elm$core$Maybe$Nothing;
 	}
 };
-var $elm$core$Tuple$second = function (_v0) {
-	var y = _v0.b;
-	return y;
-};
-var $elm$core$List$drop = F2(
-	function (n, list) {
-		drop:
-		while (true) {
-			if (n <= 0) {
-				return list;
-			} else {
-				if (!list.b) {
-					return list;
-				} else {
-					var x = list.a;
-					var xs = list.b;
-					var $temp$n = n - 1,
-						$temp$list = xs;
-					n = $temp$n;
-					list = $temp$list;
-					continue drop;
-				}
-			}
-		}
-	});
 var $elm$core$List$takeReverse = F3(
 	function (n, list, kept) {
 		takeReverse:
@@ -7092,6 +7031,110 @@ var $elm$core$List$take = F2(
 	function (n, list) {
 		return A3($elm$core$List$takeFast, 0, n, list);
 	});
+var $author$project$Main$elementAtIndex = F2(
+	function (index, list) {
+		return (_Utils_cmp(
+			$elm$core$List$length(list),
+			index) > -1) ? $elm$core$List$head(
+			$elm$core$List$reverse(
+				A2($elm$core$List$take, index, list))) : $elm$core$Maybe$Nothing;
+	});
+var $author$project$Main$getCurrentCellChar = function (model) {
+	var cell = A2($author$project$Main$elementAtIndex, model.f, model.j);
+	_v0$2:
+	while (true) {
+		if (!cell.$) {
+			switch (cell.a.$) {
+				case 0:
+					var cellData = cell.a.a;
+					return cellData.c;
+				case 1:
+					var _v1 = cell.a;
+					var cellData = _v1.b;
+					return cellData.c;
+				default:
+					break _v0$2;
+			}
+		} else {
+			break _v0$2;
+		}
+	}
+	return $elm$core$Maybe$Nothing;
+};
+var $elm$core$Basics$modBy = _Basics_modBy;
+var $author$project$Main$getColumnNumber = F2(
+	function (numberOfColumns, index) {
+		return A2($elm$core$Basics$modBy, numberOfColumns, index) + 1;
+	});
+var $author$project$Main$currentColumnNumber = function (model) {
+	return A2($author$project$Main$getColumnNumber, model.aq, model.f);
+};
+var $author$project$Main$getRowNumber = F2(
+	function (numberOfColumns, index) {
+		return $elm$core$Basics$floor(index / numberOfColumns) + 1;
+	});
+var $author$project$Main$currentRowNumber = function (model) {
+	return A2($author$project$Main$getRowNumber, model.aq, model.f);
+};
+var $elm_community$list_extra$List$Extra$findIndexHelp = F3(
+	function (index, predicate, list) {
+		findIndexHelp:
+		while (true) {
+			if (!list.b) {
+				return $elm$core$Maybe$Nothing;
+			} else {
+				var x = list.a;
+				var xs = list.b;
+				if (predicate(x)) {
+					return $elm$core$Maybe$Just(index);
+				} else {
+					var $temp$index = index + 1,
+						$temp$predicate = predicate,
+						$temp$list = xs;
+					index = $temp$index;
+					predicate = $temp$predicate;
+					list = $temp$list;
+					continue findIndexHelp;
+				}
+			}
+		}
+	});
+var $elm_community$list_extra$List$Extra$findIndex = $elm_community$list_extra$List$Extra$findIndexHelp(0);
+var $author$project$Main$isWhiteSquare = function (cell) {
+	switch (cell.$) {
+		case 0:
+			return true;
+		case 1:
+			return true;
+		default:
+			return false;
+	}
+};
+var $elm$core$Tuple$second = function (_v0) {
+	var y = _v0.b;
+	return y;
+};
+var $elm$core$List$drop = F2(
+	function (n, list) {
+		drop:
+		while (true) {
+			if (n <= 0) {
+				return list;
+			} else {
+				if (!list.b) {
+					return list;
+				} else {
+					var x = list.a;
+					var xs = list.b;
+					var $temp$n = n - 1,
+						$temp$list = xs;
+					n = $temp$n;
+					list = $temp$list;
+					continue drop;
+				}
+			}
+		}
+	});
 var $elm_community$list_extra$List$Extra$splitAt = F2(
 	function (n, xs) {
 		return _Utils_Tuple2(
@@ -7115,7 +7158,7 @@ var $author$project$Main$takeEveryNthIndexesFromIndex = F3(
 var $author$project$Main$getDownWhiteIndex = function (model) {
 	var rowNumber = $author$project$Main$currentRowNumber(model);
 	var columnNumber = $author$project$Main$currentColumnNumber(model);
-	var columnSquares = A3($author$project$Main$takeEveryNthIndexesFromIndex, model.Y, columnNumber, model.r);
+	var columnSquares = A3($author$project$Main$takeEveryNthIndexesFromIndex, model.Y, columnNumber, model.j);
 	var columnsDown = A2($elm_community$list_extra$List$Extra$splitAt, rowNumber, columnSquares).b;
 	var index = A2($elm_community$list_extra$List$Extra$findIndex, $author$project$Main$isWhiteSquare, columnsDown);
 	if (!index.$) {
@@ -7151,7 +7194,7 @@ var $author$project$Main$getRightWhiteIndex = F2(
 var $author$project$Main$getUpWhiteIndex = function (model) {
 	var rowNumber = $author$project$Main$currentRowNumber(model);
 	var columnNumber = $author$project$Main$currentColumnNumber(model);
-	var columnSquares = A3($author$project$Main$takeEveryNthIndexesFromIndex, model.Y, columnNumber, model.r);
+	var columnSquares = A3($author$project$Main$takeEveryNthIndexesFromIndex, model.Y, columnNumber, model.j);
 	var columnsUp = $elm$core$List$reverse(
 		A2($elm_community$list_extra$List$Extra$splitAt, rowNumber - 1, columnSquares).a);
 	var index = A2($elm_community$list_extra$List$Extra$findIndex, $author$project$Main$isWhiteSquare, columnsUp);
@@ -7206,21 +7249,21 @@ var $author$project$Main$update = F2(
 		while (true) {
 			switch (msg.$) {
 				case 0:
-					if (' ' === msg.b) {
-						return _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
-					} else {
-						var index = msg.a;
-						var newContent = msg.b;
-						var nextIndex = (!model.p) ? A2($author$project$Main$getRightWhiteIndex, model.r, index) : $author$project$Main$getDownWhiteIndex(model);
-						return _Utils_Tuple2(
-							_Utils_update(
-								model,
-								{
-									f: nextIndex,
-									r: A3($author$project$Main$updateGrid, model.r, index, newContent)
-								}),
-							$author$project$Main$focusCell(nextIndex));
-					}
+					var index = msg.a;
+					var newContent = msg.b;
+					var nextIndex = (!model.q) ? A2($author$project$Main$getRightWhiteIndex, model.j, index) : $author$project$Main$getDownWhiteIndex(model);
+					return _Utils_Tuple2(
+						_Utils_update(
+							model,
+							{
+								f: nextIndex,
+								j: A3(
+									$author$project$Main$updateGrid,
+									model.j,
+									index,
+									$elm$core$Maybe$Just(newContent))
+							}),
+						$author$project$Main$focusCell(nextIndex));
 				case 1:
 					var index = msg.a;
 					var cellData = msg.b;
@@ -7234,61 +7277,78 @@ var $author$project$Main$update = F2(
 				default:
 					var keyEventMsg = msg.a;
 					switch (keyEventMsg.$) {
+						case 3:
+							var currentCellChar = $author$project$Main$getCurrentCellChar(model);
+							var nextIndex = function () {
+								if (currentCellChar.$ === 1) {
+									return A2($author$project$Main$getLeftWhiteIndex, model.j, model.f);
+								} else {
+									return model.f;
+								}
+							}();
+							return _Utils_Tuple2(
+								_Utils_update(
+									model,
+									{
+										f: nextIndex,
+										j: A3($author$project$Main$updateGrid, model.j, model.f, $elm$core$Maybe$Nothing)
+									}),
+								$author$project$Main$focusCell(nextIndex));
 						case 2:
 							if (model.ai) {
-								var nextIndex = A2($author$project$Main$getLeftWhiteIndex, model.r, model.f);
+								var nextIndex = A2($author$project$Main$getLeftWhiteIndex, model.j, model.f);
 								return _Utils_Tuple2(
 									_Utils_update(
 										model,
-										{p: 0, f: nextIndex}),
+										{q: 0, f: nextIndex}),
 									$author$project$Main$focusCell(nextIndex));
 							} else {
-								var nextIndex = A2($author$project$Main$getRightWhiteIndex, model.r, model.f);
+								var nextIndex = A2($author$project$Main$getRightWhiteIndex, model.j, model.f);
 								return _Utils_Tuple2(
 									_Utils_update(
 										model,
-										{p: 0, f: nextIndex}),
+										{q: 0, f: nextIndex}),
 									$author$project$Main$focusCell(nextIndex));
 							}
-						case 3:
+						case 4:
 							return _Utils_Tuple2(
 								_Utils_update(
 									model,
 									{ai: true}),
 								$elm$core$Platform$Cmd$none);
-						case 4:
+						case 5:
 							return _Utils_Tuple2(
 								_Utils_update(
 									model,
 									{ai: false}),
 								$elm$core$Platform$Cmd$none);
-						case 5:
-							var nextIndex = A2($author$project$Main$getLeftWhiteIndex, model.r, model.f);
-							return _Utils_Tuple2(
-								_Utils_update(
-									model,
-									{p: 0, f: nextIndex}),
-								$author$project$Main$focusCell(nextIndex));
 						case 6:
-							var nextIndex = A2($author$project$Main$getRightWhiteIndex, model.r, model.f);
+							var nextIndex = A2($author$project$Main$getLeftWhiteIndex, model.j, model.f);
 							return _Utils_Tuple2(
 								_Utils_update(
 									model,
-									{p: 0, f: nextIndex}),
+									{q: 0, f: nextIndex}),
 								$author$project$Main$focusCell(nextIndex));
 						case 7:
+							var nextIndex = A2($author$project$Main$getRightWhiteIndex, model.j, model.f);
+							return _Utils_Tuple2(
+								_Utils_update(
+									model,
+									{q: 0, f: nextIndex}),
+								$author$project$Main$focusCell(nextIndex));
+						case 8:
 							var nextIndex = $author$project$Main$getUpWhiteIndex(model);
 							return _Utils_Tuple2(
 								_Utils_update(
 									model,
-									{p: 1, f: nextIndex}),
+									{q: 1, f: nextIndex}),
 								$author$project$Main$focusCell(nextIndex));
-						case 8:
+						case 9:
 							var nextIndex = $author$project$Main$getDownWhiteIndex(model);
 							return _Utils_Tuple2(
 								_Utils_update(
 									model,
-									{p: 1, f: nextIndex}),
+									{q: 1, f: nextIndex}),
 								$author$project$Main$focusCell(nextIndex));
 						case 0:
 							var _char = keyEventMsg.a;
@@ -7342,24 +7402,6 @@ var $author$project$Main$cellDataToString = function (cellData) {
 			]));
 };
 var $elm$html$Html$div = _VirtualDom_node('div');
-var $elm$core$Basics$ge = _Utils_ge;
-var $elm$core$List$head = function (list) {
-	if (list.b) {
-		var x = list.a;
-		var xs = list.b;
-		return $elm$core$Maybe$Just(x);
-	} else {
-		return $elm$core$Maybe$Nothing;
-	}
-};
-var $author$project$Main$elementAtIndex = F2(
-	function (index, list) {
-		return (_Utils_cmp(
-			$elm$core$List$length(list),
-			index) > -1) ? $elm$core$List$head(
-			$elm$core$List$reverse(
-				A2($elm$core$List$take, index, list))) : $elm$core$Maybe$Nothing;
-	});
 var $elm$virtual_dom$VirtualDom$style = _VirtualDom_style;
 var $elm$html$Html$Attributes$style = $elm$virtual_dom$VirtualDom$style;
 var $elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
@@ -7399,7 +7441,7 @@ var $author$project$Main$viewDebugInt = F2(
 	});
 var $author$project$Main$debug = function (model) {
 	var cellString = function () {
-		var _v0 = A2($author$project$Main$elementAtIndex, model.f + 1, model.r);
+		var _v0 = A2($author$project$Main$elementAtIndex, model.f + 1, model.j);
 		if (!_v0.$) {
 			switch (_v0.a.$) {
 				case 2:
@@ -7452,7 +7494,7 @@ var $author$project$Main$debug = function (model) {
 				A2(
 				$author$project$Main$viewDebug,
 				'currentDirection',
-				$author$project$Main$directionToString(model.p))
+				$author$project$Main$directionToString(model.q))
 			]));
 };
 var $elm$virtual_dom$VirtualDom$lazy2 = _VirtualDom_lazy2;
@@ -7513,7 +7555,7 @@ var $elm$core$String$fromFloat = _String_fromNumber;
 var $elm$core$Basics$sqrt = _Basics_sqrt;
 var $author$project$Main$getGridTemplate = function (model) {
 	var rowCount = $elm$core$Basics$sqrt(
-		$elm$core$List$length(model.r));
+		$elm$core$List$length(model.j));
 	var singleCellPercentage = 100 / rowCount;
 	return $elm$core$String$concat(
 		_List_fromArray(
@@ -7536,7 +7578,7 @@ var $author$project$Main$shouldHighlight = F2(
 		var _v0 = cellData.b;
 		if (!_v0.$) {
 			var x = _v0.a;
-			return (_Utils_eq(x, model.A) && _Utils_eq(x.a, model.p)) || _Utils_eq(cellData.a, model.A);
+			return (_Utils_eq(x, model.A) && _Utils_eq(x.a, model.q)) || _Utils_eq(cellData.a, model.A);
 		} else {
 			return _Utils_eq(cellData.a, model.A);
 		}
@@ -7552,6 +7594,14 @@ var $author$project$Main$Focus = F2(
 var $elm$core$String$cons = _String_cons;
 var $elm$core$String$fromChar = function (_char) {
 	return A2($elm$core$String$cons, _char, '');
+};
+var $author$project$Main$charToString = function (_char) {
+	if (!_char.$) {
+		var c = _char.a;
+		return $elm$core$String$fromChar(c);
+	} else {
+		return '';
+	}
 };
 var $elm$json$Json$Encode$string = _Json_wrap;
 var $elm$html$Html$Attributes$stringProperty = F2(
@@ -7609,7 +7659,7 @@ var $author$project$Main$viewCell = F6(
 									$elm$core$String$fromInt(index)),
 									$elm$html$Html$Attributes$placeholder(''),
 									$elm$html$Html$Attributes$value(
-									$elm$core$String$fromChar(cellData.c)),
+									$author$project$Main$charToString(cellData.c)),
 									$elm$html$Html$Events$onFocus(
 									A2($author$project$Main$Focus, index, cellData)),
 									$elm$html$Html$Events$onClick(
@@ -7667,7 +7717,7 @@ var $author$project$Main$viewCell = F6(
 									A2($elm$html$Html$Attributes$style, 'position', 'relative'),
 									$elm$html$Html$Attributes$placeholder(''),
 									$elm$html$Html$Attributes$value(
-									$elm$core$String$fromChar(cellData.c)),
+									$author$project$Main$charToString(cellData.c)),
 									$elm$html$Html$Events$onFocus(
 									A2($author$project$Main$Focus, index, cellData)),
 									$elm$html$Html$Events$onClick(
@@ -7742,7 +7792,7 @@ var $author$project$Main$viewGrid = function (model) {
 		A2(
 			$elm$core$List$indexedMap,
 			$author$project$Main$viewCellAndModel(model),
-			model.r));
+			model.j));
 };
 var $author$project$Main$viewPuzzle = function (model) {
 	return A2(
