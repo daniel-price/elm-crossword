@@ -825,7 +825,8 @@ viewClues model direction clues =
 
 viewClue : String -> ( Int, String ) -> Html Msg
 viewClue backgroundColor clue =
-    div
+    Debug.log "viewClue"
+        div
         [ style "display" "flex"
         , style "flex-direction" "row"
         , style "background-color" backgroundColor
@@ -897,102 +898,179 @@ shouldHighlight model cellData =
             cellData.clueId1 == model.currentClue
 
 
-viewCell : Cell -> Int -> Html.Attribute Msg -> Html.Attribute Msg -> String -> Bool -> Html Msg
+
+-- viewCell1 : Cell -> Int -> Html.Attribute Msg -> Html.Attribute Msg -> String -> Bool -> Html Msg
+-- viewCell1 cell index border zIndex backgroundColor selected =
+
+
+viewCell1 : Cell -> Int -> string -> Html Msg
+viewCell1 cell index string =
+    Debug.log (String.concat [ "viewCell1 " ])
+        (case cell of
+            Item cellData ->
+                div
+                    [ style "position" "relative"
+                    ]
+                    [ input
+                        [ id (String.fromInt index)
+                        , placeholder ""
+                        , value cellData.value
+                        , onInput (Change index)
+                        , onFocus (Focus index cellData)
+                        , onClick (Click index cellData)
+                        , style "text-transform" "uppercase"
+                        , style "box-sizing" "border-box"
+                        , style "position" "relative"
+                        , style "outline" "none"
+                        , style "text-align" "center"
+                        , style "font-size" "20px"
+                        , style "font-weight" "bold"
+                        , style "background" "transparent"
+                        , style "height" "50px"
+                        , style "width" "50px"
+                        ]
+                        []
+                    ]
+
+            NumberedItem number cellData ->
+                div
+                    [ style "position" "relative"
+                    ]
+                    [ div
+                        [ style "position" "absolute"
+                        , style "z-index" "20"
+                        ]
+                        [ text (String.fromInt number)
+                        ]
+                    , input
+                        [ id (String.fromInt index)
+                        , style
+                            "position"
+                            "relative"
+                        , placeholder ""
+                        , value cellData.value
+                        , onInput (Change index)
+                        , onFocus (Focus index cellData)
+                        , onClick (Click index cellData)
+                        , style "text-transform" "uppercase"
+                        , style "box-sizing" "border-box"
+                        , style "outline" "none"
+                        , style "text-align" "center"
+                        , style "font-size" "20px"
+                        , style "font-weight" "bold"
+                        , style "background" "transparent"
+                        , style "width" "50px"
+                        , style "height" "50px"
+                        ]
+                        []
+                    ]
+
+            Black ->
+                div
+                    [ style "background-color" "black"
+                    ]
+                    []
+        )
+
+
+viewCell : Cell -> Int -> String -> String -> String -> Bool -> Html Msg
 viewCell cell index border zIndex backgroundColor selected =
-    case cell of
-        Item cellData ->
-            div
-                [ style "position" "relative"
-                ]
-                [ input
-                    [ id (String.fromInt index)
-                    , placeholder ""
-                    , value cellData.value
-                    , onInput (Change index)
-                    , onFocus (Focus index cellData)
-                    , onClick (Click index cellData)
-                    , style "text-transform" "uppercase"
-                    , style "box-sizing" "border-box"
-                    , border
-                    , zIndex
-                    , style "position" "relative"
-                    , style "outline" "none"
-                    , style "text-align" "center"
-                    , style "font-size" "20px"
-                    , style "font-weight" "bold"
-                    , style "background" "transparent"
-                    , style "height" "50px"
-                    , style "width" "50px"
-                    , style "background-color" backgroundColor
-                    , if selected then
-                        style "outline" "3px solid DodgerBlue"
+    Debug.log (String.concat [ "viewCell ", String.fromInt index, " " ])
+        (case cell of
+            Item cellData ->
+                div
+                    [ style "position" "relative"
+                    ]
+                    [ input
+                        [ id (String.fromInt index)
+                        , placeholder ""
+                        , value cellData.value
+                        , onInput (Change index)
+                        , onFocus (Focus index cellData)
+                        , onClick (Click index cellData)
+                        , style "text-transform" "uppercase"
+                        , style "box-sizing" "border-box"
+                        , style "border" border
+                        , style "z-index" zIndex
+                        , style "position" "relative"
+                        , style "outline" "none"
+                        , style "text-align" "center"
+                        , style "font-size" "20px"
+                        , style "font-weight" "bold"
+                        , style "background" "transparent"
+                        , style "height" "50px"
+                        , style "width" "50px"
+                        , style "background-color" backgroundColor
+                        , if selected then
+                            style "outline" "3px solid DodgerBlue"
 
-                      else
-                        style "outline" "0px"
-                    , style "border-width"
-                        (if selected then
-                            "3px"
+                          else
+                            style "outline" "0px"
+                        , style "border-width"
+                            (if selected then
+                                "3px"
 
-                         else
-                            "1px"
-                        )
+                             else
+                                "1px"
+                            )
+                        ]
+                        []
+                    ]
+
+            NumberedItem number cellData ->
+                div
+                    [ style "position" "relative"
+                    ]
+                    [ div
+                        [ style "position" "absolute"
+                        , style "z-index" "20"
+                        ]
+                        [ text (String.fromInt number)
+                        ]
+                    , input
+                        [ id (String.fromInt index)
+                        , style
+                            "position"
+                            "relative"
+                        , placeholder ""
+                        , value cellData.value
+                        , onInput (Change index)
+                        , onFocus (Focus index cellData)
+                        , onClick (Click index cellData)
+                        , style "border" border
+                        , style "z-index" zIndex
+                        , style "text-transform" "uppercase"
+                        , style "box-sizing" "border-box"
+                        , style "outline" "none"
+                        , style "text-align" "center"
+                        , style "font-size" "20px"
+                        , style "font-weight" "bold"
+                        , style "background" "transparent"
+                        , style "width" "50px"
+                        , style "height" "50px"
+                        , style "background-color" backgroundColor
+                        , if selected then
+                            style "outline" "3px solid DodgerBlue"
+
+                          else
+                            style "outline" "0px"
+                        , style "border-width"
+                            (if selected then
+                                "3px"
+
+                             else
+                                "1px"
+                            )
+                        ]
+                        []
+                    ]
+
+            Black ->
+                div
+                    [ style "background-color" "black"
                     ]
                     []
-                ]
-
-        NumberedItem number cellData ->
-            div
-                [ style "position" "relative"
-                ]
-                [ div
-                    [ style "position" "absolute"
-                    , style "z-index" "20"
-                    ]
-                    [ text (String.fromInt number)
-                    ]
-                , input
-                    [ id (String.fromInt index)
-                    , style
-                        "position"
-                        "relative"
-                    , placeholder ""
-                    , value cellData.value
-                    , onInput (Change index)
-                    , onFocus (Focus index cellData)
-                    , onClick (Click index cellData)
-                    , border
-                    , zIndex
-                    , style "text-transform" "uppercase"
-                    , style "box-sizing" "border-box"
-                    , style "outline" "none"
-                    , style "text-align" "center"
-                    , style "font-size" "20px"
-                    , style "font-weight" "bold"
-                    , style "background" "transparent"
-                    , style "width" "50px"
-                    , style "height" "50px"
-                    , style "background-color" backgroundColor
-                    , if selected then
-                        style "outline" "3px solid DodgerBlue"
-
-                      else
-                        style "outline" "0px"
-                    , style "border-width"
-                        (if selected then
-                            "3px"
-
-                         else
-                            "1px"
-                        )
-                    ]
-                    []
-                ]
-
-        Black ->
-            div
-                [ style "background-color" "black"
-                ]
-                []
+        )
 
 
 viewCellAndModel : Model -> Int -> Cell -> Html Msg
@@ -1021,17 +1099,17 @@ viewCellAndModel model index cell =
 
         zIndex =
             if selected then
-                style "z-index" "10"
+                "10"
 
             else
-                style "z-index" "1"
+                "1"
 
         border =
             if selected then
-                style "border" "3px solid DodgerBlue"
+                "3px solid DodgerBlue"
 
             else
-                style "border" "0px solid black"
+                "0px solid black"
     in
     Html.Lazy.lazy6 viewCell cell index border zIndex backgroundColor selected
 

@@ -7501,7 +7501,9 @@ var $elm$virtual_dom$VirtualDom$lazy2 = _VirtualDom_lazy2;
 var $elm$html$Html$Lazy$lazy2 = $elm$virtual_dom$VirtualDom$lazy2;
 var $author$project$Main$viewClue = F2(
 	function (backgroundColor, clue) {
-		return A2(
+		return A4(
+			$elm$core$Debug$log,
+			'viewClue',
 			$elm$html$Html$div,
 			_List_fromArray(
 				[
@@ -7663,124 +7665,135 @@ var $elm$html$Html$Attributes$placeholder = $elm$html$Html$Attributes$stringProp
 var $elm$html$Html$Attributes$value = $elm$html$Html$Attributes$stringProperty('value');
 var $author$project$Main$viewCell = F6(
 	function (cell, index, border, zIndex, backgroundColor, selected) {
-		switch (cell.$) {
-			case 'Item':
-				var cellData = cell.a;
-				return A2(
-					$elm$html$Html$div,
-					_List_fromArray(
-						[
-							A2($elm$html$Html$Attributes$style, 'position', 'relative')
-						]),
-					_List_fromArray(
-						[
-							A2(
-							$elm$html$Html$input,
-							_List_fromArray(
-								[
-									$elm$html$Html$Attributes$id(
-									$elm$core$String$fromInt(index)),
-									$elm$html$Html$Attributes$placeholder(''),
-									$elm$html$Html$Attributes$value(cellData.value),
-									$elm$html$Html$Events$onInput(
-									$author$project$Main$Change(index)),
-									$elm$html$Html$Events$onFocus(
-									A2($author$project$Main$Focus, index, cellData)),
-									$elm$html$Html$Events$onClick(
-									A2($author$project$Main$Click, index, cellData)),
-									A2($elm$html$Html$Attributes$style, 'text-transform', 'uppercase'),
-									A2($elm$html$Html$Attributes$style, 'box-sizing', 'border-box'),
-									border,
-									zIndex,
-									A2($elm$html$Html$Attributes$style, 'position', 'relative'),
-									A2($elm$html$Html$Attributes$style, 'outline', 'none'),
-									A2($elm$html$Html$Attributes$style, 'text-align', 'center'),
-									A2($elm$html$Html$Attributes$style, 'font-size', '20px'),
-									A2($elm$html$Html$Attributes$style, 'font-weight', 'bold'),
-									A2($elm$html$Html$Attributes$style, 'background', 'transparent'),
-									A2($elm$html$Html$Attributes$style, 'height', '50px'),
-									A2($elm$html$Html$Attributes$style, 'width', '50px'),
-									A2($elm$html$Html$Attributes$style, 'background-color', backgroundColor),
-									selected ? A2($elm$html$Html$Attributes$style, 'outline', '3px solid DodgerBlue') : A2($elm$html$Html$Attributes$style, 'outline', '0px'),
-									A2(
-									$elm$html$Html$Attributes$style,
-									'border-width',
-									selected ? '3px' : '1px')
-								]),
-							_List_Nil)
-						]));
-			case 'NumberedItem':
-				var number = cell.a;
-				var cellData = cell.b;
-				return A2(
-					$elm$html$Html$div,
-					_List_fromArray(
-						[
-							A2($elm$html$Html$Attributes$style, 'position', 'relative')
-						]),
-					_List_fromArray(
-						[
-							A2(
+		return A2(
+			$elm$core$Debug$log,
+			$elm$core$String$concat(
+				_List_fromArray(
+					[
+						'viewCell ',
+						$elm$core$String$fromInt(index),
+						' '
+					])),
+			function () {
+				switch (cell.$) {
+					case 'Item':
+						var cellData = cell.a;
+						return A2(
 							$elm$html$Html$div,
 							_List_fromArray(
 								[
-									A2($elm$html$Html$Attributes$style, 'position', 'absolute'),
-									A2($elm$html$Html$Attributes$style, 'z-index', '20')
+									A2($elm$html$Html$Attributes$style, 'position', 'relative')
 								]),
 							_List_fromArray(
 								[
-									$elm$html$Html$text(
-									$elm$core$String$fromInt(number))
-								])),
-							A2(
-							$elm$html$Html$input,
-							_List_fromArray(
-								[
-									$elm$html$Html$Attributes$id(
-									$elm$core$String$fromInt(index)),
-									A2($elm$html$Html$Attributes$style, 'position', 'relative'),
-									$elm$html$Html$Attributes$placeholder(''),
-									$elm$html$Html$Attributes$value(cellData.value),
-									$elm$html$Html$Events$onInput(
-									$author$project$Main$Change(index)),
-									$elm$html$Html$Events$onFocus(
-									A2($author$project$Main$Focus, index, cellData)),
-									$elm$html$Html$Events$onClick(
-									A2($author$project$Main$Click, index, cellData)),
-									border,
-									zIndex,
-									A2($elm$html$Html$Attributes$style, 'text-transform', 'uppercase'),
-									A2($elm$html$Html$Attributes$style, 'box-sizing', 'border-box'),
-									A2($elm$html$Html$Attributes$style, 'outline', 'none'),
-									A2($elm$html$Html$Attributes$style, 'text-align', 'center'),
-									A2($elm$html$Html$Attributes$style, 'font-size', '20px'),
-									A2($elm$html$Html$Attributes$style, 'font-weight', 'bold'),
-									A2($elm$html$Html$Attributes$style, 'background', 'transparent'),
-									A2($elm$html$Html$Attributes$style, 'width', '50px'),
-									A2($elm$html$Html$Attributes$style, 'height', '50px'),
-									A2($elm$html$Html$Attributes$style, 'background-color', backgroundColor),
-									selected ? A2($elm$html$Html$Attributes$style, 'outline', '3px solid DodgerBlue') : A2($elm$html$Html$Attributes$style, 'outline', '0px'),
 									A2(
-									$elm$html$Html$Attributes$style,
-									'border-width',
-									selected ? '3px' : '1px')
+									$elm$html$Html$input,
+									_List_fromArray(
+										[
+											$elm$html$Html$Attributes$id(
+											$elm$core$String$fromInt(index)),
+											$elm$html$Html$Attributes$placeholder(''),
+											$elm$html$Html$Attributes$value(cellData.value),
+											$elm$html$Html$Events$onInput(
+											$author$project$Main$Change(index)),
+											$elm$html$Html$Events$onFocus(
+											A2($author$project$Main$Focus, index, cellData)),
+											$elm$html$Html$Events$onClick(
+											A2($author$project$Main$Click, index, cellData)),
+											A2($elm$html$Html$Attributes$style, 'text-transform', 'uppercase'),
+											A2($elm$html$Html$Attributes$style, 'box-sizing', 'border-box'),
+											A2($elm$html$Html$Attributes$style, 'border', border),
+											A2($elm$html$Html$Attributes$style, 'z-index', zIndex),
+											A2($elm$html$Html$Attributes$style, 'position', 'relative'),
+											A2($elm$html$Html$Attributes$style, 'outline', 'none'),
+											A2($elm$html$Html$Attributes$style, 'text-align', 'center'),
+											A2($elm$html$Html$Attributes$style, 'font-size', '20px'),
+											A2($elm$html$Html$Attributes$style, 'font-weight', 'bold'),
+											A2($elm$html$Html$Attributes$style, 'background', 'transparent'),
+											A2($elm$html$Html$Attributes$style, 'height', '50px'),
+											A2($elm$html$Html$Attributes$style, 'width', '50px'),
+											A2($elm$html$Html$Attributes$style, 'background-color', backgroundColor),
+											selected ? A2($elm$html$Html$Attributes$style, 'outline', '3px solid DodgerBlue') : A2($elm$html$Html$Attributes$style, 'outline', '0px'),
+											A2(
+											$elm$html$Html$Attributes$style,
+											'border-width',
+											selected ? '3px' : '1px')
+										]),
+									_List_Nil)
+								]));
+					case 'NumberedItem':
+						var number = cell.a;
+						var cellData = cell.b;
+						return A2(
+							$elm$html$Html$div,
+							_List_fromArray(
+								[
+									A2($elm$html$Html$Attributes$style, 'position', 'relative')
 								]),
-							_List_Nil)
-						]));
-			default:
-				return A2(
-					$elm$html$Html$div,
-					_List_fromArray(
-						[
-							A2($elm$html$Html$Attributes$style, 'background-color', 'black')
-						]),
-					_List_Nil);
-		}
+							_List_fromArray(
+								[
+									A2(
+									$elm$html$Html$div,
+									_List_fromArray(
+										[
+											A2($elm$html$Html$Attributes$style, 'position', 'absolute'),
+											A2($elm$html$Html$Attributes$style, 'z-index', '20')
+										]),
+									_List_fromArray(
+										[
+											$elm$html$Html$text(
+											$elm$core$String$fromInt(number))
+										])),
+									A2(
+									$elm$html$Html$input,
+									_List_fromArray(
+										[
+											$elm$html$Html$Attributes$id(
+											$elm$core$String$fromInt(index)),
+											A2($elm$html$Html$Attributes$style, 'position', 'relative'),
+											$elm$html$Html$Attributes$placeholder(''),
+											$elm$html$Html$Attributes$value(cellData.value),
+											$elm$html$Html$Events$onInput(
+											$author$project$Main$Change(index)),
+											$elm$html$Html$Events$onFocus(
+											A2($author$project$Main$Focus, index, cellData)),
+											$elm$html$Html$Events$onClick(
+											A2($author$project$Main$Click, index, cellData)),
+											A2($elm$html$Html$Attributes$style, 'border', border),
+											A2($elm$html$Html$Attributes$style, 'z-index', zIndex),
+											A2($elm$html$Html$Attributes$style, 'text-transform', 'uppercase'),
+											A2($elm$html$Html$Attributes$style, 'box-sizing', 'border-box'),
+											A2($elm$html$Html$Attributes$style, 'outline', 'none'),
+											A2($elm$html$Html$Attributes$style, 'text-align', 'center'),
+											A2($elm$html$Html$Attributes$style, 'font-size', '20px'),
+											A2($elm$html$Html$Attributes$style, 'font-weight', 'bold'),
+											A2($elm$html$Html$Attributes$style, 'background', 'transparent'),
+											A2($elm$html$Html$Attributes$style, 'width', '50px'),
+											A2($elm$html$Html$Attributes$style, 'height', '50px'),
+											A2($elm$html$Html$Attributes$style, 'background-color', backgroundColor),
+											selected ? A2($elm$html$Html$Attributes$style, 'outline', '3px solid DodgerBlue') : A2($elm$html$Html$Attributes$style, 'outline', '0px'),
+											A2(
+											$elm$html$Html$Attributes$style,
+											'border-width',
+											selected ? '3px' : '1px')
+										]),
+									_List_Nil)
+								]));
+					default:
+						return A2(
+							$elm$html$Html$div,
+							_List_fromArray(
+								[
+									A2($elm$html$Html$Attributes$style, 'background-color', 'black')
+								]),
+							_List_Nil);
+				}
+			}());
 	});
 var $author$project$Main$viewCellAndModel = F3(
 	function (model, index, cell) {
 		var selected = _Utils_eq(index, model.currentIndex);
-		var zIndex = selected ? A2($elm$html$Html$Attributes$style, 'z-index', '10') : A2($elm$html$Html$Attributes$style, 'z-index', '1');
+		var zIndex = selected ? '10' : '1';
 		var highlight = function () {
 			switch (cell.$) {
 				case 'Black':
@@ -7793,7 +7806,7 @@ var $author$project$Main$viewCellAndModel = F3(
 					return A2($author$project$Main$shouldHighlight, model, cellData);
 			}
 		}();
-		var border = selected ? A2($elm$html$Html$Attributes$style, 'border', '3px solid DodgerBlue') : A2($elm$html$Html$Attributes$style, 'border', '0px solid black');
+		var border = selected ? '3px solid DodgerBlue' : '0px solid black';
 		var backgroundColor = highlight ? 'yellow' : 'white';
 		return A7($elm$html$Html$Lazy$lazy6, $author$project$Main$viewCell, cell, index, border, zIndex, backgroundColor, selected);
 	});
