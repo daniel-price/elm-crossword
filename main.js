@@ -1,17 +1,3 @@
-<!DOCTYPE HTML>
-<html>
-<head>
-  <meta charset="UTF-8">
-  <title>Main</title>
-  <style>body { padding: 0; margin: 0; }</style>
-</head>
-
-<body>
-
-<pre id="elm"></pre>
-
-<script>
-try {
 (function(scope){
 'use strict';
 
@@ -91,7 +77,7 @@ function A9(fun, a, b, c, d, e, f, g, h, i) {
   return fun.a === 9 ? fun.f(a, b, c, d, e, f, g, h, i) : fun(a)(b)(c)(d)(e)(f)(g)(h)(i);
 }
 
-console.warn('Compiled in DEV mode. Follow the advice at https://elm-lang.org/0.19.1/optimize for better performance and smaller assets.');
+
 
 
 // EQUALITY
@@ -127,7 +113,7 @@ function _Utils_eqHelp(x, y, depth, stack)
 		return true;
 	}
 
-	/**/
+	/**_UNUSED/
 	if (x.$ === 'Set_elm_builtin')
 	{
 		x = $elm$core$Set$toList(x);
@@ -140,7 +126,7 @@ function _Utils_eqHelp(x, y, depth, stack)
 	}
 	//*/
 
-	/**_UNUSED/
+	/**/
 	if (x.$ < 0)
 	{
 		x = $elm$core$Dict$toList(x);
@@ -175,7 +161,7 @@ function _Utils_cmp(x, y, ord)
 		return x === y ? /*EQ*/ 0 : x < y ? /*LT*/ -1 : /*GT*/ 1;
 	}
 
-	/**/
+	/**_UNUSED/
 	if (x instanceof String)
 	{
 		var a = x.valueOf();
@@ -184,10 +170,10 @@ function _Utils_cmp(x, y, ord)
 	}
 	//*/
 
-	/**_UNUSED/
+	/**/
 	if (typeof x.$ === 'undefined')
 	//*/
-	/**/
+	/**_UNUSED/
 	if (x.$[0] === '#')
 	//*/
 	{
@@ -217,17 +203,17 @@ var _Utils_compare = F2(function(x, y)
 
 // COMMON VALUES
 
-var _Utils_Tuple0_UNUSED = 0;
-var _Utils_Tuple0 = { $: '#0' };
+var _Utils_Tuple0 = 0;
+var _Utils_Tuple0_UNUSED = { $: '#0' };
 
-function _Utils_Tuple2_UNUSED(a, b) { return { a: a, b: b }; }
-function _Utils_Tuple2(a, b) { return { $: '#2', a: a, b: b }; }
+function _Utils_Tuple2(a, b) { return { a: a, b: b }; }
+function _Utils_Tuple2_UNUSED(a, b) { return { $: '#2', a: a, b: b }; }
 
-function _Utils_Tuple3_UNUSED(a, b, c) { return { a: a, b: b, c: c }; }
-function _Utils_Tuple3(a, b, c) { return { $: '#3', a: a, b: b, c: c }; }
+function _Utils_Tuple3(a, b, c) { return { a: a, b: b, c: c }; }
+function _Utils_Tuple3_UNUSED(a, b, c) { return { $: '#3', a: a, b: b, c: c }; }
 
-function _Utils_chr_UNUSED(c) { return c; }
-function _Utils_chr(c) { return new String(c); }
+function _Utils_chr(c) { return c; }
+function _Utils_chr_UNUSED(c) { return new String(c); }
 
 
 // RECORDS
@@ -278,11 +264,11 @@ function _Utils_ap(xs, ys)
 
 
 
-var _List_Nil_UNUSED = { $: 0 };
-var _List_Nil = { $: '[]' };
+var _List_Nil = { $: 0 };
+var _List_Nil_UNUSED = { $: '[]' };
 
-function _List_Cons_UNUSED(hd, tl) { return { $: 1, a: hd, b: tl }; }
-function _List_Cons(hd, tl) { return { $: '::', a: hd, b: tl }; }
+function _List_Cons(hd, tl) { return { $: 1, a: hd, b: tl }; }
+function _List_Cons_UNUSED(hd, tl) { return { $: '::', a: hd, b: tl }; }
 
 
 var _List_cons = F2(_List_Cons);
@@ -513,12 +499,12 @@ var _JsArray_appendN = F3(function(n, dest, source)
 
 // LOG
 
-var _Debug_log_UNUSED = F2(function(tag, value)
+var _Debug_log = F2(function(tag, value)
 {
 	return value;
 });
 
-var _Debug_log = F2(function(tag, value)
+var _Debug_log_UNUSED = F2(function(tag, value)
 {
 	console.log(tag + ': ' + _Debug_toString(value));
 	return value;
@@ -544,12 +530,12 @@ function _Debug_todoCase(moduleName, region, value)
 
 // TO STRING
 
-function _Debug_toString_UNUSED(value)
+function _Debug_toString(value)
 {
 	return '<internals>';
 }
 
-function _Debug_toString(value)
+function _Debug_toString_UNUSED(value)
 {
 	return _Debug_toAnsiString(false, value);
 }
@@ -734,13 +720,13 @@ function _Debug_toHexDigit(n)
 // CRASH
 
 
-function _Debug_crash_UNUSED(identifier)
+function _Debug_crash(identifier)
 {
 	throw new Error('https://github.com/elm/core/blob/1.0.0/hints/' + identifier + '.md');
 }
 
 
-function _Debug_crash(identifier, fact1, fact2, fact3, fact4)
+function _Debug_crash_UNUSED(identifier, fact1, fact2, fact3, fact4)
 {
 	switch(identifier)
 	{
@@ -798,11 +784,11 @@ function _Debug_crash(identifier, fact1, fact2, fact3, fact4)
 
 function _Debug_regionToString(region)
 {
-	if (region.start.line === region.end.line)
+	if (region.aI.ag === region.aZ.ag)
 	{
-		return 'on line ' + region.start.line;
+		return 'on line ' + region.aI.ag;
 	}
-	return 'on lines ' + region.start.line + ' through ' + region.end.line;
+	return 'on lines ' + region.aI.ag + ' through ' + region.aZ.ag;
 }
 
 
@@ -1226,7 +1212,7 @@ function _Char_toLocaleLower(char)
 
 
 
-/**/
+/**_UNUSED/
 function _Json_errorToString(error)
 {
 	return $elm$json$Json$Decode$errorToString(error);
@@ -1630,11 +1616,11 @@ var _Json_encode = F2(function(indentLevel, value)
 	return JSON.stringify(_Json_unwrap(value), null, indentLevel) + '';
 });
 
-function _Json_wrap(value) { return { $: 0, a: value }; }
-function _Json_unwrap(value) { return value.a; }
+function _Json_wrap_UNUSED(value) { return { $: 0, a: value }; }
+function _Json_unwrap_UNUSED(value) { return value.a; }
 
-function _Json_wrap_UNUSED(value) { return value; }
-function _Json_unwrap_UNUSED(value) { return value; }
+function _Json_wrap(value) { return value; }
+function _Json_unwrap(value) { return value; }
 
 function _Json_emptyArray() { return []; }
 function _Json_emptyObject() { return {}; }
@@ -1871,9 +1857,9 @@ var _Platform_worker = F4(function(impl, flagDecoder, debugMetadata, args)
 	return _Platform_initialize(
 		flagDecoder,
 		args,
-		impl.init,
-		impl.update,
-		impl.subscriptions,
+		impl.bX,
+		impl.co,
+		impl.cj,
 		function() { return function() {} }
 	);
 });
@@ -1886,7 +1872,7 @@ var _Platform_worker = F4(function(impl, flagDecoder, debugMetadata, args)
 function _Platform_initialize(flagDecoder, args, init, update, subscriptions, stepperBuilder)
 {
 	var result = A2(_Json_run, flagDecoder, _Json_wrap(args ? args['flags'] : undefined));
-	$elm$core$Result$isOk(result) || _Debug_crash(2 /**/, _Json_errorToString(result.a) /**/);
+	$elm$core$Result$isOk(result) || _Debug_crash(2 /**_UNUSED/, _Json_errorToString(result.a) /**/);
 	var managers = {};
 	var initPair = init(result.a);
 	var model = initPair.a;
@@ -2330,7 +2316,7 @@ function _Platform_setupIncomingPort(name, sendToApp)
 //
 
 
-function _Platform_export_UNUSED(exports)
+function _Platform_export(exports)
 {
 	scope['Elm']
 		? _Platform_mergeExportsProd(scope['Elm'], exports)
@@ -2351,7 +2337,7 @@ function _Platform_mergeExportsProd(obj, exports)
 }
 
 
-function _Platform_export(exports)
+function _Platform_export_UNUSED(exports)
 {
 	scope['Elm']
 		? _Platform_mergeExportsDebug('Elm', scope['Elm'], exports)
@@ -2391,10 +2377,10 @@ var _VirtualDom_init = F4(function(virtualNode, flagDecoder, debugMetadata, args
 {
 	// NOTE: this function needs _Platform_export available to work
 
-	/**_UNUSED/
+	/**/
 	var node = args['node'];
 	//*/
-	/**/
+	/**_UNUSED/
 	var node = args && args['node'] ? args['node'] : _Debug_crash(0);
 	//*/
 
@@ -2669,14 +2655,14 @@ function _VirtualDom_noInnerHtmlOrFormAction(key)
 function _VirtualDom_noJavaScriptUri(value)
 {
 	return _VirtualDom_RE_js.test(value)
-		? /**_UNUSED/''//*//**/'javascript:alert("This is an XSS vector. Please use ports or web components instead.")'//*/
+		? /**/''//*//**_UNUSED/'javascript:alert("This is an XSS vector. Please use ports or web components instead.")'//*/
 		: value;
 }
 
 function _VirtualDom_noJavaScriptOrHtmlUri(value)
 {
 	return _VirtualDom_RE_js_html.test(value)
-		? /**_UNUSED/''//*//**/'javascript:alert("This is an XSS vector. Please use ports or web components instead.")'//*/
+		? /**/''//*//**_UNUSED/'javascript:alert("This is an XSS vector. Please use ports or web components instead.")'//*/
 		: value;
 }
 
@@ -2684,7 +2670,7 @@ function _VirtualDom_noJavaScriptOrHtmlJson(value)
 {
 	return (typeof _Json_unwrap(value) === 'string' && _VirtualDom_RE_js_html.test(_Json_unwrap(value)))
 		? _Json_wrap(
-			/**_UNUSED/''//*//**/'javascript:alert("This is an XSS vector. Please use ports or web components instead.")'//*/
+			/**/''//*//**_UNUSED/'javascript:alert("This is an XSS vector. Please use ports or web components instead.")'//*/
 		) : value;
 }
 
@@ -2733,9 +2719,9 @@ var _VirtualDom_mapEventTuple = F2(function(func, tuple)
 var _VirtualDom_mapEventRecord = F2(function(func, record)
 {
 	return {
-		message: func(record.message),
-		stopPropagation: record.stopPropagation,
-		preventDefault: record.preventDefault
+		L: func(record.L),
+		aJ: record.aJ,
+		aF: record.aF
 	}
 });
 
@@ -3003,11 +2989,11 @@ function _VirtualDom_makeCallback(eventNode, initialHandler)
 		// 3 = Custom
 
 		var value = result.a;
-		var message = !tag ? value : tag < 3 ? value.a : value.message;
-		var stopPropagation = tag == 1 ? value.b : tag == 3 && value.stopPropagation;
+		var message = !tag ? value : tag < 3 ? value.a : value.L;
+		var stopPropagation = tag == 1 ? value.b : tag == 3 && value.aJ;
 		var currentEventNode = (
 			stopPropagation && event.stopPropagation(),
-			(tag == 2 ? value.b : tag == 3 && value.preventDefault) && event.preventDefault(),
+			(tag == 2 ? value.b : tag == 3 && value.aF) && event.preventDefault(),
 			eventNode
 		);
 		var tagger;
@@ -3957,15 +3943,15 @@ var _Browser_element = _Debugger_element || F4(function(impl, flagDecoder, debug
 	return _Platform_initialize(
 		flagDecoder,
 		args,
-		impl.init,
-		impl.update,
-		impl.subscriptions,
+		impl.bX,
+		impl.co,
+		impl.cj,
 		function(sendToApp, initialModel) {
-			var view = impl.view;
-			/**_UNUSED/
+			var view = impl.cp;
+			/**/
 			var domNode = args['node'];
 			//*/
-			/**/
+			/**_UNUSED/
 			var domNode = args && args['node'] ? args['node'] : _Debug_crash(0);
 			//*/
 			var currNode = _VirtualDom_virtualize(domNode);
@@ -3993,12 +3979,12 @@ var _Browser_document = _Debugger_document || F4(function(impl, flagDecoder, deb
 	return _Platform_initialize(
 		flagDecoder,
 		args,
-		impl.init,
-		impl.update,
-		impl.subscriptions,
+		impl.bX,
+		impl.co,
+		impl.cj,
 		function(sendToApp, initialModel) {
-			var divertHrefToApp = impl.setup && impl.setup(sendToApp)
-			var view = impl.view;
+			var divertHrefToApp = impl.aG && impl.aG(sendToApp)
+			var view = impl.cp;
 			var title = _VirtualDom_doc.title;
 			var bodyNode = _VirtualDom_doc.body;
 			var currNode = _VirtualDom_virtualize(bodyNode);
@@ -4006,12 +3992,12 @@ var _Browser_document = _Debugger_document || F4(function(impl, flagDecoder, deb
 			{
 				_VirtualDom_divertHrefToApp = divertHrefToApp;
 				var doc = view(model);
-				var nextNode = _VirtualDom_node('body')(_List_Nil)(doc.body);
+				var nextNode = _VirtualDom_node('body')(_List_Nil)(doc.bH);
 				var patches = _VirtualDom_diff(currNode, nextNode);
 				bodyNode = _VirtualDom_applyPatches(bodyNode, currNode, patches, sendToApp);
 				currNode = nextNode;
 				_VirtualDom_divertHrefToApp = 0;
-				(title !== doc.title) && (_VirtualDom_doc.title = title = doc.title);
+				(title !== doc.cm) && (_VirtualDom_doc.title = title = doc.cm);
 			});
 		}
 	);
@@ -4067,12 +4053,12 @@ function _Browser_makeAnimator(model, draw)
 
 function _Browser_application(impl)
 {
-	var onUrlChange = impl.onUrlChange;
-	var onUrlRequest = impl.onUrlRequest;
+	var onUrlChange = impl.ca;
+	var onUrlRequest = impl.cb;
 	var key = function() { key.a(onUrlChange(_Browser_getUrl())); };
 
 	return _Browser_document({
-		setup: function(sendToApp)
+		aG: function(sendToApp)
 		{
 			key.a = sendToApp;
 			_Browser_window.addEventListener('popstate', key);
@@ -4088,9 +4074,9 @@ function _Browser_application(impl)
 					var next = $elm$url$Url$fromString(href).a;
 					sendToApp(onUrlRequest(
 						(next
-							&& curr.protocol === next.protocol
-							&& curr.host === next.host
-							&& curr.port_.a === next.port_.a
+							&& curr.bk === next.bk
+							&& curr.a4 === next.a4
+							&& curr.bh.a === next.bh.a
 						)
 							? $elm$browser$Browser$Internal(next)
 							: $elm$browser$Browser$External(href)
@@ -4098,13 +4084,13 @@ function _Browser_application(impl)
 				}
 			});
 		},
-		init: function(flags)
+		bX: function(flags)
 		{
-			return A3(impl.init, flags, _Browser_getUrl(), key);
+			return A3(impl.bX, flags, _Browser_getUrl(), key);
 		},
-		view: impl.view,
-		update: impl.update,
-		subscriptions: impl.subscriptions
+		cp: impl.cp,
+		co: impl.co,
+		cj: impl.cj
 	});
 }
 
@@ -4170,17 +4156,17 @@ var _Browser_decodeEvent = F2(function(decoder, event)
 function _Browser_visibilityInfo()
 {
 	return (typeof _VirtualDom_doc.hidden !== 'undefined')
-		? { hidden: 'hidden', change: 'visibilitychange' }
+		? { bU: 'hidden', bK: 'visibilitychange' }
 		:
 	(typeof _VirtualDom_doc.mozHidden !== 'undefined')
-		? { hidden: 'mozHidden', change: 'mozvisibilitychange' }
+		? { bU: 'mozHidden', bK: 'mozvisibilitychange' }
 		:
 	(typeof _VirtualDom_doc.msHidden !== 'undefined')
-		? { hidden: 'msHidden', change: 'msvisibilitychange' }
+		? { bU: 'msHidden', bK: 'msvisibilitychange' }
 		:
 	(typeof _VirtualDom_doc.webkitHidden !== 'undefined')
-		? { hidden: 'webkitHidden', change: 'webkitvisibilitychange' }
-		: { hidden: 'hidden', change: 'visibilitychange' };
+		? { bU: 'webkitHidden', bK: 'webkitvisibilitychange' }
+		: { bU: 'hidden', bK: 'visibilitychange' };
 }
 
 
@@ -4261,12 +4247,12 @@ var _Browser_call = F2(function(functionName, id)
 function _Browser_getViewport()
 {
 	return {
-		scene: _Browser_getScene(),
-		viewport: {
-			x: _Browser_window.pageXOffset,
-			y: _Browser_window.pageYOffset,
-			width: _Browser_doc.documentElement.clientWidth,
-			height: _Browser_doc.documentElement.clientHeight
+		bp: _Browser_getScene(),
+		bx: {
+			bA: _Browser_window.pageXOffset,
+			bB: _Browser_window.pageYOffset,
+			bz: _Browser_doc.documentElement.clientWidth,
+			a3: _Browser_doc.documentElement.clientHeight
 		}
 	};
 }
@@ -4276,8 +4262,8 @@ function _Browser_getScene()
 	var body = _Browser_doc.body;
 	var elem = _Browser_doc.documentElement;
 	return {
-		width: Math.max(body.scrollWidth, body.offsetWidth, elem.scrollWidth, elem.offsetWidth, elem.clientWidth),
-		height: Math.max(body.scrollHeight, body.offsetHeight, elem.scrollHeight, elem.offsetHeight, elem.clientHeight)
+		bz: Math.max(body.scrollWidth, body.offsetWidth, elem.scrollWidth, elem.offsetWidth, elem.clientWidth),
+		a3: Math.max(body.scrollHeight, body.offsetHeight, elem.scrollHeight, elem.offsetHeight, elem.clientHeight)
 	};
 }
 
@@ -4300,15 +4286,15 @@ function _Browser_getViewportOf(id)
 	return _Browser_withNode(id, function(node)
 	{
 		return {
-			scene: {
-				width: node.scrollWidth,
-				height: node.scrollHeight
+			bp: {
+				bz: node.scrollWidth,
+				a3: node.scrollHeight
 			},
-			viewport: {
-				x: node.scrollLeft,
-				y: node.scrollTop,
-				width: node.clientWidth,
-				height: node.clientHeight
+			bx: {
+				bA: node.scrollLeft,
+				bB: node.scrollTop,
+				bz: node.clientWidth,
+				a3: node.clientHeight
 			}
 		};
 	});
@@ -4338,18 +4324,18 @@ function _Browser_getElement(id)
 		var x = _Browser_window.pageXOffset;
 		var y = _Browser_window.pageYOffset;
 		return {
-			scene: _Browser_getScene(),
-			viewport: {
-				x: x,
-				y: y,
-				width: _Browser_doc.documentElement.clientWidth,
-				height: _Browser_doc.documentElement.clientHeight
+			bp: _Browser_getScene(),
+			bx: {
+				bA: x,
+				bB: y,
+				bz: _Browser_doc.documentElement.clientWidth,
+				a3: _Browser_doc.documentElement.clientHeight
 			},
-			element: {
-				x: x + rect.left,
-				y: y + rect.top,
-				width: rect.width,
-				height: rect.height
+			bO: {
+				bA: x + rect.left,
+				bB: y + rect.top,
+				bz: rect.width,
+				a3: rect.height
 			}
 		};
 	});
@@ -4384,15 +4370,15 @@ function _Browser_load(url)
 		}
 	}));
 }
-var $elm$core$Basics$EQ = {$: 'EQ'};
-var $elm$core$Basics$GT = {$: 'GT'};
-var $elm$core$Basics$LT = {$: 'LT'};
+var $elm$core$Basics$EQ = 1;
+var $elm$core$Basics$GT = 2;
+var $elm$core$Basics$LT = 0;
 var $elm$core$List$cons = _List_cons;
 var $elm$core$Dict$foldr = F3(
 	function (func, acc, t) {
 		foldr:
 		while (true) {
-			if (t.$ === 'RBEmpty_elm_builtin') {
+			if (t.$ === -2) {
 				return acc;
 			} else {
 				var key = t.b;
@@ -4437,7 +4423,7 @@ var $elm$core$Dict$keys = function (dict) {
 		dict);
 };
 var $elm$core$Set$toList = function (_v0) {
-	var dict = _v0.a;
+	var dict = _v0;
 	return $elm$core$Dict$keys(dict);
 };
 var $elm$core$Elm$JsArray$foldr = _JsArray_foldr;
@@ -4447,7 +4433,7 @@ var $elm$core$Array$foldr = F3(
 		var tail = _v0.d;
 		var helper = F2(
 			function (node, acc) {
-				if (node.$ === 'SubTree') {
+				if (!node.$) {
 					var subTree = node.a;
 					return A3($elm$core$Elm$JsArray$foldr, helper, acc, subTree);
 				} else {
@@ -4465,32 +4451,32 @@ var $elm$core$Array$toList = function (array) {
 	return A3($elm$core$Array$foldr, $elm$core$List$cons, _List_Nil, array);
 };
 var $elm$core$Result$Err = function (a) {
-	return {$: 'Err', a: a};
+	return {$: 1, a: a};
 };
 var $elm$json$Json$Decode$Failure = F2(
 	function (a, b) {
-		return {$: 'Failure', a: a, b: b};
+		return {$: 3, a: a, b: b};
 	});
 var $elm$json$Json$Decode$Field = F2(
 	function (a, b) {
-		return {$: 'Field', a: a, b: b};
+		return {$: 0, a: a, b: b};
 	});
 var $elm$json$Json$Decode$Index = F2(
 	function (a, b) {
-		return {$: 'Index', a: a, b: b};
+		return {$: 1, a: a, b: b};
 	});
 var $elm$core$Result$Ok = function (a) {
-	return {$: 'Ok', a: a};
+	return {$: 0, a: a};
 };
 var $elm$json$Json$Decode$OneOf = function (a) {
-	return {$: 'OneOf', a: a};
+	return {$: 2, a: a};
 };
-var $elm$core$Basics$False = {$: 'False'};
+var $elm$core$Basics$False = 1;
 var $elm$core$Basics$add = _Basics_add;
 var $elm$core$Maybe$Just = function (a) {
-	return {$: 'Just', a: a};
+	return {$: 0, a: a};
 };
-var $elm$core$Maybe$Nothing = {$: 'Nothing'};
+var $elm$core$Maybe$Nothing = {$: 1};
 var $elm$core$String$all = _String_all;
 var $elm$core$Basics$and = _Basics_and;
 var $elm$core$Basics$append = _Utils_append;
@@ -4615,12 +4601,12 @@ var $elm$json$Json$Decode$errorToStringHelp = F2(
 		errorToStringHelp:
 		while (true) {
 			switch (error.$) {
-				case 'Field':
+				case 0:
 					var f = error.a;
 					var err = error.b;
 					var isSimple = function () {
 						var _v1 = $elm$core$String$uncons(f);
-						if (_v1.$ === 'Nothing') {
+						if (_v1.$ === 1) {
 							return false;
 						} else {
 							var _v2 = _v1.a;
@@ -4635,7 +4621,7 @@ var $elm$json$Json$Decode$errorToStringHelp = F2(
 					error = $temp$error;
 					context = $temp$context;
 					continue errorToStringHelp;
-				case 'Index':
+				case 1:
 					var i = error.a;
 					var err = error.b;
 					var indexName = '[' + ($elm$core$String$fromInt(i) + ']');
@@ -4644,7 +4630,7 @@ var $elm$json$Json$Decode$errorToStringHelp = F2(
 					error = $temp$error;
 					context = $temp$context;
 					continue errorToStringHelp;
-				case 'OneOf':
+				case 2:
 					var errors = error.a;
 					if (!errors.b) {
 						return 'Ran into a Json.Decode.oneOf with no possibilities' + function () {
@@ -4708,7 +4694,7 @@ var $elm$json$Json$Decode$errorToStringHelp = F2(
 var $elm$core$Array$branchFactor = 32;
 var $elm$core$Array$Array_elm_builtin = F4(
 	function (a, b, c, d) {
-		return {$: 'Array_elm_builtin', a: a, b: b, c: c, d: d};
+		return {$: 0, a: a, b: b, c: c, d: d};
 	});
 var $elm$core$Elm$JsArray$empty = _JsArray_empty;
 var $elm$core$Basics$ceiling = _Basics_ceiling;
@@ -4723,7 +4709,7 @@ var $elm$core$Array$shiftStep = $elm$core$Basics$ceiling(
 var $elm$core$Array$empty = A4($elm$core$Array$Array_elm_builtin, 0, $elm$core$Array$shiftStep, $elm$core$Elm$JsArray$empty, $elm$core$Elm$JsArray$empty);
 var $elm$core$Elm$JsArray$initialize = _JsArray_initialize;
 var $elm$core$Array$Leaf = function (a) {
-	return {$: 'Leaf', a: a};
+	return {$: 1, a: a};
 };
 var $elm$core$Basics$apL = F2(
 	function (f, x) {
@@ -4743,7 +4729,7 @@ var $elm$core$Basics$max = F2(
 	});
 var $elm$core$Basics$mul = _Basics_mul;
 var $elm$core$Array$SubTree = function (a) {
-	return {$: 'SubTree', a: a};
+	return {$: 0, a: a};
 };
 var $elm$core$Elm$JsArray$initializeFromList = _JsArray_initializeFromList;
 var $elm$core$Array$compressNodes = F2(
@@ -4790,25 +4776,25 @@ var $elm$core$Array$treeFromBuilder = F2(
 	});
 var $elm$core$Array$builderToArray = F2(
 	function (reverseNodeList, builder) {
-		if (!builder.nodeListSize) {
+		if (!builder.k) {
 			return A4(
 				$elm$core$Array$Array_elm_builtin,
-				$elm$core$Elm$JsArray$length(builder.tail),
+				$elm$core$Elm$JsArray$length(builder.m),
 				$elm$core$Array$shiftStep,
 				$elm$core$Elm$JsArray$empty,
-				builder.tail);
+				builder.m);
 		} else {
-			var treeLen = builder.nodeListSize * $elm$core$Array$branchFactor;
+			var treeLen = builder.k * $elm$core$Array$branchFactor;
 			var depth = $elm$core$Basics$floor(
 				A2($elm$core$Basics$logBase, $elm$core$Array$branchFactor, treeLen - 1));
-			var correctNodeList = reverseNodeList ? $elm$core$List$reverse(builder.nodeList) : builder.nodeList;
-			var tree = A2($elm$core$Array$treeFromBuilder, correctNodeList, builder.nodeListSize);
+			var correctNodeList = reverseNodeList ? $elm$core$List$reverse(builder.n) : builder.n;
+			var tree = A2($elm$core$Array$treeFromBuilder, correctNodeList, builder.k);
 			return A4(
 				$elm$core$Array$Array_elm_builtin,
-				$elm$core$Elm$JsArray$length(builder.tail) + treeLen,
+				$elm$core$Elm$JsArray$length(builder.m) + treeLen,
 				A2($elm$core$Basics$max, 5, depth * $elm$core$Array$shiftStep),
 				tree,
-				builder.tail);
+				builder.m);
 		}
 	});
 var $elm$core$Basics$idiv = _Basics_idiv;
@@ -4821,7 +4807,7 @@ var $elm$core$Array$initializeHelp = F5(
 				return A2(
 					$elm$core$Array$builderToArray,
 					false,
-					{nodeList: nodeList, nodeListSize: (len / $elm$core$Array$branchFactor) | 0, tail: tail});
+					{n: nodeList, k: (len / $elm$core$Array$branchFactor) | 0, m: tail});
 			} else {
 				var leaf = $elm$core$Array$Leaf(
 					A3($elm$core$Elm$JsArray$initialize, $elm$core$Array$branchFactor, fromIndex, fn));
@@ -4851,9 +4837,9 @@ var $elm$core$Array$initialize = F2(
 			return A5($elm$core$Array$initializeHelp, fn, initialFromIndex, len, _List_Nil, tail);
 		}
 	});
-var $elm$core$Basics$True = {$: 'True'};
+var $elm$core$Basics$True = 0;
 var $elm$core$Result$isOk = function (result) {
-	if (result.$ === 'Ok') {
+	if (!result.$) {
 		return true;
 	} else {
 		return false;
@@ -4864,33 +4850,31 @@ var $elm$json$Json$Decode$map2 = _Json_map2;
 var $elm$json$Json$Decode$succeed = _Json_succeed;
 var $elm$virtual_dom$VirtualDom$toHandlerInt = function (handler) {
 	switch (handler.$) {
-		case 'Normal':
+		case 0:
 			return 0;
-		case 'MayStopPropagation':
+		case 1:
 			return 1;
-		case 'MayPreventDefault':
+		case 2:
 			return 2;
 		default:
 			return 3;
 	}
 };
 var $elm$browser$Browser$External = function (a) {
-	return {$: 'External', a: a};
+	return {$: 1, a: a};
 };
 var $elm$browser$Browser$Internal = function (a) {
-	return {$: 'Internal', a: a};
+	return {$: 0, a: a};
 };
 var $elm$core$Basics$identity = function (x) {
 	return x;
 };
-var $elm$browser$Browser$Dom$NotFound = function (a) {
-	return {$: 'NotFound', a: a};
-};
-var $elm$url$Url$Http = {$: 'Http'};
-var $elm$url$Url$Https = {$: 'Https'};
+var $elm$browser$Browser$Dom$NotFound = $elm$core$Basics$identity;
+var $elm$url$Url$Http = 0;
+var $elm$url$Url$Https = 1;
 var $elm$url$Url$Url = F6(
 	function (protocol, host, port_, path, query, fragment) {
-		return {fragment: fragment, host: host, path: path, port_: port_, protocol: protocol, query: query};
+		return {a$: fragment, a4: host, bf: path, bh: port_, bk: protocol, bl: query};
 	});
 var $elm$core$String$contains = _String_contains;
 var $elm$core$String$length = _String_length;
@@ -4926,7 +4910,7 @@ var $elm$url$Url$chompBeforePath = F5(
 					var i = _v0.a;
 					var _v1 = $elm$core$String$toInt(
 						A2($elm$core$String$dropLeft, i + 1, str));
-					if (_v1.$ === 'Nothing') {
+					if (_v1.$ === 1) {
 						return $elm$core$Maybe$Nothing;
 					} else {
 						var port_ = _v1;
@@ -5009,26 +4993,24 @@ var $elm$core$String$startsWith = _String_startsWith;
 var $elm$url$Url$fromString = function (str) {
 	return A2($elm$core$String$startsWith, 'http://', str) ? A2(
 		$elm$url$Url$chompAfterProtocol,
-		$elm$url$Url$Http,
+		0,
 		A2($elm$core$String$dropLeft, 7, str)) : (A2($elm$core$String$startsWith, 'https://', str) ? A2(
 		$elm$url$Url$chompAfterProtocol,
-		$elm$url$Url$Https,
+		1,
 		A2($elm$core$String$dropLeft, 8, str)) : $elm$core$Maybe$Nothing);
 };
 var $elm$core$Basics$never = function (_v0) {
 	never:
 	while (true) {
-		var nvr = _v0.a;
+		var nvr = _v0;
 		var $temp$_v0 = nvr;
 		_v0 = $temp$_v0;
 		continue never;
 	}
 };
-var $elm$core$Task$Perform = function (a) {
-	return {$: 'Perform', a: a};
-};
+var $elm$core$Task$Perform = $elm$core$Basics$identity;
 var $elm$core$Task$succeed = _Scheduler_succeed;
-var $elm$core$Task$init = $elm$core$Task$succeed(_Utils_Tuple0);
+var $elm$core$Task$init = $elm$core$Task$succeed(0);
 var $elm$core$List$foldrHelper = F4(
 	function (fn, acc, ctr, ls) {
 		if (!ls.b) {
@@ -5134,7 +5116,7 @@ var $elm$core$Task$sequence = function (tasks) {
 var $elm$core$Platform$sendToApp = _Platform_sendToApp;
 var $elm$core$Task$spawnCmd = F2(
 	function (router, _v0) {
-		var task = _v0.a;
+		var task = _v0;
 		return _Scheduler_spawn(
 			A2(
 				$elm$core$Task$andThen,
@@ -5146,7 +5128,7 @@ var $elm$core$Task$onEffects = F3(
 		return A2(
 			$elm$core$Task$map,
 			function (_v0) {
-				return _Utils_Tuple0;
+				return 0;
 			},
 			$elm$core$Task$sequence(
 				A2(
@@ -5156,39 +5138,37 @@ var $elm$core$Task$onEffects = F3(
 	});
 var $elm$core$Task$onSelfMsg = F3(
 	function (_v0, _v1, _v2) {
-		return $elm$core$Task$succeed(_Utils_Tuple0);
+		return $elm$core$Task$succeed(0);
 	});
 var $elm$core$Task$cmdMap = F2(
 	function (tagger, _v0) {
-		var task = _v0.a;
-		return $elm$core$Task$Perform(
-			A2($elm$core$Task$map, tagger, task));
+		var task = _v0;
+		return A2($elm$core$Task$map, tagger, task);
 	});
 _Platform_effectManagers['Task'] = _Platform_createManager($elm$core$Task$init, $elm$core$Task$onEffects, $elm$core$Task$onSelfMsg, $elm$core$Task$cmdMap);
 var $elm$core$Task$command = _Platform_leaf('Task');
 var $elm$core$Task$perform = F2(
 	function (toMessage, task) {
 		return $elm$core$Task$command(
-			$elm$core$Task$Perform(
-				A2($elm$core$Task$map, toMessage, task)));
+			A2($elm$core$Task$map, toMessage, task));
 	});
 var $elm$browser$Browser$document = _Browser_document;
-var $author$project$Main$Across = {$: 'Across'};
-var $author$project$Main$Black = {$: 'Black'};
-var $author$project$Main$Down = {$: 'Down'};
+var $author$project$Main$Across = 0;
+var $author$project$Main$Black = {$: 2};
+var $author$project$Main$Down = 1;
 var $author$project$Main$Item = function (a) {
-	return {$: 'Item', a: a};
+	return {$: 0, a: a};
 };
 var $author$project$Main$NumberedItem = F2(
 	function (a, b) {
-		return {$: 'NumberedItem', a: a, b: b};
+		return {$: 1, a: a, b: b};
 	});
 var $elm$core$Platform$Cmd$batch = _Platform_batch;
 var $elm$core$Platform$Cmd$none = $elm$core$Platform$Cmd$batch(_List_Nil);
 var $author$project$Main$init = _Utils_Tuple2(
 	{
-		clues: {
-			across: _List_fromArray(
+		an: {
+			aO: _List_fromArray(
 				[
 					_Utils_Tuple2(1, 'Woman\'s tucked into ridiculously pricey dessert (6,3)'),
 					_Utils_Tuple2(6, 'Exercise with walks occasionally on top of a mountain (4)'),
@@ -5207,7 +5187,7 @@ var $author$project$Main$init = _Utils_Tuple2(
 					_Utils_Tuple2(26, 'Jam\'s without sharpness (4)'),
 					_Utils_Tuple2(27, 'Reportedly praise soldiers protecting former PM and civic dignitary (4,5)')
 				]),
-			down: _List_fromArray(
+			aY: _List_fromArray(
 				[
 					_Utils_Tuple2(1, 'Scold child with proof of age he\'s defaced (5)'),
 					_Utils_Tuple2(2, 'Allocate English vessel to take on board a Royal Marine (7)'),
@@ -5225,719 +5205,719 @@ var $author$project$Main$init = _Utils_Tuple2(
 					_Utils_Tuple2(23, 'Stun with outrageous rates (5)')
 				])
 		},
-		currentClue: _Utils_Tuple2($author$project$Main$Across, 1),
-		currentColumn: 0,
-		currentDirection: $author$project$Main$Across,
-		currentIndex: 0,
-		currentRow: 0,
-		grid: _List_fromArray(
+		A: _Utils_Tuple2(0, 1),
+		aw: 0,
+		q: 0,
+		f: 0,
+		ax: 0,
+		p: _List_fromArray(
 			[
 				$author$project$Main$Black,
 				A2(
 				$author$project$Main$NumberedItem,
 				1,
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 1),
-					clueId2: $elm$core$Maybe$Just(
-						_Utils_Tuple2($author$project$Main$Down, 1)),
-					value: ''
+					a: _Utils_Tuple2(0, 1),
+					b: $elm$core$Maybe$Just(
+						_Utils_Tuple2(1, 1)),
+					c: ''
 				}),
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 1),
-					clueId2: $elm$core$Maybe$Nothing,
-					value: ''
+					a: _Utils_Tuple2(0, 1),
+					b: $elm$core$Maybe$Nothing,
+					c: ''
 				}),
 				A2(
 				$author$project$Main$NumberedItem,
 				2,
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 1),
-					clueId2: $elm$core$Maybe$Just(
-						_Utils_Tuple2($author$project$Main$Down, 2)),
-					value: ''
+					a: _Utils_Tuple2(0, 1),
+					b: $elm$core$Maybe$Just(
+						_Utils_Tuple2(1, 2)),
+					c: ''
 				}),
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 1),
-					clueId2: $elm$core$Maybe$Nothing,
-					value: ''
+					a: _Utils_Tuple2(0, 1),
+					b: $elm$core$Maybe$Nothing,
+					c: ''
 				}),
 				A2(
 				$author$project$Main$NumberedItem,
 				3,
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 1),
-					clueId2: $elm$core$Maybe$Just(
-						_Utils_Tuple2($author$project$Main$Down, 3)),
-					value: ''
+					a: _Utils_Tuple2(0, 1),
+					b: $elm$core$Maybe$Just(
+						_Utils_Tuple2(1, 3)),
+					c: ''
 				}),
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 1),
-					clueId2: $elm$core$Maybe$Nothing,
-					value: ''
+					a: _Utils_Tuple2(0, 1),
+					b: $elm$core$Maybe$Nothing,
+					c: ''
 				}),
 				A2(
 				$author$project$Main$NumberedItem,
 				4,
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 1),
-					clueId2: $elm$core$Maybe$Just(
-						_Utils_Tuple2($author$project$Main$Down, 4)),
-					value: ''
+					a: _Utils_Tuple2(0, 1),
+					b: $elm$core$Maybe$Just(
+						_Utils_Tuple2(1, 4)),
+					c: ''
 				}),
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 1),
-					clueId2: $elm$core$Maybe$Nothing,
-					value: ''
+					a: _Utils_Tuple2(0, 1),
+					b: $elm$core$Maybe$Nothing,
+					c: ''
 				}),
 				A2(
 				$author$project$Main$NumberedItem,
 				5,
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 1),
-					clueId2: $elm$core$Maybe$Just(
-						_Utils_Tuple2($author$project$Main$Down, 5)),
-					value: ''
+					a: _Utils_Tuple2(0, 1),
+					b: $elm$core$Maybe$Just(
+						_Utils_Tuple2(1, 5)),
+					c: ''
 				}),
 				$author$project$Main$Black,
 				A2(
 				$author$project$Main$NumberedItem,
 				6,
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 6),
-					clueId2: $elm$core$Maybe$Just(
-						_Utils_Tuple2($author$project$Main$Down, 6)),
-					value: ''
+					a: _Utils_Tuple2(0, 6),
+					b: $elm$core$Maybe$Just(
+						_Utils_Tuple2(1, 6)),
+					c: ''
 				}),
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 6),
-					clueId2: $elm$core$Maybe$Nothing,
-					value: ''
+					a: _Utils_Tuple2(0, 6),
+					b: $elm$core$Maybe$Nothing,
+					c: ''
 				}),
 				A2(
 				$author$project$Main$NumberedItem,
 				7,
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 6),
-					clueId2: $elm$core$Maybe$Just(
-						_Utils_Tuple2($author$project$Main$Down, 7)),
-					value: ''
+					a: _Utils_Tuple2(0, 6),
+					b: $elm$core$Maybe$Just(
+						_Utils_Tuple2(1, 7)),
+					c: ''
 				}),
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 6),
-					clueId2: $elm$core$Maybe$Nothing,
-					value: ''
-				}),
-				$author$project$Main$Black,
-				$author$project$Main$Item(
-				{
-					clueId1: _Utils_Tuple2($author$project$Main$Down, 1),
-					clueId2: $elm$core$Maybe$Nothing,
-					value: ''
+					a: _Utils_Tuple2(0, 6),
+					b: $elm$core$Maybe$Nothing,
+					c: ''
 				}),
 				$author$project$Main$Black,
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Down, 2),
-					clueId2: $elm$core$Maybe$Nothing,
-					value: ''
+					a: _Utils_Tuple2(1, 1),
+					b: $elm$core$Maybe$Nothing,
+					c: ''
 				}),
 				$author$project$Main$Black,
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Down, 3),
-					clueId2: $elm$core$Maybe$Nothing,
-					value: ''
+					a: _Utils_Tuple2(1, 2),
+					b: $elm$core$Maybe$Nothing,
+					c: ''
 				}),
 				$author$project$Main$Black,
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Down, 4),
-					clueId2: $elm$core$Maybe$Nothing,
-					value: ''
+					a: _Utils_Tuple2(1, 3),
+					b: $elm$core$Maybe$Nothing,
+					c: ''
 				}),
 				$author$project$Main$Black,
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Down, 5),
-					clueId2: $elm$core$Maybe$Nothing,
-					value: ''
+					a: _Utils_Tuple2(1, 4),
+					b: $elm$core$Maybe$Nothing,
+					c: ''
 				}),
 				$author$project$Main$Black,
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Down, 6),
-					clueId2: $elm$core$Maybe$Nothing,
-					value: ''
+					a: _Utils_Tuple2(1, 5),
+					b: $elm$core$Maybe$Nothing,
+					c: ''
 				}),
 				$author$project$Main$Black,
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Down, 7),
-					clueId2: $elm$core$Maybe$Nothing,
-					value: ''
+					a: _Utils_Tuple2(1, 6),
+					b: $elm$core$Maybe$Nothing,
+					c: ''
+				}),
+				$author$project$Main$Black,
+				$author$project$Main$Item(
+				{
+					a: _Utils_Tuple2(1, 7),
+					b: $elm$core$Maybe$Nothing,
+					c: ''
 				}),
 				$author$project$Main$Black,
 				A2(
 				$author$project$Main$NumberedItem,
 				8,
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 8),
-					clueId2: $elm$core$Maybe$Nothing,
-					value: ''
+					a: _Utils_Tuple2(0, 8),
+					b: $elm$core$Maybe$Nothing,
+					c: ''
 				}),
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 8),
-					clueId2: $elm$core$Maybe$Just(
-						_Utils_Tuple2($author$project$Main$Down, 1)),
-					value: ''
+					a: _Utils_Tuple2(0, 8),
+					b: $elm$core$Maybe$Just(
+						_Utils_Tuple2(1, 1)),
+					c: ''
 				}),
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 8),
-					clueId2: $elm$core$Maybe$Nothing,
-					value: ''
+					a: _Utils_Tuple2(0, 8),
+					b: $elm$core$Maybe$Nothing,
+					c: ''
 				}),
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 8),
-					clueId2: $elm$core$Maybe$Just(
-						_Utils_Tuple2($author$project$Main$Down, 2)),
-					value: ''
+					a: _Utils_Tuple2(0, 8),
+					b: $elm$core$Maybe$Just(
+						_Utils_Tuple2(1, 2)),
+					c: ''
 				}),
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 8),
-					clueId2: $elm$core$Maybe$Nothing,
-					value: ''
+					a: _Utils_Tuple2(0, 8),
+					b: $elm$core$Maybe$Nothing,
+					c: ''
 				}),
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 8),
-					clueId2: $elm$core$Maybe$Just(
-						_Utils_Tuple2($author$project$Main$Down, 3)),
-					value: ''
+					a: _Utils_Tuple2(0, 8),
+					b: $elm$core$Maybe$Just(
+						_Utils_Tuple2(1, 3)),
+					c: ''
 				}),
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 8),
-					clueId2: $elm$core$Maybe$Nothing,
-					value: ''
+					a: _Utils_Tuple2(0, 8),
+					b: $elm$core$Maybe$Nothing,
+					c: ''
 				}),
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 8),
-					clueId2: $elm$core$Maybe$Just(
-						_Utils_Tuple2($author$project$Main$Down, 4)),
-					value: ''
+					a: _Utils_Tuple2(0, 8),
+					b: $elm$core$Maybe$Just(
+						_Utils_Tuple2(1, 4)),
+					c: ''
 				}),
 				$author$project$Main$Black,
 				A2(
 				$author$project$Main$NumberedItem,
 				9,
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 9),
-					clueId2: $elm$core$Maybe$Just(
-						_Utils_Tuple2($author$project$Main$Down, 5)),
-					value: ''
+					a: _Utils_Tuple2(0, 9),
+					b: $elm$core$Maybe$Just(
+						_Utils_Tuple2(1, 5)),
+					c: ''
 				}),
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 9),
-					clueId2: $elm$core$Maybe$Nothing,
-					value: ''
+					a: _Utils_Tuple2(0, 9),
+					b: $elm$core$Maybe$Nothing,
+					c: ''
 				}),
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 9),
-					clueId2: $elm$core$Maybe$Just(
-						_Utils_Tuple2($author$project$Main$Down, 6)),
-					value: ''
+					a: _Utils_Tuple2(0, 9),
+					b: $elm$core$Maybe$Just(
+						_Utils_Tuple2(1, 6)),
+					c: ''
 				}),
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 9),
-					clueId2: $elm$core$Maybe$Nothing,
-					value: ''
+					a: _Utils_Tuple2(0, 9),
+					b: $elm$core$Maybe$Nothing,
+					c: ''
 				}),
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 9),
-					clueId2: $elm$core$Maybe$Just(
-						_Utils_Tuple2($author$project$Main$Down, 7)),
-					value: ''
+					a: _Utils_Tuple2(0, 9),
+					b: $elm$core$Maybe$Just(
+						_Utils_Tuple2(1, 7)),
+					c: ''
 				}),
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 9),
-					clueId2: $elm$core$Maybe$Nothing,
-					value: ''
-				}),
-				$author$project$Main$Black,
-				$author$project$Main$Item(
-				{
-					clueId1: _Utils_Tuple2($author$project$Main$Down, 1),
-					clueId2: $elm$core$Maybe$Nothing,
-					value: ''
+					a: _Utils_Tuple2(0, 9),
+					b: $elm$core$Maybe$Nothing,
+					c: ''
 				}),
 				$author$project$Main$Black,
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Down, 2),
-					clueId2: $elm$core$Maybe$Nothing,
-					value: ''
+					a: _Utils_Tuple2(1, 1),
+					b: $elm$core$Maybe$Nothing,
+					c: ''
 				}),
 				$author$project$Main$Black,
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Down, 3),
-					clueId2: $elm$core$Maybe$Nothing,
-					value: ''
+					a: _Utils_Tuple2(1, 2),
+					b: $elm$core$Maybe$Nothing,
+					c: ''
 				}),
 				$author$project$Main$Black,
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Down, 4),
-					clueId2: $elm$core$Maybe$Nothing,
-					value: ''
+					a: _Utils_Tuple2(1, 3),
+					b: $elm$core$Maybe$Nothing,
+					c: ''
 				}),
 				$author$project$Main$Black,
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Down, 5),
-					clueId2: $elm$core$Maybe$Nothing,
-					value: ''
+					a: _Utils_Tuple2(1, 4),
+					b: $elm$core$Maybe$Nothing,
+					c: ''
 				}),
 				$author$project$Main$Black,
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Down, 6),
-					clueId2: $elm$core$Maybe$Nothing,
-					value: ''
+					a: _Utils_Tuple2(1, 5),
+					b: $elm$core$Maybe$Nothing,
+					c: ''
 				}),
 				$author$project$Main$Black,
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Down, 7),
-					clueId2: $elm$core$Maybe$Nothing,
-					value: ''
+					a: _Utils_Tuple2(1, 6),
+					b: $elm$core$Maybe$Nothing,
+					c: ''
+				}),
+				$author$project$Main$Black,
+				$author$project$Main$Item(
+				{
+					a: _Utils_Tuple2(1, 7),
+					b: $elm$core$Maybe$Nothing,
+					c: ''
 				}),
 				$author$project$Main$Black,
 				A2(
 				$author$project$Main$NumberedItem,
 				10,
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 10),
-					clueId2: $elm$core$Maybe$Nothing,
-					value: ''
+					a: _Utils_Tuple2(0, 10),
+					b: $elm$core$Maybe$Nothing,
+					c: ''
 				}),
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 10),
-					clueId2: $elm$core$Maybe$Just(
-						_Utils_Tuple2($author$project$Main$Down, 1)),
-					value: ''
+					a: _Utils_Tuple2(0, 10),
+					b: $elm$core$Maybe$Just(
+						_Utils_Tuple2(1, 1)),
+					c: ''
 				}),
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 10),
-					clueId2: $elm$core$Maybe$Nothing,
-					value: ''
+					a: _Utils_Tuple2(0, 10),
+					b: $elm$core$Maybe$Nothing,
+					c: ''
 				}),
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 10),
-					clueId2: $elm$core$Maybe$Just(
-						_Utils_Tuple2($author$project$Main$Down, 2)),
-					value: ''
+					a: _Utils_Tuple2(0, 10),
+					b: $elm$core$Maybe$Just(
+						_Utils_Tuple2(1, 2)),
+					c: ''
 				}),
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 10),
-					clueId2: $elm$core$Maybe$Nothing,
-					value: ''
+					a: _Utils_Tuple2(0, 10),
+					b: $elm$core$Maybe$Nothing,
+					c: ''
 				}),
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 10),
-					clueId2: $elm$core$Maybe$Just(
-						_Utils_Tuple2($author$project$Main$Down, 3)),
-					value: ''
+					a: _Utils_Tuple2(0, 10),
+					b: $elm$core$Maybe$Just(
+						_Utils_Tuple2(1, 3)),
+					c: ''
 				}),
 				$author$project$Main$Black,
 				A2(
 				$author$project$Main$NumberedItem,
 				11,
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 11),
-					clueId2: $elm$core$Maybe$Just(
-						_Utils_Tuple2($author$project$Main$Down, 4)),
-					value: ''
+					a: _Utils_Tuple2(0, 11),
+					b: $elm$core$Maybe$Just(
+						_Utils_Tuple2(1, 4)),
+					c: ''
 				}),
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 11),
-					clueId2: $elm$core$Maybe$Nothing,
-					value: ''
+					a: _Utils_Tuple2(0, 11),
+					b: $elm$core$Maybe$Nothing,
+					c: ''
 				}),
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 11),
-					clueId2: $elm$core$Maybe$Just(
-						_Utils_Tuple2($author$project$Main$Down, 5)),
-					value: ''
+					a: _Utils_Tuple2(0, 11),
+					b: $elm$core$Maybe$Just(
+						_Utils_Tuple2(1, 5)),
+					c: ''
 				}),
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 11),
-					clueId2: $elm$core$Maybe$Nothing,
-					value: ''
+					a: _Utils_Tuple2(0, 11),
+					b: $elm$core$Maybe$Nothing,
+					c: ''
 				}),
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 11),
-					clueId2: $elm$core$Maybe$Just(
-						_Utils_Tuple2($author$project$Main$Down, 6)),
-					value: ''
+					a: _Utils_Tuple2(0, 11),
+					b: $elm$core$Maybe$Just(
+						_Utils_Tuple2(1, 6)),
+					c: ''
 				}),
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 11),
-					clueId2: $elm$core$Maybe$Nothing,
-					value: ''
+					a: _Utils_Tuple2(0, 11),
+					b: $elm$core$Maybe$Nothing,
+					c: ''
 				}),
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 11),
-					clueId2: $elm$core$Maybe$Just(
-						_Utils_Tuple2($author$project$Main$Down, 7)),
-					value: ''
+					a: _Utils_Tuple2(0, 11),
+					b: $elm$core$Maybe$Just(
+						_Utils_Tuple2(1, 7)),
+					c: ''
 				}),
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 11),
-					clueId2: $elm$core$Maybe$Nothing,
-					value: ''
-				}),
-				$author$project$Main$Black,
-				$author$project$Main$Black,
-				$author$project$Main$Black,
-				$author$project$Main$Item(
-				{
-					clueId1: _Utils_Tuple2($author$project$Main$Down, 2),
-					clueId2: $elm$core$Maybe$Nothing,
-					value: ''
+					a: _Utils_Tuple2(0, 11),
+					b: $elm$core$Maybe$Nothing,
+					c: ''
 				}),
 				$author$project$Main$Black,
 				$author$project$Main$Black,
 				$author$project$Main$Black,
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Down, 4),
-					clueId2: $elm$core$Maybe$Nothing,
-					value: ''
+					a: _Utils_Tuple2(1, 2),
+					b: $elm$core$Maybe$Nothing,
+					c: ''
+				}),
+				$author$project$Main$Black,
+				$author$project$Main$Black,
+				$author$project$Main$Black,
+				$author$project$Main$Item(
+				{
+					a: _Utils_Tuple2(1, 4),
+					b: $elm$core$Maybe$Nothing,
+					c: ''
 				}),
 				$author$project$Main$Black,
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Down, 5),
-					clueId2: $elm$core$Maybe$Nothing,
-					value: ''
+					a: _Utils_Tuple2(1, 5),
+					b: $elm$core$Maybe$Nothing,
+					c: ''
 				}),
 				$author$project$Main$Black,
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Down, 6),
-					clueId2: $elm$core$Maybe$Nothing,
-					value: ''
+					a: _Utils_Tuple2(1, 6),
+					b: $elm$core$Maybe$Nothing,
+					c: ''
 				}),
 				$author$project$Main$Black,
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Down, 7),
-					clueId2: $elm$core$Maybe$Nothing,
-					value: ''
+					a: _Utils_Tuple2(1, 7),
+					b: $elm$core$Maybe$Nothing,
+					c: ''
 				}),
 				$author$project$Main$Black,
 				A2(
 				$author$project$Main$NumberedItem,
 				12,
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 12),
-					clueId2: $elm$core$Maybe$Nothing,
-					value: ''
+					a: _Utils_Tuple2(0, 12),
+					b: $elm$core$Maybe$Nothing,
+					c: ''
 				}),
 				A2(
 				$author$project$Main$NumberedItem,
 				13,
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 12),
-					clueId2: $elm$core$Maybe$Just(
-						_Utils_Tuple2($author$project$Main$Down, 13)),
-					value: ''
+					a: _Utils_Tuple2(0, 12),
+					b: $elm$core$Maybe$Just(
+						_Utils_Tuple2(1, 13)),
+					c: ''
 				}),
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 12),
-					clueId2: $elm$core$Maybe$Nothing,
-					value: ''
+					a: _Utils_Tuple2(0, 12),
+					b: $elm$core$Maybe$Nothing,
+					c: ''
 				}),
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 12),
-					clueId2: $elm$core$Maybe$Just(
-						_Utils_Tuple2($author$project$Main$Down, 2)),
-					value: ''
+					a: _Utils_Tuple2(0, 12),
+					b: $elm$core$Maybe$Just(
+						_Utils_Tuple2(1, 2)),
+					c: ''
 				}),
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 12),
-					clueId2: $elm$core$Maybe$Nothing,
-					value: ''
+					a: _Utils_Tuple2(0, 12),
+					b: $elm$core$Maybe$Nothing,
+					c: ''
 				}),
 				A2(
 				$author$project$Main$NumberedItem,
 				14,
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 12),
-					clueId2: $elm$core$Maybe$Just(
-						_Utils_Tuple2($author$project$Main$Down, 14)),
-					value: ''
+					a: _Utils_Tuple2(0, 12),
+					b: $elm$core$Maybe$Just(
+						_Utils_Tuple2(1, 14)),
+					c: ''
 				}),
 				$author$project$Main$Black,
 				A2(
 				$author$project$Main$NumberedItem,
 				15,
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 15),
-					clueId2: $elm$core$Maybe$Just(
-						_Utils_Tuple2($author$project$Main$Down, 4)),
-					value: ''
+					a: _Utils_Tuple2(0, 15),
+					b: $elm$core$Maybe$Just(
+						_Utils_Tuple2(1, 4)),
+					c: ''
 				}),
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 15),
-					clueId2: $elm$core$Maybe$Nothing,
-					value: ''
+					a: _Utils_Tuple2(0, 15),
+					b: $elm$core$Maybe$Nothing,
+					c: ''
 				}),
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 15),
-					clueId2: $elm$core$Maybe$Just(
-						_Utils_Tuple2($author$project$Main$Down, 5)),
-					value: ''
+					a: _Utils_Tuple2(0, 15),
+					b: $elm$core$Maybe$Just(
+						_Utils_Tuple2(1, 5)),
+					c: ''
 				}),
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 15),
-					clueId2: $elm$core$Maybe$Nothing,
-					value: ''
+					a: _Utils_Tuple2(0, 15),
+					b: $elm$core$Maybe$Nothing,
+					c: ''
 				}),
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 15),
-					clueId2: $elm$core$Maybe$Just(
-						_Utils_Tuple2($author$project$Main$Down, 6)),
-					value: ''
+					a: _Utils_Tuple2(0, 15),
+					b: $elm$core$Maybe$Just(
+						_Utils_Tuple2(1, 6)),
+					c: ''
 				}),
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 15),
-					clueId2: $elm$core$Maybe$Nothing,
-					value: ''
+					a: _Utils_Tuple2(0, 15),
+					b: $elm$core$Maybe$Nothing,
+					c: ''
 				}),
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 15),
-					clueId2: $elm$core$Maybe$Just(
-						_Utils_Tuple2($author$project$Main$Down, 7)),
-					value: ''
+					a: _Utils_Tuple2(0, 15),
+					b: $elm$core$Maybe$Just(
+						_Utils_Tuple2(1, 7)),
+					c: ''
 				}),
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 15),
-					clueId2: $elm$core$Maybe$Nothing,
-					value: ''
-				}),
-				$author$project$Main$Black,
-				$author$project$Main$Item(
-				{
-					clueId1: _Utils_Tuple2($author$project$Main$Down, 13),
-					clueId2: $elm$core$Maybe$Nothing,
-					value: ''
+					a: _Utils_Tuple2(0, 15),
+					b: $elm$core$Maybe$Nothing,
+					c: ''
 				}),
 				$author$project$Main$Black,
-				$author$project$Main$Black,
-				$author$project$Main$Black,
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Down, 14),
-					clueId2: $elm$core$Maybe$Nothing,
-					value: ''
+					a: _Utils_Tuple2(1, 13),
+					b: $elm$core$Maybe$Nothing,
+					c: ''
 				}),
 				$author$project$Main$Black,
 				$author$project$Main$Black,
 				$author$project$Main$Black,
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Down, 5),
-					clueId2: $elm$core$Maybe$Nothing,
-					value: ''
+					a: _Utils_Tuple2(1, 14),
+					b: $elm$core$Maybe$Nothing,
+					c: ''
 				}),
 				$author$project$Main$Black,
 				$author$project$Main$Black,
 				$author$project$Main$Black,
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Down, 7),
-					clueId2: $elm$core$Maybe$Nothing,
-					value: ''
+					a: _Utils_Tuple2(1, 5),
+					b: $elm$core$Maybe$Nothing,
+					c: ''
+				}),
+				$author$project$Main$Black,
+				$author$project$Main$Black,
+				$author$project$Main$Black,
+				$author$project$Main$Item(
+				{
+					a: _Utils_Tuple2(1, 7),
+					b: $elm$core$Maybe$Nothing,
+					c: ''
 				}),
 				$author$project$Main$Black,
 				A2(
 				$author$project$Main$NumberedItem,
 				16,
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 16),
-					clueId2: $elm$core$Maybe$Nothing,
-					value: ''
+					a: _Utils_Tuple2(0, 16),
+					b: $elm$core$Maybe$Nothing,
+					c: ''
 				}),
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 16),
-					clueId2: $elm$core$Maybe$Just(
-						_Utils_Tuple2($author$project$Main$Down, 13)),
-					value: ''
+					a: _Utils_Tuple2(0, 16),
+					b: $elm$core$Maybe$Just(
+						_Utils_Tuple2(1, 13)),
+					c: ''
 				}),
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 16),
-					clueId2: $elm$core$Maybe$Nothing,
-					value: ''
+					a: _Utils_Tuple2(0, 16),
+					b: $elm$core$Maybe$Nothing,
+					c: ''
 				}),
 				A2(
 				$author$project$Main$NumberedItem,
 				17,
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 16),
-					clueId2: $elm$core$Maybe$Just(
-						_Utils_Tuple2($author$project$Main$Down, 17)),
-					value: ''
+					a: _Utils_Tuple2(0, 16),
+					b: $elm$core$Maybe$Just(
+						_Utils_Tuple2(1, 17)),
+					c: ''
 				}),
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 16),
-					clueId2: $elm$core$Maybe$Nothing,
-					value: ''
+					a: _Utils_Tuple2(0, 16),
+					b: $elm$core$Maybe$Nothing,
+					c: ''
 				}),
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 16),
-					clueId2: $elm$core$Maybe$Just(
-						_Utils_Tuple2($author$project$Main$Down, 14)),
-					value: ''
+					a: _Utils_Tuple2(0, 16),
+					b: $elm$core$Maybe$Just(
+						_Utils_Tuple2(1, 14)),
+					c: ''
 				}),
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 16),
-					clueId2: $elm$core$Maybe$Nothing,
-					value: ''
+					a: _Utils_Tuple2(0, 16),
+					b: $elm$core$Maybe$Nothing,
+					c: ''
 				}),
 				A2(
 				$author$project$Main$NumberedItem,
 				18,
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 16),
-					clueId2: $elm$core$Maybe$Just(
-						_Utils_Tuple2($author$project$Main$Down, 18)),
-					value: ''
+					a: _Utils_Tuple2(0, 16),
+					b: $elm$core$Maybe$Just(
+						_Utils_Tuple2(1, 18)),
+					c: ''
 				}),
 				$author$project$Main$Black,
 				A2(
 				$author$project$Main$NumberedItem,
 				19,
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 19),
-					clueId2: $elm$core$Maybe$Just(
-						_Utils_Tuple2($author$project$Main$Down, 5)),
-					value: ''
+					a: _Utils_Tuple2(0, 19),
+					b: $elm$core$Maybe$Just(
+						_Utils_Tuple2(1, 5)),
+					c: ''
 				}),
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 19),
-					clueId2: $elm$core$Maybe$Nothing,
-					value: ''
+					a: _Utils_Tuple2(0, 19),
+					b: $elm$core$Maybe$Nothing,
+					c: ''
 				}),
 				A2(
 				$author$project$Main$NumberedItem,
 				20,
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 19),
-					clueId2: $elm$core$Maybe$Just(
-						_Utils_Tuple2($author$project$Main$Down, 20)),
-					value: ''
+					a: _Utils_Tuple2(0, 19),
+					b: $elm$core$Maybe$Just(
+						_Utils_Tuple2(1, 20)),
+					c: ''
 				}),
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 19),
-					clueId2: $elm$core$Maybe$Nothing,
-					value: ''
+					a: _Utils_Tuple2(0, 19),
+					b: $elm$core$Maybe$Nothing,
+					c: ''
 				}),
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 19),
-					clueId2: $elm$core$Maybe$Just(
-						_Utils_Tuple2($author$project$Main$Down, 7)),
-					value: ''
+					a: _Utils_Tuple2(0, 19),
+					b: $elm$core$Maybe$Just(
+						_Utils_Tuple2(1, 7)),
+					c: ''
 				}),
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 19),
-					clueId2: $elm$core$Maybe$Nothing,
-					value: ''
-				}),
-				$author$project$Main$Black,
-				$author$project$Main$Item(
-				{
-					clueId1: _Utils_Tuple2($author$project$Main$Down, 13),
-					clueId2: $elm$core$Maybe$Nothing,
-					value: ''
+					a: _Utils_Tuple2(0, 19),
+					b: $elm$core$Maybe$Nothing,
+					c: ''
 				}),
 				$author$project$Main$Black,
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Down, 17),
-					clueId2: $elm$core$Maybe$Nothing,
-					value: ''
+					a: _Utils_Tuple2(1, 13),
+					b: $elm$core$Maybe$Nothing,
+					c: ''
 				}),
 				$author$project$Main$Black,
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Down, 14),
-					clueId2: $elm$core$Maybe$Nothing,
-					value: ''
+					a: _Utils_Tuple2(1, 17),
+					b: $elm$core$Maybe$Nothing,
+					c: ''
 				}),
 				$author$project$Main$Black,
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Down, 18),
-					clueId2: $elm$core$Maybe$Nothing,
-					value: ''
+					a: _Utils_Tuple2(1, 14),
+					b: $elm$core$Maybe$Nothing,
+					c: ''
+				}),
+				$author$project$Main$Black,
+				$author$project$Main$Item(
+				{
+					a: _Utils_Tuple2(1, 18),
+					b: $elm$core$Maybe$Nothing,
+					c: ''
 				}),
 				$author$project$Main$Black,
 				$author$project$Main$Black,
 				$author$project$Main$Black,
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Down, 20),
-					clueId2: $elm$core$Maybe$Nothing,
-					value: ''
+					a: _Utils_Tuple2(1, 20),
+					b: $elm$core$Maybe$Nothing,
+					c: ''
 				}),
 				$author$project$Main$Black,
 				$author$project$Main$Black,
@@ -5946,398 +5926,398 @@ var $author$project$Main$init = _Utils_Tuple2(
 				$author$project$Main$NumberedItem,
 				21,
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 21),
-					clueId2: $elm$core$Maybe$Nothing,
-					value: ''
+					a: _Utils_Tuple2(0, 21),
+					b: $elm$core$Maybe$Nothing,
+					c: ''
 				}),
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 21),
-					clueId2: $elm$core$Maybe$Just(
-						_Utils_Tuple2($author$project$Main$Down, 13)),
-					value: ''
+					a: _Utils_Tuple2(0, 21),
+					b: $elm$core$Maybe$Just(
+						_Utils_Tuple2(1, 13)),
+					c: ''
 				}),
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 21),
-					clueId2: $elm$core$Maybe$Nothing,
-					value: ''
+					a: _Utils_Tuple2(0, 21),
+					b: $elm$core$Maybe$Nothing,
+					c: ''
 				}),
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 21),
-					clueId2: $elm$core$Maybe$Just(
-						_Utils_Tuple2($author$project$Main$Down, 17)),
-					value: ''
+					a: _Utils_Tuple2(0, 21),
+					b: $elm$core$Maybe$Just(
+						_Utils_Tuple2(1, 17)),
+					c: ''
 				}),
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 21),
-					clueId2: $elm$core$Maybe$Nothing,
-					value: ''
+					a: _Utils_Tuple2(0, 21),
+					b: $elm$core$Maybe$Nothing,
+					c: ''
 				}),
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 21),
-					clueId2: $elm$core$Maybe$Just(
-						_Utils_Tuple2($author$project$Main$Down, 14)),
-					value: ''
+					a: _Utils_Tuple2(0, 21),
+					b: $elm$core$Maybe$Just(
+						_Utils_Tuple2(1, 14)),
+					c: ''
 				}),
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 21),
-					clueId2: $elm$core$Maybe$Nothing,
-					value: ''
+					a: _Utils_Tuple2(0, 21),
+					b: $elm$core$Maybe$Nothing,
+					c: ''
 				}),
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 21),
-					clueId2: $elm$core$Maybe$Just(
-						_Utils_Tuple2($author$project$Main$Down, 18)),
-					value: ''
+					a: _Utils_Tuple2(0, 21),
+					b: $elm$core$Maybe$Just(
+						_Utils_Tuple2(1, 18)),
+					c: ''
 				}),
 				$author$project$Main$Black,
 				A2(
 				$author$project$Main$NumberedItem,
 				22,
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 22),
-					clueId2: $elm$core$Maybe$Just(
-						_Utils_Tuple2($author$project$Main$Down, 22)),
-					value: ''
+					a: _Utils_Tuple2(0, 22),
+					b: $elm$core$Maybe$Just(
+						_Utils_Tuple2(1, 22)),
+					c: ''
 				}),
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 22),
-					clueId2: $elm$core$Maybe$Nothing,
-					value: ''
+					a: _Utils_Tuple2(0, 22),
+					b: $elm$core$Maybe$Nothing,
+					c: ''
 				}),
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 22),
-					clueId2: $elm$core$Maybe$Just(
-						_Utils_Tuple2($author$project$Main$Down, 20)),
-					value: ''
+					a: _Utils_Tuple2(0, 22),
+					b: $elm$core$Maybe$Just(
+						_Utils_Tuple2(1, 20)),
+					c: ''
 				}),
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 22),
-					clueId2: $elm$core$Maybe$Nothing,
-					value: ''
+					a: _Utils_Tuple2(0, 22),
+					b: $elm$core$Maybe$Nothing,
+					c: ''
 				}),
 				A2(
 				$author$project$Main$NumberedItem,
 				23,
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 22),
-					clueId2: $elm$core$Maybe$Just(
-						_Utils_Tuple2($author$project$Main$Down, 23)),
-					value: ''
+					a: _Utils_Tuple2(0, 22),
+					b: $elm$core$Maybe$Just(
+						_Utils_Tuple2(1, 23)),
+					c: ''
 				}),
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 22),
-					clueId2: $elm$core$Maybe$Nothing,
-					value: ''
-				}),
-				$author$project$Main$Black,
-				$author$project$Main$Item(
-				{
-					clueId1: _Utils_Tuple2($author$project$Main$Down, 13),
-					clueId2: $elm$core$Maybe$Nothing,
-					value: ''
+					a: _Utils_Tuple2(0, 22),
+					b: $elm$core$Maybe$Nothing,
+					c: ''
 				}),
 				$author$project$Main$Black,
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Down, 17),
-					clueId2: $elm$core$Maybe$Nothing,
-					value: ''
+					a: _Utils_Tuple2(1, 13),
+					b: $elm$core$Maybe$Nothing,
+					c: ''
 				}),
 				$author$project$Main$Black,
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Down, 14),
-					clueId2: $elm$core$Maybe$Nothing,
-					value: ''
+					a: _Utils_Tuple2(1, 17),
+					b: $elm$core$Maybe$Nothing,
+					c: ''
 				}),
 				$author$project$Main$Black,
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Down, 18),
-					clueId2: $elm$core$Maybe$Nothing,
-					value: ''
+					a: _Utils_Tuple2(1, 14),
+					b: $elm$core$Maybe$Nothing,
+					c: ''
 				}),
 				$author$project$Main$Black,
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Down, 22),
-					clueId2: $elm$core$Maybe$Nothing,
-					value: ''
+					a: _Utils_Tuple2(1, 18),
+					b: $elm$core$Maybe$Nothing,
+					c: ''
 				}),
 				$author$project$Main$Black,
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Down, 20),
-					clueId2: $elm$core$Maybe$Nothing,
-					value: ''
+					a: _Utils_Tuple2(1, 22),
+					b: $elm$core$Maybe$Nothing,
+					c: ''
 				}),
 				$author$project$Main$Black,
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Down, 23),
-					clueId2: $elm$core$Maybe$Nothing,
-					value: ''
+					a: _Utils_Tuple2(1, 20),
+					b: $elm$core$Maybe$Nothing,
+					c: ''
+				}),
+				$author$project$Main$Black,
+				$author$project$Main$Item(
+				{
+					a: _Utils_Tuple2(1, 23),
+					b: $elm$core$Maybe$Nothing,
+					c: ''
 				}),
 				$author$project$Main$Black,
 				A2(
 				$author$project$Main$NumberedItem,
 				24,
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 24),
-					clueId2: $elm$core$Maybe$Nothing,
-					value: ''
+					a: _Utils_Tuple2(0, 24),
+					b: $elm$core$Maybe$Nothing,
+					c: ''
 				}),
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 24),
-					clueId2: $elm$core$Maybe$Just(
-						_Utils_Tuple2($author$project$Main$Down, 13)),
-					value: ''
+					a: _Utils_Tuple2(0, 24),
+					b: $elm$core$Maybe$Just(
+						_Utils_Tuple2(1, 13)),
+					c: ''
 				}),
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 24),
-					clueId2: $elm$core$Maybe$Nothing,
-					value: ''
+					a: _Utils_Tuple2(0, 24),
+					b: $elm$core$Maybe$Nothing,
+					c: ''
 				}),
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 24),
-					clueId2: $elm$core$Maybe$Just(
-						_Utils_Tuple2($author$project$Main$Down, 17)),
-					value: ''
+					a: _Utils_Tuple2(0, 24),
+					b: $elm$core$Maybe$Just(
+						_Utils_Tuple2(1, 17)),
+					c: ''
 				}),
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 24),
-					clueId2: $elm$core$Maybe$Nothing,
-					value: ''
+					a: _Utils_Tuple2(0, 24),
+					b: $elm$core$Maybe$Nothing,
+					c: ''
 				}),
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 24),
-					clueId2: $elm$core$Maybe$Just(
-						_Utils_Tuple2($author$project$Main$Down, 14)),
-					value: ''
+					a: _Utils_Tuple2(0, 24),
+					b: $elm$core$Maybe$Just(
+						_Utils_Tuple2(1, 14)),
+					c: ''
 				}),
 				$author$project$Main$Black,
 				A2(
 				$author$project$Main$NumberedItem,
 				25,
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 25),
-					clueId2: $elm$core$Maybe$Just(
-						_Utils_Tuple2($author$project$Main$Down, 18)),
-					value: ''
+					a: _Utils_Tuple2(0, 25),
+					b: $elm$core$Maybe$Just(
+						_Utils_Tuple2(1, 18)),
+					c: ''
 				}),
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 25),
-					clueId2: $elm$core$Maybe$Nothing,
-					value: ''
+					a: _Utils_Tuple2(0, 25),
+					b: $elm$core$Maybe$Nothing,
+					c: ''
 				}),
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 25),
-					clueId2: $elm$core$Maybe$Just(
-						_Utils_Tuple2($author$project$Main$Down, 22)),
-					value: ''
+					a: _Utils_Tuple2(0, 25),
+					b: $elm$core$Maybe$Just(
+						_Utils_Tuple2(1, 22)),
+					c: ''
 				}),
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 25),
-					clueId2: $elm$core$Maybe$Nothing,
-					value: ''
+					a: _Utils_Tuple2(0, 25),
+					b: $elm$core$Maybe$Nothing,
+					c: ''
 				}),
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 25),
-					clueId2: $elm$core$Maybe$Just(
-						_Utils_Tuple2($author$project$Main$Down, 20)),
-					value: ''
+					a: _Utils_Tuple2(0, 25),
+					b: $elm$core$Maybe$Just(
+						_Utils_Tuple2(1, 20)),
+					c: ''
 				}),
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 25),
-					clueId2: $elm$core$Maybe$Nothing,
-					value: ''
+					a: _Utils_Tuple2(0, 25),
+					b: $elm$core$Maybe$Nothing,
+					c: ''
 				}),
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 25),
-					clueId2: $elm$core$Maybe$Just(
-						_Utils_Tuple2($author$project$Main$Down, 23)),
-					value: ''
+					a: _Utils_Tuple2(0, 25),
+					b: $elm$core$Maybe$Just(
+						_Utils_Tuple2(1, 23)),
+					c: ''
 				}),
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 25),
-					clueId2: $elm$core$Maybe$Nothing,
-					value: ''
-				}),
-				$author$project$Main$Black,
-				$author$project$Main$Item(
-				{
-					clueId1: _Utils_Tuple2($author$project$Main$Down, 13),
-					clueId2: $elm$core$Maybe$Nothing,
-					value: ''
+					a: _Utils_Tuple2(0, 25),
+					b: $elm$core$Maybe$Nothing,
+					c: ''
 				}),
 				$author$project$Main$Black,
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Down, 17),
-					clueId2: $elm$core$Maybe$Nothing,
-					value: ''
+					a: _Utils_Tuple2(1, 13),
+					b: $elm$core$Maybe$Nothing,
+					c: ''
 				}),
 				$author$project$Main$Black,
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Down, 14),
-					clueId2: $elm$core$Maybe$Nothing,
-					value: ''
+					a: _Utils_Tuple2(1, 17),
+					b: $elm$core$Maybe$Nothing,
+					c: ''
 				}),
 				$author$project$Main$Black,
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Down, 18),
-					clueId2: $elm$core$Maybe$Nothing,
-					value: ''
+					a: _Utils_Tuple2(1, 14),
+					b: $elm$core$Maybe$Nothing,
+					c: ''
 				}),
 				$author$project$Main$Black,
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Down, 22),
-					clueId2: $elm$core$Maybe$Nothing,
-					value: ''
+					a: _Utils_Tuple2(1, 18),
+					b: $elm$core$Maybe$Nothing,
+					c: ''
 				}),
 				$author$project$Main$Black,
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Down, 20),
-					clueId2: $elm$core$Maybe$Nothing,
-					value: ''
+					a: _Utils_Tuple2(1, 22),
+					b: $elm$core$Maybe$Nothing,
+					c: ''
 				}),
 				$author$project$Main$Black,
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Down, 23),
-					clueId2: $elm$core$Maybe$Nothing,
-					value: ''
+					a: _Utils_Tuple2(1, 20),
+					b: $elm$core$Maybe$Nothing,
+					c: ''
+				}),
+				$author$project$Main$Black,
+				$author$project$Main$Item(
+				{
+					a: _Utils_Tuple2(1, 23),
+					b: $elm$core$Maybe$Nothing,
+					c: ''
 				}),
 				$author$project$Main$Black,
 				A2(
 				$author$project$Main$NumberedItem,
 				26,
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 26),
-					clueId2: $elm$core$Maybe$Nothing,
-					value: ''
+					a: _Utils_Tuple2(0, 26),
+					b: $elm$core$Maybe$Nothing,
+					c: ''
 				}),
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 26),
-					clueId2: $elm$core$Maybe$Just(
-						_Utils_Tuple2($author$project$Main$Down, 13)),
-					value: ''
+					a: _Utils_Tuple2(0, 26),
+					b: $elm$core$Maybe$Just(
+						_Utils_Tuple2(1, 13)),
+					c: ''
 				}),
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 26),
-					clueId2: $elm$core$Maybe$Nothing,
-					value: ''
+					a: _Utils_Tuple2(0, 26),
+					b: $elm$core$Maybe$Nothing,
+					c: ''
 				}),
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 26),
-					clueId2: $elm$core$Maybe$Just(
-						_Utils_Tuple2($author$project$Main$Down, 17)),
-					value: ''
+					a: _Utils_Tuple2(0, 26),
+					b: $elm$core$Maybe$Just(
+						_Utils_Tuple2(1, 17)),
+					c: ''
 				}),
 				$author$project$Main$Black,
 				A2(
 				$author$project$Main$NumberedItem,
 				27,
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 27),
-					clueId2: $elm$core$Maybe$Just(
-						_Utils_Tuple2($author$project$Main$Down, 14)),
-					value: ''
+					a: _Utils_Tuple2(0, 27),
+					b: $elm$core$Maybe$Just(
+						_Utils_Tuple2(1, 14)),
+					c: ''
 				}),
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 27),
-					clueId2: $elm$core$Maybe$Nothing,
-					value: ''
+					a: _Utils_Tuple2(0, 27),
+					b: $elm$core$Maybe$Nothing,
+					c: ''
 				}),
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 27),
-					clueId2: $elm$core$Maybe$Just(
-						_Utils_Tuple2($author$project$Main$Down, 18)),
-					value: ''
+					a: _Utils_Tuple2(0, 27),
+					b: $elm$core$Maybe$Just(
+						_Utils_Tuple2(1, 18)),
+					c: ''
 				}),
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 27),
-					clueId2: $elm$core$Maybe$Nothing,
-					value: ''
+					a: _Utils_Tuple2(0, 27),
+					b: $elm$core$Maybe$Nothing,
+					c: ''
 				}),
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 27),
-					clueId2: $elm$core$Maybe$Just(
-						_Utils_Tuple2($author$project$Main$Down, 22)),
-					value: ''
+					a: _Utils_Tuple2(0, 27),
+					b: $elm$core$Maybe$Just(
+						_Utils_Tuple2(1, 22)),
+					c: ''
 				}),
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 27),
-					clueId2: $elm$core$Maybe$Nothing,
-					value: ''
+					a: _Utils_Tuple2(0, 27),
+					b: $elm$core$Maybe$Nothing,
+					c: ''
 				}),
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 27),
-					clueId2: $elm$core$Maybe$Just(
-						_Utils_Tuple2($author$project$Main$Down, 20)),
-					value: ''
+					a: _Utils_Tuple2(0, 27),
+					b: $elm$core$Maybe$Just(
+						_Utils_Tuple2(1, 20)),
+					c: ''
 				}),
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 27),
-					clueId2: $elm$core$Maybe$Nothing,
-					value: ''
+					a: _Utils_Tuple2(0, 27),
+					b: $elm$core$Maybe$Nothing,
+					c: ''
 				}),
 				$author$project$Main$Item(
 				{
-					clueId1: _Utils_Tuple2($author$project$Main$Across, 27),
-					clueId2: $elm$core$Maybe$Just(
-						_Utils_Tuple2($author$project$Main$Down, 23)),
-					value: ''
+					a: _Utils_Tuple2(0, 27),
+					b: $elm$core$Maybe$Just(
+						_Utils_Tuple2(1, 23)),
+					c: ''
 				}),
 				$author$project$Main$Black
 			]),
-		numberOfColumns: 15,
-		numberOfRows: 15,
-		shiftHeld: false,
-		showDebug: true,
-		version: 2
+		aq: 15,
+		Y: 15,
+		ai: false,
+		aH: true,
+		aM: 2
 	},
 	$elm$core$Platform$Cmd$none);
 var $elm$core$Platform$Sub$batch = _Platform_batch;
 var $author$project$Main$KeyTouched = function (a) {
-	return {$: 'KeyTouched', a: a};
+	return {$: 4, a: a};
 };
 var $elm$core$Basics$composeR = F3(
 	function (f, g, x) {
@@ -6346,17 +6326,17 @@ var $elm$core$Basics$composeR = F3(
 	});
 var $elm$json$Json$Decode$field = _Json_decodeField;
 var $author$project$Main$KeyEventLetter = function (a) {
-	return {$: 'KeyEventLetter', a: a};
+	return {$: 0, a: a};
 };
 var $author$project$Main$KeyEventUnknown = function (a) {
-	return {$: 'KeyEventUnknown', a: a};
+	return {$: 1, a: a};
 };
-var $author$project$Main$KeyPressed = {$: 'KeyPressed'};
-var $author$project$Main$LeftPressed = {$: 'LeftPressed'};
-var $author$project$Main$RightPressed = {$: 'RightPressed'};
-var $author$project$Main$ShiftPressed = {$: 'ShiftPressed'};
-var $author$project$Main$TabPressed = {$: 'TabPressed'};
-var $author$project$Main$UpPressed = {$: 'UpPressed'};
+var $author$project$Main$KeyPressed = {$: 8};
+var $author$project$Main$LeftPressed = {$: 5};
+var $author$project$Main$RightPressed = {$: 6};
+var $author$project$Main$ShiftPressed = {$: 3};
+var $author$project$Main$TabPressed = {$: 2};
+var $author$project$Main$UpPressed = {$: 7};
 var $author$project$Main$keyPressedToKeyEventMsg = function (eventKeyString) {
 	switch (eventKeyString) {
 		case 'ArrowLeft':
@@ -6374,7 +6354,7 @@ var $author$project$Main$keyPressedToKeyEventMsg = function (eventKeyString) {
 		default:
 			var string = eventKeyString;
 			var _v1 = $elm$core$String$uncons(string);
-			if ((_v1.$ === 'Just') && (_v1.a.b === '')) {
+			if ((!_v1.$) && (_v1.a.b === '')) {
 				var _v2 = _v1.a;
 				var _char = _v2.a;
 				return $author$project$Main$KeyEventLetter(_char);
@@ -6388,7 +6368,7 @@ var $author$project$Main$keyPressedDecoder = A2(
 	$elm$json$Json$Decode$map,
 	A2($elm$core$Basics$composeR, $author$project$Main$keyPressedToKeyEventMsg, $author$project$Main$KeyTouched),
 	A2($elm$json$Json$Decode$field, 'key', $elm$json$Json$Decode$string));
-var $author$project$Main$ShiftReleased = {$: 'ShiftReleased'};
+var $author$project$Main$ShiftReleased = {$: 4};
 var $author$project$Main$keyReleasedToKeyEventMsg = function (eventKeyString) {
 	if (eventKeyString === 'Shift') {
 		return $author$project$Main$ShiftReleased;
@@ -6400,21 +6380,21 @@ var $author$project$Main$keyReleasedDecoder = A2(
 	$elm$json$Json$Decode$map,
 	A2($elm$core$Basics$composeR, $author$project$Main$keyReleasedToKeyEventMsg, $author$project$Main$KeyTouched),
 	A2($elm$json$Json$Decode$field, 'key', $elm$json$Json$Decode$string));
-var $elm$browser$Browser$Events$Document = {$: 'Document'};
+var $elm$browser$Browser$Events$Document = 0;
 var $elm$browser$Browser$Events$MySub = F3(
 	function (a, b, c) {
-		return {$: 'MySub', a: a, b: b, c: c};
+		return {$: 0, a: a, b: b, c: c};
 	});
 var $elm$browser$Browser$Events$State = F2(
 	function (subs, pids) {
-		return {pids: pids, subs: subs};
+		return {bg: pids, bu: subs};
 	});
-var $elm$core$Dict$RBEmpty_elm_builtin = {$: 'RBEmpty_elm_builtin'};
+var $elm$core$Dict$RBEmpty_elm_builtin = {$: -2};
 var $elm$core$Dict$empty = $elm$core$Dict$RBEmpty_elm_builtin;
 var $elm$browser$Browser$Events$init = $elm$core$Task$succeed(
 	A2($elm$browser$Browser$Events$State, _List_Nil, $elm$core$Dict$empty));
 var $elm$browser$Browser$Events$nodeToKey = function (node) {
-	if (node.$ === 'Document') {
+	if (!node) {
 		return 'd_';
 	} else {
 		return 'w_';
@@ -6429,21 +6409,21 @@ var $elm$browser$Browser$Events$addKey = function (sub) {
 			name),
 		sub);
 };
-var $elm$core$Dict$Black = {$: 'Black'};
+var $elm$core$Dict$Black = 1;
 var $elm$core$Dict$RBNode_elm_builtin = F5(
 	function (a, b, c, d, e) {
-		return {$: 'RBNode_elm_builtin', a: a, b: b, c: c, d: d, e: e};
+		return {$: -1, a: a, b: b, c: c, d: d, e: e};
 	});
-var $elm$core$Dict$Red = {$: 'Red'};
+var $elm$core$Dict$Red = 0;
 var $elm$core$Dict$balance = F5(
 	function (color, key, value, left, right) {
-		if ((right.$ === 'RBNode_elm_builtin') && (right.a.$ === 'Red')) {
+		if ((right.$ === -1) && (!right.a)) {
 			var _v1 = right.a;
 			var rK = right.b;
 			var rV = right.c;
 			var rLeft = right.d;
 			var rRight = right.e;
-			if ((left.$ === 'RBNode_elm_builtin') && (left.a.$ === 'Red')) {
+			if ((left.$ === -1) && (!left.a)) {
 				var _v3 = left.a;
 				var lK = left.b;
 				var lV = left.c;
@@ -6451,22 +6431,22 @@ var $elm$core$Dict$balance = F5(
 				var lRight = left.e;
 				return A5(
 					$elm$core$Dict$RBNode_elm_builtin,
-					$elm$core$Dict$Red,
+					0,
 					key,
 					value,
-					A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Black, lK, lV, lLeft, lRight),
-					A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Black, rK, rV, rLeft, rRight));
+					A5($elm$core$Dict$RBNode_elm_builtin, 1, lK, lV, lLeft, lRight),
+					A5($elm$core$Dict$RBNode_elm_builtin, 1, rK, rV, rLeft, rRight));
 			} else {
 				return A5(
 					$elm$core$Dict$RBNode_elm_builtin,
 					color,
 					rK,
 					rV,
-					A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Red, key, value, left, rLeft),
+					A5($elm$core$Dict$RBNode_elm_builtin, 0, key, value, left, rLeft),
 					rRight);
 			}
 		} else {
-			if ((((left.$ === 'RBNode_elm_builtin') && (left.a.$ === 'Red')) && (left.d.$ === 'RBNode_elm_builtin')) && (left.d.a.$ === 'Red')) {
+			if ((((left.$ === -1) && (!left.a)) && (left.d.$ === -1)) && (!left.d.a)) {
 				var _v5 = left.a;
 				var lK = left.b;
 				var lV = left.c;
@@ -6479,11 +6459,11 @@ var $elm$core$Dict$balance = F5(
 				var lRight = left.e;
 				return A5(
 					$elm$core$Dict$RBNode_elm_builtin,
-					$elm$core$Dict$Red,
+					0,
 					lK,
 					lV,
-					A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Black, llK, llV, llLeft, llRight),
-					A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Black, key, value, lRight, right));
+					A5($elm$core$Dict$RBNode_elm_builtin, 1, llK, llV, llLeft, llRight),
+					A5($elm$core$Dict$RBNode_elm_builtin, 1, key, value, lRight, right));
 			} else {
 				return A5($elm$core$Dict$RBNode_elm_builtin, color, key, value, left, right);
 			}
@@ -6492,8 +6472,8 @@ var $elm$core$Dict$balance = F5(
 var $elm$core$Basics$compare = _Utils_compare;
 var $elm$core$Dict$insertHelp = F3(
 	function (key, value, dict) {
-		if (dict.$ === 'RBEmpty_elm_builtin') {
-			return A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Red, key, value, $elm$core$Dict$RBEmpty_elm_builtin, $elm$core$Dict$RBEmpty_elm_builtin);
+		if (dict.$ === -2) {
+			return A5($elm$core$Dict$RBNode_elm_builtin, 0, key, value, $elm$core$Dict$RBEmpty_elm_builtin, $elm$core$Dict$RBEmpty_elm_builtin);
 		} else {
 			var nColor = dict.a;
 			var nKey = dict.b;
@@ -6501,8 +6481,8 @@ var $elm$core$Dict$insertHelp = F3(
 			var nLeft = dict.d;
 			var nRight = dict.e;
 			var _v1 = A2($elm$core$Basics$compare, key, nKey);
-			switch (_v1.$) {
-				case 'LT':
+			switch (_v1) {
+				case 0:
 					return A5(
 						$elm$core$Dict$balance,
 						nColor,
@@ -6510,7 +6490,7 @@ var $elm$core$Dict$insertHelp = F3(
 						nValue,
 						A3($elm$core$Dict$insertHelp, key, value, nLeft),
 						nRight);
-				case 'EQ':
+				case 1:
 					return A5($elm$core$Dict$RBNode_elm_builtin, nColor, nKey, value, nLeft, nRight);
 				default:
 					return A5(
@@ -6526,13 +6506,13 @@ var $elm$core$Dict$insertHelp = F3(
 var $elm$core$Dict$insert = F3(
 	function (key, value, dict) {
 		var _v0 = A3($elm$core$Dict$insertHelp, key, value, dict);
-		if ((_v0.$ === 'RBNode_elm_builtin') && (_v0.a.$ === 'Red')) {
+		if ((_v0.$ === -1) && (!_v0.a)) {
 			var _v1 = _v0.a;
 			var k = _v0.b;
 			var v = _v0.c;
 			var l = _v0.d;
 			var r = _v0.e;
-			return A5($elm$core$Dict$RBNode_elm_builtin, $elm$core$Dict$Black, k, v, l, r);
+			return A5($elm$core$Dict$RBNode_elm_builtin, 1, k, v, l, r);
 		} else {
 			var x = _v0;
 			return x;
@@ -6555,7 +6535,7 @@ var $elm$core$Dict$foldl = F3(
 	function (func, acc, dict) {
 		foldl:
 		while (true) {
-			if (dict.$ === 'RBEmpty_elm_builtin') {
+			if (dict.$ === -2) {
 				return acc;
 			} else {
 				var key = dict.b;
@@ -6639,7 +6619,7 @@ var $elm$core$Dict$merge = F6(
 	});
 var $elm$browser$Browser$Events$Event = F2(
 	function (key, event) {
-		return {event: event, key: key};
+		return {a_: event, a6: key};
 	});
 var $elm$core$Platform$sendToSelf = _Platform_sendToSelf;
 var $elm$browser$Browser$Events$spawn = F3(
@@ -6647,7 +6627,7 @@ var $elm$browser$Browser$Events$spawn = F3(
 		var node = _v0.a;
 		var name = _v0.b;
 		var actualNode = function () {
-			if (node.$ === 'Document') {
+			if (!node) {
 				return _Browser_doc;
 			} else {
 				return _Browser_window;
@@ -6714,7 +6694,7 @@ var $elm$browser$Browser$Events$onEffects = F3(
 			stepLeft,
 			stepBoth,
 			stepRight,
-			state.pids,
+			state.bg,
 			$elm$core$Dict$fromList(newSubs),
 			_Utils_Tuple3(_List_Nil, $elm$core$Dict$empty, _List_Nil));
 		var deadPids = _v0.a;
@@ -6743,7 +6723,7 @@ var $elm$browser$Browser$Events$onEffects = F3(
 var $elm$core$List$maybeCons = F3(
 	function (f, mx, xs) {
 		var _v0 = f(mx);
-		if (_v0.$ === 'Just') {
+		if (!_v0.$) {
 			var x = _v0.a;
 			return A2($elm$core$List$cons, x, xs);
 		} else {
@@ -6760,8 +6740,8 @@ var $elm$core$List$filterMap = F2(
 	});
 var $elm$browser$Browser$Events$onSelfMsg = F3(
 	function (router, _v0, state) {
-		var key = _v0.key;
-		var event = _v0.event;
+		var key = _v0.a6;
+		var event = _v0.a_;
 		var toMessage = function (_v2) {
 			var subKey = _v2.a;
 			var _v3 = _v2.b;
@@ -6770,7 +6750,7 @@ var $elm$browser$Browser$Events$onSelfMsg = F3(
 			var decoder = _v3.c;
 			return _Utils_eq(subKey, key) ? A2(_Browser_decodeEvent, decoder, event) : $elm$core$Maybe$Nothing;
 		};
-		var messages = A2($elm$core$List$filterMap, toMessage, state.subs);
+		var messages = A2($elm$core$List$filterMap, toMessage, state.bu);
 		return A2(
 			$elm$core$Task$andThen,
 			function (_v1) {
@@ -6800,8 +6780,8 @@ var $elm$browser$Browser$Events$on = F3(
 		return $elm$browser$Browser$Events$subscription(
 			A3($elm$browser$Browser$Events$MySub, node, name, decoder));
 	});
-var $elm$browser$Browser$Events$onKeyDown = A2($elm$browser$Browser$Events$on, $elm$browser$Browser$Events$Document, 'keydown');
-var $elm$browser$Browser$Events$onKeyUp = A2($elm$browser$Browser$Events$on, $elm$browser$Browser$Events$Document, 'keyup');
+var $elm$browser$Browser$Events$onKeyDown = A2($elm$browser$Browser$Events$on, 0, 'keydown');
+var $elm$browser$Browser$Events$onKeyUp = A2($elm$browser$Browser$Events$on, 0, 'keyup');
 var $author$project$Main$subscriptions = function (_v0) {
 	return $elm$core$Platform$Sub$batch(
 		_List_fromArray(
@@ -6813,69 +6793,69 @@ var $author$project$Main$subscriptions = function (_v0) {
 var $author$project$Main$calculateModelAfterClick = F3(
 	function (model, index, cellData) {
 		var newDirection = function () {
-			var _v1 = cellData.clueId2;
-			if (_v1.$ === 'Just') {
-				return _Utils_eq(model.currentDirection, $author$project$Main$Down) ? $author$project$Main$Across : $author$project$Main$Down;
+			var _v1 = cellData.b;
+			if (!_v1.$) {
+				return (model.q === 1) ? 0 : 1;
 			} else {
-				return cellData.clueId1.a;
+				return cellData.a.a;
 			}
 		}();
 		return _Utils_Tuple2(
 			_Utils_update(
 				model,
 				{
-					currentClue: function () {
-						if (_Utils_eq(cellData.clueId1.a, newDirection)) {
-							return cellData.clueId1;
+					A: function () {
+						if (_Utils_eq(cellData.a.a, newDirection)) {
+							return cellData.a;
 						} else {
-							var _v0 = cellData.clueId2;
-							if (_v0.$ === 'Just') {
+							var _v0 = cellData.b;
+							if (!_v0.$) {
 								var clue = _v0.a;
 								return clue;
 							} else {
-								return cellData.clueId1;
+								return cellData.a;
 							}
 						}
 					}(),
-					currentDirection: newDirection,
-					currentIndex: index
+					q: newDirection,
+					f: index
 				}),
 			$elm$core$Platform$Cmd$none);
 	});
 var $author$project$Main$calculateModelAfterFocus = F3(
 	function (model, index, cellData) {
 		var newDirection = function () {
-			var _v1 = cellData.clueId2;
-			if (_v1.$ === 'Just') {
-				return model.currentDirection;
+			var _v1 = cellData.b;
+			if (!_v1.$) {
+				return model.q;
 			} else {
-				return cellData.clueId1.a;
+				return cellData.a.a;
 			}
 		}();
 		return _Utils_Tuple2(
 			_Utils_update(
 				model,
 				{
-					currentClue: function () {
-						if (_Utils_eq(cellData.clueId1.a, newDirection)) {
-							return cellData.clueId1;
+					A: function () {
+						if (_Utils_eq(cellData.a.a, newDirection)) {
+							return cellData.a;
 						} else {
-							var _v0 = cellData.clueId2;
-							if (_v0.$ === 'Just') {
+							var _v0 = cellData.b;
+							if (!_v0.$) {
 								var clue = _v0.a;
 								return clue;
 							} else {
-								return cellData.clueId1;
+								return cellData.a;
 							}
 						}
 					}(),
-					currentDirection: newDirection,
-					currentIndex: index
+					q: newDirection,
+					f: index
 				}),
 			$elm$core$Platform$Cmd$none);
 	});
 var $author$project$Main$FocusResult = function (a) {
-	return {$: 'FocusResult', a: a};
+	return {$: 3, a: a};
 };
 var $elm$core$Basics$composeL = F3(
 	function (g, f, x) {
@@ -6886,20 +6866,19 @@ var $elm$core$Task$onError = _Scheduler_onError;
 var $elm$core$Task$attempt = F2(
 	function (resultToMessage, task) {
 		return $elm$core$Task$command(
-			$elm$core$Task$Perform(
+			A2(
+				$elm$core$Task$onError,
 				A2(
-					$elm$core$Task$onError,
+					$elm$core$Basics$composeL,
+					A2($elm$core$Basics$composeL, $elm$core$Task$succeed, resultToMessage),
+					$elm$core$Result$Err),
+				A2(
+					$elm$core$Task$andThen,
 					A2(
 						$elm$core$Basics$composeL,
 						A2($elm$core$Basics$composeL, $elm$core$Task$succeed, resultToMessage),
-						$elm$core$Result$Err),
-					A2(
-						$elm$core$Task$andThen,
-						A2(
-							$elm$core$Basics$composeL,
-							A2($elm$core$Basics$composeL, $elm$core$Task$succeed, resultToMessage),
-							$elm$core$Result$Ok),
-						task))));
+						$elm$core$Result$Ok),
+					task)));
 	});
 var $elm$browser$Browser$Dom$focus = _Browser_call('focus');
 var $author$project$Main$focusCell = function (index) {
@@ -6915,14 +6894,14 @@ var $author$project$Main$getColumnNumber = F2(
 		return A2($elm$core$Basics$modBy, numberOfColumns, index) + 1;
 	});
 var $author$project$Main$currentColumnNumber = function (model) {
-	return A2($author$project$Main$getColumnNumber, model.numberOfColumns, model.currentIndex);
+	return A2($author$project$Main$getColumnNumber, model.aq, model.f);
 };
 var $author$project$Main$getRowNumber = F2(
 	function (numberOfColumns, index) {
 		return $elm$core$Basics$floor(index / numberOfColumns) + 1;
 	});
 var $author$project$Main$currentRowNumber = function (model) {
-	return A2($author$project$Main$getRowNumber, model.numberOfColumns, model.currentIndex);
+	return A2($author$project$Main$getRowNumber, model.aq, model.f);
 };
 var $elm_community$list_extra$List$Extra$findIndexHelp = F3(
 	function (index, predicate, list) {
@@ -6950,9 +6929,9 @@ var $elm_community$list_extra$List$Extra$findIndexHelp = F3(
 var $elm_community$list_extra$List$Extra$findIndex = $elm_community$list_extra$List$Extra$findIndexHelp(0);
 var $author$project$Main$isWhiteSquare = function (cell) {
 	switch (cell.$) {
-		case 'Item':
+		case 0:
 			return true;
-		case 'NumberedItem':
+		case 1:
 			return true;
 		default:
 			return false;
@@ -7132,14 +7111,14 @@ var $author$project$Main$takeEveryNthIndexesFromIndex = F3(
 var $author$project$Main$getDownWhiteIndex = function (model) {
 	var rowNumber = $author$project$Main$currentRowNumber(model);
 	var columnNumber = $author$project$Main$currentColumnNumber(model);
-	var columnSquares = A3($author$project$Main$takeEveryNthIndexesFromIndex, model.numberOfRows, columnNumber, model.grid);
+	var columnSquares = A3($author$project$Main$takeEveryNthIndexesFromIndex, model.Y, columnNumber, model.p);
 	var columnsDown = A2($elm_community$list_extra$List$Extra$splitAt, rowNumber, columnSquares).b;
 	var index = A2($elm_community$list_extra$List$Extra$findIndex, $author$project$Main$isWhiteSquare, columnsDown);
-	if (index.$ === 'Just') {
+	if (!index.$) {
 		var n = index.a;
-		return model.currentIndex + (model.numberOfRows * (n + 1));
+		return model.f + (model.Y * (n + 1));
 	} else {
-		return model.currentIndex;
+		return model.f;
 	}
 };
 var $author$project$Main$getLeftWhiteIndex = F2(
@@ -7147,7 +7126,7 @@ var $author$project$Main$getLeftWhiteIndex = F2(
 		var previousSquares = $elm$core$List$reverse(
 			A2($elm_community$list_extra$List$Extra$splitAt, index, grid).a);
 		var offset = A2($elm_community$list_extra$List$Extra$findIndex, $author$project$Main$isWhiteSquare, previousSquares);
-		if (offset.$ === 'Just') {
+		if (!offset.$) {
 			var n = offset.a;
 			return (index - n) - 1;
 		} else {
@@ -7158,7 +7137,7 @@ var $author$project$Main$getRightWhiteIndex = F2(
 	function (grid, index) {
 		var nextSquares = A2($elm_community$list_extra$List$Extra$splitAt, index + 1, grid).b;
 		var _v0 = A2($elm_community$list_extra$List$Extra$findIndex, $author$project$Main$isWhiteSquare, nextSquares);
-		if (_v0.$ === 'Just') {
+		if (!_v0.$) {
 			var n = _v0.a;
 			return (index + 1) + n;
 		} else {
@@ -7168,15 +7147,15 @@ var $author$project$Main$getRightWhiteIndex = F2(
 var $author$project$Main$getUpWhiteIndex = function (model) {
 	var rowNumber = $author$project$Main$currentRowNumber(model);
 	var columnNumber = $author$project$Main$currentColumnNumber(model);
-	var columnSquares = A3($author$project$Main$takeEveryNthIndexesFromIndex, model.numberOfRows, columnNumber, model.grid);
+	var columnSquares = A3($author$project$Main$takeEveryNthIndexesFromIndex, model.Y, columnNumber, model.p);
 	var columnsUp = $elm$core$List$reverse(
 		A2($elm_community$list_extra$List$Extra$splitAt, rowNumber - 1, columnSquares).a);
 	var index = A2($elm_community$list_extra$List$Extra$findIndex, $author$project$Main$isWhiteSquare, columnsUp);
-	if (index.$ === 'Just') {
+	if (!index.$) {
 		var n = index.a;
-		return model.currentIndex - (model.numberOfRows * (n + 1));
+		return model.f - (model.Y * (n + 1));
 	} else {
-		return model.currentIndex;
+		return model.f;
 	}
 };
 var $elm$core$Basics$negate = function (n) {
@@ -7207,7 +7186,7 @@ var $author$project$Main$updateGrid = F3(
 			$elm$core$Basics$eq(index),
 			function (item) {
 				switch (item.$) {
-					case 'NumberedItem':
+					case 1:
 						var number = item.a;
 						var cellData = item.b;
 						return A2(
@@ -7216,15 +7195,15 @@ var $author$project$Main$updateGrid = F3(
 							_Utils_update(
 								cellData,
 								{
-									value: A2($elm$core$String$right, 1, newContent)
+									c: A2($elm$core$String$right, 1, newContent)
 								}));
-					case 'Item':
+					case 0:
 						var cellData = item.a;
 						return $author$project$Main$Item(
 							_Utils_update(
 								cellData,
 								{
-									value: A2($elm$core$String$right, 1, newContent)
+									c: A2($elm$core$String$right, 1, newContent)
 								}));
 					default:
 						return $author$project$Main$Black;
@@ -7235,7 +7214,7 @@ var $author$project$Main$updateGrid = F3(
 var $author$project$Main$update = F2(
 	function (msg, model) {
 		switch (msg.$) {
-			case 'Change':
+			case 0:
 				switch (msg.b) {
 					case ' ':
 						return _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
@@ -7245,90 +7224,90 @@ var $author$project$Main$update = F2(
 							_Utils_update(
 								model,
 								{
-									grid: A3($author$project$Main$updateGrid, model.grid, index, '')
+									p: A3($author$project$Main$updateGrid, model.p, index, '')
 								}),
 							$elm$core$Platform$Cmd$none);
 					default:
 						var index = msg.a;
 						var newContent = msg.b;
-						var nextIndex = _Utils_eq(model.currentDirection, $author$project$Main$Across) ? A2($author$project$Main$getRightWhiteIndex, model.grid, index) : $author$project$Main$getDownWhiteIndex(model);
+						var nextIndex = (!model.q) ? A2($author$project$Main$getRightWhiteIndex, model.p, index) : $author$project$Main$getDownWhiteIndex(model);
 						return _Utils_Tuple2(
 							_Utils_update(
 								model,
 								{
-									currentIndex: nextIndex,
-									grid: A3($author$project$Main$updateGrid, model.grid, index, newContent)
+									f: nextIndex,
+									p: A3($author$project$Main$updateGrid, model.p, index, newContent)
 								}),
 							$author$project$Main$focusCell(nextIndex));
 				}
-			case 'Focus':
+			case 1:
 				var index = msg.a;
 				var cellData = msg.b;
 				return A3($author$project$Main$calculateModelAfterFocus, model, index, cellData);
-			case 'Click':
+			case 2:
 				var index = msg.a;
 				var cellData = msg.b;
 				return A3($author$project$Main$calculateModelAfterClick, model, index, cellData);
-			case 'FocusResult':
+			case 3:
 				return _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
 			default:
 				var keyEventMsg = msg.a;
 				switch (keyEventMsg.$) {
-					case 'TabPressed':
-						if (model.shiftHeld) {
-							var nextIndex = A2($author$project$Main$getLeftWhiteIndex, model.grid, model.currentIndex);
+					case 2:
+						if (model.ai) {
+							var nextIndex = A2($author$project$Main$getLeftWhiteIndex, model.p, model.f);
 							return _Utils_Tuple2(
 								_Utils_update(
 									model,
-									{currentDirection: $author$project$Main$Across, currentIndex: nextIndex}),
+									{q: 0, f: nextIndex}),
 								$author$project$Main$focusCell(nextIndex));
 						} else {
-							var nextIndex = A2($author$project$Main$getRightWhiteIndex, model.grid, model.currentIndex);
+							var nextIndex = A2($author$project$Main$getRightWhiteIndex, model.p, model.f);
 							return _Utils_Tuple2(
 								_Utils_update(
 									model,
-									{currentDirection: $author$project$Main$Across, currentIndex: nextIndex}),
+									{q: 0, f: nextIndex}),
 								$author$project$Main$focusCell(nextIndex));
 						}
-					case 'ShiftPressed':
+					case 3:
 						return _Utils_Tuple2(
 							_Utils_update(
 								model,
-								{shiftHeld: true}),
+								{ai: true}),
 							$elm$core$Platform$Cmd$none);
-					case 'ShiftReleased':
+					case 4:
 						return _Utils_Tuple2(
 							_Utils_update(
 								model,
-								{shiftHeld: false}),
+								{ai: false}),
 							$elm$core$Platform$Cmd$none);
-					case 'LeftPressed':
-						var nextIndex = A2($author$project$Main$getLeftWhiteIndex, model.grid, model.currentIndex);
+					case 5:
+						var nextIndex = A2($author$project$Main$getLeftWhiteIndex, model.p, model.f);
 						return _Utils_Tuple2(
 							_Utils_update(
 								model,
-								{currentDirection: $author$project$Main$Across, currentIndex: nextIndex}),
+								{q: 0, f: nextIndex}),
 							$author$project$Main$focusCell(nextIndex));
-					case 'RightPressed':
-						var nextIndex = A2($author$project$Main$getRightWhiteIndex, model.grid, model.currentIndex);
+					case 6:
+						var nextIndex = A2($author$project$Main$getRightWhiteIndex, model.p, model.f);
 						return _Utils_Tuple2(
 							_Utils_update(
 								model,
-								{currentDirection: $author$project$Main$Across, currentIndex: nextIndex}),
+								{q: 0, f: nextIndex}),
 							$author$project$Main$focusCell(nextIndex));
-					case 'UpPressed':
+					case 7:
 						var nextIndex = $author$project$Main$getUpWhiteIndex(model);
 						return _Utils_Tuple2(
 							_Utils_update(
 								model,
-								{currentDirection: $author$project$Main$Down, currentIndex: nextIndex}),
+								{q: 1, f: nextIndex}),
 							$author$project$Main$focusCell(nextIndex));
-					case 'KeyPressed':
+					case 8:
 						var nextIndex = $author$project$Main$getDownWhiteIndex(model);
 						return _Utils_Tuple2(
 							_Utils_update(
 								model,
-								{currentDirection: $author$project$Main$Down, currentIndex: nextIndex}),
+								{q: 1, f: nextIndex}),
 							$author$project$Main$focusCell(nextIndex));
 					default:
 						return _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
@@ -7339,7 +7318,7 @@ var $elm$core$String$concat = function (strings) {
 	return A2($elm$core$String$join, '', strings);
 };
 var $author$project$Main$directionToString = function (direction) {
-	if (direction.$ === 'Across') {
+	if (!direction) {
 		return 'Across';
 	} else {
 		return 'Down';
@@ -7360,11 +7339,11 @@ var $author$project$Main$cellDataToString = function (cellData) {
 	return $elm$core$String$concat(
 		_List_fromArray(
 			[
-				$author$project$Main$clueIdToString(cellData.clueId1),
+				$author$project$Main$clueIdToString(cellData.a),
 				' ',
 				function () {
-				var _v0 = cellData.clueId2;
-				if (_v0.$ === 'Just') {
+				var _v0 = cellData.b;
+				if (!_v0.$) {
 					var clue = _v0.a;
 					return $author$project$Main$clueIdToString(clue);
 				} else {
@@ -7431,13 +7410,13 @@ var $author$project$Main$viewDebugInt = F2(
 	});
 var $author$project$Main$debug = function (model) {
 	var cellString = function () {
-		var _v0 = A2($author$project$Main$elementAtIndex, model.currentIndex + 1, model.grid);
-		if (_v0.$ === 'Just') {
+		var _v0 = A2($author$project$Main$elementAtIndex, model.f + 1, model.p);
+		if (!_v0.$) {
 			switch (_v0.a.$) {
-				case 'Black':
+				case 2:
 					var _v1 = _v0.a;
 					return 'Black';
-				case 'Item':
+				case 0:
 					var cellData = _v0.a.a;
 					return $elm$core$String$concat(
 						_List_fromArray(
@@ -7467,7 +7446,7 @@ var $author$project$Main$debug = function (model) {
 		_List_Nil,
 		_List_fromArray(
 			[
-				A2($author$project$Main$viewDebugInt, 'Current version', model.version),
+				A2($author$project$Main$viewDebugInt, 'Current version', model.aM),
 				A2($author$project$Main$viewDebug, 'Current Cell', cellString),
 				A2(
 				$author$project$Main$viewDebug,
@@ -7475,16 +7454,16 @@ var $author$project$Main$debug = function (model) {
 				$elm$core$String$concat(
 					_List_fromArray(
 						[
-							$elm$core$String$fromInt(model.currentClue.b),
-							$author$project$Main$directionToString(model.currentClue.a)
+							$elm$core$String$fromInt(model.A.b),
+							$author$project$Main$directionToString(model.A.a)
 						]))),
-				A2($author$project$Main$viewDebugInt, 'currentIndex', model.currentIndex),
-				A2($author$project$Main$viewDebugInt, 'currentRow', model.currentRow),
-				A2($author$project$Main$viewDebugInt, 'currentColumn', model.currentColumn),
+				A2($author$project$Main$viewDebugInt, 'currentIndex', model.f),
+				A2($author$project$Main$viewDebugInt, 'currentRow', model.ax),
+				A2($author$project$Main$viewDebugInt, 'currentColumn', model.aw),
 				A2(
 				$author$project$Main$viewDebug,
 				'currentDirection',
-				$author$project$Main$directionToString(model.currentDirection))
+				$author$project$Main$directionToString(model.q))
 			]));
 };
 var $elm$virtual_dom$VirtualDom$lazy2 = _VirtualDom_lazy2;
@@ -7508,7 +7487,7 @@ var $author$project$Main$viewClue = F2(
 	});
 var $author$project$Main$viewClueAndModelAndDirection = F3(
 	function (model, direction, clue) {
-		var backgroundColor = (_Utils_eq(model.currentClue.b, clue.a) && _Utils_eq(direction, model.currentClue.a)) ? 'yellow' : 'white';
+		var backgroundColor = (_Utils_eq(model.A.b, clue.a) && _Utils_eq(direction, model.A.a)) ? 'yellow' : 'white';
 		return A3($elm$html$Html$Lazy$lazy2, $author$project$Main$viewClue, backgroundColor, clue);
 	});
 var $author$project$Main$viewClues = F3(
@@ -7545,7 +7524,7 @@ var $elm$core$String$fromFloat = _String_fromNumber;
 var $elm$core$Basics$sqrt = _Basics_sqrt;
 var $author$project$Main$getGridTemplate = function (model) {
 	var rowCount = $elm$core$Basics$sqrt(
-		$elm$core$List$length(model.grid));
+		$elm$core$List$length(model.p));
 	var singleCellPercentage = 100 / rowCount;
 	return $elm$core$String$concat(
 		_List_fromArray(
@@ -7565,25 +7544,25 @@ var $elm$virtual_dom$VirtualDom$lazy6 = _VirtualDom_lazy6;
 var $elm$html$Html$Lazy$lazy6 = $elm$virtual_dom$VirtualDom$lazy6;
 var $author$project$Main$shouldHighlight = F2(
 	function (model, cellData) {
-		var _v0 = cellData.clueId2;
-		if (_v0.$ === 'Just') {
+		var _v0 = cellData.b;
+		if (!_v0.$) {
 			var x = _v0.a;
-			return (_Utils_eq(x, model.currentClue) && _Utils_eq(x.a, model.currentDirection)) || _Utils_eq(cellData.clueId1, model.currentClue);
+			return (_Utils_eq(x, model.A) && _Utils_eq(x.a, model.q)) || _Utils_eq(cellData.a, model.A);
 		} else {
-			return _Utils_eq(cellData.clueId1, model.currentClue);
+			return _Utils_eq(cellData.a, model.A);
 		}
 	});
 var $author$project$Main$Change = F2(
 	function (a, b) {
-		return {$: 'Change', a: a, b: b};
+		return {$: 0, a: a, b: b};
 	});
 var $author$project$Main$Click = F2(
 	function (a, b) {
-		return {$: 'Click', a: a, b: b};
+		return {$: 2, a: a, b: b};
 	});
 var $author$project$Main$Focus = F2(
 	function (a, b) {
-		return {$: 'Focus', a: a, b: b};
+		return {$: 1, a: a, b: b};
 	});
 var $elm$json$Json$Encode$string = _Json_wrap;
 var $elm$html$Html$Attributes$stringProperty = F2(
@@ -7596,7 +7575,7 @@ var $elm$html$Html$Attributes$stringProperty = F2(
 var $elm$html$Html$Attributes$id = $elm$html$Html$Attributes$stringProperty('id');
 var $elm$html$Html$input = _VirtualDom_node('input');
 var $elm$virtual_dom$VirtualDom$Normal = function (a) {
-	return {$: 'Normal', a: a};
+	return {$: 0, a: a};
 };
 var $elm$virtual_dom$VirtualDom$on = _VirtualDom_on;
 var $elm$html$Html$Events$on = F2(
@@ -7622,7 +7601,7 @@ var $elm$html$Html$Events$alwaysStop = function (x) {
 	return _Utils_Tuple2(x, true);
 };
 var $elm$virtual_dom$VirtualDom$MayStopPropagation = function (a) {
-	return {$: 'MayStopPropagation', a: a};
+	return {$: 1, a: a};
 };
 var $elm$html$Html$Events$stopPropagationOn = F2(
 	function (event, decoder) {
@@ -7654,7 +7633,7 @@ var $elm$html$Html$Attributes$value = $elm$html$Html$Attributes$stringProperty('
 var $author$project$Main$viewCell = F6(
 	function (cell, index, border, zIndex, backgroundColor, selected) {
 		switch (cell.$) {
-			case 'Item':
+			case 0:
 				var cellData = cell.a;
 				return A2(
 					$elm$html$Html$div,
@@ -7671,7 +7650,7 @@ var $author$project$Main$viewCell = F6(
 									$elm$html$Html$Attributes$id(
 									$elm$core$String$fromInt(index)),
 									$elm$html$Html$Attributes$placeholder(''),
-									$elm$html$Html$Attributes$value(cellData.value),
+									$elm$html$Html$Attributes$value(cellData.c),
 									$elm$html$Html$Events$onInput(
 									$author$project$Main$Change(index)),
 									$elm$html$Html$Events$onFocus(
@@ -7699,7 +7678,7 @@ var $author$project$Main$viewCell = F6(
 								]),
 							_List_Nil)
 						]));
-			case 'NumberedItem':
+			case 1:
 				var number = cell.a;
 				var cellData = cell.b;
 				return A2(
@@ -7730,7 +7709,7 @@ var $author$project$Main$viewCell = F6(
 									$elm$core$String$fromInt(index)),
 									A2($elm$html$Html$Attributes$style, 'position', 'relative'),
 									$elm$html$Html$Attributes$placeholder(''),
-									$elm$html$Html$Attributes$value(cellData.value),
+									$elm$html$Html$Attributes$value(cellData.c),
 									$elm$html$Html$Events$onInput(
 									$author$project$Main$Change(index)),
 									$elm$html$Html$Events$onFocus(
@@ -7769,13 +7748,13 @@ var $author$project$Main$viewCell = F6(
 	});
 var $author$project$Main$viewCellAndModel = F3(
 	function (model, index, cell) {
-		var selected = _Utils_eq(index, model.currentIndex);
+		var selected = _Utils_eq(index, model.f);
 		var zIndex = selected ? '10' : '1';
 		var highlight = function () {
 			switch (cell.$) {
-				case 'Black':
+				case 2:
 					return false;
-				case 'Item':
+				case 0:
 					var cellData = cell.a;
 					return A2($author$project$Main$shouldHighlight, model, cellData);
 				default:
@@ -7807,7 +7786,7 @@ var $author$project$Main$viewGrid = function (model) {
 		A2(
 			$elm$core$List$indexedMap,
 			$author$project$Main$viewCellAndModel(model),
-			model.grid));
+			model.p));
 };
 var $author$project$Main$viewPuzzle = function (model) {
 	return A2(
@@ -7819,46 +7798,28 @@ var $author$project$Main$viewPuzzle = function (model) {
 		_List_fromArray(
 			[
 				$author$project$Main$viewGrid(model),
-				A3($author$project$Main$viewCluesSection, model, $author$project$Main$Across, model.clues.across),
-				A3($author$project$Main$viewCluesSection, model, $author$project$Main$Down, model.clues.down)
+				A3($author$project$Main$viewCluesSection, model, 0, model.an.aO),
+				A3($author$project$Main$viewCluesSection, model, 1, model.an.aY)
 			]));
 };
 var $author$project$Main$view = function (model) {
 	return {
-		body: _List_fromArray(
+		bH: _List_fromArray(
 			[
 				$author$project$Main$viewPuzzle(model),
-				model.showDebug ? $author$project$Main$debug(model) : A2($elm$html$Html$div, _List_Nil, _List_Nil)
+				model.aH ? $author$project$Main$debug(model) : A2($elm$html$Html$div, _List_Nil, _List_Nil)
 			]),
-		title: 'Crossword'
+		cm: 'Crossword'
 	};
 };
 var $author$project$Main$main = $elm$browser$Browser$document(
 	{
-		init: function (_v0) {
+		bX: function (_v0) {
 			return $author$project$Main$init;
 		},
-		subscriptions: $author$project$Main$subscriptions,
-		update: $author$project$Main$update,
-		view: $author$project$Main$view
+		cj: $author$project$Main$subscriptions,
+		co: $author$project$Main$update,
+		cp: $author$project$Main$view
 	});
 _Platform_export({'Main':{'init':$author$project$Main$main(
-	$elm$json$Json$Decode$succeed(_Utils_Tuple0))(0)}});}(this));
-
-  var app = Elm.Main.init({ node: document.getElementById("elm") });
-}
-catch (e)
-{
-  // display initialization errors (e.g. bad flags, infinite recursion)
-  var header = document.createElement("h1");
-  header.style.fontFamily = "monospace";
-  header.innerText = "Initialization Error";
-  var pre = document.getElementById("elm");
-  document.body.insertBefore(header, pre);
-  pre.innerText = e;
-  throw e;
-}
-</script>
-
-</body>
-</html>
+	$elm$json$Json$Decode$succeed(0))(0)}});}(this));

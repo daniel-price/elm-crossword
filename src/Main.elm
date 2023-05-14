@@ -1,6 +1,6 @@
 module Main exposing (..)
 
-import Browser
+import Browser exposing (Document)
 import Browser.Dom as Dom
 import Browser.Events
 import Html exposing (Html, div, input, text)
@@ -18,7 +18,7 @@ import Task
 
 main : Program () Model Msg
 main =
-    Browser.element { init = \_ -> init, update = update, view = view, subscriptions = subscriptions }
+    Browser.document { init = \_ -> init, update = update, view = view, subscriptions = subscriptions }
 
 
 
@@ -691,12 +691,18 @@ updateGrid grid index newContent =
 -- VIEW
 
 
-view : Model -> Html Msg
+view : Model -> Document Msg
 view model =
-    div
-        []
+    { title = "Crossword"
+    , body =
         [ viewPuzzle model
+        , if model.showDebug then
+            debug model
+
+          else
+            div [] []
         ]
+    }
 
 
 clueIdToString : ClueId -> String
