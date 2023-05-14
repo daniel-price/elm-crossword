@@ -5248,7 +5248,9 @@ var $author$project$Main$init = _Utils_Tuple2(
 					clueId2: $elm$core$Maybe$Nothing,
 					value: ''
 				}),
-				$author$project$Main$Item(
+				A2(
+				$author$project$Main$NumberedItem,
+				2,
 				{
 					clueId1: _Utils_Tuple2($author$project$Main$Across, 1),
 					clueId2: $elm$core$Maybe$Just(
@@ -5261,7 +5263,9 @@ var $author$project$Main$init = _Utils_Tuple2(
 					clueId2: $elm$core$Maybe$Nothing,
 					value: ''
 				}),
-				$author$project$Main$Item(
+				A2(
+				$author$project$Main$NumberedItem,
+				3,
 				{
 					clueId1: _Utils_Tuple2($author$project$Main$Across, 1),
 					clueId2: $elm$core$Maybe$Just(
@@ -5274,7 +5278,9 @@ var $author$project$Main$init = _Utils_Tuple2(
 					clueId2: $elm$core$Maybe$Nothing,
 					value: ''
 				}),
-				$author$project$Main$Item(
+				A2(
+				$author$project$Main$NumberedItem,
+				4,
 				{
 					clueId1: _Utils_Tuple2($author$project$Main$Across, 1),
 					clueId2: $elm$core$Maybe$Just(
@@ -5287,7 +5293,9 @@ var $author$project$Main$init = _Utils_Tuple2(
 					clueId2: $elm$core$Maybe$Nothing,
 					value: ''
 				}),
-				$author$project$Main$Item(
+				A2(
+				$author$project$Main$NumberedItem,
+				5,
 				{
 					clueId1: _Utils_Tuple2($author$project$Main$Across, 1),
 					clueId2: $elm$core$Maybe$Just(
@@ -5310,7 +5318,9 @@ var $author$project$Main$init = _Utils_Tuple2(
 					clueId2: $elm$core$Maybe$Nothing,
 					value: ''
 				}),
-				$author$project$Main$Item(
+				A2(
+				$author$project$Main$NumberedItem,
+				7,
 				{
 					clueId1: _Utils_Tuple2($author$project$Main$Across, 6),
 					clueId2: $elm$core$Maybe$Just(
@@ -5663,7 +5673,9 @@ var $author$project$Main$init = _Utils_Tuple2(
 					clueId2: $elm$core$Maybe$Nothing,
 					value: ''
 				}),
-				$author$project$Main$Item(
+				A2(
+				$author$project$Main$NumberedItem,
+				13,
 				{
 					clueId1: _Utils_Tuple2($author$project$Main$Across, 12),
 					clueId2: $elm$core$Maybe$Just(
@@ -5689,7 +5701,9 @@ var $author$project$Main$init = _Utils_Tuple2(
 					clueId2: $elm$core$Maybe$Nothing,
 					value: ''
 				}),
-				$author$project$Main$Item(
+				A2(
+				$author$project$Main$NumberedItem,
+				14,
 				{
 					clueId1: _Utils_Tuple2($author$project$Main$Across, 12),
 					clueId2: $elm$core$Maybe$Just(
@@ -5807,7 +5821,9 @@ var $author$project$Main$init = _Utils_Tuple2(
 					clueId2: $elm$core$Maybe$Nothing,
 					value: ''
 				}),
-				$author$project$Main$Item(
+				A2(
+				$author$project$Main$NumberedItem,
+				17,
 				{
 					clueId1: _Utils_Tuple2($author$project$Main$Across, 16),
 					clueId2: $elm$core$Maybe$Just(
@@ -5833,7 +5849,9 @@ var $author$project$Main$init = _Utils_Tuple2(
 					clueId2: $elm$core$Maybe$Nothing,
 					value: ''
 				}),
-				$author$project$Main$Item(
+				A2(
+				$author$project$Main$NumberedItem,
+				18,
 				{
 					clueId1: _Utils_Tuple2($author$project$Main$Across, 16),
 					clueId2: $elm$core$Maybe$Just(
@@ -5856,7 +5874,9 @@ var $author$project$Main$init = _Utils_Tuple2(
 					clueId2: $elm$core$Maybe$Nothing,
 					value: ''
 				}),
-				$author$project$Main$Item(
+				A2(
+				$author$project$Main$NumberedItem,
+				20,
 				{
 					clueId1: _Utils_Tuple2($author$project$Main$Across, 19),
 					clueId2: $elm$core$Maybe$Just(
@@ -6005,7 +6025,9 @@ var $author$project$Main$init = _Utils_Tuple2(
 					clueId2: $elm$core$Maybe$Nothing,
 					value: ''
 				}),
-				$author$project$Main$Item(
+				A2(
+				$author$project$Main$NumberedItem,
+				23,
 				{
 					clueId1: _Utils_Tuple2($author$project$Main$Across, 22),
 					clueId2: $elm$core$Maybe$Just(
@@ -6309,7 +6331,7 @@ var $author$project$Main$init = _Utils_Tuple2(
 		numberOfColumns: 15,
 		numberOfRows: 15,
 		shiftHeld: false,
-		showDebug: false
+		showDebug: true
 	},
 	$elm$core$Platform$Cmd$none);
 var $elm$core$Platform$Sub$batch = _Platform_batch;
@@ -6360,8 +6382,11 @@ var $author$project$Main$keyPressedToKeyEventMsg = function (eventKeyString) {
 			}
 	}
 };
+var $elm$core$Debug$log = _Debug_log;
 var $elm$json$Json$Decode$string = _Json_decodeString;
-var $author$project$Main$keyPressedDecoder = A2(
+var $author$project$Main$keyPressedDecoder = A4(
+	$elm$core$Debug$log,
+	'keyPressedDecoder',
 	$elm$json$Json$Decode$map,
 	A2($elm$core$Basics$composeR, $author$project$Main$keyPressedToKeyEventMsg, $author$project$Main$KeyTouched),
 	A2($elm$json$Json$Decode$field, 'key', $elm$json$Json$Decode$string));
@@ -6373,7 +6398,9 @@ var $author$project$Main$keyReleasedToKeyEventMsg = function (eventKeyString) {
 		return $author$project$Main$KeyEventUnknown(eventKeyString);
 	}
 };
-var $author$project$Main$keyReleasedDecoder = A2(
+var $author$project$Main$keyReleasedDecoder = A4(
+	$elm$core$Debug$log,
+	'keyReleasedDecoder',
 	$elm$json$Json$Decode$map,
 	A2($elm$core$Basics$composeR, $author$project$Main$keyReleasedToKeyEventMsg, $author$project$Main$KeyTouched),
 	A2($elm$json$Json$Decode$field, 'key', $elm$json$Json$Decode$string));
@@ -7213,106 +7240,111 @@ var $author$project$Main$updateGrid = F3(
 	});
 var $author$project$Main$update = F2(
 	function (msg, model) {
-		switch (msg.$) {
-			case 'Change':
-				switch (msg.b) {
-					case ' ':
-						return _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
-					case '':
-						var index = msg.a;
-						return _Utils_Tuple2(
-							_Utils_update(
-								model,
-								{
-									grid: A3($author$project$Main$updateGrid, model.grid, index, '')
-								}),
-							$elm$core$Platform$Cmd$none);
-					default:
-						var index = msg.a;
-						var newContent = msg.b;
-						var nextIndex = _Utils_eq(model.currentDirection, $author$project$Main$Across) ? A2($author$project$Main$getRightWhiteIndex, model.grid, index) : $author$project$Main$getDownWhiteIndex(model);
-						return _Utils_Tuple2(
-							_Utils_update(
-								model,
-								{
-									currentIndex: nextIndex,
-									grid: A3($author$project$Main$updateGrid, model.grid, index, newContent)
-								}),
-							$author$project$Main$focusCell(nextIndex));
-				}
-			case 'Focus':
-				var index = msg.a;
-				var cellData = msg.b;
-				return A3($author$project$Main$calculateModelAfterFocus, model, index, cellData);
-			case 'Click':
-				var index = msg.a;
-				var cellData = msg.b;
-				return A3($author$project$Main$calculateModelAfterClick, model, index, cellData);
-			case 'FocusResult':
-				return _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
-			default:
-				var keyEventMsg = msg.a;
-				switch (keyEventMsg.$) {
-					case 'TabPressed':
-						if (model.shiftHeld) {
-							var nextIndex = A2($author$project$Main$getLeftWhiteIndex, model.grid, model.currentIndex);
-							return _Utils_Tuple2(
-								_Utils_update(
-									model,
-									{currentDirection: $author$project$Main$Across, currentIndex: nextIndex}),
-								$author$project$Main$focusCell(nextIndex));
-						} else {
-							var nextIndex = A2($author$project$Main$getRightWhiteIndex, model.grid, model.currentIndex);
-							return _Utils_Tuple2(
-								_Utils_update(
-									model,
-									{currentDirection: $author$project$Main$Across, currentIndex: nextIndex}),
-								$author$project$Main$focusCell(nextIndex));
+		return A2(
+			$elm$core$Debug$log,
+			'update',
+			function () {
+				switch (msg.$) {
+					case 'Change':
+						switch (msg.b) {
+							case ' ':
+								return _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
+							case '':
+								var index = msg.a;
+								return _Utils_Tuple2(
+									_Utils_update(
+										model,
+										{
+											grid: A3($author$project$Main$updateGrid, model.grid, index, '')
+										}),
+									$elm$core$Platform$Cmd$none);
+							default:
+								var index = msg.a;
+								var newContent = msg.b;
+								var nextIndex = _Utils_eq(model.currentDirection, $author$project$Main$Across) ? A2($author$project$Main$getRightWhiteIndex, model.grid, index) : $author$project$Main$getDownWhiteIndex(model);
+								return _Utils_Tuple2(
+									_Utils_update(
+										model,
+										{
+											currentIndex: nextIndex,
+											grid: A3($author$project$Main$updateGrid, model.grid, index, newContent)
+										}),
+									$author$project$Main$focusCell(nextIndex));
 						}
-					case 'ShiftPressed':
-						return _Utils_Tuple2(
-							_Utils_update(
-								model,
-								{shiftHeld: true}),
-							$elm$core$Platform$Cmd$none);
-					case 'ShiftReleased':
-						return _Utils_Tuple2(
-							_Utils_update(
-								model,
-								{shiftHeld: false}),
-							$elm$core$Platform$Cmd$none);
-					case 'LeftPressed':
-						var nextIndex = A2($author$project$Main$getLeftWhiteIndex, model.grid, model.currentIndex);
-						return _Utils_Tuple2(
-							_Utils_update(
-								model,
-								{currentDirection: $author$project$Main$Across, currentIndex: nextIndex}),
-							$author$project$Main$focusCell(nextIndex));
-					case 'RightPressed':
-						var nextIndex = A2($author$project$Main$getRightWhiteIndex, model.grid, model.currentIndex);
-						return _Utils_Tuple2(
-							_Utils_update(
-								model,
-								{currentDirection: $author$project$Main$Across, currentIndex: nextIndex}),
-							$author$project$Main$focusCell(nextIndex));
-					case 'UpPressed':
-						var nextIndex = $author$project$Main$getUpWhiteIndex(model);
-						return _Utils_Tuple2(
-							_Utils_update(
-								model,
-								{currentDirection: $author$project$Main$Down, currentIndex: nextIndex}),
-							$author$project$Main$focusCell(nextIndex));
-					case 'KeyPressed':
-						var nextIndex = $author$project$Main$getDownWhiteIndex(model);
-						return _Utils_Tuple2(
-							_Utils_update(
-								model,
-								{currentDirection: $author$project$Main$Down, currentIndex: nextIndex}),
-							$author$project$Main$focusCell(nextIndex));
-					default:
+					case 'Focus':
+						var index = msg.a;
+						var cellData = msg.b;
+						return A3($author$project$Main$calculateModelAfterFocus, model, index, cellData);
+					case 'Click':
+						var index = msg.a;
+						var cellData = msg.b;
+						return A3($author$project$Main$calculateModelAfterClick, model, index, cellData);
+					case 'FocusResult':
 						return _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
+					default:
+						var keyEventMsg = msg.a;
+						switch (keyEventMsg.$) {
+							case 'TabPressed':
+								if (model.shiftHeld) {
+									var nextIndex = A2($author$project$Main$getLeftWhiteIndex, model.grid, model.currentIndex);
+									return _Utils_Tuple2(
+										_Utils_update(
+											model,
+											{currentDirection: $author$project$Main$Across, currentIndex: nextIndex}),
+										$author$project$Main$focusCell(nextIndex));
+								} else {
+									var nextIndex = A2($author$project$Main$getRightWhiteIndex, model.grid, model.currentIndex);
+									return _Utils_Tuple2(
+										_Utils_update(
+											model,
+											{currentDirection: $author$project$Main$Across, currentIndex: nextIndex}),
+										$author$project$Main$focusCell(nextIndex));
+								}
+							case 'ShiftPressed':
+								return _Utils_Tuple2(
+									_Utils_update(
+										model,
+										{shiftHeld: true}),
+									$elm$core$Platform$Cmd$none);
+							case 'ShiftReleased':
+								return _Utils_Tuple2(
+									_Utils_update(
+										model,
+										{shiftHeld: false}),
+									$elm$core$Platform$Cmd$none);
+							case 'LeftPressed':
+								var nextIndex = A2($author$project$Main$getLeftWhiteIndex, model.grid, model.currentIndex);
+								return _Utils_Tuple2(
+									_Utils_update(
+										model,
+										{currentDirection: $author$project$Main$Across, currentIndex: nextIndex}),
+									$author$project$Main$focusCell(nextIndex));
+							case 'RightPressed':
+								var nextIndex = A2($author$project$Main$getRightWhiteIndex, model.grid, model.currentIndex);
+								return _Utils_Tuple2(
+									_Utils_update(
+										model,
+										{currentDirection: $author$project$Main$Across, currentIndex: nextIndex}),
+									$author$project$Main$focusCell(nextIndex));
+							case 'UpPressed':
+								var nextIndex = $author$project$Main$getUpWhiteIndex(model);
+								return _Utils_Tuple2(
+									_Utils_update(
+										model,
+										{currentDirection: $author$project$Main$Down, currentIndex: nextIndex}),
+									$author$project$Main$focusCell(nextIndex));
+							case 'KeyPressed':
+								var nextIndex = $author$project$Main$getDownWhiteIndex(model);
+								return _Utils_Tuple2(
+									_Utils_update(
+										model,
+										{currentDirection: $author$project$Main$Down, currentIndex: nextIndex}),
+									$author$project$Main$focusCell(nextIndex));
+							default:
+								return _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
+						}
 				}
-		}
+			}());
 	});
 var $elm$core$String$concat = function (strings) {
 	return A2($elm$core$String$join, '', strings);
@@ -7465,7 +7497,6 @@ var $author$project$Main$debug = function (model) {
 				$author$project$Main$directionToString(model.currentDirection))
 			]));
 };
-var $elm$core$Debug$log = _Debug_log;
 var $elm$virtual_dom$VirtualDom$lazy2 = _VirtualDom_lazy2;
 var $elm$html$Html$Lazy$lazy2 = $elm$virtual_dom$VirtualDom$lazy2;
 var $author$project$Main$viewClue = F2(
@@ -7803,7 +7834,9 @@ var $author$project$Main$viewPuzzle = function (model) {
 			]));
 };
 var $author$project$Main$view = function (model) {
-	return A2(
+	return A4(
+		$elm$core$Debug$log,
+		'view',
 		$elm$html$Html$div,
 		_List_Nil,
 		_List_fromArray(

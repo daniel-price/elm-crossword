@@ -72,7 +72,7 @@ type alias Model =
 
 init : ( Model, Cmd Msg )
 init =
-    ( { showDebug = False
+    ( { showDebug = True
       , shiftHeld = False
       , currentDirection = Across
       , currentRow = 0
@@ -121,17 +121,17 @@ init =
             [ Black
             , NumberedItem 1 { value = "", clueId1 = ( Across, 1 ), clueId2 = Just ( Down, 1 ) }
             , Item { value = "", clueId1 = ( Across, 1 ), clueId2 = Nothing }
-            , Item { value = "", clueId1 = ( Across, 1 ), clueId2 = Just ( Down, 2 ) }
+            , NumberedItem 2 { value = "", clueId1 = ( Across, 1 ), clueId2 = Just ( Down, 2 ) }
             , Item { value = "", clueId1 = ( Across, 1 ), clueId2 = Nothing }
-            , Item { value = "", clueId1 = ( Across, 1 ), clueId2 = Just ( Down, 3 ) }
+            , NumberedItem 3 { value = "", clueId1 = ( Across, 1 ), clueId2 = Just ( Down, 3 ) }
             , Item { value = "", clueId1 = ( Across, 1 ), clueId2 = Nothing }
-            , Item { value = "", clueId1 = ( Across, 1 ), clueId2 = Just ( Down, 4 ) }
+            , NumberedItem 4 { value = "", clueId1 = ( Across, 1 ), clueId2 = Just ( Down, 4 ) }
             , Item { value = "", clueId1 = ( Across, 1 ), clueId2 = Nothing }
-            , Item { value = "", clueId1 = ( Across, 1 ), clueId2 = Just ( Down, 5 ) }
+            , NumberedItem 5 { value = "", clueId1 = ( Across, 1 ), clueId2 = Just ( Down, 5 ) }
             , Black
             , NumberedItem 6 { value = "", clueId1 = ( Across, 6 ), clueId2 = Just ( Down, 6 ) }
             , Item { value = "", clueId1 = ( Across, 6 ), clueId2 = Nothing }
-            , Item { value = "", clueId1 = ( Across, 6 ), clueId2 = Just ( Down, 7 ) }
+            , NumberedItem 7 { value = "", clueId1 = ( Across, 6 ), clueId2 = Just ( Down, 7 ) }
             , Item { value = "", clueId1 = ( Across, 6 ), clueId2 = Nothing }
             , Black
             , Item { value = "", clueId1 = ( Down, 1 ), clueId2 = Nothing }
@@ -209,11 +209,11 @@ init =
             , Item { value = "", clueId1 = ( Down, 7 ), clueId2 = Nothing }
             , Black
             , NumberedItem 12 { value = "", clueId1 = ( Across, 12 ), clueId2 = Nothing }
-            , Item { value = "", clueId1 = ( Across, 12 ), clueId2 = Just ( Down, 13 ) }
+            , NumberedItem 13 { value = "", clueId1 = ( Across, 12 ), clueId2 = Just ( Down, 13 ) }
             , Item { value = "", clueId1 = ( Across, 12 ), clueId2 = Nothing }
             , Item { value = "", clueId1 = ( Across, 12 ), clueId2 = Just ( Down, 2 ) }
             , Item { value = "", clueId1 = ( Across, 12 ), clueId2 = Nothing }
-            , Item { value = "", clueId1 = ( Across, 12 ), clueId2 = Just ( Down, 14 ) }
+            , NumberedItem 14 { value = "", clueId1 = ( Across, 12 ), clueId2 = Just ( Down, 14 ) }
             , Black
             , NumberedItem 15 { value = "", clueId1 = ( Across, 15 ), clueId2 = Just ( Down, 4 ) }
             , Item { value = "", clueId1 = ( Across, 15 ), clueId2 = Nothing }
@@ -241,15 +241,15 @@ init =
             , NumberedItem 16 { value = "", clueId1 = ( Across, 16 ), clueId2 = Nothing }
             , Item { value = "", clueId1 = ( Across, 16 ), clueId2 = Just ( Down, 13 ) }
             , Item { value = "", clueId1 = ( Across, 16 ), clueId2 = Nothing }
-            , Item { value = "", clueId1 = ( Across, 16 ), clueId2 = Just ( Down, 17 ) }
+            , NumberedItem 17 { value = "", clueId1 = ( Across, 16 ), clueId2 = Just ( Down, 17 ) }
             , Item { value = "", clueId1 = ( Across, 16 ), clueId2 = Nothing }
             , Item { value = "", clueId1 = ( Across, 16 ), clueId2 = Just ( Down, 14 ) }
             , Item { value = "", clueId1 = ( Across, 16 ), clueId2 = Nothing }
-            , Item { value = "", clueId1 = ( Across, 16 ), clueId2 = Just ( Down, 18 ) }
+            , NumberedItem 18 { value = "", clueId1 = ( Across, 16 ), clueId2 = Just ( Down, 18 ) }
             , Black
             , NumberedItem 19 { value = "", clueId1 = ( Across, 19 ), clueId2 = Just ( Down, 5 ) }
             , Item { value = "", clueId1 = ( Across, 19 ), clueId2 = Nothing }
-            , Item { value = "", clueId1 = ( Across, 19 ), clueId2 = Just ( Down, 20 ) }
+            , NumberedItem 20 { value = "", clueId1 = ( Across, 19 ), clueId2 = Just ( Down, 20 ) }
             , Item { value = "", clueId1 = ( Across, 19 ), clueId2 = Nothing }
             , Item { value = "", clueId1 = ( Across, 19 ), clueId2 = Just ( Down, 7 ) }
             , Item { value = "", clueId1 = ( Across, 19 ), clueId2 = Nothing }
@@ -281,7 +281,7 @@ init =
             , Item { value = "", clueId1 = ( Across, 22 ), clueId2 = Nothing }
             , Item { value = "", clueId1 = ( Across, 22 ), clueId2 = Just ( Down, 20 ) }
             , Item { value = "", clueId1 = ( Across, 22 ), clueId2 = Nothing }
-            , Item { value = "", clueId1 = ( Across, 22 ), clueId2 = Just ( Down, 23 ) }
+            , NumberedItem 23 { value = "", clueId1 = ( Across, 22 ), clueId2 = Just ( Down, 23 ) }
             , Item { value = "", clueId1 = ( Across, 22 ), clueId2 = Nothing }
             , Black
             , Item { value = "", clueId1 = ( Down, 13 ), clueId2 = Nothing }
@@ -448,86 +448,88 @@ calculateModelAfterFocus model index cellData =
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
-    case msg of
-        Change _ " " ->
-            ( model, Cmd.none )
+    Debug.log "update"
+        (case msg of
+            Change _ " " ->
+                ( model, Cmd.none )
 
-        Change index "" ->
-            ( { model | grid = updateGrid model.grid index "" }, Cmd.none )
+            Change index "" ->
+                ( { model | grid = updateGrid model.grid index "" }, Cmd.none )
 
-        Change index newContent ->
-            let
-                nextIndex =
-                    if model.currentDirection == Across then
-                        getRightWhiteIndex model.grid index
+            Change index newContent ->
+                let
+                    nextIndex =
+                        if model.currentDirection == Across then
+                            getRightWhiteIndex model.grid index
 
-                    else
-                        getDownWhiteIndex model
-            in
-            ( { model | grid = updateGrid model.grid index newContent, currentIndex = nextIndex }, focusCell nextIndex )
+                        else
+                            getDownWhiteIndex model
+                in
+                ( { model | grid = updateGrid model.grid index newContent, currentIndex = nextIndex }, focusCell nextIndex )
 
-        Focus index cellData ->
-            calculateModelAfterFocus model index cellData
+            Focus index cellData ->
+                calculateModelAfterFocus model index cellData
 
-        Click index cellData ->
-            calculateModelAfterClick model index cellData
+            Click index cellData ->
+                calculateModelAfterClick model index cellData
 
-        FocusResult _ ->
-            ( model, Cmd.none )
+            FocusResult _ ->
+                ( model, Cmd.none )
 
-        KeyTouched keyEventMsg ->
-            case keyEventMsg of
-                TabPressed ->
-                    if model.shiftHeld == True then
+            KeyTouched keyEventMsg ->
+                case keyEventMsg of
+                    TabPressed ->
+                        if model.shiftHeld == True then
+                            let
+                                nextIndex =
+                                    getLeftWhiteIndex model.grid model.currentIndex
+                            in
+                            ( { model | currentIndex = nextIndex, currentDirection = Across }, focusCell nextIndex )
+
+                        else
+                            let
+                                nextIndex =
+                                    getRightWhiteIndex model.grid model.currentIndex
+                            in
+                            ( { model | currentIndex = nextIndex, currentDirection = Across }, focusCell nextIndex )
+
+                    ShiftPressed ->
+                        ( { model | shiftHeld = True }, Cmd.none )
+
+                    ShiftReleased ->
+                        ( { model | shiftHeld = False }, Cmd.none )
+
+                    LeftPressed ->
                         let
                             nextIndex =
                                 getLeftWhiteIndex model.grid model.currentIndex
                         in
                         ( { model | currentIndex = nextIndex, currentDirection = Across }, focusCell nextIndex )
 
-                    else
+                    RightPressed ->
                         let
                             nextIndex =
                                 getRightWhiteIndex model.grid model.currentIndex
                         in
                         ( { model | currentIndex = nextIndex, currentDirection = Across }, focusCell nextIndex )
 
-                ShiftPressed ->
-                    ( { model | shiftHeld = True }, Cmd.none )
+                    UpPressed ->
+                        let
+                            nextIndex =
+                                getUpWhiteIndex model
+                        in
+                        ( { model | currentIndex = nextIndex, currentDirection = Down }, focusCell nextIndex )
 
-                ShiftReleased ->
-                    ( { model | shiftHeld = False }, Cmd.none )
+                    KeyPressed ->
+                        let
+                            nextIndex =
+                                getDownWhiteIndex model
+                        in
+                        ( { model | currentIndex = nextIndex, currentDirection = Down }, focusCell nextIndex )
 
-                LeftPressed ->
-                    let
-                        nextIndex =
-                            getLeftWhiteIndex model.grid model.currentIndex
-                    in
-                    ( { model | currentIndex = nextIndex, currentDirection = Across }, focusCell nextIndex )
-
-                RightPressed ->
-                    let
-                        nextIndex =
-                            getRightWhiteIndex model.grid model.currentIndex
-                    in
-                    ( { model | currentIndex = nextIndex, currentDirection = Across }, focusCell nextIndex )
-
-                UpPressed ->
-                    let
-                        nextIndex =
-                            getUpWhiteIndex model
-                    in
-                    ( { model | currentIndex = nextIndex, currentDirection = Down }, focusCell nextIndex )
-
-                KeyPressed ->
-                    let
-                        nextIndex =
-                            getDownWhiteIndex model
-                    in
-                    ( { model | currentIndex = nextIndex, currentDirection = Down }, focusCell nextIndex )
-
-                _ ->
-                    ( model, Cmd.none )
+                    _ ->
+                        ( model, Cmd.none )
+        )
 
 
 getLeftWhiteIndex : Grid -> Int -> Int
@@ -691,7 +693,8 @@ updateGrid grid index newContent =
 
 view : Model -> Html Msg
 view model =
-    div
+    Debug.log "view"
+        div
         []
         [ viewPuzzle model
         , if model.showDebug then
@@ -1055,12 +1058,18 @@ type KeyEventMsg
 
 keyReleasedDecoder : Decode.Decoder Msg
 keyReleasedDecoder =
-    Decode.map (keyReleasedToKeyEventMsg >> KeyTouched) (Decode.field "key" Decode.string)
+    Debug.log "keyReleasedDecoder"
+        Decode.map
+        (keyReleasedToKeyEventMsg >> KeyTouched)
+        (Decode.field "key" Decode.string)
 
 
 keyPressedDecoder : Decode.Decoder Msg
 keyPressedDecoder =
-    Decode.map (keyPressedToKeyEventMsg >> KeyTouched) (Decode.field "key" Decode.string)
+    Debug.log "keyPressedDecoder"
+        Decode.map
+        (keyPressedToKeyEventMsg >> KeyTouched)
+        (Decode.field "key" Decode.string)
 
 
 keyReleasedToKeyEventMsg : String -> KeyEventMsg
