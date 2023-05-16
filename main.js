@@ -6810,82 +6810,6 @@ var $author$project$Main$subscriptions = function (_v0) {
 				$elm$browser$Browser$Events$onKeyUp($author$project$Main$keyReleasedDecoder)
 			]));
 };
-var $author$project$Main$calculateModelAfterClick = F3(
-	function (model, index, cellData) {
-		var newDirection = function () {
-			var _v1 = cellData.c;
-			if (!_v1.$) {
-				return (model.x === 1) ? 0 : 1;
-			} else {
-				return cellData.a.a;
-			}
-		}();
-		return _Utils_Tuple2(
-			_Utils_update(
-				model,
-				{
-					A: function () {
-						if (_Utils_eq(cellData.a.a, newDirection)) {
-							return cellData.a;
-						} else {
-							var _v0 = cellData.c;
-							if (!_v0.$) {
-								var clue = _v0.a;
-								return clue;
-							} else {
-								return cellData.a;
-							}
-						}
-					}(),
-					x: newDirection,
-					h: index
-				}),
-			$author$project$Main$focusTextInput);
-	});
-var $author$project$Main$calculateModelAfterFocus = F3(
-	function (model, index, cellData) {
-		var newDirection = function () {
-			var _v1 = cellData.c;
-			if (!_v1.$) {
-				return model.x;
-			} else {
-				return cellData.a.a;
-			}
-		}();
-		return _Utils_Tuple2(
-			_Utils_update(
-				model,
-				{
-					A: function () {
-						if (_Utils_eq(cellData.a.a, newDirection)) {
-							return cellData.a;
-						} else {
-							var _v0 = cellData.c;
-							if (!_v0.$) {
-								var clue = _v0.a;
-								return clue;
-							} else {
-								return cellData.a;
-							}
-						}
-					}(),
-					x: newDirection,
-					h: index
-				}),
-			$author$project$Main$focusTextInput);
-	});
-var $elm$core$String$cons = _String_cons;
-var $elm$core$String$fromChar = function (_char) {
-	return A2($elm$core$String$cons, _char, '');
-};
-var $author$project$Main$charToString = function (_char) {
-	if (!_char.$) {
-		var c = _char.a;
-		return $elm$core$String$fromChar(c);
-	} else {
-		return '';
-	}
-};
 var $elm$core$Basics$ge = _Utils_ge;
 var $elm$core$List$head = function (list) {
 	if (list.b) {
@@ -7200,17 +7124,6 @@ var $author$project$Main$getNextWhiteCell = F3(
 	function (model, direction, backwards) {
 		return (!direction) ? (backwards ? A2($author$project$Main$getLeftWhiteIndex, model.q, model.h) : A2($author$project$Main$getRightWhiteIndex, model.q, model.h)) : (backwards ? $author$project$Main$getUpWhiteIndex(model) : $author$project$Main$getDownWhiteIndex(model));
 	});
-var $author$project$Main$moveToNextWhiteCell = F3(
-	function (model, direction, backwards) {
-		var nextIndex = A3($author$project$Main$getNextWhiteCell, model, direction, backwards);
-		return _Utils_Tuple2(
-			_Utils_update(
-				model,
-				{x: direction, h: nextIndex}),
-			$author$project$Main$focusTextInput);
-	});
-var $elm$core$Platform$Cmd$batch = _Platform_batch;
-var $elm$core$Platform$Cmd$none = $elm$core$Platform$Cmd$batch(_List_Nil);
 var $elm_community$list_extra$List$Extra$updateIfIndex = F3(
 	function (predicate, update, list) {
 		return A2(
@@ -7249,22 +7162,124 @@ var $author$project$Main$updateGrid = F3(
 			},
 			grid);
 	});
+var $author$project$Main$backspacePressed = function (model) {
+	var currentCellChar = $author$project$Main$getCurrentCellChar(model);
+	var nextIndex = function () {
+		if (currentCellChar.$ === 1) {
+			return A3($author$project$Main$getNextWhiteCell, model, model.x, true);
+		} else {
+			return model.h;
+		}
+	}();
+	return _Utils_Tuple2(
+		_Utils_update(
+			model,
+			{
+				h: nextIndex,
+				q: A3($author$project$Main$updateGrid, model.q, model.h, $elm$core$Maybe$Nothing)
+			}),
+		$author$project$Main$focusTextInput);
+};
+var $author$project$Main$calculateModelAfterClick = F3(
+	function (model, index, cellData) {
+		var newDirection = function () {
+			var _v1 = cellData.c;
+			if (!_v1.$) {
+				return (model.x === 1) ? 0 : 1;
+			} else {
+				return cellData.a.a;
+			}
+		}();
+		return _Utils_Tuple2(
+			_Utils_update(
+				model,
+				{
+					A: function () {
+						if (_Utils_eq(cellData.a.a, newDirection)) {
+							return cellData.a;
+						} else {
+							var _v0 = cellData.c;
+							if (!_v0.$) {
+								var clue = _v0.a;
+								return clue;
+							} else {
+								return cellData.a;
+							}
+						}
+					}(),
+					x: newDirection,
+					h: index
+				}),
+			$author$project$Main$focusTextInput);
+	});
+var $author$project$Main$calculateModelAfterFocus = F3(
+	function (model, index, cellData) {
+		var newDirection = function () {
+			var _v1 = cellData.c;
+			if (!_v1.$) {
+				return model.x;
+			} else {
+				return cellData.a.a;
+			}
+		}();
+		return _Utils_Tuple2(
+			_Utils_update(
+				model,
+				{
+					A: function () {
+						if (_Utils_eq(cellData.a.a, newDirection)) {
+							return cellData.a;
+						} else {
+							var _v0 = cellData.c;
+							if (!_v0.$) {
+								var clue = _v0.a;
+								return clue;
+							} else {
+								return cellData.a;
+							}
+						}
+					}(),
+					x: newDirection,
+					h: index
+				}),
+			$author$project$Main$focusTextInput);
+	});
+var $elm$core$String$cons = _String_cons;
+var $elm$core$String$fromChar = function (_char) {
+	return A2($elm$core$String$cons, _char, '');
+};
+var $author$project$Main$moveToNextWhiteCell = F3(
+	function (model, direction, backwards) {
+		var nextIndex = A3($author$project$Main$getNextWhiteCell, model, direction, backwards);
+		return _Utils_Tuple2(
+			_Utils_update(
+				model,
+				{x: direction, h: nextIndex}),
+			$author$project$Main$focusTextInput);
+	});
+var $elm$core$Platform$Cmd$batch = _Platform_batch;
+var $elm$core$Platform$Cmd$none = $elm$core$Platform$Cmd$batch(_List_Nil);
 var $author$project$Main$update = F2(
 	function (msg, model) {
 		switch (msg.$) {
 			case 0:
 				var index = msg.a;
 				var newContent = msg.b;
-				var nextIndex = (!model.x) ? A2($author$project$Main$getRightWhiteIndex, model.q, index) : $author$project$Main$getDownWhiteIndex(model);
-				return _Utils_Tuple2(
-					_Utils_update(
-						model,
-						{
-							h: nextIndex,
-							q: A3($author$project$Main$updateGrid, model.q, index, newContent),
-							ap: $author$project$Main$charToString(newContent)
-						}),
-					$author$project$Main$focusTextInput);
+				if (newContent.$ === 1) {
+					return $author$project$Main$backspacePressed(model);
+				} else {
+					var _char = newContent.a;
+					var nextIndex = (!model.x) ? A2($author$project$Main$getRightWhiteIndex, model.q, index) : $author$project$Main$getDownWhiteIndex(model);
+					return _Utils_Tuple2(
+						_Utils_update(
+							model,
+							{
+								h: nextIndex,
+								q: A3($author$project$Main$updateGrid, model.q, index, newContent),
+								ap: $elm$core$String$fromChar(_char)
+							}),
+						$author$project$Main$focusTextInput);
+				}
 			case 1:
 				var index = msg.a;
 				var cellData = msg.b;
@@ -7277,22 +7292,7 @@ var $author$project$Main$update = F2(
 				var keyEventMsg = msg.a;
 				switch (keyEventMsg) {
 					case 2:
-						var currentCellChar = $author$project$Main$getCurrentCellChar(model);
-						var nextIndex = function () {
-							if (currentCellChar.$ === 1) {
-								return A3($author$project$Main$getNextWhiteCell, model, model.x, true);
-							} else {
-								return model.h;
-							}
-						}();
-						return _Utils_Tuple2(
-							_Utils_update(
-								model,
-								{
-									h: nextIndex,
-									q: A3($author$project$Main$updateGrid, model.q, model.h, $elm$core$Maybe$Nothing)
-								}),
-							$author$project$Main$focusTextInput);
+						return $author$project$Main$backspacePressed(model);
 					case 1:
 						return A3($author$project$Main$moveToNextWhiteCell, model, model.x, model.ai);
 					case 3:
@@ -7610,6 +7610,14 @@ var $author$project$Main$Focus = F2(
 	function (a, b) {
 		return {$: 1, a: a, b: b};
 	});
+var $author$project$Main$charToString = function (_char) {
+	if (!_char.$) {
+		var c = _char.a;
+		return $elm$core$String$fromChar(c);
+	} else {
+		return '';
+	}
+};
 var $elm$virtual_dom$VirtualDom$Normal = function (a) {
 	return {$: 0, a: a};
 };

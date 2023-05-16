@@ -451,16 +451,21 @@ update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         Change index newContent ->
-            let
-                nextIndex : Int
-                nextIndex =
-                    if model.currentDirection == Across then
-                        getRightWhiteIndex model.grid index
+            case newContent of
+                Nothing ->
+                    backspacePressed model
 
-                    else
-                        getDownWhiteIndex model
-            in
-            ( { model | latestString = charToString newContent, grid = updateGrid model.grid index newContent, currentIndex = nextIndex }, focusTextInput )
+                Just char ->
+                    let
+                        nextIndex : Int
+                        nextIndex =
+                            if model.currentDirection == Across then
+                                getRightWhiteIndex model.grid index
+
+                            else
+                                getDownWhiteIndex model
+                    in
+                    ( { model | latestString = String.fromChar char, grid = updateGrid model.grid index newContent, currentIndex = nextIndex }, focusTextInput )
 
         Focus index cellData ->
             calculateModelAfterFocus
@@ -474,21 +479,7 @@ update msg model =
         KeyTouched keyEventMsg ->
             case keyEventMsg of
                 BackspacePressed ->
-                    let
-                        currentCellChar : Maybe Char
-                        currentCellChar =
-                            getCurrentCellChar model
-
-                        nextIndex : Int
-                        nextIndex =
-                            case currentCellChar of
-                                Nothing ->
-                                    getNextWhiteCell model model.currentDirection True
-
-                                _ ->
-                                    model.currentIndex
-                    in
-                    ( { model | currentIndex = nextIndex, grid = updateGrid model.grid model.currentIndex Nothing }, focusTextInput )
+                    backspacePressed model
 
                 TabPressed ->
                     moveToNextWhiteCell model model.currentDirection model.shiftHeld
@@ -516,6 +507,25 @@ update msg model =
 
         NoOp ->
             ( model, Cmd.none )
+
+
+backspacePressed : Model -> ( Model, Cmd Msg )
+backspacePressed model =
+    let
+        currentCellChar : Maybe Char
+        currentCellChar =
+            getCurrentCellChar model
+
+        nextIndex : Int
+        nextIndex =
+            case currentCellChar of
+                Nothing ->
+                    getNextWhiteCell model model.currentDirection True
+
+                _ ->
+                    model.currentIndex
+    in
+    ( { model | currentIndex = nextIndex, grid = updateGrid model.grid model.currentIndex Nothing }, focusTextInput )
 
 
 getNextWhiteCell : Model -> Direction -> Bool -> Int
