@@ -525,7 +525,7 @@ backspacePressed model =
                 _ ->
                     model.currentIndex
     in
-    ( { model | currentIndex = nextIndex, grid = updateGrid model.grid model.currentIndex Nothing }, focusTextInput )
+    ( { model | latestString = "", currentIndex = nextIndex, grid = updateGrid model.grid model.currentIndex Nothing }, focusTextInput )
 
 
 getNextWhiteCell : Model -> Direction -> Bool -> Int
@@ -932,6 +932,7 @@ viewGridWithInput model =
             , style "font-size" "24px" -- prevents zoom on mobile devices
             , style "height" "50px"
             , style "outline-width" "0"
+            , style "outline" "none"
             , style "border" "none"
             , style "-webkit-box-shadow" "none"
             , style "-moz-box-shadow" "none"

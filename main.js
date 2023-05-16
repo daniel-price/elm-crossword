@@ -784,11 +784,11 @@ function _Debug_crash_UNUSED(identifier, fact1, fact2, fact3, fact4)
 
 function _Debug_regionToString(region)
 {
-	if (region.aJ.ag === region.a_.ag)
+	if (region.aJ.ah === region.a_.ah)
 	{
-		return 'on line ' + region.aJ.ag;
+		return 'on line ' + region.aJ.ah;
 	}
-	return 'on lines ' + region.aJ.ag + ' through ' + region.a_.ag;
+	return 'on lines ' + region.aJ.ah + ' through ' + region.a_.ah;
 }
 
 
@@ -5196,7 +5196,7 @@ var $author$project$Main$focusTextInput = A2(
 	$elm$browser$Browser$Dom$focus('text-input'));
 var $author$project$Main$init = _Utils_Tuple2(
 	{
-		an: {
+		ao: {
 			aP: _List_fromArray(
 				[
 					_Utils_Tuple2(1, 'Woman\'s tucked into ridiculously pricey dessert (6,3)'),
@@ -6337,10 +6337,10 @@ var $author$project$Main$init = _Utils_Tuple2(
 				}),
 				$author$project$Main$Black
 			]),
-		ap: '',
+		ag: '',
 		ar: 15,
 		Y: 15,
-		ai: false,
+		aj: false,
 		aI: true,
 		aN: 5
 	},
@@ -7176,7 +7176,8 @@ var $author$project$Main$backspacePressed = function (model) {
 			model,
 			{
 				h: nextIndex,
-				q: A3($author$project$Main$updateGrid, model.q, model.h, $elm$core$Maybe$Nothing)
+				q: A3($author$project$Main$updateGrid, model.q, model.h, $elm$core$Maybe$Nothing),
+				ag: ''
 			}),
 		$author$project$Main$focusTextInput);
 };
@@ -7276,7 +7277,7 @@ var $author$project$Main$update = F2(
 							{
 								h: nextIndex,
 								q: A3($author$project$Main$updateGrid, model.q, index, newContent),
-								ap: $elm$core$String$fromChar(_char)
+								ag: $elm$core$String$fromChar(_char)
 							}),
 						$author$project$Main$focusTextInput);
 				}
@@ -7294,18 +7295,18 @@ var $author$project$Main$update = F2(
 					case 2:
 						return $author$project$Main$backspacePressed(model);
 					case 1:
-						return A3($author$project$Main$moveToNextWhiteCell, model, model.x, model.ai);
+						return A3($author$project$Main$moveToNextWhiteCell, model, model.x, model.aj);
 					case 3:
 						return _Utils_Tuple2(
 							_Utils_update(
 								model,
-								{ai: true}),
+								{aj: true}),
 							$elm$core$Platform$Cmd$none);
 					case 4:
 						return _Utils_Tuple2(
 							_Utils_update(
 								model,
-								{ai: false}),
+								{aj: false}),
 							$elm$core$Platform$Cmd$none);
 					case 5:
 						return A3($author$project$Main$moveToNextWhiteCell, model, 0, true);
@@ -7852,6 +7853,7 @@ var $author$project$Main$viewGridWithInput = function (model) {
 						A2($elm$html$Html$Attributes$style, 'font-size', '24px'),
 						A2($elm$html$Html$Attributes$style, 'height', '50px'),
 						A2($elm$html$Html$Attributes$style, 'outline-width', '0'),
+						A2($elm$html$Html$Attributes$style, 'outline', 'none'),
 						A2($elm$html$Html$Attributes$style, 'border', 'none'),
 						A2($elm$html$Html$Attributes$style, '-webkit-box-shadow', 'none'),
 						A2($elm$html$Html$Attributes$style, '-moz-box-shadow', 'none'),
@@ -7879,7 +7881,7 @@ var $author$project$Main$viewGridWithInput = function (model) {
 								]))),
 						$elm$html$Html$Events$onInput(
 						$author$project$Main$onTextInput(model)),
-						$elm$html$Html$Attributes$value(model.ap)
+						$elm$html$Html$Attributes$value(model.ag)
 					]),
 				_List_Nil),
 				$author$project$Main$viewGrid(model)
@@ -7895,8 +7897,8 @@ var $author$project$Main$viewPuzzle = function (model) {
 		_List_fromArray(
 			[
 				$author$project$Main$viewGridWithInput(model),
-				A3($author$project$Main$viewCluesSection, model, 0, model.an.aP),
-				A3($author$project$Main$viewCluesSection, model, 1, model.an.aZ)
+				A3($author$project$Main$viewCluesSection, model, 0, model.ao.aP),
+				A3($author$project$Main$viewCluesSection, model, 1, model.ao.aZ)
 			]));
 };
 var $author$project$Main$view = function (model) {
