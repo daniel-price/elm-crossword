@@ -5208,7 +5208,7 @@ var $author$project$Main$init = _Utils_Tuple2(
 		A: _Utils_Tuple2(0, 1),
 		aw: 0,
 		x: 0,
-		g: 0,
+		g: 1,
 		ax: 0,
 		p: _List_fromArray(
 			[
