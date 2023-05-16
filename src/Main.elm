@@ -5,7 +5,7 @@ import Browser.Dom as Dom
 import Browser.Events
 import Html exposing (Html, div, input, text)
 import Html.Attributes exposing (..)
-import Html.Events exposing (custom, keyCode, on, onClick, onFocus, preventDefaultOn)
+import Html.Events exposing (keyCode, on, onClick, onFocus, preventDefaultOn)
 import Html.Lazy
 import Json.Decode as Decode
 import List.Extra
@@ -463,7 +463,10 @@ update msg model =
             ( { model | grid = updateGrid model.grid index (Just newContent), currentIndex = nextIndex }, focusCell nextIndex )
 
         Focus index cellData ->
-            calculateModelAfterFocus model index cellData
+            calculateModelAfterFocus
+                model
+                index
+                cellData
 
         Click index cellData ->
             calculateModelAfterClick model index cellData
@@ -481,7 +484,7 @@ update msg model =
                         nextIndex =
                             case currentCellChar of
                                 Nothing ->
-                                    getLeftWhiteIndex model.grid model.currentIndex
+                                    getNextWhiteCell model model.currentDirection True
 
                                 _ ->
                                     model.currentIndex
@@ -489,19 +492,7 @@ update msg model =
                     ( { model | currentIndex = nextIndex, grid = updateGrid model.grid model.currentIndex Nothing }, focusCell nextIndex )
 
                 TabPressed ->
-                    if model.shiftHeld == True then
-                        let
-                            nextIndex =
-                                getLeftWhiteIndex model.grid model.currentIndex
-                        in
-                        ( { model | currentIndex = nextIndex, currentDirection = Across }, focusCell nextIndex )
-
-                    else
-                        let
-                            nextIndex =
-                                getRightWhiteIndex model.grid model.currentIndex
-                        in
-                        ( { model | currentIndex = nextIndex, currentDirection = Across }, focusCell nextIndex )
+                    moveToNextWhiteCell model model.currentDirection (model.shiftHeld == True)
 
                 ShiftPressed ->
                     ( { model | shiftHeld = True }, Cmd.none )
@@ -510,32 +501,16 @@ update msg model =
                     ( { model | shiftHeld = False }, Cmd.none )
 
                 LeftPressed ->
-                    let
-                        nextIndex =
-                            getLeftWhiteIndex model.grid model.currentIndex
-                    in
-                    ( { model | currentIndex = nextIndex, currentDirection = Across }, focusCell nextIndex )
+                    moveToNextWhiteCell model Across True
 
                 RightPressed ->
-                    let
-                        nextIndex =
-                            getRightWhiteIndex model.grid model.currentIndex
-                    in
-                    ( { model | currentIndex = nextIndex, currentDirection = Across }, focusCell nextIndex )
+                    moveToNextWhiteCell model Across False
 
                 UpPressed ->
-                    let
-                        nextIndex =
-                            getUpWhiteIndex model
-                    in
-                    ( { model | currentIndex = nextIndex, currentDirection = Down }, focusCell nextIndex )
+                    moveToNextWhiteCell model Down True
 
                 KeyPressed ->
-                    let
-                        nextIndex =
-                            getDownWhiteIndex model
-                    in
-                    ( { model | currentIndex = nextIndex, currentDirection = Down }, focusCell nextIndex )
+                    moveToNextWhiteCell model Down False
 
                 KeyEventLetter char ->
                     update (Change model.currentIndex char) model
@@ -544,11 +519,36 @@ update msg model =
                     ( model, Cmd.none )
 
 
+getNextWhiteCell : Model -> Direction -> Bool -> Int
+getNextWhiteCell model direction backwards =
+    if direction == Across then
+        if backwards then
+            getLeftWhiteIndex model.grid model.currentIndex
+
+        else
+            getRightWhiteIndex model.grid model.currentIndex
+
+    else if backwards then
+        getUpWhiteIndex model
+
+    else
+        getDownWhiteIndex model
+
+
+moveToNextWhiteCell : Model -> Direction -> Bool -> ( Model, Cmd Msg )
+moveToNextWhiteCell model direction backwards =
+    let
+        nextIndex =
+            getNextWhiteCell model direction backwards
+    in
+    ( { model | currentIndex = nextIndex, currentDirection = direction }, focusCell nextIndex )
+
+
 getCurrentCellChar : Model -> Maybe Char
 getCurrentCellChar model =
     let
         cell =
-            elementAtIndex model.currentIndex model.grid
+            elementAtIndex (model.currentIndex + 1) model.grid
     in
     case cell of
         Just (Item cellData) ->
@@ -952,6 +952,10 @@ charToString char =
 
 succeededIfTabKey : Int -> Decode.Decoder Int
 succeededIfTabKey key =
+    let
+        key1 =
+            key
+    in
     if key == 9 then
         Decode.succeed key
 
@@ -962,7 +966,7 @@ succeededIfTabKey key =
 tabPressed : Decode.Decoder ( Msg, Bool )
 tabPressed =
     Decode.andThen succeededIfTabKey keyCode
-        |> Decode.map (always ( KeyTouched TabPressed, True ))
+        |> Decode.map (always ( KeyTouched (KeyEventUnknown ""), True ))
 
 
 viewCell : Cell -> Int -> String -> String -> String -> Bool -> Html Msg
@@ -1025,6 +1029,7 @@ viewCell cell index border zIndex backgroundColor selected =
                         "relative"
                     , placeholder ""
                     , value (charToString cellData.value)
+                    , preventDefaultOn "keydown" tabPressed
                     , onFocus (Focus index cellData)
                     , onClick (Click index cellData)
                     , style "border" border

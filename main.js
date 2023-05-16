@@ -4776,25 +4776,25 @@ var $elm$core$Array$treeFromBuilder = F2(
 	});
 var $elm$core$Array$builderToArray = F2(
 	function (reverseNodeList, builder) {
-		if (!builder.l) {
+		if (!builder.k) {
 			return A4(
 				$elm$core$Array$Array_elm_builtin,
-				$elm$core$Elm$JsArray$length(builder.n),
+				$elm$core$Elm$JsArray$length(builder.m),
 				$elm$core$Array$shiftStep,
 				$elm$core$Elm$JsArray$empty,
-				builder.n);
+				builder.m);
 		} else {
-			var treeLen = builder.l * $elm$core$Array$branchFactor;
+			var treeLen = builder.k * $elm$core$Array$branchFactor;
 			var depth = $elm$core$Basics$floor(
 				A2($elm$core$Basics$logBase, $elm$core$Array$branchFactor, treeLen - 1));
-			var correctNodeList = reverseNodeList ? $elm$core$List$reverse(builder.o) : builder.o;
-			var tree = A2($elm$core$Array$treeFromBuilder, correctNodeList, builder.l);
+			var correctNodeList = reverseNodeList ? $elm$core$List$reverse(builder.n) : builder.n;
+			var tree = A2($elm$core$Array$treeFromBuilder, correctNodeList, builder.k);
 			return A4(
 				$elm$core$Array$Array_elm_builtin,
-				$elm$core$Elm$JsArray$length(builder.n) + treeLen,
+				$elm$core$Elm$JsArray$length(builder.m) + treeLen,
 				A2($elm$core$Basics$max, 5, depth * $elm$core$Array$shiftStep),
 				tree,
-				builder.n);
+				builder.m);
 		}
 	});
 var $elm$core$Basics$idiv = _Basics_idiv;
@@ -4807,7 +4807,7 @@ var $elm$core$Array$initializeHelp = F5(
 				return A2(
 					$elm$core$Array$builderToArray,
 					false,
-					{o: nodeList, l: (len / $elm$core$Array$branchFactor) | 0, n: tail});
+					{n: nodeList, k: (len / $elm$core$Array$branchFactor) | 0, m: tail});
 			} else {
 				var leaf = $elm$core$Array$Leaf(
 					A3($elm$core$Elm$JsArray$initialize, $elm$core$Array$branchFactor, fromIndex, fn));
@@ -5207,10 +5207,10 @@ var $author$project$Main$init = _Utils_Tuple2(
 		},
 		A: _Utils_Tuple2(0, 1),
 		aw: 0,
-		q: 0,
-		f: 0,
+		x: 0,
+		g: 0,
 		ax: 0,
-		j: _List_fromArray(
+		p: _List_fromArray(
 			[
 				$author$project$Main$Black,
 				A2(
@@ -6802,7 +6802,7 @@ var $author$project$Main$calculateModelAfterClick = F3(
 		var newDirection = function () {
 			var _v1 = cellData.b;
 			if (!_v1.$) {
-				return (model.q === 1) ? 0 : 1;
+				return (model.x === 1) ? 0 : 1;
 			} else {
 				return cellData.a.a;
 			}
@@ -6824,8 +6824,8 @@ var $author$project$Main$calculateModelAfterClick = F3(
 							}
 						}
 					}(),
-					q: newDirection,
-					f: index
+					x: newDirection,
+					g: index
 				}),
 			$elm$core$Platform$Cmd$none);
 	});
@@ -6834,7 +6834,7 @@ var $author$project$Main$calculateModelAfterFocus = F3(
 		var newDirection = function () {
 			var _v1 = cellData.b;
 			if (!_v1.$) {
-				return model.q;
+				return model.x;
 			} else {
 				return cellData.a.a;
 			}
@@ -6856,8 +6856,8 @@ var $author$project$Main$calculateModelAfterFocus = F3(
 							}
 						}
 					}(),
-					q: newDirection,
-					f: index
+					x: newDirection,
+					g: index
 				}),
 			$elm$core$Platform$Cmd$none);
 	});
@@ -7040,7 +7040,7 @@ var $author$project$Main$elementAtIndex = F2(
 				A2($elm$core$List$take, index, list))) : $elm$core$Maybe$Nothing;
 	});
 var $author$project$Main$getCurrentCellChar = function (model) {
-	var cell = A2($author$project$Main$elementAtIndex, model.f, model.j);
+	var cell = A2($author$project$Main$elementAtIndex, model.g + 1, model.p);
 	_v0$2:
 	while (true) {
 		if (!cell.$) {
@@ -7067,14 +7067,14 @@ var $author$project$Main$getColumnNumber = F2(
 		return A2($elm$core$Basics$modBy, numberOfColumns, index) + 1;
 	});
 var $author$project$Main$currentColumnNumber = function (model) {
-	return A2($author$project$Main$getColumnNumber, model.aq, model.f);
+	return A2($author$project$Main$getColumnNumber, model.aq, model.g);
 };
 var $author$project$Main$getRowNumber = F2(
 	function (numberOfColumns, index) {
 		return $elm$core$Basics$floor(index / numberOfColumns) + 1;
 	});
 var $author$project$Main$currentRowNumber = function (model) {
-	return A2($author$project$Main$getRowNumber, model.aq, model.f);
+	return A2($author$project$Main$getRowNumber, model.aq, model.g);
 };
 var $elm_community$list_extra$List$Extra$findIndexHelp = F3(
 	function (index, predicate, list) {
@@ -7158,14 +7158,14 @@ var $author$project$Main$takeEveryNthIndexesFromIndex = F3(
 var $author$project$Main$getDownWhiteIndex = function (model) {
 	var rowNumber = $author$project$Main$currentRowNumber(model);
 	var columnNumber = $author$project$Main$currentColumnNumber(model);
-	var columnSquares = A3($author$project$Main$takeEveryNthIndexesFromIndex, model.Y, columnNumber, model.j);
+	var columnSquares = A3($author$project$Main$takeEveryNthIndexesFromIndex, model.Y, columnNumber, model.p);
 	var columnsDown = A2($elm_community$list_extra$List$Extra$splitAt, rowNumber, columnSquares).b;
 	var index = A2($elm_community$list_extra$List$Extra$findIndex, $author$project$Main$isWhiteSquare, columnsDown);
 	if (!index.$) {
 		var n = index.a;
-		return model.f + (model.Y * (n + 1));
+		return model.g + (model.Y * (n + 1));
 	} else {
-		return model.f;
+		return model.g;
 	}
 };
 var $author$project$Main$getLeftWhiteIndex = F2(
@@ -7194,17 +7194,30 @@ var $author$project$Main$getRightWhiteIndex = F2(
 var $author$project$Main$getUpWhiteIndex = function (model) {
 	var rowNumber = $author$project$Main$currentRowNumber(model);
 	var columnNumber = $author$project$Main$currentColumnNumber(model);
-	var columnSquares = A3($author$project$Main$takeEveryNthIndexesFromIndex, model.Y, columnNumber, model.j);
+	var columnSquares = A3($author$project$Main$takeEveryNthIndexesFromIndex, model.Y, columnNumber, model.p);
 	var columnsUp = $elm$core$List$reverse(
 		A2($elm_community$list_extra$List$Extra$splitAt, rowNumber - 1, columnSquares).a);
 	var index = A2($elm_community$list_extra$List$Extra$findIndex, $author$project$Main$isWhiteSquare, columnsUp);
 	if (!index.$) {
 		var n = index.a;
-		return model.f - (model.Y * (n + 1));
+		return model.g - (model.Y * (n + 1));
 	} else {
-		return model.f;
+		return model.g;
 	}
 };
+var $author$project$Main$getNextWhiteCell = F3(
+	function (model, direction, backwards) {
+		return (!direction) ? (backwards ? A2($author$project$Main$getLeftWhiteIndex, model.p, model.g) : A2($author$project$Main$getRightWhiteIndex, model.p, model.g)) : (backwards ? $author$project$Main$getUpWhiteIndex(model) : $author$project$Main$getDownWhiteIndex(model));
+	});
+var $author$project$Main$moveToNextWhiteCell = F3(
+	function (model, direction, backwards) {
+		var nextIndex = A3($author$project$Main$getNextWhiteCell, model, direction, backwards);
+		return _Utils_Tuple2(
+			_Utils_update(
+				model,
+				{x: direction, g: nextIndex}),
+			$author$project$Main$focusCell(nextIndex));
+	});
 var $elm_community$list_extra$List$Extra$updateIfIndex = F3(
 	function (predicate, update, list) {
 		return A2(
@@ -7251,15 +7264,15 @@ var $author$project$Main$update = F2(
 				case 0:
 					var index = msg.a;
 					var newContent = msg.b;
-					var nextIndex = (!model.q) ? A2($author$project$Main$getRightWhiteIndex, model.j, index) : $author$project$Main$getDownWhiteIndex(model);
+					var nextIndex = (!model.x) ? A2($author$project$Main$getRightWhiteIndex, model.p, index) : $author$project$Main$getDownWhiteIndex(model);
 					return _Utils_Tuple2(
 						_Utils_update(
 							model,
 							{
-								f: nextIndex,
-								j: A3(
+								g: nextIndex,
+								p: A3(
 									$author$project$Main$updateGrid,
-									model.j,
+									model.p,
 									index,
 									$elm$core$Maybe$Just(newContent))
 							}),
@@ -7281,35 +7294,21 @@ var $author$project$Main$update = F2(
 							var currentCellChar = $author$project$Main$getCurrentCellChar(model);
 							var nextIndex = function () {
 								if (currentCellChar.$ === 1) {
-									return A2($author$project$Main$getLeftWhiteIndex, model.j, model.f);
+									return A3($author$project$Main$getNextWhiteCell, model, model.x, true);
 								} else {
-									return model.f;
+									return model.g;
 								}
 							}();
 							return _Utils_Tuple2(
 								_Utils_update(
 									model,
 									{
-										f: nextIndex,
-										j: A3($author$project$Main$updateGrid, model.j, model.f, $elm$core$Maybe$Nothing)
+										g: nextIndex,
+										p: A3($author$project$Main$updateGrid, model.p, model.g, $elm$core$Maybe$Nothing)
 									}),
 								$author$project$Main$focusCell(nextIndex));
 						case 2:
-							if (model.ai) {
-								var nextIndex = A2($author$project$Main$getLeftWhiteIndex, model.j, model.f);
-								return _Utils_Tuple2(
-									_Utils_update(
-										model,
-										{q: 0, f: nextIndex}),
-									$author$project$Main$focusCell(nextIndex));
-							} else {
-								var nextIndex = A2($author$project$Main$getRightWhiteIndex, model.j, model.f);
-								return _Utils_Tuple2(
-									_Utils_update(
-										model,
-										{q: 0, f: nextIndex}),
-									$author$project$Main$focusCell(nextIndex));
-							}
+							return A3($author$project$Main$moveToNextWhiteCell, model, model.x, model.ai);
 						case 4:
 							return _Utils_Tuple2(
 								_Utils_update(
@@ -7323,36 +7322,16 @@ var $author$project$Main$update = F2(
 									{ai: false}),
 								$elm$core$Platform$Cmd$none);
 						case 6:
-							var nextIndex = A2($author$project$Main$getLeftWhiteIndex, model.j, model.f);
-							return _Utils_Tuple2(
-								_Utils_update(
-									model,
-									{q: 0, f: nextIndex}),
-								$author$project$Main$focusCell(nextIndex));
+							return A3($author$project$Main$moveToNextWhiteCell, model, 0, true);
 						case 7:
-							var nextIndex = A2($author$project$Main$getRightWhiteIndex, model.j, model.f);
-							return _Utils_Tuple2(
-								_Utils_update(
-									model,
-									{q: 0, f: nextIndex}),
-								$author$project$Main$focusCell(nextIndex));
+							return A3($author$project$Main$moveToNextWhiteCell, model, 0, false);
 						case 8:
-							var nextIndex = $author$project$Main$getUpWhiteIndex(model);
-							return _Utils_Tuple2(
-								_Utils_update(
-									model,
-									{q: 1, f: nextIndex}),
-								$author$project$Main$focusCell(nextIndex));
+							return A3($author$project$Main$moveToNextWhiteCell, model, 1, true);
 						case 9:
-							var nextIndex = $author$project$Main$getDownWhiteIndex(model);
-							return _Utils_Tuple2(
-								_Utils_update(
-									model,
-									{q: 1, f: nextIndex}),
-								$author$project$Main$focusCell(nextIndex));
+							return A3($author$project$Main$moveToNextWhiteCell, model, 1, false);
 						case 0:
 							var _char = keyEventMsg.a;
-							var $temp$msg = A2($author$project$Main$Change, model.f, _char),
+							var $temp$msg = A2($author$project$Main$Change, model.g, _char),
 								$temp$model = model;
 							msg = $temp$msg;
 							model = $temp$model;
@@ -7441,7 +7420,7 @@ var $author$project$Main$viewDebugInt = F2(
 	});
 var $author$project$Main$debug = function (model) {
 	var cellString = function () {
-		var _v0 = A2($author$project$Main$elementAtIndex, model.f + 1, model.j);
+		var _v0 = A2($author$project$Main$elementAtIndex, model.g + 1, model.p);
 		if (!_v0.$) {
 			switch (_v0.a.$) {
 				case 2:
@@ -7488,13 +7467,13 @@ var $author$project$Main$debug = function (model) {
 							$elm$core$String$fromInt(model.A.b),
 							$author$project$Main$directionToString(model.A.a)
 						]))),
-				A2($author$project$Main$viewDebugInt, 'currentIndex', model.f),
+				A2($author$project$Main$viewDebugInt, 'currentIndex', model.g),
 				A2($author$project$Main$viewDebugInt, 'currentRow', model.ax),
 				A2($author$project$Main$viewDebugInt, 'currentColumn', model.aw),
 				A2(
 				$author$project$Main$viewDebug,
 				'currentDirection',
-				$author$project$Main$directionToString(model.q))
+				$author$project$Main$directionToString(model.x))
 			]));
 };
 var $elm$virtual_dom$VirtualDom$lazy2 = _VirtualDom_lazy2;
@@ -7555,7 +7534,7 @@ var $elm$core$String$fromFloat = _String_fromNumber;
 var $elm$core$Basics$sqrt = _Basics_sqrt;
 var $author$project$Main$getGridTemplate = function (model) {
 	var rowCount = $elm$core$Basics$sqrt(
-		$elm$core$List$length(model.j));
+		$elm$core$List$length(model.p));
 	var singleCellPercentage = 100 / rowCount;
 	return $elm$core$String$concat(
 		_List_fromArray(
@@ -7578,7 +7557,7 @@ var $author$project$Main$shouldHighlight = F2(
 		var _v0 = cellData.b;
 		if (!_v0.$) {
 			var x = _v0.a;
-			return (_Utils_eq(x, model.A) && _Utils_eq(x.a, model.q)) || _Utils_eq(cellData.a, model.A);
+			return (_Utils_eq(x, model.A) && _Utils_eq(x.a, model.x)) || _Utils_eq(cellData.a, model.A);
 		} else {
 			return _Utils_eq(cellData.a, model.A);
 		}
@@ -7656,13 +7635,15 @@ var $elm$json$Json$Decode$int = _Json_decodeInt;
 var $elm$html$Html$Events$keyCode = A2($elm$json$Json$Decode$field, 'keyCode', $elm$json$Json$Decode$int);
 var $elm$json$Json$Decode$fail = _Json_fail;
 var $author$project$Main$succeededIfTabKey = function (key) {
+	var key1 = key;
 	return (key === 9) ? $elm$json$Json$Decode$succeed(key) : $elm$json$Json$Decode$fail('non-tab');
 };
 var $author$project$Main$tabPressed = A2(
 	$elm$json$Json$Decode$map,
 	$elm$core$Basics$always(
 		_Utils_Tuple2(
-			$author$project$Main$KeyTouched($author$project$Main$TabPressed),
+			$author$project$Main$KeyTouched(
+				$author$project$Main$KeyEventUnknown('')),
 			true)),
 	A2($elm$json$Json$Decode$andThen, $author$project$Main$succeededIfTabKey, $elm$html$Html$Events$keyCode));
 var $elm$html$Html$Attributes$value = $elm$html$Html$Attributes$stringProperty('value');
@@ -7747,6 +7728,7 @@ var $author$project$Main$viewCell = F6(
 									$elm$html$Html$Attributes$placeholder(''),
 									$elm$html$Html$Attributes$value(
 									$author$project$Main$charToString(cellData.c)),
+									A2($elm$html$Html$Events$preventDefaultOn, 'keydown', $author$project$Main$tabPressed),
 									$elm$html$Html$Events$onFocus(
 									A2($author$project$Main$Focus, index, cellData)),
 									$elm$html$Html$Events$onClick(
@@ -7783,7 +7765,7 @@ var $author$project$Main$viewCell = F6(
 	});
 var $author$project$Main$viewCellAndModel = F3(
 	function (model, index, cell) {
-		var selected = _Utils_eq(index, model.f);
+		var selected = _Utils_eq(index, model.g);
 		var zIndex = selected ? '10' : '1';
 		var highlight = function () {
 			switch (cell.$) {
@@ -7821,7 +7803,7 @@ var $author$project$Main$viewGrid = function (model) {
 		A2(
 			$elm$core$List$indexedMap,
 			$author$project$Main$viewCellAndModel(model),
-			model.j));
+			model.p));
 };
 var $author$project$Main$viewPuzzle = function (model) {
 	return A2(
