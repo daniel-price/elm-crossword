@@ -946,7 +946,7 @@ viewGridWithInput model =
 
 onTextInput : Model -> String -> Msg
 onTextInput model string =
-    Change (Debug.log "currentIndex" model.currentIndex) (Debug.log "letter" (List.head (List.reverse (String.toList string))))
+    Change model.currentIndex (List.head (List.reverse (String.toList string)))
 
 
 getGridTemplate : Model -> String
