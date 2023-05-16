@@ -1,0 +1,17 @@
+{
+  "name": "elm-crossword",
+  "version": "1.0.0",
+  "description": "Run using `elm reactor`",
+  "main": "main.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "eruda": "^3.0.0"
+  }
+}

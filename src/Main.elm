@@ -5,7 +5,7 @@ import Browser.Dom as Dom
 import Browser.Events
 import Html exposing (Html, div, input, text)
 import Html.Attributes exposing (..)
-import Html.Events exposing (keyCode, on, onClick, onFocus, preventDefaultOn)
+import Html.Events exposing (keyCode, on, onClick, onFocus, onInput, preventDefaultOn)
 import Html.Lazy
 import Json.Decode as Decode
 import List.Extra
@@ -68,12 +68,14 @@ type alias Model =
     , currentColumn : Int
     , currentDirection : Direction
     , shiftHeld : Bool
+    , latestString : String
     }
 
 
 init : ( Model, Cmd Msg )
 init =
-    ( { version = 5
+    ( { latestString = ""
+      , version = 5
       , showDebug = True
       , shiftHeld = False
       , currentDirection = Across
@@ -347,7 +349,7 @@ init =
             , Black
             ]
       }
-    , Cmd.none
+    , focusTextInput
     )
 
 
@@ -356,16 +358,16 @@ init =
 
 
 type Msg
-    = Change Int Char
+    = Change Int (Maybe Char)
     | Focus Int CellData
     | Click Int CellData
     | FocusResult (Result Dom.Error ())
     | KeyTouched KeyEventMsg
 
 
-focusCell : Int -> Cmd Msg
-focusCell index =
-    Dom.focus (String.fromInt index) |> Task.attempt FocusResult
+focusTextInput : Cmd Msg
+focusTextInput =
+    Dom.focus "text-input" |> Task.attempt FocusResult
 
 
 onCellSelected : msg -> Html.Attribute msg
@@ -414,7 +416,7 @@ calculateModelAfterClick model index cellData =
                         cellData.clueId1
         , currentDirection = newDirection
       }
-    , Cmd.none
+    , focusTextInput
     )
 
 
@@ -444,7 +446,7 @@ calculateModelAfterFocus model index cellData =
                         cellData.clueId1
         , currentDirection = newDirection
       }
-    , Cmd.none
+    , focusTextInput
     )
 
 
@@ -460,7 +462,7 @@ update msg model =
                     else
                         getDownWhiteIndex model
             in
-            ( { model | grid = updateGrid model.grid index (Just newContent), currentIndex = nextIndex }, focusCell nextIndex )
+            ( { model | latestString = charToString newContent, grid = updateGrid model.grid index newContent, currentIndex = nextIndex }, focusTextInput )
 
         Focus index cellData ->
             calculateModelAfterFocus
@@ -489,7 +491,7 @@ update msg model =
                                 _ ->
                                     model.currentIndex
                     in
-                    ( { model | currentIndex = nextIndex, grid = updateGrid model.grid model.currentIndex Nothing }, focusCell nextIndex )
+                    ( { model | currentIndex = nextIndex, grid = updateGrid model.grid model.currentIndex Nothing }, focusTextInput )
 
                 TabPressed ->
                     moveToNextWhiteCell model model.currentDirection (model.shiftHeld == True)
@@ -513,7 +515,7 @@ update msg model =
                     moveToNextWhiteCell model Down False
 
                 KeyEventLetter char ->
-                    update (Change model.currentIndex char) model
+                    update (Change model.currentIndex (Just char)) model
 
                 _ ->
                     ( model, Cmd.none )
@@ -541,7 +543,7 @@ moveToNextWhiteCell model direction backwards =
         nextIndex =
             getNextWhiteCell model direction backwards
     in
-    ( { model | currentIndex = nextIndex, currentDirection = direction }, focusCell nextIndex )
+    ( { model | currentIndex = nextIndex, currentDirection = direction }, focusTextInput )
 
 
 getCurrentCellChar : Model -> Maybe Char
@@ -805,7 +807,7 @@ viewPuzzle model =
     div
         [ style "display" "flex"
         ]
-        [ viewGrid model
+        [ viewGridWithInput model
         , viewCluesSection model Across model.clues.across
         , viewCluesSection model Down model.clues.down
         ]
@@ -914,6 +916,39 @@ viewGrid model =
         (List.indexedMap (viewCellAndModel model) model.grid)
 
 
+viewGridWithInput : Model -> Html Msg
+viewGridWithInput model =
+    div []
+        [ input
+            [ id "text-input"
+            , style
+                "position"
+                "absolute"
+            , style "z-index" "0"
+            , style "background-color" "transparent"
+            , style "font-size" "24px" -- prevents zoom on mobile devices
+            , style "height" "50px"
+            , style "outline-width" "0"
+            , style "border" "none"
+            , style "-webkit-box-shadow" "none"
+            , style "-moz-box-shadow" "none"
+            , style "box-shadow" "none"
+            , style "width" "50px"
+            , style "top" (String.concat [ String.fromInt ((currentRowNumber model - 1) * 50), "px" ])
+            , style "left" (String.concat [ String.fromInt ((currentColumnNumber model - 1) * 50), "px" ])
+            , onInput (onTextInput model)
+            , value model.latestString
+            ]
+            []
+        , viewGrid model
+        ]
+
+
+onTextInput : Model -> String -> Msg
+onTextInput model string =
+    Change (Debug.log "currentIndex" model.currentIndex) (Debug.log "letter" (List.head (List.reverse (String.toList string))))
+
+
 getGridTemplate : Model -> String
 getGridTemplate model =
     let
@@ -976,7 +1011,7 @@ viewCell cell index border zIndex backgroundColor selected =
             div
                 [ style "position" "relative"
                 ]
-                [ input
+                [ div
                     [ id (String.fromInt index)
                     , placeholder ""
                     , value (charToString cellData.value)
@@ -1009,7 +1044,8 @@ viewCell cell index border zIndex backgroundColor selected =
                             "1px"
                         )
                     ]
-                    []
+                    [ text (charToString cellData.value)
+                    ]
                 ]
 
         NumberedItem number cellData ->
@@ -1022,7 +1058,7 @@ viewCell cell index border zIndex backgroundColor selected =
                     ]
                     [ text (String.fromInt number)
                     ]
-                , input
+                , div
                     [ id (String.fromInt index)
                     , style
                         "position"
@@ -1057,7 +1093,7 @@ viewCell cell index border zIndex backgroundColor selected =
                             "1px"
                         )
                     ]
-                    []
+                    [ text (charToString cellData.value) ]
                 ]
 
         Black ->
@@ -1177,10 +1213,5 @@ keyPressedToKeyEventMsg eventKeyString =
         "ArrowDown" ->
             KeyPressed
 
-        string ->
-            case String.uncons string of
-                Just ( char, "" ) ->
-                    KeyEventLetter char
-
-                _ ->
-                    KeyEventUnknown eventKeyString
+        _ ->
+            KeyEventUnknown eventKeyString
