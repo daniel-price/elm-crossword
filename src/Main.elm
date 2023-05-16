@@ -73,7 +73,7 @@ type alias Model =
 
 init : ( Model, Cmd Msg )
 init =
-    ( { version = 4
+    ( { version = 5
       , showDebug = True
       , shiftHeld = False
       , currentDirection = Across
