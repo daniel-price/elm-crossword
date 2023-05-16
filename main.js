@@ -7683,7 +7683,7 @@ var $author$project$Main$viewCell = F6(
 					_List_fromArray(
 						[
 							A2(
-							$elm$html$Html$div,
+							$elm$html$Html$input,
 							_List_fromArray(
 								[
 									$elm$html$Html$Attributes$id(
@@ -7745,7 +7745,7 @@ var $author$project$Main$viewCell = F6(
 									$elm$core$String$fromInt(number))
 								])),
 							A2(
-							$elm$html$Html$div,
+							$elm$html$Html$input,
 							_List_fromArray(
 								[
 									$elm$html$Html$Attributes$id(

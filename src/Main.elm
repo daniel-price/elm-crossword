@@ -1008,7 +1008,7 @@ viewCell cell index border zIndex backgroundColor selected =
             div
                 [ style "position" "relative"
                 ]
-                [ div
+                [ input
                     [ id (String.fromInt index)
                     , placeholder ""
                     , value (charToString cellData.value)
@@ -1055,7 +1055,7 @@ viewCell cell index border zIndex backgroundColor selected =
                     ]
                     [ text (String.fromInt number)
                     ]
-                , div
+                , input
                     [ id (String.fromInt index)
                     , style
                         "position"
