@@ -5,7 +5,7 @@ import Browser.Dom as Dom
 import Browser.Events
 import Html exposing (Html, div, input, text)
 import Html.Attributes exposing (..)
-import Html.Events exposing (on, onClick, onFocus)
+import Html.Events exposing (custom, keyCode, on, onClick, onFocus, preventDefaultOn)
 import Html.Lazy
 import Json.Decode as Decode
 import List.Extra
@@ -950,6 +950,21 @@ charToString char =
             ""
 
 
+succeededIfTabKey : Int -> Decode.Decoder Int
+succeededIfTabKey key =
+    if key == 9 then
+        Decode.succeed key
+
+    else
+        Decode.fail "non-tab"
+
+
+tabPressed : Decode.Decoder ( Msg, Bool )
+tabPressed =
+    Decode.andThen succeededIfTabKey keyCode
+        |> Decode.map (always ( KeyTouched TabPressed, True ))
+
+
 viewCell : Cell -> Int -> String -> String -> String -> Bool -> Html Msg
 viewCell cell index border zIndex backgroundColor selected =
     case cell of
@@ -963,6 +978,7 @@ viewCell cell index border zIndex backgroundColor selected =
                     , value (charToString cellData.value)
                     , onFocus (Focus index cellData)
                     , onClick (Click index cellData)
+                    , preventDefaultOn "keydown" tabPressed
                     , style "text-transform" "uppercase"
                     , style "box-sizing" "border-box"
                     , style "border" border

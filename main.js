@@ -7637,6 +7637,34 @@ var $elm$html$Html$Events$onFocus = function (msg) {
 		$elm$json$Json$Decode$succeed(msg));
 };
 var $elm$html$Html$Attributes$placeholder = $elm$html$Html$Attributes$stringProperty('placeholder');
+var $elm$virtual_dom$VirtualDom$MayPreventDefault = function (a) {
+	return {$: 2, a: a};
+};
+var $elm$html$Html$Events$preventDefaultOn = F2(
+	function (event, decoder) {
+		return A2(
+			$elm$virtual_dom$VirtualDom$on,
+			event,
+			$elm$virtual_dom$VirtualDom$MayPreventDefault(decoder));
+	});
+var $elm$core$Basics$always = F2(
+	function (a, _v0) {
+		return a;
+	});
+var $elm$json$Json$Decode$andThen = _Json_andThen;
+var $elm$json$Json$Decode$int = _Json_decodeInt;
+var $elm$html$Html$Events$keyCode = A2($elm$json$Json$Decode$field, 'keyCode', $elm$json$Json$Decode$int);
+var $elm$json$Json$Decode$fail = _Json_fail;
+var $author$project$Main$succeededIfTabKey = function (key) {
+	return (key === 9) ? $elm$json$Json$Decode$succeed(key) : $elm$json$Json$Decode$fail('non-tab');
+};
+var $author$project$Main$tabPressed = A2(
+	$elm$json$Json$Decode$map,
+	$elm$core$Basics$always(
+		_Utils_Tuple2(
+			$author$project$Main$KeyTouched($author$project$Main$TabPressed),
+			true)),
+	A2($elm$json$Json$Decode$andThen, $author$project$Main$succeededIfTabKey, $elm$html$Html$Events$keyCode));
 var $elm$html$Html$Attributes$value = $elm$html$Html$Attributes$stringProperty('value');
 var $author$project$Main$viewCell = F6(
 	function (cell, index, border, zIndex, backgroundColor, selected) {
@@ -7664,6 +7692,7 @@ var $author$project$Main$viewCell = F6(
 									A2($author$project$Main$Focus, index, cellData)),
 									$elm$html$Html$Events$onClick(
 									A2($author$project$Main$Click, index, cellData)),
+									A2($elm$html$Html$Events$preventDefaultOn, 'keydown', $author$project$Main$tabPressed),
 									A2($elm$html$Html$Attributes$style, 'text-transform', 'uppercase'),
 									A2($elm$html$Html$Attributes$style, 'box-sizing', 'border-box'),
 									A2($elm$html$Html$Attributes$style, 'border', border),
