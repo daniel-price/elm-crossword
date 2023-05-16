@@ -1,8 +1,8 @@
-module MainTest exposing (..)
+module MainTest exposing (getColumnNumberTests, getRowNumberTests)
 
-import Expect exposing (..)
+import Expect
 import Main exposing (getColumnNumber, getRowNumber)
-import Test exposing (..)
+import Test exposing (Test, describe, test)
 
 
 getColumnNumberTests : Test

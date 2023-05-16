@@ -1,6 +1,8 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
+elm-test
+npx elm-review
 ./optimize.sh src/Main.elm
 git add main.js main.min.js
 

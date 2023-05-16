@@ -1857,9 +1857,9 @@ var _Platform_worker = F4(function(impl, flagDecoder, debugMetadata, args)
 	return _Platform_initialize(
 		flagDecoder,
 		args,
-		impl.bZ,
-		impl.cv,
-		impl.cq,
+		impl.bY,
+		impl.cp,
+		impl.ck,
 		function() { return function() {} }
 	);
 });
@@ -3943,11 +3943,11 @@ var _Browser_element = _Debugger_element || F4(function(impl, flagDecoder, debug
 	return _Platform_initialize(
 		flagDecoder,
 		args,
-		impl.bZ,
-		impl.cv,
-		impl.cq,
+		impl.bY,
+		impl.cp,
+		impl.ck,
 		function(sendToApp, initialModel) {
-			var view = impl.cw;
+			var view = impl.cq;
 			/**/
 			var domNode = args['node'];
 			//*/
@@ -3979,12 +3979,12 @@ var _Browser_document = _Debugger_document || F4(function(impl, flagDecoder, deb
 	return _Platform_initialize(
 		flagDecoder,
 		args,
-		impl.bZ,
-		impl.cv,
-		impl.cq,
+		impl.bY,
+		impl.cp,
+		impl.ck,
 		function(sendToApp, initialModel) {
 			var divertHrefToApp = impl.aH && impl.aH(sendToApp)
-			var view = impl.cw;
+			var view = impl.cq;
 			var title = _VirtualDom_doc.title;
 			var bodyNode = _VirtualDom_doc.body;
 			var currNode = _VirtualDom_virtualize(bodyNode);
@@ -3997,7 +3997,7 @@ var _Browser_document = _Debugger_document || F4(function(impl, flagDecoder, deb
 				bodyNode = _VirtualDom_applyPatches(bodyNode, currNode, patches, sendToApp);
 				currNode = nextNode;
 				_VirtualDom_divertHrefToApp = 0;
-				(title !== doc.ct) && (_VirtualDom_doc.title = title = doc.ct);
+				(title !== doc.cn) && (_VirtualDom_doc.title = title = doc.cn);
 			});
 		}
 	);
@@ -4053,8 +4053,8 @@ function _Browser_makeAnimator(model, draw)
 
 function _Browser_application(impl)
 {
-	var onUrlChange = impl.cf;
-	var onUrlRequest = impl.cg;
+	var onUrlChange = impl.cb;
+	var onUrlRequest = impl.cc;
 	var key = function() { key.a(onUrlChange(_Browser_getUrl())); };
 
 	return _Browser_document({
@@ -4074,9 +4074,9 @@ function _Browser_application(impl)
 					var next = $elm$url$Url$fromString(href).a;
 					sendToApp(onUrlRequest(
 						(next
-							&& curr.bk === next.bk
+							&& curr.bl === next.bl
 							&& curr.a5 === next.a5
-							&& curr.bh.a === next.bh.a
+							&& curr.bi.a === next.bi.a
 						)
 							? $elm$browser$Browser$Internal(next)
 							: $elm$browser$Browser$External(href)
@@ -4084,13 +4084,13 @@ function _Browser_application(impl)
 				}
 			});
 		},
-		bZ: function(flags)
+		bY: function(flags)
 		{
-			return A3(impl.bZ, flags, _Browser_getUrl(), key);
+			return A3(impl.bY, flags, _Browser_getUrl(), key);
 		},
-		cw: impl.cw,
-		cv: impl.cv,
-		cq: impl.cq
+		cq: impl.cq,
+		cp: impl.cp,
+		ck: impl.ck
 	});
 }
 
@@ -4156,17 +4156,17 @@ var _Browser_decodeEvent = F2(function(decoder, event)
 function _Browser_visibilityInfo()
 {
 	return (typeof _VirtualDom_doc.hidden !== 'undefined')
-		? { bW: 'hidden', bL: 'visibilitychange' }
+		? { bV: 'hidden', bL: 'visibilitychange' }
 		:
 	(typeof _VirtualDom_doc.mozHidden !== 'undefined')
-		? { bW: 'mozHidden', bL: 'mozvisibilitychange' }
+		? { bV: 'mozHidden', bL: 'mozvisibilitychange' }
 		:
 	(typeof _VirtualDom_doc.msHidden !== 'undefined')
-		? { bW: 'msHidden', bL: 'msvisibilitychange' }
+		? { bV: 'msHidden', bL: 'msvisibilitychange' }
 		:
 	(typeof _VirtualDom_doc.webkitHidden !== 'undefined')
-		? { bW: 'webkitHidden', bL: 'webkitvisibilitychange' }
-		: { bW: 'hidden', bL: 'visibilitychange' };
+		? { bV: 'webkitHidden', bL: 'webkitvisibilitychange' }
+		: { bV: 'hidden', bL: 'visibilitychange' };
 }
 
 
@@ -4247,11 +4247,11 @@ var _Browser_call = F2(function(functionName, id)
 function _Browser_getViewport()
 {
 	return {
-		bp: _Browser_getScene(),
-		bx: {
-			bA: _Browser_window.pageXOffset,
-			bB: _Browser_window.pageYOffset,
-			bz: _Browser_doc.documentElement.clientWidth,
+		bq: _Browser_getScene(),
+		by: {
+			bB: _Browser_window.pageXOffset,
+			bC: _Browser_window.pageYOffset,
+			bA: _Browser_doc.documentElement.clientWidth,
 			a4: _Browser_doc.documentElement.clientHeight
 		}
 	};
@@ -4262,7 +4262,7 @@ function _Browser_getScene()
 	var body = _Browser_doc.body;
 	var elem = _Browser_doc.documentElement;
 	return {
-		bz: Math.max(body.scrollWidth, body.offsetWidth, elem.scrollWidth, elem.offsetWidth, elem.clientWidth),
+		bA: Math.max(body.scrollWidth, body.offsetWidth, elem.scrollWidth, elem.offsetWidth, elem.clientWidth),
 		a4: Math.max(body.scrollHeight, body.offsetHeight, elem.scrollHeight, elem.offsetHeight, elem.clientHeight)
 	};
 }
@@ -4286,14 +4286,14 @@ function _Browser_getViewportOf(id)
 	return _Browser_withNode(id, function(node)
 	{
 		return {
-			bp: {
-				bz: node.scrollWidth,
+			bq: {
+				bA: node.scrollWidth,
 				a4: node.scrollHeight
 			},
-			bx: {
-				bA: node.scrollLeft,
-				bB: node.scrollTop,
-				bz: node.clientWidth,
+			by: {
+				bB: node.scrollLeft,
+				bC: node.scrollTop,
+				bA: node.clientWidth,
 				a4: node.clientHeight
 			}
 		};
@@ -4324,17 +4324,17 @@ function _Browser_getElement(id)
 		var x = _Browser_window.pageXOffset;
 		var y = _Browser_window.pageYOffset;
 		return {
-			bp: _Browser_getScene(),
-			bx: {
-				bA: x,
-				bB: y,
-				bz: _Browser_doc.documentElement.clientWidth,
+			bq: _Browser_getScene(),
+			by: {
+				bB: x,
+				bC: y,
+				bA: _Browser_doc.documentElement.clientWidth,
 				a4: _Browser_doc.documentElement.clientHeight
 			},
-			bQ: {
-				bA: x + rect.left,
-				bB: y + rect.top,
-				bz: rect.width,
+			bP: {
+				bB: x + rect.left,
+				bC: y + rect.top,
+				bA: rect.width,
 				a4: rect.height
 			}
 		};
@@ -4874,7 +4874,7 @@ var $elm$url$Url$Http = 0;
 var $elm$url$Url$Https = 1;
 var $elm$url$Url$Url = F6(
 	function (protocol, host, port_, path, query, fragment) {
-		return {a0: fragment, a5: host, bf: path, bh: port_, bk: protocol, bl: query};
+		return {a0: fragment, a5: host, bg: path, bi: port_, bl: protocol, bm: query};
 	});
 var $elm$core$String$contains = _String_contains;
 var $elm$core$String$length = _String_length;
@@ -5163,9 +5163,7 @@ var $author$project$Main$NumberedItem = F2(
 	function (a, b) {
 		return {$: 1, a: a, b: b};
 	});
-var $author$project$Main$FocusResult = function (a) {
-	return {$: 3, a: a};
-};
+var $author$project$Main$NoOp = {$: 4};
 var $elm$core$Basics$composeL = F3(
 	function (g, f, x) {
 		return g(
@@ -5192,7 +5190,9 @@ var $elm$core$Task$attempt = F2(
 var $elm$browser$Browser$Dom$focus = _Browser_call('focus');
 var $author$project$Main$focusTextInput = A2(
 	$elm$core$Task$attempt,
-	$author$project$Main$FocusResult,
+	function (_v0) {
+		return $author$project$Main$NoOp;
+	},
 	$elm$browser$Browser$Dom$focus('text-input'));
 var $author$project$Main$init = _Utils_Tuple2(
 	{
@@ -5237,9 +5237,9 @@ var $author$project$Main$init = _Utils_Tuple2(
 		A: _Utils_Tuple2(0, 1),
 		ax: 0,
 		x: 0,
-		f: 1,
+		h: 1,
 		ay: 0,
-		p: _List_fromArray(
+		q: _List_fromArray(
 			[
 				$author$project$Main$Black,
 				A2(
@@ -6347,7 +6347,7 @@ var $author$project$Main$init = _Utils_Tuple2(
 	$author$project$Main$focusTextInput);
 var $elm$core$Platform$Sub$batch = _Platform_batch;
 var $author$project$Main$KeyTouched = function (a) {
-	return {$: 4, a: a};
+	return {$: 3, a: a};
 };
 var $elm$core$Basics$composeR = F3(
 	function (f, g, x) {
@@ -6355,34 +6355,32 @@ var $elm$core$Basics$composeR = F3(
 			f(x));
 	});
 var $elm$json$Json$Decode$field = _Json_decodeField;
-var $author$project$Main$BackspacePressed = {$: 3};
-var $author$project$Main$KeyEventUnknown = function (a) {
-	return {$: 1, a: a};
-};
-var $author$project$Main$KeyPressed = {$: 9};
-var $author$project$Main$LeftPressed = {$: 6};
-var $author$project$Main$RightPressed = {$: 7};
-var $author$project$Main$ShiftPressed = {$: 4};
-var $author$project$Main$TabPressed = {$: 2};
-var $author$project$Main$UpPressed = {$: 8};
+var $author$project$Main$BackspacePressed = 2;
+var $author$project$Main$KeyEventUnknown = 0;
+var $author$project$Main$KeyPressed = 8;
+var $author$project$Main$LeftPressed = 5;
+var $author$project$Main$RightPressed = 6;
+var $author$project$Main$ShiftPressed = 3;
+var $author$project$Main$TabPressed = 1;
+var $author$project$Main$UpPressed = 7;
 var $author$project$Main$keyPressedToKeyEventMsg = function (eventKeyString) {
 	switch (eventKeyString) {
 		case 'ArrowLeft':
-			return $author$project$Main$LeftPressed;
+			return 5;
 		case 'Shift':
-			return $author$project$Main$ShiftPressed;
+			return 3;
 		case 'Tab':
-			return $author$project$Main$TabPressed;
+			return 1;
 		case 'Backspace':
-			return $author$project$Main$BackspacePressed;
+			return 2;
 		case 'ArrowRight':
-			return $author$project$Main$RightPressed;
+			return 6;
 		case 'ArrowUp':
-			return $author$project$Main$UpPressed;
+			return 7;
 		case 'ArrowDown':
-			return $author$project$Main$KeyPressed;
+			return 8;
 		default:
-			return $author$project$Main$KeyEventUnknown(eventKeyString);
+			return 0;
 	}
 };
 var $elm$json$Json$Decode$string = _Json_decodeString;
@@ -6390,12 +6388,12 @@ var $author$project$Main$keyPressedDecoder = A2(
 	$elm$json$Json$Decode$map,
 	A2($elm$core$Basics$composeR, $author$project$Main$keyPressedToKeyEventMsg, $author$project$Main$KeyTouched),
 	A2($elm$json$Json$Decode$field, 'key', $elm$json$Json$Decode$string));
-var $author$project$Main$ShiftReleased = {$: 5};
+var $author$project$Main$ShiftReleased = 4;
 var $author$project$Main$keyReleasedToKeyEventMsg = function (eventKeyString) {
 	if (eventKeyString === 'Shift') {
-		return $author$project$Main$ShiftReleased;
+		return 4;
 	} else {
-		return $author$project$Main$KeyEventUnknown(eventKeyString);
+		return 0;
 	}
 };
 var $author$project$Main$keyReleasedDecoder = A2(
@@ -6409,7 +6407,7 @@ var $elm$browser$Browser$Events$MySub = F3(
 	});
 var $elm$browser$Browser$Events$State = F2(
 	function (subs, pids) {
-		return {bg: pids, bu: subs};
+		return {bh: pids, bv: subs};
 	});
 var $elm$core$Dict$RBEmpty_elm_builtin = {$: -2};
 var $elm$core$Dict$empty = $elm$core$Dict$RBEmpty_elm_builtin;
@@ -6641,7 +6639,7 @@ var $elm$core$Dict$merge = F6(
 	});
 var $elm$browser$Browser$Events$Event = F2(
 	function (key, event) {
-		return {a$: event, b$: key};
+		return {a$: event, a7: key};
 	});
 var $elm$core$Platform$sendToSelf = _Platform_sendToSelf;
 var $elm$browser$Browser$Events$spawn = F3(
@@ -6716,7 +6714,7 @@ var $elm$browser$Browser$Events$onEffects = F3(
 			stepLeft,
 			stepBoth,
 			stepRight,
-			state.bg,
+			state.bh,
 			$elm$core$Dict$fromList(newSubs),
 			_Utils_Tuple3(_List_Nil, $elm$core$Dict$empty, _List_Nil));
 		var deadPids = _v0.a;
@@ -6762,7 +6760,7 @@ var $elm$core$List$filterMap = F2(
 	});
 var $elm$browser$Browser$Events$onSelfMsg = F3(
 	function (router, _v0, state) {
-		var key = _v0.b$;
+		var key = _v0.a7;
 		var event = _v0.a$;
 		var toMessage = function (_v2) {
 			var subKey = _v2.a;
@@ -6772,7 +6770,7 @@ var $elm$browser$Browser$Events$onSelfMsg = F3(
 			var decoder = _v3.c;
 			return _Utils_eq(subKey, key) ? A2(_Browser_decodeEvent, decoder, event) : $elm$core$Maybe$Nothing;
 		};
-		var messages = A2($elm$core$List$filterMap, toMessage, state.bu);
+		var messages = A2($elm$core$List$filterMap, toMessage, state.bv);
 		return A2(
 			$elm$core$Task$andThen,
 			function (_v1) {
@@ -6812,10 +6810,6 @@ var $author$project$Main$subscriptions = function (_v0) {
 				$elm$browser$Browser$Events$onKeyUp($author$project$Main$keyReleasedDecoder)
 			]));
 };
-var $author$project$Main$Change = F2(
-	function (a, b) {
-		return {$: 0, a: a, b: b};
-	});
 var $author$project$Main$calculateModelAfterClick = F3(
 	function (model, index, cellData) {
 		var newDirection = function () {
@@ -6844,7 +6838,7 @@ var $author$project$Main$calculateModelAfterClick = F3(
 						}
 					}(),
 					x: newDirection,
-					f: index
+					h: index
 				}),
 			$author$project$Main$focusTextInput);
 	});
@@ -6876,7 +6870,7 @@ var $author$project$Main$calculateModelAfterFocus = F3(
 						}
 					}(),
 					x: newDirection,
-					f: index
+					h: index
 				}),
 			$author$project$Main$focusTextInput);
 	});
@@ -7037,7 +7031,7 @@ var $author$project$Main$elementAtIndex = F2(
 				A2($elm$core$List$take, index, list))) : $elm$core$Maybe$Nothing;
 	});
 var $author$project$Main$getCurrentCellChar = function (model) {
-	var cell = A2($author$project$Main$elementAtIndex, model.f + 1, model.p);
+	var cell = A2($author$project$Main$elementAtIndex, model.h + 1, model.q);
 	_v0$2:
 	while (true) {
 		if (!cell.$) {
@@ -7064,14 +7058,14 @@ var $author$project$Main$getColumnNumber = F2(
 		return A2($elm$core$Basics$modBy, numberOfColumns, index) + 1;
 	});
 var $author$project$Main$currentColumnNumber = function (model) {
-	return A2($author$project$Main$getColumnNumber, model.ar, model.f);
+	return A2($author$project$Main$getColumnNumber, model.ar, model.h);
 };
 var $author$project$Main$getRowNumber = F2(
 	function (numberOfColumns, index) {
 		return $elm$core$Basics$floor(index / numberOfColumns) + 1;
 	});
 var $author$project$Main$currentRowNumber = function (model) {
-	return A2($author$project$Main$getRowNumber, model.ar, model.f);
+	return A2($author$project$Main$getRowNumber, model.ar, model.h);
 };
 var $elm_community$list_extra$List$Extra$findIndexHelp = F3(
 	function (index, predicate, list) {
@@ -7155,14 +7149,14 @@ var $author$project$Main$takeEveryNthIndexesFromIndex = F3(
 var $author$project$Main$getDownWhiteIndex = function (model) {
 	var rowNumber = $author$project$Main$currentRowNumber(model);
 	var columnNumber = $author$project$Main$currentColumnNumber(model);
-	var columnSquares = A3($author$project$Main$takeEveryNthIndexesFromIndex, model.Y, columnNumber, model.p);
+	var columnSquares = A3($author$project$Main$takeEveryNthIndexesFromIndex, model.Y, columnNumber, model.q);
 	var columnsDown = A2($elm_community$list_extra$List$Extra$splitAt, rowNumber, columnSquares).b;
 	var index = A2($elm_community$list_extra$List$Extra$findIndex, $author$project$Main$isWhiteSquare, columnsDown);
 	if (!index.$) {
 		var n = index.a;
-		return model.f + (model.Y * (n + 1));
+		return model.h + (model.Y * (n + 1));
 	} else {
-		return model.f;
+		return model.h;
 	}
 };
 var $author$project$Main$getLeftWhiteIndex = F2(
@@ -7191,20 +7185,20 @@ var $author$project$Main$getRightWhiteIndex = F2(
 var $author$project$Main$getUpWhiteIndex = function (model) {
 	var rowNumber = $author$project$Main$currentRowNumber(model);
 	var columnNumber = $author$project$Main$currentColumnNumber(model);
-	var columnSquares = A3($author$project$Main$takeEveryNthIndexesFromIndex, model.Y, columnNumber, model.p);
+	var columnSquares = A3($author$project$Main$takeEveryNthIndexesFromIndex, model.Y, columnNumber, model.q);
 	var columnsUp = $elm$core$List$reverse(
 		A2($elm_community$list_extra$List$Extra$splitAt, rowNumber - 1, columnSquares).a);
 	var index = A2($elm_community$list_extra$List$Extra$findIndex, $author$project$Main$isWhiteSquare, columnsUp);
 	if (!index.$) {
 		var n = index.a;
-		return model.f - (model.Y * (n + 1));
+		return model.h - (model.Y * (n + 1));
 	} else {
-		return model.f;
+		return model.h;
 	}
 };
 var $author$project$Main$getNextWhiteCell = F3(
 	function (model, direction, backwards) {
-		return (!direction) ? (backwards ? A2($author$project$Main$getLeftWhiteIndex, model.p, model.f) : A2($author$project$Main$getRightWhiteIndex, model.p, model.f)) : (backwards ? $author$project$Main$getUpWhiteIndex(model) : $author$project$Main$getDownWhiteIndex(model));
+		return (!direction) ? (backwards ? A2($author$project$Main$getLeftWhiteIndex, model.q, model.h) : A2($author$project$Main$getRightWhiteIndex, model.q, model.h)) : (backwards ? $author$project$Main$getUpWhiteIndex(model) : $author$project$Main$getDownWhiteIndex(model));
 	});
 var $author$project$Main$moveToNextWhiteCell = F3(
 	function (model, direction, backwards) {
@@ -7212,7 +7206,7 @@ var $author$project$Main$moveToNextWhiteCell = F3(
 		return _Utils_Tuple2(
 			_Utils_update(
 				model,
-				{x: direction, f: nextIndex}),
+				{x: direction, h: nextIndex}),
 			$author$project$Main$focusTextInput);
 	});
 var $elm$core$Platform$Cmd$batch = _Platform_batch;
@@ -7257,88 +7251,75 @@ var $author$project$Main$updateGrid = F3(
 	});
 var $author$project$Main$update = F2(
 	function (msg, model) {
-		update:
-		while (true) {
-			switch (msg.$) {
-				case 0:
-					var index = msg.a;
-					var newContent = msg.b;
-					var nextIndex = (!model.x) ? A2($author$project$Main$getRightWhiteIndex, model.p, index) : $author$project$Main$getDownWhiteIndex(model);
-					return _Utils_Tuple2(
-						_Utils_update(
-							model,
-							{
-								f: nextIndex,
-								p: A3($author$project$Main$updateGrid, model.p, index, newContent),
-								ap: $author$project$Main$charToString(newContent)
-							}),
-						$author$project$Main$focusTextInput);
-				case 1:
-					var index = msg.a;
-					var cellData = msg.b;
-					return A3($author$project$Main$calculateModelAfterFocus, model, index, cellData);
-				case 2:
-					var index = msg.a;
-					var cellData = msg.b;
-					return A3($author$project$Main$calculateModelAfterClick, model, index, cellData);
-				case 3:
-					return _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
-				default:
-					var keyEventMsg = msg.a;
-					switch (keyEventMsg.$) {
-						case 3:
-							var currentCellChar = $author$project$Main$getCurrentCellChar(model);
-							var nextIndex = function () {
-								if (currentCellChar.$ === 1) {
-									return A3($author$project$Main$getNextWhiteCell, model, model.x, true);
-								} else {
-									return model.f;
-								}
-							}();
-							return _Utils_Tuple2(
-								_Utils_update(
-									model,
-									{
-										f: nextIndex,
-										p: A3($author$project$Main$updateGrid, model.p, model.f, $elm$core$Maybe$Nothing)
-									}),
-								$author$project$Main$focusTextInput);
-						case 2:
-							return A3($author$project$Main$moveToNextWhiteCell, model, model.x, model.ai);
-						case 4:
-							return _Utils_Tuple2(
-								_Utils_update(
-									model,
-									{ai: true}),
-								$elm$core$Platform$Cmd$none);
-						case 5:
-							return _Utils_Tuple2(
-								_Utils_update(
-									model,
-									{ai: false}),
-								$elm$core$Platform$Cmd$none);
-						case 6:
-							return A3($author$project$Main$moveToNextWhiteCell, model, 0, true);
-						case 7:
-							return A3($author$project$Main$moveToNextWhiteCell, model, 0, false);
-						case 8:
-							return A3($author$project$Main$moveToNextWhiteCell, model, 1, true);
-						case 9:
-							return A3($author$project$Main$moveToNextWhiteCell, model, 1, false);
-						case 0:
-							var _char = keyEventMsg.a;
-							var $temp$msg = A2(
-								$author$project$Main$Change,
-								model.f,
-								$elm$core$Maybe$Just(_char)),
-								$temp$model = model;
-							msg = $temp$msg;
-							model = $temp$model;
-							continue update;
-						default:
-							return _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
-					}
-			}
+		switch (msg.$) {
+			case 0:
+				var index = msg.a;
+				var newContent = msg.b;
+				var nextIndex = (!model.x) ? A2($author$project$Main$getRightWhiteIndex, model.q, index) : $author$project$Main$getDownWhiteIndex(model);
+				return _Utils_Tuple2(
+					_Utils_update(
+						model,
+						{
+							h: nextIndex,
+							q: A3($author$project$Main$updateGrid, model.q, index, newContent),
+							ap: $author$project$Main$charToString(newContent)
+						}),
+					$author$project$Main$focusTextInput);
+			case 1:
+				var index = msg.a;
+				var cellData = msg.b;
+				return A3($author$project$Main$calculateModelAfterFocus, model, index, cellData);
+			case 2:
+				var index = msg.a;
+				var cellData = msg.b;
+				return A3($author$project$Main$calculateModelAfterClick, model, index, cellData);
+			case 3:
+				var keyEventMsg = msg.a;
+				switch (keyEventMsg) {
+					case 2:
+						var currentCellChar = $author$project$Main$getCurrentCellChar(model);
+						var nextIndex = function () {
+							if (currentCellChar.$ === 1) {
+								return A3($author$project$Main$getNextWhiteCell, model, model.x, true);
+							} else {
+								return model.h;
+							}
+						}();
+						return _Utils_Tuple2(
+							_Utils_update(
+								model,
+								{
+									h: nextIndex,
+									q: A3($author$project$Main$updateGrid, model.q, model.h, $elm$core$Maybe$Nothing)
+								}),
+							$author$project$Main$focusTextInput);
+					case 1:
+						return A3($author$project$Main$moveToNextWhiteCell, model, model.x, model.ai);
+					case 3:
+						return _Utils_Tuple2(
+							_Utils_update(
+								model,
+								{ai: true}),
+							$elm$core$Platform$Cmd$none);
+					case 4:
+						return _Utils_Tuple2(
+							_Utils_update(
+								model,
+								{ai: false}),
+							$elm$core$Platform$Cmd$none);
+					case 5:
+						return A3($author$project$Main$moveToNextWhiteCell, model, 0, true);
+					case 6:
+						return A3($author$project$Main$moveToNextWhiteCell, model, 0, false);
+					case 7:
+						return A3($author$project$Main$moveToNextWhiteCell, model, 1, true);
+					case 8:
+						return A3($author$project$Main$moveToNextWhiteCell, model, 1, false);
+					default:
+						return _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
+				}
+			default:
+				return _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
 		}
 	});
 var $elm$core$String$concat = function (strings) {
@@ -7419,7 +7400,7 @@ var $author$project$Main$viewDebugInt = F2(
 	});
 var $author$project$Main$debug = function (model) {
 	var cellString = function () {
-		var _v0 = A2($author$project$Main$elementAtIndex, model.f + 1, model.p);
+		var _v0 = A2($author$project$Main$elementAtIndex, model.h + 1, model.q);
 		if (!_v0.$) {
 			switch (_v0.a.$) {
 				case 2:
@@ -7466,7 +7447,7 @@ var $author$project$Main$debug = function (model) {
 							$elm$core$String$fromInt(model.A.b),
 							$author$project$Main$directionToString(model.A.a)
 						]))),
-				A2($author$project$Main$viewDebugInt, 'currentIndex', model.f),
+				A2($author$project$Main$viewDebugInt, 'currentIndex', model.h),
 				A2($author$project$Main$viewDebugInt, 'currentRow', model.ay),
 				A2($author$project$Main$viewDebugInt, 'currentColumn', model.ax),
 				A2(
@@ -7571,6 +7552,10 @@ var $elm$html$Html$Events$onInput = function (tagger) {
 			$elm$html$Html$Events$alwaysStop,
 			A2($elm$json$Json$Decode$map, tagger, $elm$html$Html$Events$targetValue)));
 };
+var $author$project$Main$Change = F2(
+	function (a, b) {
+		return {$: 0, a: a, b: b};
+	});
 var $elm$core$String$foldr = _String_foldr;
 var $elm$core$String$toList = function (string) {
 	return A3($elm$core$String$foldr, $elm$core$List$cons, _List_Nil, string);
@@ -7579,7 +7564,7 @@ var $author$project$Main$onTextInput = F2(
 	function (model, string) {
 		return A2(
 			$author$project$Main$Change,
-			model.f,
+			model.h,
 			$elm$core$List$head(
 				$elm$core$List$reverse(
 					$elm$core$String$toList(string))));
@@ -7589,7 +7574,7 @@ var $elm$core$String$fromFloat = _String_fromNumber;
 var $elm$core$Basics$sqrt = _Basics_sqrt;
 var $author$project$Main$getGridTemplate = function (model) {
 	var rowCount = $elm$core$Basics$sqrt(
-		$elm$core$List$length(model.p));
+		$elm$core$List$length(model.q));
 	var singleCellPercentage = 100 / rowCount;
 	return $elm$core$String$concat(
 		_List_fromArray(
@@ -7667,15 +7652,13 @@ var $elm$json$Json$Decode$int = _Json_decodeInt;
 var $elm$html$Html$Events$keyCode = A2($elm$json$Json$Decode$field, 'keyCode', $elm$json$Json$Decode$int);
 var $elm$json$Json$Decode$fail = _Json_fail;
 var $author$project$Main$succeededIfTabKey = function (key) {
-	var key1 = key;
 	return (key === 9) ? $elm$json$Json$Decode$succeed(key) : $elm$json$Json$Decode$fail('non-tab');
 };
 var $author$project$Main$tabPressed = A2(
 	$elm$json$Json$Decode$map,
 	$elm$core$Basics$always(
 		_Utils_Tuple2(
-			$author$project$Main$KeyTouched(
-				$author$project$Main$KeyEventUnknown('')),
+			$author$project$Main$KeyTouched(0),
 			true)),
 	A2($elm$json$Json$Decode$andThen, $author$project$Main$succeededIfTabKey, $elm$html$Html$Events$keyCode));
 var $author$project$Main$viewCell = F6(
@@ -7804,7 +7787,7 @@ var $author$project$Main$viewCell = F6(
 	});
 var $author$project$Main$viewCellAndModel = F3(
 	function (model, index, cell) {
-		var selected = _Utils_eq(index, model.f);
+		var selected = _Utils_eq(index, model.h);
 		var zIndex = selected ? '10' : '1';
 		var highlight = function () {
 			switch (cell.$) {
@@ -7842,7 +7825,7 @@ var $author$project$Main$viewGrid = function (model) {
 		A2(
 			$elm$core$List$indexedMap,
 			$author$project$Main$viewCellAndModel(model),
-			model.p));
+			model.q));
 };
 var $author$project$Main$viewGridWithInput = function (model) {
 	return A2(
@@ -7915,17 +7898,17 @@ var $author$project$Main$view = function (model) {
 				$author$project$Main$viewPuzzle(model),
 				model.aI ? $author$project$Main$debug(model) : A2($elm$html$Html$div, _List_Nil, _List_Nil)
 			]),
-		ct: 'Crossword'
+		cn: 'Crossword'
 	};
 };
 var $author$project$Main$main = $elm$browser$Browser$document(
 	{
-		bZ: function (_v0) {
+		bY: function (_v0) {
 			return $author$project$Main$init;
 		},
-		cq: $author$project$Main$subscriptions,
-		cv: $author$project$Main$update,
-		cw: $author$project$Main$view
+		ck: $author$project$Main$subscriptions,
+		cp: $author$project$Main$update,
+		cq: $author$project$Main$view
 	});
 _Platform_export({'Main':{'init':$author$project$Main$main(
 	$elm$json$Json$Decode$succeed(0))(0)}});}(this));

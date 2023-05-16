@@ -1,11 +1,11 @@
-module Main exposing (..)
+module Main exposing (Cell(..), CellData, Clue, ClueId, Direction(..), Grid, KeyEventMsg(..), Model, Msg(..), getColumnNumber, getRowNumber, main)
 
 import Browser exposing (Document)
 import Browser.Dom as Dom
 import Browser.Events
 import Html exposing (Html, div, input, text)
-import Html.Attributes exposing (..)
-import Html.Events exposing (keyCode, on, onClick, onFocus, onInput, preventDefaultOn)
+import Html.Attributes exposing (id, placeholder, style, value)
+import Html.Events exposing (keyCode, onClick, onFocus, onInput, preventDefaultOn)
 import Html.Lazy
 import Json.Decode as Decode
 import List.Extra
@@ -361,18 +361,13 @@ type Msg
     = Change Int (Maybe Char)
     | Focus Int CellData
     | Click Int CellData
-    | FocusResult (Result Dom.Error ())
     | KeyTouched KeyEventMsg
+    | NoOp
 
 
 focusTextInput : Cmd Msg
 focusTextInput =
-    Dom.focus "text-input" |> Task.attempt FocusResult
-
-
-onCellSelected : msg -> Html.Attribute msg
-onCellSelected message =
-    on "click" (Decode.succeed message)
+    Task.attempt (\_ -> NoOp) (Dom.focus "text-input")
 
 
 elementAtIndex : Int -> List a -> Maybe a
@@ -389,6 +384,7 @@ elementAtIndex index list =
 calculateModelAfterClick : Model -> Int -> CellData -> ( Model, Cmd Msg )
 calculateModelAfterClick model index cellData =
     let
+        newDirection : Direction
         newDirection =
             case cellData.clueId2 of
                 Just _ ->
@@ -423,6 +419,7 @@ calculateModelAfterClick model index cellData =
 calculateModelAfterFocus : Model -> Int -> CellData -> ( Model, Cmd Msg )
 calculateModelAfterFocus model index cellData =
     let
+        newDirection : Direction
         newDirection =
             case cellData.clueId2 of
                 Just _ ->
@@ -455,6 +452,7 @@ update msg model =
     case msg of
         Change index newContent ->
             let
+                nextIndex : Int
                 nextIndex =
                     if model.currentDirection == Across then
                         getRightWhiteIndex model.grid index
@@ -473,16 +471,15 @@ update msg model =
         Click index cellData ->
             calculateModelAfterClick model index cellData
 
-        FocusResult _ ->
-            ( model, Cmd.none )
-
         KeyTouched keyEventMsg ->
             case keyEventMsg of
                 BackspacePressed ->
                     let
+                        currentCellChar : Maybe Char
                         currentCellChar =
                             getCurrentCellChar model
 
+                        nextIndex : Int
                         nextIndex =
                             case currentCellChar of
                                 Nothing ->
@@ -494,7 +491,7 @@ update msg model =
                     ( { model | currentIndex = nextIndex, grid = updateGrid model.grid model.currentIndex Nothing }, focusTextInput )
 
                 TabPressed ->
-                    moveToNextWhiteCell model model.currentDirection (model.shiftHeld == True)
+                    moveToNextWhiteCell model model.currentDirection model.shiftHeld
 
                 ShiftPressed ->
                     ( { model | shiftHeld = True }, Cmd.none )
@@ -514,11 +511,11 @@ update msg model =
                 KeyPressed ->
                     moveToNextWhiteCell model Down False
 
-                KeyEventLetter char ->
-                    update (Change model.currentIndex (Just char)) model
-
                 _ ->
                     ( model, Cmd.none )
+
+        NoOp ->
+            ( model, Cmd.none )
 
 
 getNextWhiteCell : Model -> Direction -> Bool -> Int
@@ -540,6 +537,7 @@ getNextWhiteCell model direction backwards =
 moveToNextWhiteCell : Model -> Direction -> Bool -> ( Model, Cmd Msg )
 moveToNextWhiteCell model direction backwards =
     let
+        nextIndex : Int
         nextIndex =
             getNextWhiteCell model direction backwards
     in
@@ -549,6 +547,7 @@ moveToNextWhiteCell model direction backwards =
 getCurrentCellChar : Model -> Maybe Char
 getCurrentCellChar model =
     let
+        cell : Maybe Cell
         cell =
             elementAtIndex (model.currentIndex + 1) model.grid
     in
@@ -563,25 +562,14 @@ getCurrentCellChar model =
             Nothing
 
 
-getCurrentCell : Model -> Maybe CellData
-getCurrentCell model =
-    case elementAtIndex model.currentIndex model.grid of
-        Just (Item cellData) ->
-            Just cellData
-
-        Just (NumberedItem _ cellData) ->
-            Just cellData
-
-        _ ->
-            Nothing
-
-
 getLeftWhiteIndex : Grid -> Int -> Int
 getLeftWhiteIndex grid index =
     let
+        previousSquares : List Cell
         previousSquares =
             List.reverse (Tuple.first (List.Extra.splitAt index grid))
 
+        offset : Maybe Int
         offset =
             List.Extra.findIndex isWhiteSquare previousSquares
     in
@@ -597,18 +585,23 @@ getLeftWhiteIndex grid index =
 getDownWhiteIndex : Model -> Int
 getDownWhiteIndex model =
     let
+        columnNumber : Int
         columnNumber =
             currentColumnNumber model
 
+        rowNumber : Int
         rowNumber =
             currentRowNumber model
 
+        columnSquares : List Cell
         columnSquares =
             takeEveryNthIndexesFromIndex model.numberOfRows columnNumber model.grid
 
+        columnsDown : List Cell
         columnsDown =
             Tuple.second (List.Extra.splitAt rowNumber columnSquares)
 
+        index : Maybe Int
         index =
             List.Extra.findIndex isWhiteSquare columnsDown
     in
@@ -624,18 +617,23 @@ getDownWhiteIndex model =
 getUpWhiteIndex : Model -> Int
 getUpWhiteIndex model =
     let
+        columnNumber : Int
         columnNumber =
             currentColumnNumber model
 
+        rowNumber : Int
         rowNumber =
             currentRowNumber model
 
+        columnSquares : List Cell
         columnSquares =
             takeEveryNthIndexesFromIndex model.numberOfRows columnNumber model.grid
 
+        columnsUp : List Cell
         columnsUp =
             List.reverse (Tuple.first (List.Extra.splitAt (rowNumber - 1) columnSquares))
 
+        index : Maybe Int
         index =
             List.Extra.findIndex isWhiteSquare columnsUp
     in
@@ -671,6 +669,7 @@ getRowNumber numberOfColumns index =
 takeEveryNthIndexesFromIndex : Int -> Int -> List a -> List a
 takeEveryNthIndexesFromIndex n initialIndex l =
     let
+        cellsFromIndex : List a
         cellsFromIndex =
             Tuple.second (List.Extra.splitAt (initialIndex - 1) l)
     in
@@ -689,6 +688,7 @@ takeEveryNthIndexesFromIndex n initialIndex l =
 getRightWhiteIndex : Grid -> Int -> Int
 getRightWhiteIndex grid index =
     let
+        nextSquares : List Cell
         nextSquares =
             Tuple.second (List.Extra.splitAt (index + 1) grid)
     in
@@ -777,6 +777,7 @@ cellDataToString cellData =
 debug : Model -> Html Msg
 debug model =
     let
+        cellString : String
         cellString =
             case elementAtIndex (model.currentIndex + 1) model.grid of
                 Just Black ->
@@ -811,16 +812,6 @@ viewPuzzle model =
         , viewCluesSection model Across model.clues.across
         , viewCluesSection model Down model.clues.down
         ]
-
-
-type PrintableUnion
-    = Int
-    | String
-
-
-type Printable
-    = PrintableInt Int
-    | PrintableString String
 
 
 viewDebug : String -> String -> Html Msg
@@ -883,6 +874,7 @@ viewClue backgroundColor clue =
 viewClueAndModelAndDirection : Model -> Direction -> Clue -> Html Msg
 viewClueAndModelAndDirection model direction clue =
     let
+        backgroundColor : String
         backgroundColor =
             if Tuple.second model.currentClue == Tuple.first clue && direction == Tuple.first model.currentClue then
                 "yellow"
@@ -920,6 +912,7 @@ viewGridWithInput : Model -> Html Msg
 viewGridWithInput model =
     div []
         [ input
+            -- hidden input which always stays over the current cell and takes input
             [ id "text-input"
             , style
                 "position"
@@ -952,17 +945,15 @@ onTextInput model string =
 getGridTemplate : Model -> String
 getGridTemplate model =
     let
+        rowCount : Float
         rowCount =
             sqrt (toFloat (List.length model.grid))
 
+        singleCellPercentage : Float
         singleCellPercentage =
             100 / rowCount
     in
     String.concat [ "repeat(", String.fromFloat rowCount, ", ", String.fromFloat singleCellPercentage, "%)/repeat(", String.fromFloat rowCount, ", ", String.fromFloat singleCellPercentage, "%)" ]
-
-
-
--- NumberedItem 1 { value = Nothing, clue1 = ( Across, 1 ), clue2 = Just ( Down, 1 ) }
 
 
 shouldHighlight : Model -> CellData -> Bool
@@ -987,10 +978,6 @@ charToString char =
 
 succeededIfTabKey : Int -> Decode.Decoder Int
 succeededIfTabKey key =
-    let
-        key1 =
-            key
-    in
     if key == 9 then
         Decode.succeed key
 
@@ -1001,7 +988,7 @@ succeededIfTabKey key =
 tabPressed : Decode.Decoder ( Msg, Bool )
 tabPressed =
     Decode.andThen succeededIfTabKey keyCode
-        |> Decode.map (always ( KeyTouched (KeyEventUnknown ""), True ))
+        |> Decode.map (always ( KeyTouched KeyEventUnknown, True ))
 
 
 viewCell : Cell -> Int -> String -> String -> String -> Bool -> Html Msg
@@ -1106,6 +1093,7 @@ viewCell cell index border zIndex backgroundColor selected =
 viewCellAndModel : Model -> Int -> Cell -> Html Msg
 viewCellAndModel model index cell =
     let
+        highlight : Bool
         highlight =
             case cell of
                 Black ->
@@ -1117,6 +1105,7 @@ viewCellAndModel model index cell =
                 NumberedItem _ cellData ->
                     shouldHighlight model cellData
 
+        backgroundColor : String
         backgroundColor =
             if highlight then
                 "yellow"
@@ -1124,9 +1113,11 @@ viewCellAndModel model index cell =
             else
                 "white"
 
+        selected : Bool
         selected =
             index == model.currentIndex
 
+        zIndex : String
         zIndex =
             if selected then
                 "10"
@@ -1134,6 +1125,7 @@ viewCellAndModel model index cell =
             else
                 "1"
 
+        border : String
         border =
             if selected then
                 "3px solid DodgerBlue"
@@ -1153,8 +1145,7 @@ subscriptions _ =
 
 
 type KeyEventMsg
-    = KeyEventLetter Char
-    | KeyEventUnknown String
+    = KeyEventUnknown
     | TabPressed
     | BackspacePressed
     | ShiftPressed
@@ -1186,7 +1177,7 @@ keyReleasedToKeyEventMsg eventKeyString =
             ShiftReleased
 
         _ ->
-            KeyEventUnknown eventKeyString
+            KeyEventUnknown
 
 
 keyPressedToKeyEventMsg : String -> KeyEventMsg
@@ -1214,4 +1205,4 @@ keyPressedToKeyEventMsg eventKeyString =
             KeyPressed
 
         _ ->
-            KeyEventUnknown eventKeyString
+            KeyEventUnknown
