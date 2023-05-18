@@ -3,6 +3,6 @@
 
 npx elm-test
 npx elm-review
-./optimize.sh src/Main.elm
+./optimize.sh src/Crossword.elm
 git add main.js main.min.js
 
