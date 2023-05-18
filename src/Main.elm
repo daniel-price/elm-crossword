@@ -3,11 +3,15 @@ module Main exposing (Cell(..), CellData, Clue, ClueId, Direction(..), Grid, Key
 import Browser exposing (Document)
 import Browser.Dom as Dom
 import Browser.Events
+import Dict exposing (Dict)
+import Dict.Extra exposing (groupBy)
 import Html exposing (Html, div, input, text)
 import Html.Attributes exposing (id, placeholder, style, value)
 import Html.Events exposing (keyCode, onClick, onFocus, onInput, preventDefaultOn)
 import Html.Lazy
-import Json.Decode as Decode
+import Http exposing (Error)
+import Json.Decode as Decode exposing (Decoder, field, int, map2, map6, string)
+import List exposing (indexedMap, partition)
 import List.Extra
 import Task
 
@@ -18,7 +22,7 @@ import Task
 
 main : Program () Model Msg
 main =
-    Browser.document { init = \_ -> init, update = update, view = view, subscriptions = subscriptions }
+    Browser.document { init = \_ -> init "1ec37f05-0e8c-4b4e-a793-38ff439f00bb", update = update, view = view, subscriptions = subscriptions }
 
 
 
@@ -72,8 +76,8 @@ type alias Model =
     }
 
 
-init : ( Model, Cmd Msg )
-init =
+init : CrosswordId -> ( Model, Cmd Msg )
+init id =
     ( { latestString = ""
       , version = 5
       , showDebug = True
@@ -349,7 +353,7 @@ init =
             , Black
             ]
       }
-    , focusTextInput
+    , getCrosswordData id
     )
 
 
@@ -362,6 +366,7 @@ type Msg
     | Focus Int CellData
     | Click Int CellData
     | KeyTouched KeyEventMsg
+    | GotRemoteCrossword (Result Error RemoteCrossword)
     | NoOp
 
 
@@ -504,7 +509,12 @@ update msg model =
 
                 _ ->
                     ( model, Cmd.none )
-
+        GotRemoteCrossword result ->
+                    case result of
+                        Ok remoteCrossword ->
+                            (updateCrosswordFromRemote model remoteCrossword, focusTextInput)
+                        Err _ ->
+                            ( model, focusTextInput)
         NoOp ->
             ( model, Cmd.none )
 
@@ -1217,3 +1227,109 @@ keyPressedToKeyEventMsg eventKeyString =
 
         _ ->
             KeyEventUnknown
+
+
+-- HTTP
+
+type alias CrosswordId = String
+
+type alias RemoteCrossword =
+    {    id: CrosswordId
+        ,entries: List RemoteEntry
+    }
+
+type alias RemoteEntry =
+   {    id: String
+       ,number: Int
+       ,clue : String
+       ,direction: Direction
+       ,length: Int
+       ,position: Position
+   }
+
+type alias Position =
+    {  x: Int
+      ,y: Int
+    }
+
+getCrosswordData : CrosswordId -> Cmd Msg
+getCrosswordData id =
+  Http.get
+    { url = "http://localhost:8080/crossword/" ++ id
+    , expect = Http.expectJson GotRemoteCrossword remoteCrosswordDecoder
+    }
+
+remoteCrosswordDecoder : Decoder RemoteCrossword
+remoteCrosswordDecoder =
+  map2 RemoteCrossword
+    (field "id" string)
+    (field "entries" (Decode.list remoteEntryDecoder))
+
+remoteEntryDecoder : Decoder RemoteEntry
+remoteEntryDecoder =
+  map6 RemoteEntry
+    (field "id" string)
+    (field "number" int)
+    (field "clue" string)
+    (field "direction" directionDecoder)
+    (field "length" int)
+    (field "position" positionDecoder)
+
+positionDecoder : Decoder Position
+positionDecoder =
+  map2 Position
+    (field "x" int)
+    (field "y" int)
+
+directionDecoder : Decoder Direction
+directionDecoder =
+  Decode.string
+          |> Decode.andThen (\str ->
+             case str of
+                  "across" ->
+                      Decode.succeed Across
+                  "down" ->
+                      Decode.succeed Down
+                  somethingElse ->
+                      Decode.fail <| "Unknown direction: " ++ somethingElse
+          )
+
+updateCrosswordFromRemote: Model -> RemoteCrossword -> Model
+updateCrosswordFromRemote model remoteCrossword =
+    let
+        (across, down) = partition (\entry -> entry.direction == Across) remoteCrossword.entries
+        toClues = List.map (\entry -> (entry.number, entry.clue))
+        clueItemsByIndex = groupBy (\(p, _, _) -> p.y * model.numberOfRows + p.x) <| List.concatMap getClueSquares remoteCrossword.entries
+        newGrid =
+            List.map (getClueItem clueItemsByIndex) <| List.range 0 (model.numberOfRows * model.numberOfColumns - 1)
+        initialSquare = List.head <| List.filter (\(_, cell) -> isWhiteSquare cell) <| indexedMap Tuple.pair newGrid
+
+    in
+        { model
+                 | clues = { across = toClues across, down = toClues down},
+                 grid = newGrid,
+                 currentIndex = Maybe.withDefault 0 <| Maybe.map Tuple.first initialSquare
+               }
+
+getClueItem: Dict Int (List ({ x : Int, y : Int }, ClueId, Maybe Int)) -> Int -> Cell
+getClueItem dict index = case Dict.get index dict of
+    Just [(_ , clueId, Just n)] -> NumberedItem n (CellData Nothing clueId Nothing)
+    Just [(_ , clueId, Nothing)] -> Item (CellData Nothing clueId Nothing)
+    Just [(_ , clueId1, Nothing), (_ , clueId2, Nothing)] -> Item (CellData Nothing clueId1  <| Just clueId2)
+    Just [(_ , clueId1, Just n), (_ , clueId2, Nothing)] -> NumberedItem n (CellData Nothing clueId1 <| Just clueId2)
+    Just [(_ , clueId1, _), (_ , clueId2, Just n)] -> NumberedItem n (CellData Nothing clueId2 <| Just clueId1)
+    _ -> Black
+
+
+getClueSquares: RemoteEntry -> List (Position, ClueId, Maybe Int)
+getClueSquares { number, direction, position, length } =
+    (position, (direction, number), (Just number)) ::
+    (List.map (\p -> (p, (direction, number), Nothing)) <| getPositionArray position length direction)
+
+getPositionArray: Position -> Int -> Direction -> List Position
+getPositionArray position length direction =
+    case direction of
+        Across -> List.map (\x -> ({x = x, y = position.y})) (List.range (position.x + 1) (position.x + length - 1))
+        Down -> List.map (\y -> ({x = position.x, y = y})) (List.range (position.y + 1) (position.y + length - 1))
+
+
