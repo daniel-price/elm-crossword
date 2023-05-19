@@ -1,4 +1,6 @@
-module Types exposing (Cell(..), CellData, Clue, ClueId, Clues, Crossword, Direction(..), Model, State)
+module Types exposing (Cell(..), CellData, Clue, ClueId, Clues, Crossword, Data, Direction(..), Model(..), State)
+
+import Http
 
 
 type Direction
@@ -18,12 +20,12 @@ type alias CellData =
     { clueId1 : ClueId
     , clueId2 : Maybe ClueId
     , value : Maybe Char -- move to state
+    , number : Maybe Int
     }
 
 
 type Cell
-    = Item CellData
-    | NumberedItem Int CellData
+    = White CellData
     | Black
 
 
@@ -48,9 +50,15 @@ type alias State =
     }
 
 
-type alias Model =
+type alias Data =
     { crossword : Crossword
     , state : State
     , shiftHeld : Bool
     , latestString : String
     }
+
+
+type Model
+    = Success Data
+    | Loading
+    | Failure Http.Error

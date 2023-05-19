@@ -1,1916 +1,2220 @@
 {
-   "crosswords":[
-      {
-         "grid":[
-            {
-               "type":"Black"
-            },
-            {
-               "type":"NumberedItem",
-               "number":1,
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":1
+   "crossword": {
+      "numberOfColumns": 15,
+      "numberOfRows": 15,
+      "grid": [
+         {
+            "type": "Black"
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "number": 1,
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 1
                },
-               "clueId2":{
-                  "direction":"Down",
-                  "number":1
+               "clueId2": {
+                  "direction": "Down",
+                  "number": 1
                }
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":1
+            }
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 1
                },
-               "clueId2":null
-            },
-            {
-               "type":"NumberedItem",
-               "number":2,
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":1
+               "clueId2": null
+            }
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "number": 2,
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 1
                },
-               "clueId2":{
-                  "direction":"Down",
-                  "number":2
+               "clueId2": {
+                  "direction": "Down",
+                  "number": 2
                }
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":1
+            }
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 1
                },
-               "clueId2":null
-            },
-            {
-               "type":"NumberedItem",
-               "number":3,
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":1
+               "clueId2": null
+            }
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "number": 3,
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 1
                },
-               "clueId2":{
-                  "direction":"Down",
-                  "number":3
+               "clueId2": {
+                  "direction": "Down",
+                  "number": 3
                }
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":1
+            }
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 1
                },
-               "clueId2":null
-            },
-            {
-               "type":"NumberedItem",
-               "number":4,
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":1
+               "clueId2": null
+            }
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "number": 4,
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 1
                },
-               "clueId2":{
-                  "direction":"Down",
-                  "number":4
+               "clueId2": {
+                  "direction": "Down",
+                  "number": 4
                }
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":1
+            }
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 1
                },
-               "clueId2":null
-            },
-            {
-               "type":"NumberedItem",
-               "number":5,
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":1
+               "clueId2": null
+            }
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "number": 5,
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 1
                },
-               "clueId2":{
-                  "direction":"Down",
-                  "number":5
+               "clueId2": {
+                  "direction": "Down",
+                  "number": 5
                }
-            },
-            {
-               "type":"Black"
-            },
-            {
-               "type":"NumberedItem",
-               "number":6,
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":6
+            }
+         },
+         {
+            "type": "Black"
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "number": 6,
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 6
                },
-               "clueId2":{
-                  "direction":"Down",
-                  "number":6
+               "clueId2": {
+                  "direction": "Down",
+                  "number": 6
                }
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":6
+            }
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 6
                },
-               "clueId2":null
-            },
-            {
-               "type":"NumberedItem",
-               "number":7,
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":6
+               "clueId2": null
+            }
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "number": 7,
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 6
                },
-               "clueId2":{
-                  "direction":"Down",
-                  "number":7
+               "clueId2": {
+                  "direction": "Down",
+                  "number": 7
                }
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":6
+            }
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 6
                },
-               "clueId2":null
-            },
-            {
-               "type":"Black"
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Down",
-                  "number":1
+               "clueId2": null
+            }
+         },
+         {
+            "type": "Black"
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Down",
+                  "number": 1
                },
-               "clueId2":null
-            },
-            {
-               "type":"Black"
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Down",
-                  "number":2
+               "clueId2": null
+            }
+         },
+         {
+            "type": "Black"
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Down",
+                  "number": 2
                },
-               "clueId2":null
-            },
-            {
-               "type":"Black"
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Down",
-                  "number":3
+               "clueId2": null
+            }
+         },
+         {
+            "type": "Black"
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Down",
+                  "number": 3
                },
-               "clueId2":null
-            },
-            {
-               "type":"Black"
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Down",
-                  "number":4
+               "clueId2": null
+            }
+         },
+         {
+            "type": "Black"
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Down",
+                  "number": 4
                },
-               "clueId2":null
-            },
-            {
-               "type":"Black"
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Down",
-                  "number":5
+               "clueId2": null
+            }
+         },
+         {
+            "type": "Black"
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Down",
+                  "number": 5
                },
-               "clueId2":null
-            },
-            {
-               "type":"Black"
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Down",
-                  "number":6
+               "clueId2": null
+            }
+         },
+         {
+            "type": "Black"
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Down",
+                  "number": 6
                },
-               "clueId2":null
-            },
-            {
-               "type":"Black"
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Down",
-                  "number":7
+               "clueId2": null
+            }
+         },
+         {
+            "type": "Black"
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Down",
+                  "number": 7
                },
-               "clueId2":null
-            },
-            {
-               "type":"Black"
-            },
-            {
-               "type":"NumberedItem",
-               "number":8,
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":8
+               "clueId2": null
+            }
+         },
+         {
+            "type": "Black"
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "number": 8,
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 8
                },
-               "clueId2":null
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":8
+               "clueId2": null
+            }
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 8
                },
-               "clueId2":{
-                  "direction":"Down",
-                  "number":1
+               "clueId2": {
+                  "direction": "Down",
+                  "number": 1
                }
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":8
+            }
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 8
                },
-               "clueId2":null
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":8
+               "clueId2": null
+            }
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 8
                },
-               "clueId2":{
-                  "direction":"Down",
-                  "number":2
+               "clueId2": {
+                  "direction": "Down",
+                  "number": 2
                }
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":8
+            }
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 8
                },
-               "clueId2":null
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":8
+               "clueId2": null
+            }
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 8
                },
-               "clueId2":{
-                  "direction":"Down",
-                  "number":3
+               "clueId2": {
+                  "direction": "Down",
+                  "number": 3
                }
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":8
+            }
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 8
                },
-               "clueId2":null
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":8
+               "clueId2": null
+            }
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 8
                },
-               "clueId2":{
-                  "direction":"Down",
-                  "number":4
+               "clueId2": {
+                  "direction": "Down",
+                  "number": 4
                }
-            },
-            {
-               "type":"Black"
-            },
-            {
-               "type":"NumberedItem",
-               "number":9,
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":9
+            }
+         },
+         {
+            "type": "Black"
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "number": 9,
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 9
                },
-               "clueId2":{
-                  "direction":"Down",
-                  "number":5
+               "clueId2": {
+                  "direction": "Down",
+                  "number": 5
                }
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":9
+            }
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 9
                },
-               "clueId2":null
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":9
+               "clueId2": null
+            }
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 9
                },
-               "clueId2":{
-                  "direction":"Down",
-                  "number":6
+               "clueId2": {
+                  "direction": "Down",
+                  "number": 6
                }
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":9
+            }
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 9
                },
-               "clueId2":null
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":9
+               "clueId2": null
+            }
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 9
                },
-               "clueId2":{
-                  "direction":"Down",
-                  "number":7
+               "clueId2": {
+                  "direction": "Down",
+                  "number": 7
                }
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":9
+            }
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 9
                },
-               "clueId2":null
-            },
-            {
-               "type":"Black"
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Down",
-                  "number":1
+               "clueId2": null
+            }
+         },
+         {
+            "type": "Black"
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Down",
+                  "number": 1
                },
-               "clueId2":null
-            },
-            {
-               "type":"Black"
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Down",
-                  "number":2
+               "clueId2": null
+            }
+         },
+         {
+            "type": "Black"
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Down",
+                  "number": 2
                },
-               "clueId2":null
-            },
-            {
-               "type":"Black"
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Down",
-                  "number":3
+               "clueId2": null
+            }
+         },
+         {
+            "type": "Black"
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Down",
+                  "number": 3
                },
-               "clueId2":null
-            },
-            {
-               "type":"Black"
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Down",
-                  "number":4
+               "clueId2": null
+            }
+         },
+         {
+            "type": "Black"
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Down",
+                  "number": 4
                },
-               "clueId2":null
-            },
-            {
-               "type":"Black"
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Down",
-                  "number":5
+               "clueId2": null
+            }
+         },
+         {
+            "type": "Black"
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Down",
+                  "number": 5
                },
-               "clueId2":null
-            },
-            {
-               "type":"Black"
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Down",
-                  "number":6
+               "clueId2": null
+            }
+         },
+         {
+            "type": "Black"
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Down",
+                  "number": 6
                },
-               "clueId2":null
-            },
-            {
-               "type":"Black"
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Down",
-                  "number":7
+               "clueId2": null
+            }
+         },
+         {
+            "type": "Black"
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Down",
+                  "number": 7
                },
-               "clueId2":null
-            },
-            {
-               "type":"Black"
-            },
-            {
-               "type":"NumberedItem",
-               "number":10,
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":10
+               "clueId2": null
+            }
+         },
+         {
+            "type": "Black"
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "number": 10,
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 10
                },
-               "clueId2":null
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":10
+               "clueId2": null
+            }
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 10
                },
-               "clueId2":{
-                  "direction":"Down",
-                  "number":1
+               "clueId2": {
+                  "direction": "Down",
+                  "number": 1
                }
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":10
+            }
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 10
                },
-               "clueId2":null
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":10
+               "clueId2": null
+            }
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 10
                },
-               "clueId2":{
-                  "direction":"Down",
-                  "number":2
+               "clueId2": {
+                  "direction": "Down",
+                  "number": 2
                }
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":10
+            }
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 10
                },
-               "clueId2":null
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":10
+               "clueId2": null
+            }
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 10
                },
-               "clueId2":{
-                  "direction":"Down",
-                  "number":3
+               "clueId2": {
+                  "direction": "Down",
+                  "number": 3
                }
-            },
-            {
-               "type":"Black"
-            },
-            {
-               "type":"NumberedItem",
-               "number":11,
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":11
+            }
+         },
+         {
+            "type": "Black"
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "number": 11,
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 11
                },
-               "clueId2":{
-                  "direction":"Down",
-                  "number":4
+               "clueId2": {
+                  "direction": "Down",
+                  "number": 4
                }
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":11
+            }
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 11
                },
-               "clueId2":null
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":11
+               "clueId2": null
+            }
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 11
                },
-               "clueId2":{
-                  "direction":"Down",
-                  "number":5
+               "clueId2": {
+                  "direction": "Down",
+                  "number": 5
                }
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":11
+            }
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 11
                },
-               "clueId2":null
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":11
+               "clueId2": null
+            }
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 11
                },
-               "clueId2":{
-                  "direction":"Down",
-                  "number":6
+               "clueId2": {
+                  "direction": "Down",
+                  "number": 6
                }
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":11
+            }
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 11
                },
-               "clueId2":null
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":11
+               "clueId2": null
+            }
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 11
                },
-               "clueId2":{
-                  "direction":"Down",
-                  "number":7
+               "clueId2": {
+                  "direction": "Down",
+                  "number": 7
                }
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":11
+            }
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 11
                },
-               "clueId2":null
-            },
-            {
-               "type":"Black"
-            },
-            {
-               "type":"Black"
-            },
-            {
-               "type":"Black"
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Down",
-                  "number":2
+               "clueId2": null
+            }
+         },
+         {
+            "type": "Black"
+         },
+         {
+            "type": "Black"
+         },
+         {
+            "type": "Black"
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Down",
+                  "number": 2
                },
-               "clueId2":null
-            },
-            {
-               "type":"Black"
-            },
-            {
-               "type":"Black"
-            },
-            {
-               "type":"Black"
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Down",
-                  "number":4
+               "clueId2": null
+            }
+         },
+         {
+            "type": "Black"
+         },
+         {
+            "type": "Black"
+         },
+         {
+            "type": "Black"
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Down",
+                  "number": 4
                },
-               "clueId2":null
-            },
-            {
-               "type":"Black"
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Down",
-                  "number":5
+               "clueId2": null
+            }
+         },
+         {
+            "type": "Black"
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Down",
+                  "number": 5
                },
-               "clueId2":null
-            },
-            {
-               "type":"Black"
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Down",
-                  "number":6
+               "clueId2": null
+            }
+         },
+         {
+            "type": "Black"
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Down",
+                  "number": 6
                },
-               "clueId2":null
-            },
-            {
-               "type":"Black"
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Down",
-                  "number":7
+               "clueId2": null
+            }
+         },
+         {
+            "type": "Black"
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Down",
+                  "number": 7
                },
-               "clueId2":null
-            },
-            {
-               "type":"Black"
-            },
-            {
-               "type":"NumberedItem",
-               "number":12,
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":12
+               "clueId2": null
+            }
+         },
+         {
+            "type": "Black"
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "number": 12,
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 12
                },
-               "clueId2":null
-            },
-            {
-               "type":"NumberedItem",
-               "number":13,
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":12
+               "clueId2": null
+            }
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "number": 13,
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 12
                },
-               "clueId2":{
-                  "direction":"Down",
-                  "number":13
+               "clueId2": {
+                  "direction": "Down",
+                  "number": 13
                }
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":12
+            }
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 12
                },
-               "clueId2":null
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":12
+               "clueId2": null
+            }
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 12
                },
-               "clueId2":{
-                  "direction":"Down",
-                  "number":2
+               "clueId2": {
+                  "direction": "Down",
+                  "number": 2
                }
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":12
+            }
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 12
                },
-               "clueId2":null
-            },
-            {
-               "type":"NumberedItem",
-               "number":14,
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":12
+               "clueId2": null
+            }
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "number": 14,
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 12
                },
-               "clueId2":{
-                  "direction":"Down",
-                  "number":14
+               "clueId2": {
+                  "direction": "Down",
+                  "number": 14
                }
-            },
-            {
-               "type":"Black"
-            },
-            {
-               "type":"NumberedItem",
-               "number":15,
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":15
+            }
+         },
+         {
+            "type": "Black"
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "number": 15,
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 15
                },
-               "clueId2":{
-                  "direction":"Down",
-                  "number":4
+               "clueId2": {
+                  "direction": "Down",
+                  "number": 4
                }
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":15
+            }
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 15
                },
-               "clueId2":null
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":15
+               "clueId2": null
+            }
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 15
                },
-               "clueId2":{
-                  "direction":"Down",
-                  "number":5
+               "clueId2": {
+                  "direction": "Down",
+                  "number": 5
                }
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":15
+            }
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 15
                },
-               "clueId2":null
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":15
+               "clueId2": null
+            }
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 15
                },
-               "clueId2":{
-                  "direction":"Down",
-                  "number":6
+               "clueId2": {
+                  "direction": "Down",
+                  "number": 6
                }
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":15
+            }
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 15
                },
-               "clueId2":null
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":15
+               "clueId2": null
+            }
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 15
                },
-               "clueId2":{
-                  "direction":"Down",
-                  "number":7
+               "clueId2": {
+                  "direction": "Down",
+                  "number": 7
                }
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":15
+            }
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 15
                },
-               "clueId2":null
-            },
-            {
-               "type":"Black"
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Down",
-                  "number":13
+               "clueId2": null
+            }
+         },
+         {
+            "type": "Black"
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Down",
+                  "number": 13
                },
-               "clueId2":null
-            },
-            {
-               "type":"Black"
-            },
-            {
-               "type":"Black"
-            },
-            {
-               "type":"Black"
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Down",
-                  "number":14
+               "clueId2": null
+            }
+         },
+         {
+            "type": "Black"
+         },
+         {
+            "type": "Black"
+         },
+         {
+            "type": "Black"
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Down",
+                  "number": 14
                },
-               "clueId2":null
-            },
-            {
-               "type":"Black"
-            },
-            {
-               "type":"Black"
-            },
-            {
-               "type":"Black"
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Down",
-                  "number":5
+               "clueId2": null
+            }
+         },
+         {
+            "type": "Black"
+         },
+         {
+            "type": "Black"
+         },
+         {
+            "type": "Black"
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Down",
+                  "number": 5
                },
-               "clueId2":null
-            },
-            {
-               "type":"Black"
-            },
-            {
-               "type":"Black"
-            },
-            {
-               "type":"Black"
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Down",
-                  "number":7
+               "clueId2": null
+            }
+         },
+         {
+            "type": "Black"
+         },
+         {
+            "type": "Black"
+         },
+         {
+            "type": "Black"
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Down",
+                  "number": 7
                },
-               "clueId2":null
-            },
-            {
-               "type":"Black"
-            },
-            {
-               "type":"NumberedItem",
-               "number":16,
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":16
+               "clueId2": null
+            }
+         },
+         {
+            "type": "Black"
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "number": 16,
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 16
                },
-               "clueId2":null
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":16
+               "clueId2": null
+            }
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 16
                },
-               "clueId2":{
-                  "direction":"Down",
-                  "number":13
+               "clueId2": {
+                  "direction": "Down",
+                  "number": 13
                }
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":16
+            }
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 16
                },
-               "clueId2":null
-            },
-            {
-               "type":"NumberedItem",
-               "number":17,
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":16
+               "clueId2": null
+            }
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "number": 17,
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 16
                },
-               "clueId2":{
-                  "direction":"Down",
-                  "number":17
+               "clueId2": {
+                  "direction": "Down",
+                  "number": 17
                }
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":16
+            }
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 16
                },
-               "clueId2":null
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":16
+               "clueId2": null
+            }
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 16
                },
-               "clueId2":{
-                  "direction":"Down",
-                  "number":14
+               "clueId2": {
+                  "direction": "Down",
+                  "number": 14
                }
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":16
+            }
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 16
                },
-               "clueId2":null
-            },
-            {
-               "type":"NumberedItem",
-               "number":18,
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":16
+               "clueId2": null
+            }
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "number": 18,
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 16
                },
-               "clueId2":{
-                  "direction":"Down",
-                  "number":18
+               "clueId2": {
+                  "direction": "Down",
+                  "number": 18
                }
-            },
-            {
-               "type":"Black"
-            },
-            {
-               "type":"NumberedItem",
-               "number":19,
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":19
+            }
+         },
+         {
+            "type": "Black"
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "number": 19,
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 19
                },
-               "clueId2":{
-                  "direction":"Down",
-                  "number":5
+               "clueId2": {
+                  "direction": "Down",
+                  "number": 5
                }
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":19
+            }
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 19
                },
-               "clueId2":null
-            },
-            {
-               "type":"NumberedItem",
-               "number":20,
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":19
+               "clueId2": null
+            }
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "number": 20,
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 19
                },
-               "clueId2":{
-                  "direction":"Down",
-                  "number":20
+               "clueId2": {
+                  "direction": "Down",
+                  "number": 20
                }
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":19
+            }
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 19
                },
-               "clueId2":null
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":19
+               "clueId2": null
+            }
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 19
                },
-               "clueId2":{
-                  "direction":"Down",
-                  "number":7
+               "clueId2": {
+                  "direction": "Down",
+                  "number": 7
                }
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":19
+            }
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 19
                },
-               "clueId2":null
-            },
-            {
-               "type":"Black"
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Down",
-                  "number":13
+               "clueId2": null
+            }
+         },
+         {
+            "type": "Black"
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Down",
+                  "number": 13
                },
-               "clueId2":null
-            },
-            {
-               "type":"Black"
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Down",
-                  "number":17
+               "clueId2": null
+            }
+         },
+         {
+            "type": "Black"
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Down",
+                  "number": 17
                },
-               "clueId2":null
-            },
-            {
-               "type":"Black"
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Down",
-                  "number":14
+               "clueId2": null
+            }
+         },
+         {
+            "type": "Black"
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Down",
+                  "number": 14
                },
-               "clueId2":null
-            },
-            {
-               "type":"Black"
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Down",
-                  "number":18
+               "clueId2": null
+            }
+         },
+         {
+            "type": "Black"
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Down",
+                  "number": 18
                },
-               "clueId2":null
-            },
-            {
-               "type":"Black"
-            },
-            {
-               "type":"Black"
-            },
-            {
-               "type":"Black"
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Down",
-                  "number":20
+               "clueId2": null
+            }
+         },
+         {
+            "type": "Black"
+         },
+         {
+            "type": "Black"
+         },
+         {
+            "type": "Black"
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Down",
+                  "number": 20
                },
-               "clueId2":null
-            },
-            {
-               "type":"Black"
-            },
-            {
-               "type":"Black"
-            },
-            {
-               "type":"Black"
-            },
-            {
-               "type":"NumberedItem",
-               "number":21,
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":21
+               "clueId2": null
+            }
+         },
+         {
+            "type": "Black"
+         },
+         {
+            "type": "Black"
+         },
+         {
+            "type": "Black"
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "number": 21,
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 21
                },
-               "clueId2":null
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":21
+               "clueId2": null
+            }
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 21
                },
-               "clueId2":{
-                  "direction":"Down",
-                  "number":13
+               "clueId2": {
+                  "direction": "Down",
+                  "number": 13
                }
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":21
+            }
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 21
                },
-               "clueId2":null
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":21
+               "clueId2": null
+            }
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 21
                },
-               "clueId2":{
-                  "direction":"Down",
-                  "number":17
+               "clueId2": {
+                  "direction": "Down",
+                  "number": 17
                }
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":21
+            }
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 21
                },
-               "clueId2":null
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":21
+               "clueId2": null
+            }
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 21
                },
-               "clueId2":{
-                  "direction":"Down",
-                  "number":14
+               "clueId2": {
+                  "direction": "Down",
+                  "number": 14
                }
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":21
+            }
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 21
                },
-               "clueId2":null
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":21
+               "clueId2": null
+            }
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 21
                },
-               "clueId2":{
-                  "direction":"Down",
-                  "number":18
+               "clueId2": {
+                  "direction": "Down",
+                  "number": 18
                }
-            },
-            {
-               "type":"Black"
-            },
-            {
-               "type":"NumberedItem",
-               "number":22,
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":22
+            }
+         },
+         {
+            "type": "Black"
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "number": 22,
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 22
                },
-               "clueId2":{
-                  "direction":"Down",
-                  "number":22
+               "clueId2": {
+                  "direction": "Down",
+                  "number": 22
                }
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":22
+            }
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 22
                },
-               "clueId2":null
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":22
+               "clueId2": null
+            }
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 22
                },
-               "clueId2":{
-                  "direction":"Down",
-                  "number":20
+               "clueId2": {
+                  "direction": "Down",
+                  "number": 20
                }
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":22
+            }
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 22
                },
-               "clueId2":null
-            },
-            {
-               "type":"NumberedItem",
-               "number":23,
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":22
+               "clueId2": null
+            }
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "number": 23,
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 22
                },
-               "clueId2":{
-                  "direction":"Down",
-                  "number":23
+               "clueId2": {
+                  "direction": "Down",
+                  "number": 23
                }
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":22
+            }
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 22
                },
-               "clueId2":null
-            },
-            {
-               "type":"Black"
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Down",
-                  "number":13
+               "clueId2": null
+            }
+         },
+         {
+            "type": "Black"
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Down",
+                  "number": 13
                },
-               "clueId2":null
-            },
-            {
-               "type":"Black"
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Down",
-                  "number":17
+               "clueId2": null
+            }
+         },
+         {
+            "type": "Black"
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Down",
+                  "number": 17
                },
-               "clueId2":null
-            },
-            {
-               "type":"Black"
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Down",
-                  "number":14
+               "clueId2": null
+            }
+         },
+         {
+            "type": "Black"
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Down",
+                  "number": 14
                },
-               "clueId2":null
-            },
-            {
-               "type":"Black"
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Down",
-                  "number":18
+               "clueId2": null
+            }
+         },
+         {
+            "type": "Black"
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Down",
+                  "number": 18
                },
-               "clueId2":null
-            },
-            {
-               "type":"Black"
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Down",
-                  "number":22
+               "clueId2": null
+            }
+         },
+         {
+            "type": "Black"
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Down",
+                  "number": 22
                },
-               "clueId2":null
-            },
-            {
-               "type":"Black"
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Down",
-                  "number":20
+               "clueId2": null
+            }
+         },
+         {
+            "type": "Black"
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Down",
+                  "number": 20
                },
-               "clueId2":null
-            },
-            {
-               "type":"Black"
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Down",
-                  "number":23
+               "clueId2": null
+            }
+         },
+         {
+            "type": "Black"
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Down",
+                  "number": 23
                },
-               "clueId2":null
-            },
-            {
-               "type":"Black"
-            },
-            {
-               "type":"NumberedItem",
-               "number":24,
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":24
+               "clueId2": null
+            }
+         },
+         {
+            "type": "Black"
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "number": 24,
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 24
                },
-               "clueId2":null
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":24
+               "clueId2": null
+            }
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 24
                },
-               "clueId2":{
-                  "direction":"Down",
-                  "number":13
+               "clueId2": {
+                  "direction": "Down",
+                  "number": 13
                }
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":24
+            }
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 24
                },
-               "clueId2":null
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":24
+               "clueId2": null
+            }
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 24
                },
-               "clueId2":{
-                  "direction":"Down",
-                  "number":17
+               "clueId2": {
+                  "direction": "Down",
+                  "number": 17
                }
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":24
+            }
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 24
                },
-               "clueId2":null
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":24
+               "clueId2": null
+            }
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 24
                },
-               "clueId2":{
-                  "direction":"Down",
-                  "number":14
+               "clueId2": {
+                  "direction": "Down",
+                  "number": 14
                }
-            },
-            {
-               "type":"Black"
-            },
-            {
-               "type":"NumberedItem",
-               "number":25,
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":25
+            }
+         },
+         {
+            "type": "Black"
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "number": 25,
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 25
                },
-               "clueId2":{
-                  "direction":"Down",
-                  "number":18
+               "clueId2": {
+                  "direction": "Down",
+                  "number": 18
                }
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":25
+            }
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 25
                },
-               "clueId2":null
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":25
+               "clueId2": null
+            }
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 25
                },
-               "clueId2":{
-                  "direction":"Down",
-                  "number":22
+               "clueId2": {
+                  "direction": "Down",
+                  "number": 22
                }
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":25
+            }
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 25
                },
-               "clueId2":null
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":25
+               "clueId2": null
+            }
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 25
                },
-               "clueId2":{
-                  "direction":"Down",
-                  "number":20
+               "clueId2": {
+                  "direction": "Down",
+                  "number": 20
                }
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":25
+            }
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 25
                },
-               "clueId2":null
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":25
+               "clueId2": null
+            }
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 25
                },
-               "clueId2":{
-                  "direction":"Down",
-                  "number":23
+               "clueId2": {
+                  "direction": "Down",
+                  "number": 23
                }
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":25
+            }
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 25
                },
-               "clueId2":null
-            },
-            {
-               "type":"Black"
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Down",
-                  "number":13
+               "clueId2": null
+            }
+         },
+         {
+            "type": "Black"
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Down",
+                  "number": 13
                },
-               "clueId2":null
-            },
-            {
-               "type":"Black"
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Down",
-                  "number":17
+               "clueId2": null
+            }
+         },
+         {
+            "type": "Black"
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Down",
+                  "number": 17
                },
-               "clueId2":null
-            },
-            {
-               "type":"Black"
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Down",
-                  "number":14
+               "clueId2": null
+            }
+         },
+         {
+            "type": "Black"
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Down",
+                  "number": 14
                },
-               "clueId2":null
-            },
-            {
-               "type":"Black"
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Down",
-                  "number":18
+               "clueId2": null
+            }
+         },
+         {
+            "type": "Black"
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Down",
+                  "number": 18
                },
-               "clueId2":null
-            },
-            {
-               "type":"Black"
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Down",
-                  "number":22
+               "clueId2": null
+            }
+         },
+         {
+            "type": "Black"
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Down",
+                  "number": 22
                },
-               "clueId2":null
-            },
-            {
-               "type":"Black"
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Down",
-                  "number":20
+               "clueId2": null
+            }
+         },
+         {
+            "type": "Black"
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Down",
+                  "number": 20
                },
-               "clueId2":null
-            },
-            {
-               "type":"Black"
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Down",
-                  "number":23
+               "clueId2": null
+            }
+         },
+         {
+            "type": "Black"
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Down",
+                  "number": 23
                },
-               "clueId2":null
-            },
-            {
-               "type":"Black"
-            },
-            {
-               "type":"NumberedItem",
-               "number":26,
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":26
+               "clueId2": null
+            }
+         },
+         {
+            "type": "Black"
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "number": 26,
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 26
                },
-               "clueId2":null
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":26
+               "clueId2": null
+            }
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 26
                },
-               "clueId2":{
-                  "direction":"Down",
-                  "number":13
+               "clueId2": {
+                  "direction": "Down",
+                  "number": 13
                }
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":26
+            }
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 26
                },
-               "clueId2":null
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":26
+               "clueId2": null
+            }
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 26
                },
-               "clueId2":{
-                  "direction":"Down",
-                  "number":17
+               "clueId2": {
+                  "direction": "Down",
+                  "number": 17
                }
-            },
-            {
-               "type":"Black"
-            },
-            {
-               "type":"NumberedItem",
-               "number":27,
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":27
+            }
+         },
+         {
+            "type": "Black"
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "number": 27,
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 27
                },
-               "clueId2":{
-                  "direction":"Down",
-                  "number":14
+               "clueId2": {
+                  "direction": "Down",
+                  "number": 14
                }
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":27
+            }
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 27
                },
-               "clueId2":null
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":27
+               "clueId2": null
+            }
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 27
                },
-               "clueId2":{
-                  "direction":"Down",
-                  "number":18
+               "clueId2": {
+                  "direction": "Down",
+                  "number": 18
                }
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":27
+            }
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 27
                },
-               "clueId2":null
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":27
+               "clueId2": null
+            }
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 27
                },
-               "clueId2":{
-                  "direction":"Down",
-                  "number":22
+               "clueId2": {
+                  "direction": "Down",
+                  "number": 22
                }
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":27
+            }
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 27
                },
-               "clueId2":null
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":27
+               "clueId2": null
+            }
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 27
                },
-               "clueId2":{
-                  "direction":"Down",
-                  "number":20
+               "clueId2": {
+                  "direction": "Down",
+                  "number": 20
                }
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":27
+            }
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 27
                },
-               "clueId2":null
-            },
-            {
-               "type":"Item",
-               "value":"",
-               "clueId":{
-                  "direction":"Across",
-                  "number":27
+               "clueId2": null
+            }
+         },
+         {
+            "type": "White",
+            "cellData": {
+               "value": "",
+               "clueId": {
+                  "direction": "Across",
+                  "number": 27
                },
-               "clueId2":{
-                  "direction":"Down",
-                  "number":23
+               "clueId2": {
+                  "direction": "Down",
+                  "number": 23
                }
+            }
+         },
+         {
+            "type": "Black"
+         }
+      ],
+      "clues": {
+         "across": [
+            {
+               "number": 1,
+               "value": "Woman's tucked into ridiculously pricey dessert (6,3)"
             },
             {
-               "type":"Black"
+               "number": 6,
+               "value": "Exercise with walks occasionally on top of a mountain (4)"
+            },
+            {
+               "number": 8,
+               "value": "Lyrics discovered in jotter Bill returned (8)"
+            },
+            {
+               "number": 9,
+               "value": "Think about body shape (6)"
+            },
+            {
+               "number": 10,
+               "value": "Liberal leader's cagey about inheritance (6)"
+            },
+            {
+               "number": 11,
+               "value": "Market put up inside old church (8)"
+            },
+            {
+               "number": 12,
+               "value": "Harpoons fish, filling ship (6)"
+            },
+            {
+               "number": 15,
+               "value": "Understand flipping idiots caught cheating (8)"
+            },
+            {
+               "number": 16,
+               "value": "Hoping painkiller's good (8)"
+            },
+            {
+               "number": 19,
+               "value": "Realise student dropped out to get less stressed (6)"
+            },
+            {
+               "number": 21,
+               "value": "A family briefly squeeze in post-winter sports activity (5-3)"
+            },
+            {
+               "number": 22,
+               "value": "Barrels with untaxed liquor initially hidden inside cellars (6)"
+            },
+            {
+               "number": 24,
+               "value": "Popular archaeological site has nothing in the shade (6)"
+            },
+            {
+               "number": 25,
+               "value": "Customs document chap provided is in French (8)"
+            },
+            {
+               "number": 26,
+               "value": "Jam's without sharpness (4)"
+            },
+            {
+               "number": 27,
+               "value": "Reportedly praise soldiers protecting former PM and civic dignitary (4,5)"
             }
          ],
-         "clues":{
-            "across":[
-               {
-                  "number":1,
-                  "value":"Woman's tucked into ridiculously pricey dessert (6,3)"
-               },
-               {
-                  "number":6,
-                  "value":"Exercise with walks occasionally on top of a mountain (4)"
-               },
-               {
-                  "number":8,
-                  "value":"Lyrics discovered in jotter Bill returned (8)"
-               },
-               {
-                  "number":9,
-                  "value":"Think about body shape (6)"
-               },
-               {
-                  "number":10,
-                  "value":"Liberal leader's cagey about inheritance (6)"
-               },
-               {
-                  "number":11,
-                  "value":"Market put up inside old church (8)"
-               },
-               {
-                  "number":12,
-                  "value":"Harpoons fish, filling ship (6)"
-               },
-               {
-                  "number":15,
-                  "value":"Understand flipping idiots caught cheating (8)"
-               },
-               {
-                  "number":16,
-                  "value":"Hoping painkiller's good (8)"
-               },
-               {
-                  "number":19,
-                  "value":"Realise student dropped out to get less stressed (6)"
-               },
-               {
-                  "number":21,
-                  "value":"A family briefly squeeze in post-winter sports activity (5-3)"
-               },
-               {
-                  "number":22,
-                  "value":"Barrels with untaxed liquor initially hidden inside cellars (6)"
-               },
-               {
-                  "number":24,
-                  "value":"Popular archaeological site has nothing in the shade (6)"
-               },
-               {
-                  "number":25,
-                  "value":"Customs document chap provided is in French (8)"
-               },
-               {
-                  "number":26,
-                  "value":"Jam's without sharpness (4)"
-               },
-               {
-                  "number":27,
-                  "value":"Reportedly praise soldiers protecting former PM and civic dignitary (4,5)"
-               }
-            ],
-            "down":[
-               {
-                  "number":1,
-                  "value":"Scold child with proof of age he's defaced (5)"
-               },
-               {
-                  "number":2,
-                  "value":"Allocate English vessel to take on board a Royal Marine (7)"
-               },
-               {
-                  "number":3,
-                  "value":"It's unknowns supporting Radiohead — splendid! (5)"
-               },
-               {
-                  "number":4,
-                  "value":"Design for college is set in stone (7)"
-               },
-               {
-                  "number":5,
-                  "value":"Iron both ways, beginning with crease and ribbon round top of vest, working well (9)"
-               },
-               {
-                  "number":6,
-                  "value":"Summon soldier for parade (7)"
-               },
-               {
-                  "number":7,
-                  "value":"Excessive pride in hideous orange car (9)"
-               },
-               {
-                  "number":13,
-                  "value":"Put off by pressure working in new depots (9)"
-               },
-               {
-                  "number":14,
-                  "value":"Small women's group with case of supplies, bread and cake (5,4)"
-               },
-               {
-                  "number":17,
-                  "value":"List articles about Italy and Spain (7)"
-               },
-               {
-                  "number":18,
-                  "value":"Suggestion Emma endlessly upset girl running around (7)"
-               },
-               {
-                  "number":20,
-                  "value":"Question doubtful point before getting drunk (7)"
-               },
-               {
-                  "number":22,
-                  "value":"Bitterness against reduced cashback (5)"
-               },
-               {
-                  "number":23,
-                  "value":"Stun with outrageous rates (5)"
-               }
-            ]
-         }
+         "down": [
+            {
+               "number": 1,
+               "value": "Scold child with proof of age he's defaced (5)"
+            },
+            {
+               "number": 2,
+               "value": "Allocate English vessel to take on board a Royal Marine (7)"
+            },
+            {
+               "number": 3,
+               "value": "It's unknowns supporting Radiohead — splendid! (5)"
+            },
+            {
+               "number": 4,
+               "value": "Design for college is set in stone (7)"
+            },
+            {
+               "number": 5,
+               "value": "Iron both ways, beginning with crease and ribbon round top of vest, working well (9)"
+            },
+            {
+               "number": 6,
+               "value": "Summon soldier for parade (7)"
+            },
+            {
+               "number": 7,
+               "value": "Excessive pride in hideous orange car (9)"
+            },
+            {
+               "number": 13,
+               "value": "Put off by pressure working in new depots (9)"
+            },
+            {
+               "number": 14,
+               "value": "Small women's group with case of supplies, bread and cake (5,4)"
+            },
+            {
+               "number": 17,
+               "value": "List articles about Italy and Spain (7)"
+            },
+            {
+               "number": 18,
+               "value": "Suggestion Emma endlessly upset girl running around (7)"
+            },
+            {
+               "number": 20,
+               "value": "Question doubtful point before getting drunk (7)"
+            },
+            {
+               "number": 22,
+               "value": "Bitterness against reduced cashback (5)"
+            },
+            {
+               "number": 23,
+               "value": "Stun with outrageous rates (5)"
+            }
+         ]
       }
-   ]
+   }
 }
