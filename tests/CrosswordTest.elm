@@ -1,7 +1,7 @@
-module MainTest exposing (getColumnNumberTests, getRowNumberTests)
+module CrosswordTest exposing (getColumnNumberTests, getRowNumberTests)
 
 import Expect
-import Main exposing (getColumnNumber, getRowNumber)
+import Crossword exposing (getColumnNumber, getRowNumber)
 import Test exposing (Test, describe, test)
 
 

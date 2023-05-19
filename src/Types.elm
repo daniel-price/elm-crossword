@@ -1,4 +1,4 @@
-module Types exposing (Cell(..), CellData, Clue, ClueId, Clues, Crossword, Data, Direction(..), Model(..), State)
+module Types exposing (Cell(..), CellData, Clue, ClueId, Clues, Crossword, Data, Direction(..), Model(..), State, CrosswordId)
 
 import Http
 
@@ -62,3 +62,5 @@ type Model
     = Success Data
     | Loading
     | Failure Http.Error
+
+type alias CrosswordId = String
