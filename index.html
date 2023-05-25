@@ -7280,11 +7280,55 @@ var $author$project$Crossword$calculateDataAfterFocus = F3(
 					{state: newState})),
 			$author$project$Crossword$focusTextInput);
 	});
+var $elm_community$list_extra$List$Extra$findIndexHelp = F3(
+	function (index, predicate, list) {
+		findIndexHelp:
+		while (true) {
+			if (!list.b) {
+				return $elm$core$Maybe$Nothing;
+			} else {
+				var x = list.a;
+				var xs = list.b;
+				if (predicate(x)) {
+					return $elm$core$Maybe$Just(index);
+				} else {
+					var $temp$index = index + 1,
+						$temp$predicate = predicate,
+						$temp$list = xs;
+					index = $temp$index;
+					predicate = $temp$predicate;
+					list = $temp$list;
+					continue findIndexHelp;
+				}
+			}
+		}
+	});
+var $elm_community$list_extra$List$Extra$findIndex = $elm_community$list_extra$List$Extra$findIndexHelp(0);
+var $author$project$Crossword$isWhite = function (cell) {
+	if (cell.$ === 'White') {
+		return true;
+	} else {
+		return false;
+	}
+};
+var $elm$core$Maybe$withDefault = F2(
+	function (_default, maybe) {
+		if (maybe.$ === 'Just') {
+			var value = maybe.a;
+			return value;
+		} else {
+			return _default;
+		}
+	});
 var $author$project$Crossword$dataFromCrossword = function (crossword) {
+	var index = A2(
+		$elm$core$Maybe$withDefault,
+		0,
+		A2($elm_community$list_extra$List$Extra$findIndex, $author$project$Crossword$isWhite, crossword.grid));
 	var state = {
 		clueId: {direction: $author$project$Types$Across, number: 1},
 		direction: $author$project$Types$Across,
-		index: 1
+		index: index
 	};
 	return {crossword: crossword, latestString: '', shiftHeld: false, state: state};
 };
@@ -7451,30 +7495,6 @@ var $author$project$Crossword$getRowNumber = F2(
 var $author$project$Crossword$currentRowNumber = function (model) {
 	return A2($author$project$Crossword$getRowNumber, model.crossword.numberOfColumns, model.state.index);
 };
-var $elm_community$list_extra$List$Extra$findIndexHelp = F3(
-	function (index, predicate, list) {
-		findIndexHelp:
-		while (true) {
-			if (!list.b) {
-				return $elm$core$Maybe$Nothing;
-			} else {
-				var x = list.a;
-				var xs = list.b;
-				if (predicate(x)) {
-					return $elm$core$Maybe$Just(index);
-				} else {
-					var $temp$index = index + 1,
-						$temp$predicate = predicate,
-						$temp$list = xs;
-					index = $temp$index;
-					predicate = $temp$predicate;
-					list = $temp$list;
-					continue findIndexHelp;
-				}
-			}
-		}
-	});
-var $elm_community$list_extra$List$Extra$findIndex = $elm_community$list_extra$List$Extra$findIndexHelp(0);
 var $author$project$Crossword$isWhiteSquare = function (cell) {
 	if (cell.$ === 'White') {
 		return true;
@@ -7641,7 +7661,7 @@ var $author$project$Crossword$update = F2(
 					var data = $author$project$Crossword$dataFromCrossword(crossword);
 					return _Utils_Tuple2(
 						$author$project$Types$Success(data),
-						$elm$core$Platform$Cmd$none);
+						$author$project$Crossword$focusTextInput);
 				} else {
 					var err = result.a;
 					return _Utils_Tuple2(

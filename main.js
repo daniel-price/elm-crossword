@@ -5374,7 +5374,7 @@ var $elm$core$String$concat = function (strings) {
 };
 var $author$project$Types$Crossword = F4(
 	function (grid, clues, numberOfColumns, numberOfRows) {
-		return {aV: clues, B: grid, bg: numberOfColumns, aq: numberOfRows};
+		return {aV: clues, y: grid, bg: numberOfColumns, aq: numberOfRows};
 	});
 var $author$project$Types$Clues = F2(
 	function (across, down) {
@@ -5436,7 +5436,7 @@ var $author$project$Types$White = function (a) {
 };
 var $author$project$Types$CellData = F4(
 	function (clueId1, clueId2, value, number) {
-		return {A: clueId1, ac: clueId2, ai: number, ay: value};
+		return {B: clueId1, ac: clueId2, ai: number, ay: value};
 	});
 var $elm$core$List$head = function (list) {
 	if (list.b) {
@@ -7183,22 +7183,22 @@ var $author$project$Crossword$calculateDataAfterClick = F3(
 			if (!_v1.$) {
 				return (model.b.k === 1) ? 0 : 1;
 			} else {
-				return cellData.A.k;
+				return cellData.B.k;
 			}
 		}();
 		var newState = _Utils_update(
 			state,
 			{
 				J: function () {
-					if (_Utils_eq(cellData.A.k, newDirection)) {
-						return cellData.A;
+					if (_Utils_eq(cellData.B.k, newDirection)) {
+						return cellData.B;
 					} else {
 						var _v0 = cellData.ac;
 						if (!_v0.$) {
 							var clue = _v0.a;
 							return clue;
 						} else {
-							return cellData.A;
+							return cellData.B;
 						}
 					}
 				}(),
@@ -7220,22 +7220,22 @@ var $author$project$Crossword$calculateDataAfterFocus = F3(
 			if (!_v1.$) {
 				return model.b.k;
 			} else {
-				return cellData.A.k;
+				return cellData.B.k;
 			}
 		}();
 		var newState = _Utils_update(
 			state,
 			{
 				J: function () {
-					if (_Utils_eq(cellData.A.k, newDirection)) {
-						return cellData.A;
+					if (_Utils_eq(cellData.B.k, newDirection)) {
+						return cellData.B;
 					} else {
 						var _v0 = cellData.ac;
 						if (!_v0.$) {
 							var clue = _v0.a;
 							return clue;
 						} else {
-							return cellData.A;
+							return cellData.B;
 						}
 					}
 				}(),
@@ -7249,11 +7249,55 @@ var $author$project$Crossword$calculateDataAfterFocus = F3(
 					{b: newState})),
 			$author$project$Crossword$focusTextInput);
 	});
+var $elm_community$list_extra$List$Extra$findIndexHelp = F3(
+	function (index, predicate, list) {
+		findIndexHelp:
+		while (true) {
+			if (!list.b) {
+				return $elm$core$Maybe$Nothing;
+			} else {
+				var x = list.a;
+				var xs = list.b;
+				if (predicate(x)) {
+					return $elm$core$Maybe$Just(index);
+				} else {
+					var $temp$index = index + 1,
+						$temp$predicate = predicate,
+						$temp$list = xs;
+					index = $temp$index;
+					predicate = $temp$predicate;
+					list = $temp$list;
+					continue findIndexHelp;
+				}
+			}
+		}
+	});
+var $elm_community$list_extra$List$Extra$findIndex = $elm_community$list_extra$List$Extra$findIndexHelp(0);
+var $author$project$Crossword$isWhite = function (cell) {
+	if (!cell.$) {
+		return true;
+	} else {
+		return false;
+	}
+};
+var $elm$core$Maybe$withDefault = F2(
+	function (_default, maybe) {
+		if (!maybe.$) {
+			var value = maybe.a;
+			return value;
+		} else {
+			return _default;
+		}
+	});
 var $author$project$Crossword$dataFromCrossword = function (crossword) {
+	var index = A2(
+		$elm$core$Maybe$withDefault,
+		0,
+		A2($elm_community$list_extra$List$Extra$findIndex, $author$project$Crossword$isWhite, crossword.y));
 	var state = {
 		J: {k: 0, ai: 1},
 		k: 0,
-		g: 1
+		g: index
 	};
 	return {e: crossword, af: '', av: false, b: state};
 };
@@ -7397,7 +7441,7 @@ var $author$project$Crossword$elementAtIndex = F2(
 				A2($elm$core$List$take, index, list))) : $elm$core$Maybe$Nothing;
 	});
 var $author$project$Crossword$getCurrentCellChar = function (model) {
-	var cell = A2($author$project$Crossword$elementAtIndex, model.b.g + 1, model.e.B);
+	var cell = A2($author$project$Crossword$elementAtIndex, model.b.g + 1, model.e.y);
 	if ((!cell.$) && (!cell.a.$)) {
 		var cellData = cell.a.a;
 		return cellData.ay;
@@ -7420,30 +7464,6 @@ var $author$project$Crossword$getRowNumber = F2(
 var $author$project$Crossword$currentRowNumber = function (model) {
 	return A2($author$project$Crossword$getRowNumber, model.e.bg, model.b.g);
 };
-var $elm_community$list_extra$List$Extra$findIndexHelp = F3(
-	function (index, predicate, list) {
-		findIndexHelp:
-		while (true) {
-			if (!list.b) {
-				return $elm$core$Maybe$Nothing;
-			} else {
-				var x = list.a;
-				var xs = list.b;
-				if (predicate(x)) {
-					return $elm$core$Maybe$Just(index);
-				} else {
-					var $temp$index = index + 1,
-						$temp$predicate = predicate,
-						$temp$list = xs;
-					index = $temp$index;
-					predicate = $temp$predicate;
-					list = $temp$list;
-					continue findIndexHelp;
-				}
-			}
-		}
-	});
-var $elm_community$list_extra$List$Extra$findIndex = $elm_community$list_extra$List$Extra$findIndexHelp(0);
 var $author$project$Crossword$isWhiteSquare = function (cell) {
 	if (!cell.$) {
 		return true;
@@ -7499,7 +7519,7 @@ var $author$project$Crossword$takeEveryNthIndexesFromIndex = F3(
 var $author$project$Crossword$getDownWhiteIndex = function (model) {
 	var rowNumber = $author$project$Crossword$currentRowNumber(model);
 	var columnNumber = $author$project$Crossword$currentColumnNumber(model);
-	var columnSquares = A3($author$project$Crossword$takeEveryNthIndexesFromIndex, model.e.aq, columnNumber, model.e.B);
+	var columnSquares = A3($author$project$Crossword$takeEveryNthIndexesFromIndex, model.e.aq, columnNumber, model.e.y);
 	var columnsDown = A2($elm_community$list_extra$List$Extra$splitAt, rowNumber, columnSquares).b;
 	var index = A2($elm_community$list_extra$List$Extra$findIndex, $author$project$Crossword$isWhiteSquare, columnsDown);
 	if (!index.$) {
@@ -7535,7 +7555,7 @@ var $author$project$Crossword$getRightWhiteIndex = F2(
 var $author$project$Crossword$getUpWhiteIndex = function (model) {
 	var rowNumber = $author$project$Crossword$currentRowNumber(model);
 	var columnNumber = $author$project$Crossword$currentColumnNumber(model);
-	var columnSquares = A3($author$project$Crossword$takeEveryNthIndexesFromIndex, model.e.aq, columnNumber, model.e.B);
+	var columnSquares = A3($author$project$Crossword$takeEveryNthIndexesFromIndex, model.e.aq, columnNumber, model.e.y);
 	var columnsUp = $elm$core$List$reverse(
 		A2($elm_community$list_extra$List$Extra$splitAt, rowNumber - 1, columnSquares).a);
 	var index = A2($elm_community$list_extra$List$Extra$findIndex, $author$project$Crossword$isWhiteSquare, columnsUp);
@@ -7548,7 +7568,7 @@ var $author$project$Crossword$getUpWhiteIndex = function (model) {
 };
 var $author$project$Crossword$getNextWhiteCell = F3(
 	function (model, direction, backwards) {
-		return (!direction) ? (backwards ? A2($author$project$Crossword$getLeftWhiteIndex, model.e.B, model.b.g) : A2($author$project$Crossword$getRightWhiteIndex, model.e.B, model.b.g)) : (backwards ? $author$project$Crossword$getUpWhiteIndex(model) : $author$project$Crossword$getDownWhiteIndex(model));
+		return (!direction) ? (backwards ? A2($author$project$Crossword$getLeftWhiteIndex, model.e.y, model.b.g) : A2($author$project$Crossword$getRightWhiteIndex, model.e.y, model.b.g)) : (backwards ? $author$project$Crossword$getUpWhiteIndex(model) : $author$project$Crossword$getDownWhiteIndex(model));
 	});
 var $author$project$Crossword$moveToNextWhiteCell = F3(
 	function (model, direction, backwards) {
@@ -7597,7 +7617,7 @@ var $author$project$Crossword$updateCrossword = F3(
 		return _Utils_update(
 			crossword,
 			{
-				B: A3($author$project$Crossword$updateGrid, crossword.B, index, newContent)
+				y: A3($author$project$Crossword$updateGrid, crossword.y, index, newContent)
 			});
 	});
 var $author$project$Crossword$update = F2(
@@ -7610,7 +7630,7 @@ var $author$project$Crossword$update = F2(
 					var data = $author$project$Crossword$dataFromCrossword(crossword);
 					return _Utils_Tuple2(
 						$author$project$Types$Success(data),
-						$elm$core$Platform$Cmd$none);
+						$author$project$Crossword$focusTextInput);
 				} else {
 					var err = result.a;
 					return _Utils_Tuple2(
@@ -7653,7 +7673,7 @@ var $author$project$Crossword$update = F2(
 						} else {
 							var _char = newContent.a;
 							var state = data.b;
-							var nextIndex = (!data.b.k) ? A2($author$project$Crossword$getRightWhiteIndex, data.e.B, index) : $author$project$Crossword$getDownWhiteIndex(data);
+							var nextIndex = (!data.b.k) ? A2($author$project$Crossword$getRightWhiteIndex, data.e.y, index) : $author$project$Crossword$getDownWhiteIndex(data);
 							var newState = _Utils_update(
 								state,
 								{g: nextIndex});
@@ -7987,7 +8007,7 @@ var $elm$core$String$fromFloat = _String_fromNumber;
 var $elm$core$Basics$sqrt = _Basics_sqrt;
 var $author$project$Crossword$getGridTemplate = function (model) {
 	var rowCount = $elm$core$Basics$sqrt(
-		$elm$core$List$length(model.e.B));
+		$elm$core$List$length(model.e.y));
 	var singleCellPercentage = 100 / rowCount;
 	return $elm$core$String$concat(
 		_List_fromArray(
@@ -8010,9 +8030,9 @@ var $author$project$Crossword$shouldHighlight = F2(
 		var _v0 = cellData.ac;
 		if (!_v0.$) {
 			var clueId = _v0.a;
-			return (_Utils_eq(clueId, model.b.J) && _Utils_eq(clueId.k, model.b.k)) || _Utils_eq(cellData.A, model.b.J);
+			return (_Utils_eq(clueId, model.b.J) && _Utils_eq(clueId.k, model.b.k)) || _Utils_eq(cellData.B, model.b.J);
 		} else {
-			return _Utils_eq(cellData.A, model.b.J);
+			return _Utils_eq(cellData.B, model.b.J);
 		}
 	});
 var $author$project$Crossword$Click = F2(
@@ -8196,7 +8216,7 @@ var $author$project$Crossword$viewGrid = function (model) {
 		A2(
 			$elm$core$List$indexedMap,
 			$author$project$Crossword$viewCellAndData(model),
-			model.e.B));
+			model.e.y));
 };
 var $author$project$Crossword$viewGridWithInput = function (model) {
 	return A2(

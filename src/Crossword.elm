@@ -284,7 +284,7 @@ update msg model =
                         data =
                             dataFromCrossword crossword
                     in
-                    ( Success data, Cmd.none )
+                    ( Success data, focusTextInput )
 
                 Err err ->
                     ( Failure err, Cmd.none )
@@ -436,14 +436,28 @@ update msg model =
             ( model, Cmd.none )
 
 
+isWhite : Cell -> Bool
+isWhite cell =
+    case cell of
+        White _ ->
+            True
+
+        _ ->
+            False
+
+
 dataFromCrossword : Crossword -> Data
 dataFromCrossword crossword =
     let
+        index : Int
+        index =
+            Maybe.withDefault 0 (List.Extra.findIndex isWhite crossword.grid)
+
         state : State
         state =
             { clueId = { direction = Across, number = 1 }
             , direction = Across
-            , index = 1
+            , index = index
             }
     in
     { crossword = crossword
