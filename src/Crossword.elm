@@ -1,4 +1,4 @@
-module Crossword exposing (getColumnNumber, getRowNumber, main, htmlView, update, subscriptions, init, Msg)
+module Crossword exposing (Msg, getColumnNumber, getRowNumber, htmlView, init, main, subscriptions, update)
 
 import Browser exposing (Document)
 import Browser.Dom as Dom
@@ -12,7 +12,7 @@ import Json.Decode as Decode
 import Json.Decode.Pipeline as DecodePipeline
 import List.Extra
 import Task
-import Types exposing (Cell(..), CellData, Clue, ClueId, Crossword, Data, Direction(..), Model(..), State, CrosswordId)
+import Types exposing (Cell(..), CellData, Clue, ClueId, Crossword, CrosswordId, Data, Direction(..), Model(..), State)
 
 
 
@@ -32,7 +32,7 @@ init : CrosswordId -> ( Model, Cmd Msg )
 init _ =
     ( Loading
     , Http.get
-        { url = "http://localhost:3000/crossword"
+        { url = "http://localhost:8080/crossword/f5dae7b0-0366-47f2-b77e-51f316a14ea6"
         , expect = Http.expectJson GotCrossword crosswordDecoder
         }
     )
@@ -677,26 +677,28 @@ updateGrid grid index newChar =
 view : Model -> Document Msg
 view model =
     { title = "Crossword"
-    , body = [htmlView model]
+    , body = [ htmlView model ]
     }
+
 
 htmlView : Model -> Html Msg
 htmlView model =
     div []
-    [ case model of
-                Failure err ->
-                    div []
-                        [ text (buildErrorMessage err)
-                        ]
+        [ case model of
+            Failure err ->
+                div []
+                    [ text (buildErrorMessage err)
+                    ]
 
-                Loading ->
-                    div []
-                        [ text "Loading"
-                        ]
+            Loading ->
+                div []
+                    [ text "Loading"
+                    ]
 
-                Success data ->
-                    viewPuzzle data
-            ]
+            Success data ->
+                viewPuzzle data
+        ]
+
 
 buildErrorMessage : Http.Error -> String
 buildErrorMessage httpError =

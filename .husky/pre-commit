@@ -2,7 +2,7 @@
 . "$(dirname -- "$0")/_/husky.sh"
 
 npx elm-test
-npx elm-review
+npx elm-review --fix-all-without-prompt
 ./optimize.sh src/Main.elm
 git add main.js main.min.js
 

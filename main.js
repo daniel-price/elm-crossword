@@ -784,11 +784,11 @@ function _Debug_crash_UNUSED(identifier, fact1, fact2, fact3, fact4)
 
 function _Debug_regionToString(region)
 {
-	if (region.aF.af === region.aT.af)
+	if (region.aM.ag === region.a_.ag)
 	{
-		return 'on line ' + region.aF.af;
+		return 'on line ' + region.aM.ag;
 	}
-	return 'on lines ' + region.aF.af + ' through ' + region.aT.af;
+	return 'on lines ' + region.aM.ag + ' through ' + region.a_.ag;
 }
 
 
@@ -1857,9 +1857,9 @@ var _Platform_worker = F4(function(impl, flagDecoder, debugMetadata, args)
 	return _Platform_initialize(
 		flagDecoder,
 		args,
-		impl.b_,
+		impl.b5,
+		impl.cF,
 		impl.cy,
-		impl.cr,
 		function() { return function() {} }
 	);
 });
@@ -2719,9 +2719,9 @@ var _VirtualDom_mapEventTuple = F2(function(func, tuple)
 var _VirtualDom_mapEventRecord = F2(function(func, record)
 {
 	return {
-		K: func(record.K),
-		aG: record.aG,
-		aD: record.aD
+		L: func(record.L),
+		aN: record.aN,
+		aI: record.aI
 	}
 });
 
@@ -2989,11 +2989,11 @@ function _VirtualDom_makeCallback(eventNode, initialHandler)
 		// 3 = Custom
 
 		var value = result.a;
-		var message = !tag ? value : tag < 3 ? value.a : value.K;
-		var stopPropagation = tag == 1 ? value.b : tag == 3 && value.aG;
+		var message = !tag ? value : tag < 3 ? value.a : value.L;
+		var stopPropagation = tag == 1 ? value.b : tag == 3 && value.aN;
 		var currentEventNode = (
 			stopPropagation && event.stopPropagation(),
-			(tag == 2 ? value.b : tag == 3 && value.aD) && event.preventDefault(),
+			(tag == 2 ? value.b : tag == 3 && value.aI) && event.preventDefault(),
 			eventNode
 		);
 		var tagger;
@@ -3943,11 +3943,11 @@ var _Browser_element = _Debugger_element || F4(function(impl, flagDecoder, debug
 	return _Platform_initialize(
 		flagDecoder,
 		args,
-		impl.b_,
+		impl.b5,
+		impl.cF,
 		impl.cy,
-		impl.cr,
 		function(sendToApp, initialModel) {
-			var view = impl.cA;
+			var view = impl.cH;
 			/**/
 			var domNode = args['node'];
 			//*/
@@ -3979,12 +3979,12 @@ var _Browser_document = _Debugger_document || F4(function(impl, flagDecoder, deb
 	return _Platform_initialize(
 		flagDecoder,
 		args,
-		impl.b_,
+		impl.b5,
+		impl.cF,
 		impl.cy,
-		impl.cr,
 		function(sendToApp, initialModel) {
-			var divertHrefToApp = impl.aE && impl.aE(sendToApp)
-			var view = impl.cA;
+			var divertHrefToApp = impl.aL && impl.aL(sendToApp)
+			var view = impl.cH;
 			var title = _VirtualDom_doc.title;
 			var bodyNode = _VirtualDom_doc.body;
 			var currNode = _VirtualDom_virtualize(bodyNode);
@@ -3992,12 +3992,12 @@ var _Browser_document = _Debugger_document || F4(function(impl, flagDecoder, deb
 			{
 				_VirtualDom_divertHrefToApp = divertHrefToApp;
 				var doc = view(model);
-				var nextNode = _VirtualDom_node('body')(_List_Nil)(doc.bJ);
+				var nextNode = _VirtualDom_node('body')(_List_Nil)(doc.bQ);
 				var patches = _VirtualDom_diff(currNode, nextNode);
 				bodyNode = _VirtualDom_applyPatches(bodyNode, currNode, patches, sendToApp);
 				currNode = nextNode;
 				_VirtualDom_divertHrefToApp = 0;
-				(title !== doc.cw) && (_VirtualDom_doc.title = title = doc.cw);
+				(title !== doc.cD) && (_VirtualDom_doc.title = title = doc.cD);
 			});
 		}
 	);
@@ -4053,12 +4053,12 @@ function _Browser_makeAnimator(model, draw)
 
 function _Browser_application(impl)
 {
-	var onUrlChange = impl.ce;
-	var onUrlRequest = impl.cf;
+	var onUrlChange = impl.cl;
+	var onUrlRequest = impl.cm;
 	var key = function() { key.a(onUrlChange(_Browser_getUrl())); };
 
 	return _Browser_document({
-		aE: function(sendToApp)
+		aL: function(sendToApp)
 		{
 			key.a = sendToApp;
 			_Browser_window.addEventListener('popstate', key);
@@ -4074,9 +4074,9 @@ function _Browser_application(impl)
 					var next = $elm$url$Url$fromString(href).a;
 					sendToApp(onUrlRequest(
 						(next
-							&& curr.bg === next.bg
-							&& curr.a$ === next.a$
-							&& curr.bd.a === next.bd.a
+							&& curr.bn === next.bn
+							&& curr.a6 === next.a6
+							&& curr.bk.a === next.bk.a
 						)
 							? $elm$browser$Browser$Internal(next)
 							: $elm$browser$Browser$External(href)
@@ -4084,13 +4084,13 @@ function _Browser_application(impl)
 				}
 			});
 		},
-		b_: function(flags)
+		b5: function(flags)
 		{
-			return A3(impl.b_, flags, _Browser_getUrl(), key);
+			return A3(impl.b5, flags, _Browser_getUrl(), key);
 		},
-		cA: impl.cA,
-		cy: impl.cy,
-		cr: impl.cr
+		cH: impl.cH,
+		cF: impl.cF,
+		cy: impl.cy
 	});
 }
 
@@ -4156,17 +4156,17 @@ var _Browser_decodeEvent = F2(function(decoder, event)
 function _Browser_visibilityInfo()
 {
 	return (typeof _VirtualDom_doc.hidden !== 'undefined')
-		? { bY: 'hidden', bM: 'visibilitychange' }
+		? { b3: 'hidden', bT: 'visibilitychange' }
 		:
 	(typeof _VirtualDom_doc.mozHidden !== 'undefined')
-		? { bY: 'mozHidden', bM: 'mozvisibilitychange' }
+		? { b3: 'mozHidden', bT: 'mozvisibilitychange' }
 		:
 	(typeof _VirtualDom_doc.msHidden !== 'undefined')
-		? { bY: 'msHidden', bM: 'msvisibilitychange' }
+		? { b3: 'msHidden', bT: 'msvisibilitychange' }
 		:
 	(typeof _VirtualDom_doc.webkitHidden !== 'undefined')
-		? { bY: 'webkitHidden', bM: 'webkitvisibilitychange' }
-		: { bY: 'hidden', bM: 'visibilitychange' };
+		? { b3: 'webkitHidden', bT: 'webkitvisibilitychange' }
+		: { b3: 'hidden', bT: 'visibilitychange' };
 }
 
 
@@ -4247,12 +4247,12 @@ var _Browser_call = F2(function(functionName, id)
 function _Browser_getViewport()
 {
 	return {
-		bn: _Browser_getScene(),
-		bx: {
-			bA: _Browser_window.pageXOffset,
-			bB: _Browser_window.pageYOffset,
-			bz: _Browser_doc.documentElement.clientWidth,
-			a_: _Browser_doc.documentElement.clientHeight
+		bu: _Browser_getScene(),
+		bE: {
+			bH: _Browser_window.pageXOffset,
+			bI: _Browser_window.pageYOffset,
+			bG: _Browser_doc.documentElement.clientWidth,
+			a5: _Browser_doc.documentElement.clientHeight
 		}
 	};
 }
@@ -4262,8 +4262,8 @@ function _Browser_getScene()
 	var body = _Browser_doc.body;
 	var elem = _Browser_doc.documentElement;
 	return {
-		bz: Math.max(body.scrollWidth, body.offsetWidth, elem.scrollWidth, elem.offsetWidth, elem.clientWidth),
-		a_: Math.max(body.scrollHeight, body.offsetHeight, elem.scrollHeight, elem.offsetHeight, elem.clientHeight)
+		bG: Math.max(body.scrollWidth, body.offsetWidth, elem.scrollWidth, elem.offsetWidth, elem.clientWidth),
+		a5: Math.max(body.scrollHeight, body.offsetHeight, elem.scrollHeight, elem.offsetHeight, elem.clientHeight)
 	};
 }
 
@@ -4286,15 +4286,15 @@ function _Browser_getViewportOf(id)
 	return _Browser_withNode(id, function(node)
 	{
 		return {
-			bn: {
-				bz: node.scrollWidth,
-				a_: node.scrollHeight
+			bu: {
+				bG: node.scrollWidth,
+				a5: node.scrollHeight
 			},
-			bx: {
-				bA: node.scrollLeft,
-				bB: node.scrollTop,
-				bz: node.clientWidth,
-				a_: node.clientHeight
+			bE: {
+				bH: node.scrollLeft,
+				bI: node.scrollTop,
+				bG: node.clientWidth,
+				a5: node.clientHeight
 			}
 		};
 	});
@@ -4324,18 +4324,18 @@ function _Browser_getElement(id)
 		var x = _Browser_window.pageXOffset;
 		var y = _Browser_window.pageYOffset;
 		return {
-			bn: _Browser_getScene(),
-			bx: {
-				bA: x,
-				bB: y,
-				bz: _Browser_doc.documentElement.clientWidth,
-				a_: _Browser_doc.documentElement.clientHeight
+			bu: _Browser_getScene(),
+			bE: {
+				bH: x,
+				bI: y,
+				bG: _Browser_doc.documentElement.clientWidth,
+				a5: _Browser_doc.documentElement.clientHeight
 			},
-			bR: {
-				bA: x + rect.left,
-				bB: y + rect.top,
-				bz: rect.width,
-				a_: rect.height
+			bY: {
+				bH: x + rect.left,
+				bI: y + rect.top,
+				bG: rect.width,
+				a5: rect.height
 			}
 		};
 	});
@@ -4380,25 +4380,25 @@ var _Http_toTask = F3(function(router, toTask, request)
 	return _Scheduler_binding(function(callback)
 	{
 		function done(response) {
-			callback(toTask(request.bT.a(response)));
+			callback(toTask(request.b_.a(response)));
 		}
 
 		var xhr = new XMLHttpRequest();
 		xhr.addEventListener('error', function() { done($elm$http$Http$NetworkError_); });
 		xhr.addEventListener('timeout', function() { done($elm$http$Http$Timeout_); });
-		xhr.addEventListener('load', function() { done(_Http_toResponse(request.bT.b, xhr)); });
-		$elm$core$Maybe$isJust(request.bw) && _Http_track(router, xhr, request.bw.a);
+		xhr.addEventListener('load', function() { done(_Http_toResponse(request.b_.b, xhr)); });
+		$elm$core$Maybe$isJust(request.bD) && _Http_track(router, xhr, request.bD.a);
 
 		try {
-			xhr.open(request.b2, request.cz, true);
+			xhr.open(request.b9, request.cG, true);
 		} catch (e) {
-			return done($elm$http$Http$BadUrl_(request.cz));
+			return done($elm$http$Http$BadUrl_(request.cG));
 		}
 
 		_Http_configureRequest(xhr, request);
 
-		request.bJ.a && xhr.setRequestHeader('Content-Type', request.bJ.a);
-		xhr.send(request.bJ.b);
+		request.bQ.a && xhr.setRequestHeader('Content-Type', request.bQ.a);
+		xhr.send(request.bQ.b);
 
 		return function() { xhr.c = true; xhr.abort(); };
 	});
@@ -4409,13 +4409,13 @@ var _Http_toTask = F3(function(router, toTask, request)
 
 function _Http_configureRequest(xhr, request)
 {
-	for (var headers = request.aZ; headers.b; headers = headers.b) // WHILE_CONS
+	for (var headers = request.a4; headers.b; headers = headers.b) // WHILE_CONS
 	{
 		xhr.setRequestHeader(headers.a.a, headers.a.b);
 	}
-	xhr.timeout = request.cv.a || 0;
-	xhr.responseType = request.bT.d;
-	xhr.withCredentials = request.bF;
+	xhr.timeout = request.cC.a || 0;
+	xhr.responseType = request.b_.d;
+	xhr.withCredentials = request.bM;
 }
 
 
@@ -4436,10 +4436,10 @@ function _Http_toResponse(toBody, xhr)
 function _Http_toMetadata(xhr)
 {
 	return {
-		cz: xhr.responseURL,
-		cp: xhr.status,
-		cq: xhr.statusText,
-		aZ: _Http_parseHeaders(xhr.getAllResponseHeaders())
+		cG: xhr.responseURL,
+		cw: xhr.status,
+		cx: xhr.statusText,
+		a4: _Http_parseHeaders(xhr.getAllResponseHeaders())
 	};
 }
 
@@ -4534,18 +4534,41 @@ function _Http_track(router, xhr, tracker)
 	xhr.upload.addEventListener('progress', function(event) {
 		if (xhr.c) { return; }
 		_Scheduler_rawSpawn(A2($elm$core$Platform$sendToSelf, router, _Utils_Tuple2(tracker, $elm$http$Http$Sending({
-			co: event.loaded,
-			bp: event.total
+			cv: event.loaded,
+			bw: event.total
 		}))));
 	});
 	xhr.addEventListener('progress', function(event) {
 		if (xhr.c) { return; }
 		_Scheduler_rawSpawn(A2($elm$core$Platform$sendToSelf, router, _Utils_Tuple2(tracker, $elm$http$Http$Receiving({
-			ci: event.loaded,
-			bp: event.lengthComputable ? $elm$core$Maybe$Just(event.total) : $elm$core$Maybe$Nothing
+			cp: event.loaded,
+			bw: event.lengthComputable ? $elm$core$Maybe$Just(event.total) : $elm$core$Maybe$Nothing
 		}))));
 	});
-}var $elm$core$Basics$EQ = 1;
+}
+
+function _Url_percentEncode(string)
+{
+	return encodeURIComponent(string);
+}
+
+function _Url_percentDecode(string)
+{
+	try
+	{
+		return $elm$core$Maybe$Just(decodeURIComponent(string));
+	}
+	catch (e)
+	{
+		return $elm$core$Maybe$Nothing;
+	}
+}var $author$project$Main$LinkClicked = function (a) {
+	return {$: 2, a: a};
+};
+var $author$project$Main$UrlChanged = function (a) {
+	return {$: 3, a: a};
+};
+var $elm$core$Basics$EQ = 1;
 var $elm$core$Basics$GT = 2;
 var $elm$core$Basics$LT = 0;
 var $elm$core$List$cons = _List_cons;
@@ -5049,7 +5072,7 @@ var $elm$url$Url$Http = 0;
 var $elm$url$Url$Https = 1;
 var $elm$url$Url$Url = F6(
 	function (protocol, host, port_, path, query, fragment) {
-		return {aV: fragment, a$: host, bb: path, bd: port_, bg: protocol, bh: query};
+		return {a0: fragment, a6: host, bi: path, bk: port_, bn: protocol, bo: query};
 	});
 var $elm$core$String$contains = _String_contains;
 var $elm$core$String$length = _String_length;
@@ -5327,22 +5350,36 @@ var $elm$core$Task$perform = F2(
 		return $elm$core$Task$command(
 			A2($elm$core$Task$map, toMessage, task));
 	});
-var $elm$browser$Browser$document = _Browser_document;
-var $author$project$Main$GotCrossword = function (a) {
+var $elm$browser$Browser$application = _Browser_application;
+var $author$project$Main$CrosswordsListPage = function (a) {
+	return {$: 2, a: a};
+};
+var $author$project$Main$CrosswordMsg = function (a) {
+	return {$: 1, a: a};
+};
+var $author$project$Main$CrosswordPage = function (a) {
+	return {$: 1, a: a};
+};
+var $author$project$Main$CrosswordsListMsg = function (a) {
+	return {$: 0, a: a};
+};
+var $author$project$Main$NotFoundPage = {$: 0};
+var $elm$core$Platform$Cmd$batch = _Platform_batch;
+var $author$project$Crossword$GotCrossword = function (a) {
 	return {$: 4, a: a};
 };
 var $author$project$Types$Loading = {$: 1};
 var $author$project$Types$Crossword = F4(
 	function (grid, clues, numberOfColumns, numberOfRows) {
-		return {aO: clues, B: grid, a9: numberOfColumns, ao: numberOfRows};
+		return {aV: clues, B: grid, bg: numberOfColumns, aq: numberOfRows};
 	});
 var $author$project$Types$Clues = F2(
 	function (across, down) {
-		return {bD: across, bQ: down};
+		return {bK: across, bX: down};
 	});
 var $author$project$Types$Clue = F2(
 	function (text, number) {
-		return {ah: number, cu: text};
+		return {ai: number, cB: text};
 	});
 var $elm$json$Json$Decode$int = _Json_decodeInt;
 var $NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$custom = $elm$json$Json$Decode$map2($elm$core$Basics$apR);
@@ -5355,7 +5392,7 @@ var $NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$required = F3(
 			decoder);
 	});
 var $elm$json$Json$Decode$string = _Json_decodeString;
-var $author$project$Main$decodeClue = A3(
+var $author$project$Crossword$decodeClue = A3(
 	$NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$required,
 	'number',
 	$elm$json$Json$Decode$int,
@@ -5365,19 +5402,19 @@ var $author$project$Main$decodeClue = A3(
 		$elm$json$Json$Decode$string,
 		$elm$json$Json$Decode$succeed($author$project$Types$Clue)));
 var $elm$json$Json$Decode$list = _Json_decodeList;
-var $author$project$Main$clueDecoder = A3(
+var $author$project$Crossword$clueDecoder = A3(
 	$NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$required,
 	'down',
-	$elm$json$Json$Decode$list($author$project$Main$decodeClue),
+	$elm$json$Json$Decode$list($author$project$Crossword$decodeClue),
 	A3(
 		$NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$required,
 		'across',
-		$elm$json$Json$Decode$list($author$project$Main$decodeClue),
+		$elm$json$Json$Decode$list($author$project$Crossword$decodeClue),
 		$elm$json$Json$Decode$succeed($author$project$Types$Clues)));
 var $author$project$Types$Black = {$: 1};
 var $elm$json$Json$Decode$andThen = _Json_andThen;
 var $elm$json$Json$Decode$fail = _Json_fail;
-var $author$project$Main$exactMatch = F3(
+var $author$project$Crossword$exactMatch = F3(
 	function (matchDecoder, match, dec) {
 		return A2(
 			$elm$json$Json$Decode$andThen,
@@ -5386,8 +5423,8 @@ var $author$project$Main$exactMatch = F3(
 			},
 			matchDecoder);
 	});
-var $author$project$Main$decodeBlack = A3(
-	$author$project$Main$exactMatch,
+var $author$project$Crossword$decodeBlack = A3(
+	$author$project$Crossword$exactMatch,
 	A2($elm$json$Json$Decode$field, 'type', $elm$json$Json$Decode$string),
 	'Black',
 	$elm$json$Json$Decode$succeed($author$project$Types$Black));
@@ -5396,7 +5433,7 @@ var $author$project$Types$White = function (a) {
 };
 var $author$project$Types$CellData = F4(
 	function (clueId1, clueId2, value, number) {
-		return {A: clueId1, ab: clueId2, ah: number, av: value};
+		return {A: clueId1, ac: clueId2, ai: number, ay: value};
 	});
 var $elm$core$List$head = function (list) {
 	if (list.b) {
@@ -5411,19 +5448,19 @@ var $elm$core$String$foldr = _String_foldr;
 var $elm$core$String$toList = function (string) {
 	return A3($elm$core$String$foldr, $elm$core$List$cons, _List_Nil, string);
 };
-var $author$project$Main$toChar = function (string) {
+var $author$project$Crossword$toChar = function (string) {
 	return $elm$json$Json$Decode$succeed(
 		$elm$core$List$head(
 			$elm$core$String$toList(string)));
 };
-var $author$project$Main$decodeChar = A2($elm$json$Json$Decode$andThen, $author$project$Main$toChar, $elm$json$Json$Decode$string);
+var $author$project$Crossword$decodeChar = A2($elm$json$Json$Decode$andThen, $author$project$Crossword$toChar, $elm$json$Json$Decode$string);
 var $author$project$Types$ClueId = F2(
 	function (direction, number) {
-		return {k: direction, ah: number};
+		return {k: direction, ai: number};
 	});
 var $author$project$Types$Across = 0;
 var $author$project$Types$Down = 1;
-var $author$project$Main$decodeDirection = A2(
+var $author$project$Crossword$decodeDirection = A2(
 	$elm$json$Json$Decode$andThen,
 	function (str) {
 		switch (str) {
@@ -5436,14 +5473,14 @@ var $author$project$Main$decodeDirection = A2(
 		}
 	},
 	$elm$json$Json$Decode$string);
-var $author$project$Main$decodeClueId = A3(
+var $author$project$Crossword$decodeClueId = A3(
 	$NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$required,
 	'number',
 	$elm$json$Json$Decode$int,
 	A3(
 		$NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$required,
 		'direction',
-		$author$project$Main$decodeDirection,
+		$author$project$Crossword$decodeDirection,
 		$elm$json$Json$Decode$succeed($author$project$Types$ClueId)));
 var $elm$json$Json$Decode$at = F2(
 	function (fields, decoder) {
@@ -5501,7 +5538,7 @@ var $NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$optional = F4(
 				fallback),
 			decoder);
 	});
-var $author$project$Main$decodeCellData = A4(
+var $author$project$Crossword$decodeCellData = A4(
 	$NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$optional,
 	'number',
 	A2($elm$json$Json$Decode$map, $elm$core$Maybe$Just, $elm$json$Json$Decode$int),
@@ -5509,31 +5546,31 @@ var $author$project$Main$decodeCellData = A4(
 	A4(
 		$NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$optional,
 		'value',
-		$author$project$Main$decodeChar,
+		$author$project$Crossword$decodeChar,
 		$elm$core$Maybe$Nothing,
 		A4(
 			$NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$optional,
 			'clueId2',
-			A2($elm$json$Json$Decode$map, $elm$core$Maybe$Just, $author$project$Main$decodeClueId),
+			A2($elm$json$Json$Decode$map, $elm$core$Maybe$Just, $author$project$Crossword$decodeClueId),
 			$elm$core$Maybe$Nothing,
 			A3(
 				$NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$required,
 				'clueId',
-				$author$project$Main$decodeClueId,
+				$author$project$Crossword$decodeClueId,
 				$elm$json$Json$Decode$succeed($author$project$Types$CellData)))));
-var $author$project$Main$decodeWhite = A3(
-	$author$project$Main$exactMatch,
+var $author$project$Crossword$decodeWhite = A3(
+	$author$project$Crossword$exactMatch,
 	A2($elm$json$Json$Decode$field, 'type', $elm$json$Json$Decode$string),
 	'White',
 	A2(
 		$elm$json$Json$Decode$map,
 		$author$project$Types$White,
-		A2($elm$json$Json$Decode$field, 'cellData', $author$project$Main$decodeCellData)));
-var $author$project$Main$cellDecoder = $elm$json$Json$Decode$oneOf(
+		A2($elm$json$Json$Decode$field, 'cellData', $author$project$Crossword$decodeCellData)));
+var $author$project$Crossword$cellDecoder = $elm$json$Json$Decode$oneOf(
 	_List_fromArray(
-		[$author$project$Main$decodeWhite, $author$project$Main$decodeBlack]));
-var $author$project$Main$gridDecoder = $elm$json$Json$Decode$list($author$project$Main$cellDecoder);
-var $author$project$Main$crosswordDecoder = A3(
+		[$author$project$Crossword$decodeWhite, $author$project$Crossword$decodeBlack]));
+var $author$project$Crossword$gridDecoder = $elm$json$Json$Decode$list($author$project$Crossword$cellDecoder);
+var $author$project$Crossword$crosswordDecoder = A3(
 	$NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$required,
 	'numberOfRows',
 	$elm$json$Json$Decode$int,
@@ -5544,11 +5581,11 @@ var $author$project$Main$crosswordDecoder = A3(
 		A3(
 			$NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$required,
 			'clues',
-			$author$project$Main$clueDecoder,
+			$author$project$Crossword$clueDecoder,
 			A3(
 				$NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$required,
 				'grid',
-				$author$project$Main$gridDecoder,
+				$author$project$Crossword$gridDecoder,
 				$elm$json$Json$Decode$succeed($author$project$Types$Crossword)))));
 var $elm$json$Json$Decode$decodeString = _Json_runOnString;
 var $elm$http$Http$BadStatus_ = F2(
@@ -6142,7 +6179,7 @@ var $elm$http$Http$resolve = F2(
 			case 3:
 				var metadata = response.a;
 				return $elm$core$Result$Err(
-					$elm$http$Http$BadStatus(metadata.cp));
+					$elm$http$Http$BadStatus(metadata.cw));
 			default:
 				var body = response.b;
 				return A2(
@@ -6170,7 +6207,7 @@ var $elm$http$Http$Request = function (a) {
 };
 var $elm$http$Http$State = F2(
 	function (reqs, subs) {
-		return {bj: reqs, bt: subs};
+		return {bq: reqs, bA: subs};
 	});
 var $elm$http$Http$init = $elm$core$Task$succeed(
 	A2($elm$http$Http$State, $elm$core$Dict$empty, _List_Nil));
@@ -6214,7 +6251,7 @@ var $elm$http$Http$updateReqs = F3(
 					return A2(
 						$elm$core$Task$andThen,
 						function (pid) {
-							var _v4 = req.bw;
+							var _v4 = req.bD;
 							if (_v4.$ === 1) {
 								return A3($elm$http$Http$updateReqs, router, otherCmds, reqs);
 							} else {
@@ -6244,7 +6281,7 @@ var $elm$http$Http$onEffects = F4(
 				return $elm$core$Task$succeed(
 					A2($elm$http$Http$State, reqs, subs));
 			},
-			A3($elm$http$Http$updateReqs, router, cmds, state.bj));
+			A3($elm$http$Http$updateReqs, router, cmds, state.bq));
 	});
 var $elm$core$List$maybeCons = F3(
 	function (f, mx, xs) {
@@ -6287,7 +6324,7 @@ var $elm$http$Http$onSelfMsg = F3(
 				A2(
 					$elm$core$List$filterMap,
 					A3($elm$http$Http$maybeSend, router, tracker, progress),
-					state.bt)));
+					state.bA)));
 	});
 var $elm$http$Http$Cancel = function (a) {
 	return {$: 0, a: a};
@@ -6301,14 +6338,14 @@ var $elm$http$Http$cmdMap = F2(
 			var r = cmd.a;
 			return $elm$http$Http$Request(
 				{
-					bF: r.bF,
-					bJ: r.bJ,
-					bT: A2(_Http_mapExpect, func, r.bT),
-					aZ: r.aZ,
-					b2: r.b2,
-					cv: r.cv,
-					bw: r.bw,
-					cz: r.cz
+					bM: r.bM,
+					bQ: r.bQ,
+					b_: A2(_Http_mapExpect, func, r.b_),
+					a4: r.a4,
+					b9: r.b9,
+					cC: r.cC,
+					bD: r.bD,
+					cG: r.cG
 				});
 		}
 	});
@@ -6331,34 +6368,389 @@ var $elm$http$Http$subscription = _Platform_leaf('Http');
 var $elm$http$Http$request = function (r) {
 	return $elm$http$Http$command(
 		$elm$http$Http$Request(
-			{bF: false, bJ: r.bJ, bT: r.bT, aZ: r.aZ, b2: r.b2, cv: r.cv, bw: r.bw, cz: r.cz}));
+			{bM: false, bQ: r.bQ, b_: r.b_, a4: r.a4, b9: r.b9, cC: r.cC, bD: r.bD, cG: r.cG}));
 };
 var $elm$http$Http$get = function (r) {
 	return $elm$http$Http$request(
-		{bJ: $elm$http$Http$emptyBody, bT: r.bT, aZ: _List_Nil, b2: 'GET', cv: $elm$core$Maybe$Nothing, bw: $elm$core$Maybe$Nothing, cz: r.cz});
+		{bQ: $elm$http$Http$emptyBody, b_: r.b_, a4: _List_Nil, b9: 'GET', cC: $elm$core$Maybe$Nothing, bD: $elm$core$Maybe$Nothing, cG: r.cG});
 };
-var $author$project$Main$init = function (_v0) {
+var $author$project$Crossword$init = function (_v0) {
 	return _Utils_Tuple2(
 		$author$project$Types$Loading,
 		$elm$http$Http$get(
 			{
-				bT: A2($elm$http$Http$expectJson, $author$project$Main$GotCrossword, $author$project$Main$crosswordDecoder),
-				cz: 'http://localhost:3000/crossword'
+				b_: A2($elm$http$Http$expectJson, $author$project$Crossword$GotCrossword, $author$project$Crossword$crosswordDecoder),
+				cG: 'http://localhost:8080/crossword/f5dae7b0-0366-47f2-b77e-51f316a14ea6'
 			}));
 };
+var $author$project$CrosswordsList$GetCrosswordsList = $elm$core$Basics$identity;
+var $author$project$CrosswordsList$CrosswordMetadata = F3(
+	function (id, series, seriesNo) {
+		return {aC: id, aJ: series, aK: seriesNo};
+	});
+var $elm$json$Json$Decode$map3 = _Json_map3;
+var $author$project$CrosswordsList$crosswordMetadataDecoder = A4(
+	$elm$json$Json$Decode$map3,
+	$author$project$CrosswordsList$CrosswordMetadata,
+	A2($elm$json$Json$Decode$field, 'id', $elm$json$Json$Decode$string),
+	A2($elm$json$Json$Decode$field, 'series', $elm$json$Json$Decode$string),
+	A2($elm$json$Json$Decode$field, 'seriesNo', $elm$json$Json$Decode$int));
+var $author$project$CrosswordsList$getCrosswordList = $elm$http$Http$get(
+	{
+		b_: A2(
+			$elm$http$Http$expectJson,
+			$elm$core$Basics$identity,
+			$elm$json$Json$Decode$list($author$project$CrosswordsList$crosswordMetadataDecoder)),
+		cG: 'http://localhost:8080/crosswords'
+	});
+var $author$project$CrosswordsList$init = _Utils_Tuple2(
+	{
+		an: _List_fromArray(
+			[
+				{aC: 'test', aJ: 'cryptic', aK: 123}
+			])
+	},
+	$author$project$CrosswordsList$getCrosswordList);
+var $elm$core$Platform$Cmd$map = _Platform_map;
+var $elm$core$Platform$Cmd$none = $elm$core$Platform$Cmd$batch(_List_Nil);
+var $author$project$Main$initCurrentPage = function (_v0) {
+	var model = _v0.a;
+	var existingCmds = _v0.b;
+	var _v1 = function () {
+		var _v2 = model.ar;
+		switch (_v2.$) {
+			case 0:
+				var _v3 = $author$project$CrosswordsList$init;
+				var pageModel = _v3.a;
+				var pageCmds = _v3.b;
+				return _Utils_Tuple2(
+					$author$project$Main$CrosswordsListPage(pageModel),
+					A2($elm$core$Platform$Cmd$map, $author$project$Main$CrosswordsListMsg, pageCmds));
+			case 1:
+				var id = _v2.a;
+				var _v4 = $author$project$Crossword$init(id);
+				var pageModel = _v4.a;
+				var pageCmds = _v4.b;
+				return _Utils_Tuple2(
+					$author$project$Main$CrosswordPage(pageModel),
+					A2($elm$core$Platform$Cmd$map, $author$project$Main$CrosswordMsg, pageCmds));
+			default:
+				return _Utils_Tuple2($author$project$Main$NotFoundPage, $elm$core$Platform$Cmd$none);
+		}
+	}();
+	var currentPage = _v1.a;
+	var mappedPageCmds = _v1.b;
+	return _Utils_Tuple2(
+		_Utils_update(
+			model,
+			{H: currentPage}),
+		$elm$core$Platform$Cmd$batch(
+			_List_fromArray(
+				[existingCmds, mappedPageCmds])));
+};
+var $author$project$Main$NotFoundRoute = {$: 2};
+var $author$project$Main$CrosswordRoute = function (a) {
+	return {$: 1, a: a};
+};
+var $author$project$Main$CrosswordsRoute = {$: 0};
+var $elm$url$Url$Parser$Parser = $elm$core$Basics$identity;
+var $elm$url$Url$Parser$State = F5(
+	function (visited, unvisited, params, frag, value) {
+		return {P: frag, R: params, N: unvisited, ay: value, U: visited};
+	});
+var $elm$url$Url$Parser$mapState = F2(
+	function (func, _v0) {
+		var visited = _v0.U;
+		var unvisited = _v0.N;
+		var params = _v0.R;
+		var frag = _v0.P;
+		var value = _v0.ay;
+		return A5(
+			$elm$url$Url$Parser$State,
+			visited,
+			unvisited,
+			params,
+			frag,
+			func(value));
+	});
+var $elm$url$Url$Parser$map = F2(
+	function (subValue, _v0) {
+		var parseArg = _v0;
+		return function (_v1) {
+			var visited = _v1.U;
+			var unvisited = _v1.N;
+			var params = _v1.R;
+			var frag = _v1.P;
+			var value = _v1.ay;
+			return A2(
+				$elm$core$List$map,
+				$elm$url$Url$Parser$mapState(value),
+				parseArg(
+					A5($elm$url$Url$Parser$State, visited, unvisited, params, frag, subValue)));
+		};
+	});
+var $elm$core$List$append = F2(
+	function (xs, ys) {
+		if (!ys.b) {
+			return xs;
+		} else {
+			return A3($elm$core$List$foldr, $elm$core$List$cons, ys, xs);
+		}
+	});
+var $elm$core$List$concat = function (lists) {
+	return A3($elm$core$List$foldr, $elm$core$List$append, _List_Nil, lists);
+};
+var $elm$core$List$concatMap = F2(
+	function (f, list) {
+		return $elm$core$List$concat(
+			A2($elm$core$List$map, f, list));
+	});
+var $elm$url$Url$Parser$oneOf = function (parsers) {
+	return function (state) {
+		return A2(
+			$elm$core$List$concatMap,
+			function (_v0) {
+				var parser = _v0;
+				return parser(state);
+			},
+			parsers);
+	};
+};
+var $elm$url$Url$Parser$s = function (str) {
+	return function (_v0) {
+		var visited = _v0.U;
+		var unvisited = _v0.N;
+		var params = _v0.R;
+		var frag = _v0.P;
+		var value = _v0.ay;
+		if (!unvisited.b) {
+			return _List_Nil;
+		} else {
+			var next = unvisited.a;
+			var rest = unvisited.b;
+			return _Utils_eq(next, str) ? _List_fromArray(
+				[
+					A5(
+					$elm$url$Url$Parser$State,
+					A2($elm$core$List$cons, next, visited),
+					rest,
+					params,
+					frag,
+					value)
+				]) : _List_Nil;
+		}
+	};
+};
+var $elm$url$Url$Parser$slash = F2(
+	function (_v0, _v1) {
+		var parseBefore = _v0;
+		var parseAfter = _v1;
+		return function (state) {
+			return A2(
+				$elm$core$List$concatMap,
+				parseAfter,
+				parseBefore(state));
+		};
+	});
+var $elm$url$Url$Parser$custom = F2(
+	function (tipe, stringToSomething) {
+		return function (_v0) {
+			var visited = _v0.U;
+			var unvisited = _v0.N;
+			var params = _v0.R;
+			var frag = _v0.P;
+			var value = _v0.ay;
+			if (!unvisited.b) {
+				return _List_Nil;
+			} else {
+				var next = unvisited.a;
+				var rest = unvisited.b;
+				var _v2 = stringToSomething(next);
+				if (!_v2.$) {
+					var nextValue = _v2.a;
+					return _List_fromArray(
+						[
+							A5(
+							$elm$url$Url$Parser$State,
+							A2($elm$core$List$cons, next, visited),
+							rest,
+							params,
+							frag,
+							value(nextValue))
+						]);
+				} else {
+					return _List_Nil;
+				}
+			}
+		};
+	});
+var $elm$url$Url$Parser$string = A2($elm$url$Url$Parser$custom, 'STRING', $elm$core$Maybe$Just);
+var $elm$url$Url$Parser$top = function (state) {
+	return _List_fromArray(
+		[state]);
+};
+var $author$project$Main$matchers = $elm$url$Url$Parser$oneOf(
+	_List_fromArray(
+		[
+			A2($elm$url$Url$Parser$map, $author$project$Main$CrosswordsRoute, $elm$url$Url$Parser$top),
+			A2(
+			$elm$url$Url$Parser$map,
+			$author$project$Main$CrosswordRoute,
+			A2(
+				$elm$url$Url$Parser$slash,
+				$elm$url$Url$Parser$s('crossword'),
+				$elm$url$Url$Parser$string))
+		]));
+var $elm$url$Url$Parser$getFirstMatch = function (states) {
+	getFirstMatch:
+	while (true) {
+		if (!states.b) {
+			return $elm$core$Maybe$Nothing;
+		} else {
+			var state = states.a;
+			var rest = states.b;
+			var _v1 = state.N;
+			if (!_v1.b) {
+				return $elm$core$Maybe$Just(state.ay);
+			} else {
+				if ((_v1.a === '') && (!_v1.b.b)) {
+					return $elm$core$Maybe$Just(state.ay);
+				} else {
+					var $temp$states = rest;
+					states = $temp$states;
+					continue getFirstMatch;
+				}
+			}
+		}
+	}
+};
+var $elm$url$Url$Parser$removeFinalEmpty = function (segments) {
+	if (!segments.b) {
+		return _List_Nil;
+	} else {
+		if ((segments.a === '') && (!segments.b.b)) {
+			return _List_Nil;
+		} else {
+			var segment = segments.a;
+			var rest = segments.b;
+			return A2(
+				$elm$core$List$cons,
+				segment,
+				$elm$url$Url$Parser$removeFinalEmpty(rest));
+		}
+	}
+};
+var $elm$url$Url$Parser$preparePath = function (path) {
+	var _v0 = A2($elm$core$String$split, '/', path);
+	if (_v0.b && (_v0.a === '')) {
+		var segments = _v0.b;
+		return $elm$url$Url$Parser$removeFinalEmpty(segments);
+	} else {
+		var segments = _v0;
+		return $elm$url$Url$Parser$removeFinalEmpty(segments);
+	}
+};
+var $elm$url$Url$Parser$addToParametersHelp = F2(
+	function (value, maybeList) {
+		if (maybeList.$ === 1) {
+			return $elm$core$Maybe$Just(
+				_List_fromArray(
+					[value]));
+		} else {
+			var list = maybeList.a;
+			return $elm$core$Maybe$Just(
+				A2($elm$core$List$cons, value, list));
+		}
+	});
+var $elm$url$Url$percentDecode = _Url_percentDecode;
+var $elm$url$Url$Parser$addParam = F2(
+	function (segment, dict) {
+		var _v0 = A2($elm$core$String$split, '=', segment);
+		if ((_v0.b && _v0.b.b) && (!_v0.b.b.b)) {
+			var rawKey = _v0.a;
+			var _v1 = _v0.b;
+			var rawValue = _v1.a;
+			var _v2 = $elm$url$Url$percentDecode(rawKey);
+			if (_v2.$ === 1) {
+				return dict;
+			} else {
+				var key = _v2.a;
+				var _v3 = $elm$url$Url$percentDecode(rawValue);
+				if (_v3.$ === 1) {
+					return dict;
+				} else {
+					var value = _v3.a;
+					return A3(
+						$elm$core$Dict$update,
+						key,
+						$elm$url$Url$Parser$addToParametersHelp(value),
+						dict);
+				}
+			}
+		} else {
+			return dict;
+		}
+	});
+var $elm$url$Url$Parser$prepareQuery = function (maybeQuery) {
+	if (maybeQuery.$ === 1) {
+		return $elm$core$Dict$empty;
+	} else {
+		var qry = maybeQuery.a;
+		return A3(
+			$elm$core$List$foldr,
+			$elm$url$Url$Parser$addParam,
+			$elm$core$Dict$empty,
+			A2($elm$core$String$split, '&', qry));
+	}
+};
+var $elm$url$Url$Parser$parse = F2(
+	function (_v0, url) {
+		var parser = _v0;
+		return $elm$url$Url$Parser$getFirstMatch(
+			parser(
+				A5(
+					$elm$url$Url$Parser$State,
+					_List_Nil,
+					$elm$url$Url$Parser$preparePath(url.bi),
+					$elm$url$Url$Parser$prepareQuery(url.bo),
+					url.a0,
+					$elm$core$Basics$identity)));
+	});
+var $author$project$Main$parseUrl = function (url) {
+	var _v0 = A2($elm$url$Url$Parser$parse, $author$project$Main$matchers, url);
+	if (!_v0.$) {
+		var route = _v0.a;
+		return route;
+	} else {
+		return $author$project$Main$NotFoundRoute;
+	}
+};
+var $author$project$Main$init = F3(
+	function (_v0, url, navKey) {
+		var model = {
+			aF: navKey,
+			H: $author$project$Main$CrosswordsListPage(
+				{an: _List_Nil}),
+			ar: $author$project$Main$parseUrl(url)
+		};
+		return $author$project$Main$initCurrentPage(
+			_Utils_Tuple2(model, $elm$core$Platform$Cmd$none));
+	});
+var $elm$core$Platform$Sub$map = _Platform_map;
 var $elm$core$Platform$Sub$batch = _Platform_batch;
-var $author$project$Main$KeyTouched = function (a) {
+var $elm$core$Platform$Sub$none = $elm$core$Platform$Sub$batch(_List_Nil);
+var $author$project$Crossword$KeyTouched = function (a) {
 	return {$: 3, a: a};
 };
-var $author$project$Main$BackspacePressed = 2;
-var $author$project$Main$KeyEventUnknown = 0;
-var $author$project$Main$KeyPressed = 8;
-var $author$project$Main$LeftPressed = 5;
-var $author$project$Main$RightPressed = 6;
-var $author$project$Main$ShiftPressed = 3;
-var $author$project$Main$TabPressed = 1;
-var $author$project$Main$UpPressed = 7;
-var $author$project$Main$keyPressedToKeyEventMsg = function (eventKeyString) {
+var $author$project$Crossword$BackspacePressed = 2;
+var $author$project$Crossword$KeyEventUnknown = 0;
+var $author$project$Crossword$KeyPressed = 8;
+var $author$project$Crossword$LeftPressed = 5;
+var $author$project$Crossword$RightPressed = 6;
+var $author$project$Crossword$ShiftPressed = 3;
+var $author$project$Crossword$TabPressed = 1;
+var $author$project$Crossword$UpPressed = 7;
+var $author$project$Crossword$keyPressedToKeyEventMsg = function (eventKeyString) {
 	switch (eventKeyString) {
 		case 'ArrowLeft':
 			return 5;
@@ -6378,21 +6770,21 @@ var $author$project$Main$keyPressedToKeyEventMsg = function (eventKeyString) {
 			return 0;
 	}
 };
-var $author$project$Main$keyPressedDecoder = A2(
+var $author$project$Crossword$keyPressedDecoder = A2(
 	$elm$json$Json$Decode$map,
-	A2($elm$core$Basics$composeR, $author$project$Main$keyPressedToKeyEventMsg, $author$project$Main$KeyTouched),
+	A2($elm$core$Basics$composeR, $author$project$Crossword$keyPressedToKeyEventMsg, $author$project$Crossword$KeyTouched),
 	A2($elm$json$Json$Decode$field, 'key', $elm$json$Json$Decode$string));
-var $author$project$Main$ShiftReleased = 4;
-var $author$project$Main$keyReleasedToKeyEventMsg = function (eventKeyString) {
+var $author$project$Crossword$ShiftReleased = 4;
+var $author$project$Crossword$keyReleasedToKeyEventMsg = function (eventKeyString) {
 	if (eventKeyString === 'Shift') {
 		return 4;
 	} else {
 		return 0;
 	}
 };
-var $author$project$Main$keyReleasedDecoder = A2(
+var $author$project$Crossword$keyReleasedDecoder = A2(
 	$elm$json$Json$Decode$map,
-	A2($elm$core$Basics$composeR, $author$project$Main$keyReleasedToKeyEventMsg, $author$project$Main$KeyTouched),
+	A2($elm$core$Basics$composeR, $author$project$Crossword$keyReleasedToKeyEventMsg, $author$project$Crossword$KeyTouched),
 	A2($elm$json$Json$Decode$field, 'key', $elm$json$Json$Decode$string));
 var $elm$browser$Browser$Events$Document = 0;
 var $elm$browser$Browser$Events$MySub = F3(
@@ -6401,7 +6793,7 @@ var $elm$browser$Browser$Events$MySub = F3(
 	});
 var $elm$browser$Browser$Events$State = F2(
 	function (subs, pids) {
-		return {bc: pids, bt: subs};
+		return {bj: pids, bA: subs};
 	});
 var $elm$browser$Browser$Events$init = $elm$core$Task$succeed(
 	A2($elm$browser$Browser$Events$State, _List_Nil, $elm$core$Dict$empty));
@@ -6521,7 +6913,7 @@ var $elm$core$Dict$merge = F6(
 	});
 var $elm$browser$Browser$Events$Event = F2(
 	function (key, event) {
-		return {aU: event, a1: key};
+		return {a$: event, a8: key};
 	});
 var $elm$browser$Browser$Events$spawn = F3(
 	function (router, key, _v0) {
@@ -6595,7 +6987,7 @@ var $elm$browser$Browser$Events$onEffects = F3(
 			stepLeft,
 			stepBoth,
 			stepRight,
-			state.bc,
+			state.bj,
 			$elm$core$Dict$fromList(newSubs),
 			_Utils_Tuple3(_List_Nil, $elm$core$Dict$empty, _List_Nil));
 		var deadPids = _v0.a;
@@ -6623,8 +7015,8 @@ var $elm$browser$Browser$Events$onEffects = F3(
 	});
 var $elm$browser$Browser$Events$onSelfMsg = F3(
 	function (router, _v0, state) {
-		var key = _v0.a1;
-		var event = _v0.aU;
+		var key = _v0.a8;
+		var event = _v0.a$;
 		var toMessage = function (_v2) {
 			var subKey = _v2.a;
 			var _v3 = _v2.b;
@@ -6633,7 +7025,7 @@ var $elm$browser$Browser$Events$onSelfMsg = F3(
 			var decoder = _v3.c;
 			return _Utils_eq(subKey, key) ? A2(_Browser_decodeEvent, decoder, event) : $elm$core$Maybe$Nothing;
 		};
-		var messages = A2($elm$core$List$filterMap, toMessage, state.bt);
+		var messages = A2($elm$core$List$filterMap, toMessage, state.bA);
 		return A2(
 			$elm$core$Task$andThen,
 			function (_v1) {
@@ -6665,13 +7057,76 @@ var $elm$browser$Browser$Events$on = F3(
 	});
 var $elm$browser$Browser$Events$onKeyDown = A2($elm$browser$Browser$Events$on, 0, 'keydown');
 var $elm$browser$Browser$Events$onKeyUp = A2($elm$browser$Browser$Events$on, 0, 'keyup');
-var $author$project$Main$subscriptions = function (_v0) {
+var $author$project$Crossword$subscriptions = function (_v0) {
 	return $elm$core$Platform$Sub$batch(
 		_List_fromArray(
 			[
-				$elm$browser$Browser$Events$onKeyDown($author$project$Main$keyPressedDecoder),
-				$elm$browser$Browser$Events$onKeyUp($author$project$Main$keyReleasedDecoder)
+				$elm$browser$Browser$Events$onKeyDown($author$project$Crossword$keyPressedDecoder),
+				$elm$browser$Browser$Events$onKeyUp($author$project$Crossword$keyReleasedDecoder)
 			]));
+};
+var $author$project$Main$subscriptions = function (model) {
+	var _v0 = model.H;
+	switch (_v0.$) {
+		case 0:
+			return $elm$core$Platform$Sub$none;
+		case 1:
+			var pageModel = _v0.a;
+			return A2(
+				$elm$core$Platform$Sub$map,
+				function (a) {
+					return $author$project$Main$CrosswordMsg(a);
+				},
+				$author$project$Crossword$subscriptions(pageModel));
+		default:
+			return $elm$core$Platform$Sub$none;
+	}
+};
+var $elm$browser$Browser$Navigation$load = _Browser_load;
+var $elm$browser$Browser$Navigation$pushUrl = _Browser_pushUrl;
+var $elm$url$Url$addPort = F2(
+	function (maybePort, starter) {
+		if (maybePort.$ === 1) {
+			return starter;
+		} else {
+			var port_ = maybePort.a;
+			return starter + (':' + $elm$core$String$fromInt(port_));
+		}
+	});
+var $elm$url$Url$addPrefixed = F3(
+	function (prefix, maybeSegment, starter) {
+		if (maybeSegment.$ === 1) {
+			return starter;
+		} else {
+			var segment = maybeSegment.a;
+			return _Utils_ap(
+				starter,
+				_Utils_ap(prefix, segment));
+		}
+	});
+var $elm$url$Url$toString = function (url) {
+	var http = function () {
+		var _v0 = url.bn;
+		if (!_v0) {
+			return 'http://';
+		} else {
+			return 'https://';
+		}
+	}();
+	return A3(
+		$elm$url$Url$addPrefixed,
+		'#',
+		url.a0,
+		A3(
+			$elm$url$Url$addPrefixed,
+			'?',
+			url.bo,
+			_Utils_ap(
+				A2(
+					$elm$url$Url$addPort,
+					url.bk,
+					_Utils_ap(http, url.a6)),
+				url.bi)));
 };
 var $author$project$Types$Failure = function (a) {
 	return {$: 2, a: a};
@@ -6679,7 +7134,7 @@ var $author$project$Types$Failure = function (a) {
 var $author$project$Types$Success = function (a) {
 	return {$: 0, a: a};
 };
-var $author$project$Main$NoOp = {$: 5};
+var $author$project$Crossword$NoOp = {$: 5};
 var $elm$core$Basics$composeL = F3(
 	function (g, f, x) {
 		return g(
@@ -6704,17 +7159,17 @@ var $elm$core$Task$attempt = F2(
 					task)));
 	});
 var $elm$browser$Browser$Dom$focus = _Browser_call('focus');
-var $author$project$Main$focusTextInput = A2(
+var $author$project$Crossword$focusTextInput = A2(
 	$elm$core$Task$attempt,
 	function (_v0) {
-		return $author$project$Main$NoOp;
+		return $author$project$Crossword$NoOp;
 	},
 	$elm$browser$Browser$Dom$focus('text-input'));
-var $author$project$Main$calculateDataAfterClick = F3(
+var $author$project$Crossword$calculateDataAfterClick = F3(
 	function (model, index, cellData) {
 		var state = model.b;
 		var newDirection = function () {
-			var _v1 = cellData.ab;
+			var _v1 = cellData.ac;
 			if (!_v1.$) {
 				return (model.b.k === 1) ? 0 : 1;
 			} else {
@@ -6724,11 +7179,11 @@ var $author$project$Main$calculateDataAfterClick = F3(
 		var newState = _Utils_update(
 			state,
 			{
-				I: function () {
+				J: function () {
 					if (_Utils_eq(cellData.A.k, newDirection)) {
 						return cellData.A;
 					} else {
-						var _v0 = cellData.ab;
+						var _v0 = cellData.ac;
 						if (!_v0.$) {
 							var clue = _v0.a;
 							return clue;
@@ -6745,13 +7200,13 @@ var $author$project$Main$calculateDataAfterClick = F3(
 				_Utils_update(
 					model,
 					{b: newState})),
-			$author$project$Main$focusTextInput);
+			$author$project$Crossword$focusTextInput);
 	});
-var $author$project$Main$calculateDataAfterFocus = F3(
+var $author$project$Crossword$calculateDataAfterFocus = F3(
 	function (model, index, cellData) {
 		var state = model.b;
 		var newDirection = function () {
-			var _v1 = cellData.ab;
+			var _v1 = cellData.ac;
 			if (!_v1.$) {
 				return model.b.k;
 			} else {
@@ -6761,11 +7216,11 @@ var $author$project$Main$calculateDataAfterFocus = F3(
 		var newState = _Utils_update(
 			state,
 			{
-				I: function () {
+				J: function () {
 					if (_Utils_eq(cellData.A.k, newDirection)) {
 						return cellData.A;
 					} else {
-						var _v0 = cellData.ab;
+						var _v0 = cellData.ac;
 						if (!_v0.$) {
 							var clue = _v0.a;
 							return clue;
@@ -6782,15 +7237,15 @@ var $author$project$Main$calculateDataAfterFocus = F3(
 				_Utils_update(
 					model,
 					{b: newState})),
-			$author$project$Main$focusTextInput);
+			$author$project$Crossword$focusTextInput);
 	});
-var $author$project$Main$dataFromCrossword = function (crossword) {
+var $author$project$Crossword$dataFromCrossword = function (crossword) {
 	var state = {
-		I: {k: 0, ah: 1},
+		J: {k: 0, ai: 1},
 		k: 0,
 		g: 1
 	};
-	return {e: crossword, ae: '', as: false, b: state};
+	return {e: crossword, af: '', av: false, b: state};
 };
 var $elm$core$String$cons = _String_cons;
 var $elm$core$String$fromChar = function (_char) {
@@ -6923,7 +7378,7 @@ var $elm$core$List$take = F2(
 	function (n, list) {
 		return A3($elm$core$List$takeFast, 0, n, list);
 	});
-var $author$project$Main$elementAtIndex = F2(
+var $author$project$Crossword$elementAtIndex = F2(
 	function (index, list) {
 		return (_Utils_cmp(
 			$elm$core$List$length(list),
@@ -6931,29 +7386,29 @@ var $author$project$Main$elementAtIndex = F2(
 			$elm$core$List$reverse(
 				A2($elm$core$List$take, index, list))) : $elm$core$Maybe$Nothing;
 	});
-var $author$project$Main$getCurrentCellChar = function (model) {
-	var cell = A2($author$project$Main$elementAtIndex, model.b.g + 1, model.e.B);
+var $author$project$Crossword$getCurrentCellChar = function (model) {
+	var cell = A2($author$project$Crossword$elementAtIndex, model.b.g + 1, model.e.B);
 	if ((!cell.$) && (!cell.a.$)) {
 		var cellData = cell.a.a;
-		return cellData.av;
+		return cellData.ay;
 	} else {
 		return $elm$core$Maybe$Nothing;
 	}
 };
 var $elm$core$Basics$modBy = _Basics_modBy;
-var $author$project$Main$getColumnNumber = F2(
+var $author$project$Crossword$getColumnNumber = F2(
 	function (numberOfColumns, index) {
 		return A2($elm$core$Basics$modBy, numberOfColumns, index) + 1;
 	});
-var $author$project$Main$currentColumnNumber = function (model) {
-	return A2($author$project$Main$getColumnNumber, model.e.a9, model.b.g);
+var $author$project$Crossword$currentColumnNumber = function (model) {
+	return A2($author$project$Crossword$getColumnNumber, model.e.bg, model.b.g);
 };
-var $author$project$Main$getRowNumber = F2(
+var $author$project$Crossword$getRowNumber = F2(
 	function (numberOfColumns, index) {
 		return $elm$core$Basics$floor(index / numberOfColumns) + 1;
 	});
-var $author$project$Main$currentRowNumber = function (model) {
-	return A2($author$project$Main$getRowNumber, model.e.a9, model.b.g);
+var $author$project$Crossword$currentRowNumber = function (model) {
+	return A2($author$project$Crossword$getRowNumber, model.e.bg, model.b.g);
 };
 var $elm_community$list_extra$List$Extra$findIndexHelp = F3(
 	function (index, predicate, list) {
@@ -6979,7 +7434,7 @@ var $elm_community$list_extra$List$Extra$findIndexHelp = F3(
 		}
 	});
 var $elm_community$list_extra$List$Extra$findIndex = $elm_community$list_extra$List$Extra$findIndexHelp(0);
-var $author$project$Main$isWhiteSquare = function (cell) {
+var $author$project$Crossword$isWhiteSquare = function (cell) {
 	if (!cell.$) {
 		return true;
 	} else {
@@ -7017,7 +7472,7 @@ var $elm_community$list_extra$List$Extra$splitAt = F2(
 			A2($elm$core$List$take, n, xs),
 			A2($elm$core$List$drop, n, xs));
 	});
-var $author$project$Main$takeEveryNthIndexesFromIndex = F3(
+var $author$project$Crossword$takeEveryNthIndexesFromIndex = F3(
 	function (n, initialIndex, l) {
 		var cellsFromIndex = A2($elm_community$list_extra$List$Extra$splitAt, initialIndex - 1, l).b;
 		return A2(
@@ -7031,24 +7486,24 @@ var $author$project$Main$takeEveryNthIndexesFromIndex = F3(
 					}),
 				cellsFromIndex));
 	});
-var $author$project$Main$getDownWhiteIndex = function (model) {
-	var rowNumber = $author$project$Main$currentRowNumber(model);
-	var columnNumber = $author$project$Main$currentColumnNumber(model);
-	var columnSquares = A3($author$project$Main$takeEveryNthIndexesFromIndex, model.e.ao, columnNumber, model.e.B);
+var $author$project$Crossword$getDownWhiteIndex = function (model) {
+	var rowNumber = $author$project$Crossword$currentRowNumber(model);
+	var columnNumber = $author$project$Crossword$currentColumnNumber(model);
+	var columnSquares = A3($author$project$Crossword$takeEveryNthIndexesFromIndex, model.e.aq, columnNumber, model.e.B);
 	var columnsDown = A2($elm_community$list_extra$List$Extra$splitAt, rowNumber, columnSquares).b;
-	var index = A2($elm_community$list_extra$List$Extra$findIndex, $author$project$Main$isWhiteSquare, columnsDown);
+	var index = A2($elm_community$list_extra$List$Extra$findIndex, $author$project$Crossword$isWhiteSquare, columnsDown);
 	if (!index.$) {
 		var n = index.a;
-		return model.b.g + (model.e.ao * (n + 1));
+		return model.b.g + (model.e.aq * (n + 1));
 	} else {
 		return model.b.g;
 	}
 };
-var $author$project$Main$getLeftWhiteIndex = F2(
+var $author$project$Crossword$getLeftWhiteIndex = F2(
 	function (grid, index) {
 		var previousSquares = $elm$core$List$reverse(
 			A2($elm_community$list_extra$List$Extra$splitAt, index, grid).a);
-		var offset = A2($elm_community$list_extra$List$Extra$findIndex, $author$project$Main$isWhiteSquare, previousSquares);
+		var offset = A2($elm_community$list_extra$List$Extra$findIndex, $author$project$Crossword$isWhiteSquare, previousSquares);
 		if (!offset.$) {
 			var n = offset.a;
 			return (index - n) - 1;
@@ -7056,10 +7511,10 @@ var $author$project$Main$getLeftWhiteIndex = F2(
 			return index;
 		}
 	});
-var $author$project$Main$getRightWhiteIndex = F2(
+var $author$project$Crossword$getRightWhiteIndex = F2(
 	function (grid, index) {
 		var nextSquares = A2($elm_community$list_extra$List$Extra$splitAt, index + 1, grid).b;
-		var _v0 = A2($elm_community$list_extra$List$Extra$findIndex, $author$project$Main$isWhiteSquare, nextSquares);
+		var _v0 = A2($elm_community$list_extra$List$Extra$findIndex, $author$project$Crossword$isWhiteSquare, nextSquares);
 		if (!_v0.$) {
 			var n = _v0.a;
 			return (index + 1) + n;
@@ -7067,28 +7522,28 @@ var $author$project$Main$getRightWhiteIndex = F2(
 			return index;
 		}
 	});
-var $author$project$Main$getUpWhiteIndex = function (model) {
-	var rowNumber = $author$project$Main$currentRowNumber(model);
-	var columnNumber = $author$project$Main$currentColumnNumber(model);
-	var columnSquares = A3($author$project$Main$takeEveryNthIndexesFromIndex, model.e.ao, columnNumber, model.e.B);
+var $author$project$Crossword$getUpWhiteIndex = function (model) {
+	var rowNumber = $author$project$Crossword$currentRowNumber(model);
+	var columnNumber = $author$project$Crossword$currentColumnNumber(model);
+	var columnSquares = A3($author$project$Crossword$takeEveryNthIndexesFromIndex, model.e.aq, columnNumber, model.e.B);
 	var columnsUp = $elm$core$List$reverse(
 		A2($elm_community$list_extra$List$Extra$splitAt, rowNumber - 1, columnSquares).a);
-	var index = A2($elm_community$list_extra$List$Extra$findIndex, $author$project$Main$isWhiteSquare, columnsUp);
+	var index = A2($elm_community$list_extra$List$Extra$findIndex, $author$project$Crossword$isWhiteSquare, columnsUp);
 	if (!index.$) {
 		var n = index.a;
-		return model.b.g - (model.e.ao * (n + 1));
+		return model.b.g - (model.e.aq * (n + 1));
 	} else {
 		return model.b.g;
 	}
 };
-var $author$project$Main$getNextWhiteCell = F3(
+var $author$project$Crossword$getNextWhiteCell = F3(
 	function (model, direction, backwards) {
-		return (!direction) ? (backwards ? A2($author$project$Main$getLeftWhiteIndex, model.e.B, model.b.g) : A2($author$project$Main$getRightWhiteIndex, model.e.B, model.b.g)) : (backwards ? $author$project$Main$getUpWhiteIndex(model) : $author$project$Main$getDownWhiteIndex(model));
+		return (!direction) ? (backwards ? A2($author$project$Crossword$getLeftWhiteIndex, model.e.B, model.b.g) : A2($author$project$Crossword$getRightWhiteIndex, model.e.B, model.b.g)) : (backwards ? $author$project$Crossword$getUpWhiteIndex(model) : $author$project$Crossword$getDownWhiteIndex(model));
 	});
-var $author$project$Main$moveToNextWhiteCell = F3(
+var $author$project$Crossword$moveToNextWhiteCell = F3(
 	function (model, direction, backwards) {
 		var state = model.b;
-		var nextIndex = A3($author$project$Main$getNextWhiteCell, model, direction, backwards);
+		var nextIndex = A3($author$project$Crossword$getNextWhiteCell, model, direction, backwards);
 		var newState = _Utils_update(
 			state,
 			{k: direction, g: nextIndex});
@@ -7097,10 +7552,8 @@ var $author$project$Main$moveToNextWhiteCell = F3(
 				_Utils_update(
 					model,
 					{b: newState})),
-			$author$project$Main$focusTextInput);
+			$author$project$Crossword$focusTextInput);
 	});
-var $elm$core$Platform$Cmd$batch = _Platform_batch;
-var $elm$core$Platform$Cmd$none = $elm$core$Platform$Cmd$batch(_List_Nil);
 var $elm_community$list_extra$List$Extra$updateIfIndex = F3(
 	function (predicate, update, list) {
 		return A2(
@@ -7111,7 +7564,7 @@ var $elm_community$list_extra$List$Extra$updateIfIndex = F3(
 				}),
 			list);
 	});
-var $author$project$Main$updateGrid = F3(
+var $author$project$Crossword$updateGrid = F3(
 	function (grid, index, newChar) {
 		return A3(
 			$elm_community$list_extra$List$Extra$updateIfIndex,
@@ -7122,29 +7575,29 @@ var $author$project$Main$updateGrid = F3(
 					return $author$project$Types$White(
 						_Utils_update(
 							cellData,
-							{av: newChar}));
+							{ay: newChar}));
 				} else {
 					return $author$project$Types$Black;
 				}
 			},
 			grid);
 	});
-var $author$project$Main$updateCrossword = F3(
+var $author$project$Crossword$updateCrossword = F3(
 	function (crossword, index, newContent) {
 		return _Utils_update(
 			crossword,
 			{
-				B: A3($author$project$Main$updateGrid, crossword.B, index, newContent)
+				B: A3($author$project$Crossword$updateGrid, crossword.B, index, newContent)
 			});
 	});
-var $author$project$Main$update = F2(
+var $author$project$Crossword$update = F2(
 	function (msg, model) {
 		switch (msg.$) {
 			case 4:
 				var result = msg.a;
 				if (!result.$) {
 					var crossword = result.a;
-					var data = $author$project$Main$dataFromCrossword(crossword);
+					var data = $author$project$Crossword$dataFromCrossword(crossword);
 					return _Utils_Tuple2(
 						$author$project$Types$Success(data),
 						$elm$core$Platform$Cmd$none);
@@ -7166,10 +7619,10 @@ var $author$project$Main$update = F2(
 						var data = model.a;
 						if (newContent.$ === 1) {
 							var state = data.b;
-							var currentCellChar = $author$project$Main$getCurrentCellChar(data);
+							var currentCellChar = $author$project$Crossword$getCurrentCellChar(data);
 							var nextIndex = function () {
 								if (currentCellChar.$ === 1) {
-									return A3($author$project$Main$getNextWhiteCell, data, data.b.k, true);
+									return A3($author$project$Crossword$getNextWhiteCell, data, data.b.k, true);
 								} else {
 									return data.b.g;
 								}
@@ -7180,17 +7633,17 @@ var $author$project$Main$update = F2(
 							var newData = _Utils_update(
 								data,
 								{
-									e: A3($author$project$Main$updateCrossword, data.e, data.b.g, $elm$core$Maybe$Nothing),
-									ae: '',
+									e: A3($author$project$Crossword$updateCrossword, data.e, data.b.g, $elm$core$Maybe$Nothing),
+									af: '',
 									b: newState
 								});
 							return _Utils_Tuple2(
 								$author$project$Types$Success(newData),
-								$author$project$Main$focusTextInput);
+								$author$project$Crossword$focusTextInput);
 						} else {
 							var _char = newContent.a;
 							var state = data.b;
-							var nextIndex = (!data.b.k) ? A2($author$project$Main$getRightWhiteIndex, data.e.B, index) : $author$project$Main$getDownWhiteIndex(data);
+							var nextIndex = (!data.b.k) ? A2($author$project$Crossword$getRightWhiteIndex, data.e.B, index) : $author$project$Crossword$getDownWhiteIndex(data);
 							var newState = _Utils_update(
 								state,
 								{g: nextIndex});
@@ -7199,11 +7652,11 @@ var $author$project$Main$update = F2(
 									_Utils_update(
 										data,
 										{
-											e: A3($author$project$Main$updateCrossword, data.e, index, newContent),
-											ae: $elm$core$String$fromChar(_char),
+											e: A3($author$project$Crossword$updateCrossword, data.e, index, newContent),
+											af: $elm$core$String$fromChar(_char),
 											b: newState
 										})),
-								$author$project$Main$focusTextInput);
+								$author$project$Crossword$focusTextInput);
 						}
 				}
 			case 1:
@@ -7216,7 +7669,7 @@ var $author$project$Main$update = F2(
 						return _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
 					default:
 						var data = model.a;
-						return A3($author$project$Main$calculateDataAfterFocus, data, index, cellData);
+						return A3($author$project$Crossword$calculateDataAfterFocus, data, index, cellData);
 				}
 			case 2:
 				var index = msg.a;
@@ -7228,7 +7681,7 @@ var $author$project$Main$update = F2(
 						return _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
 					default:
 						var data = model.a;
-						return A3($author$project$Main$calculateDataAfterClick, data, index, cellData);
+						return A3($author$project$Crossword$calculateDataAfterClick, data, index, cellData);
 				}
 			case 3:
 				var keyEventMsg = msg.a;
@@ -7242,10 +7695,10 @@ var $author$project$Main$update = F2(
 						switch (keyEventMsg) {
 							case 2:
 								var state = data.b;
-								var currentCellChar = $author$project$Main$getCurrentCellChar(data);
+								var currentCellChar = $author$project$Crossword$getCurrentCellChar(data);
 								var nextIndex = function () {
 									if (currentCellChar.$ === 1) {
-										return A3($author$project$Main$getNextWhiteCell, data, data.b.k, true);
+										return A3($author$project$Crossword$getNextWhiteCell, data, data.b.k, true);
 									} else {
 										return data.b.g;
 									}
@@ -7258,35 +7711,35 @@ var $author$project$Main$update = F2(
 										_Utils_update(
 											data,
 											{
-												e: A3($author$project$Main$updateCrossword, data.e, data.b.g, $elm$core$Maybe$Nothing),
-												ae: '',
+												e: A3($author$project$Crossword$updateCrossword, data.e, data.b.g, $elm$core$Maybe$Nothing),
+												af: '',
 												b: newState
 											})),
-									$author$project$Main$focusTextInput);
+									$author$project$Crossword$focusTextInput);
 							case 1:
-								return A3($author$project$Main$moveToNextWhiteCell, data, data.b.k, data.as);
+								return A3($author$project$Crossword$moveToNextWhiteCell, data, data.b.k, data.av);
 							case 3:
 								return _Utils_Tuple2(
 									$author$project$Types$Success(
 										_Utils_update(
 											data,
-											{as: true})),
+											{av: true})),
 									$elm$core$Platform$Cmd$none);
 							case 4:
 								return _Utils_Tuple2(
 									$author$project$Types$Success(
 										_Utils_update(
 											data,
-											{as: false})),
+											{av: false})),
 									$elm$core$Platform$Cmd$none);
 							case 5:
-								return A3($author$project$Main$moveToNextWhiteCell, data, 0, true);
+								return A3($author$project$Crossword$moveToNextWhiteCell, data, 0, true);
 							case 6:
-								return A3($author$project$Main$moveToNextWhiteCell, data, 0, false);
+								return A3($author$project$Crossword$moveToNextWhiteCell, data, 0, false);
 							case 7:
-								return A3($author$project$Main$moveToNextWhiteCell, data, 1, true);
+								return A3($author$project$Crossword$moveToNextWhiteCell, data, 1, true);
 							case 8:
-								return A3($author$project$Main$moveToNextWhiteCell, data, 1, false);
+								return A3($author$project$Crossword$moveToNextWhiteCell, data, 1, false);
 							default:
 								return _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
 						}
@@ -7295,7 +7748,88 @@ var $author$project$Main$update = F2(
 				return _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
 		}
 	});
-var $author$project$Main$buildErrorMessage = function (httpError) {
+var $author$project$CrosswordsList$update = F2(
+	function (msg, model) {
+		var result = msg;
+		if (!result.$) {
+			var crosswords = result.a;
+			return _Utils_Tuple2(
+				{an: crosswords},
+				$elm$core$Platform$Cmd$none);
+		} else {
+			return _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
+		}
+	});
+var $author$project$Main$update = F2(
+	function (msg, model) {
+		var _v0 = _Utils_Tuple2(msg, model.H);
+		_v0$4:
+		while (true) {
+			switch (_v0.a.$) {
+				case 0:
+					if (_v0.b.$ === 2) {
+						var subMsg = _v0.a.a;
+						var pageModel = _v0.b.a;
+						var _v1 = A2($author$project$CrosswordsList$update, subMsg, pageModel);
+						var updatedPageModel = _v1.a;
+						var updatedCmd = _v1.b;
+						return _Utils_Tuple2(
+							_Utils_update(
+								model,
+								{
+									H: $author$project$Main$CrosswordsListPage(updatedPageModel)
+								}),
+							A2($elm$core$Platform$Cmd$map, $author$project$Main$CrosswordsListMsg, updatedCmd));
+					} else {
+						break _v0$4;
+					}
+				case 1:
+					if (_v0.b.$ === 1) {
+						var subMsg = _v0.a.a;
+						var pageModel = _v0.b.a;
+						var _v2 = A2($author$project$Crossword$update, subMsg, pageModel);
+						var updatedPageModel = _v2.a;
+						var updatedCmd = _v2.b;
+						return _Utils_Tuple2(
+							_Utils_update(
+								model,
+								{
+									H: $author$project$Main$CrosswordPage(updatedPageModel)
+								}),
+							A2($elm$core$Platform$Cmd$map, $author$project$Main$CrosswordMsg, updatedCmd));
+					} else {
+						break _v0$4;
+					}
+				case 2:
+					var urlRequest = _v0.a.a;
+					if (!urlRequest.$) {
+						var url = urlRequest.a;
+						return _Utils_Tuple2(
+							model,
+							A2(
+								$elm$browser$Browser$Navigation$pushUrl,
+								model.aF,
+								$elm$url$Url$toString(url)));
+					} else {
+						var url = urlRequest.a;
+						return _Utils_Tuple2(
+							model,
+							$elm$browser$Browser$Navigation$load(url));
+					}
+				default:
+					var url = _v0.a.a;
+					var newRoute = $author$project$Main$parseUrl(url);
+					return $author$project$Main$initCurrentPage(
+						_Utils_Tuple2(
+							_Utils_update(
+								model,
+								{ar: newRoute}),
+							$elm$core$Platform$Cmd$none));
+			}
+		}
+		return _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
+	});
+var $author$project$Crossword$buildErrorMessage = function (httpError) {
 	switch (httpError.$) {
 		case 0:
 			var message = httpError.a;
@@ -7317,14 +7851,14 @@ var $elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
 var $elm$html$Html$text = $elm$virtual_dom$VirtualDom$text;
 var $elm$virtual_dom$VirtualDom$style = _VirtualDom_style;
 var $elm$html$Html$Attributes$style = $elm$virtual_dom$VirtualDom$style;
-var $author$project$Main$directionToString = function (direction) {
+var $author$project$Crossword$directionToString = function (direction) {
 	if (!direction) {
 		return 'Across';
 	} else {
 		return 'Down';
 	}
 };
-var $author$project$Main$textDiv = function (string) {
+var $author$project$Crossword$textDiv = function (string) {
 	return A2(
 		$elm$html$Html$div,
 		_List_Nil,
@@ -7335,7 +7869,7 @@ var $author$project$Main$textDiv = function (string) {
 };
 var $elm$virtual_dom$VirtualDom$lazy2 = _VirtualDom_lazy2;
 var $elm$html$Html$Lazy$lazy2 = $elm$virtual_dom$VirtualDom$lazy2;
-var $author$project$Main$viewClue = F2(
+var $author$project$Crossword$viewClue = F2(
 	function (backgroundColor, clue) {
 		return A2(
 			$elm$html$Html$div,
@@ -7347,17 +7881,17 @@ var $author$project$Main$viewClue = F2(
 				]),
 			_List_fromArray(
 				[
-					$author$project$Main$textDiv(
-					$elm$core$String$fromInt(clue.ah)),
-					$author$project$Main$textDiv(clue.cu)
+					$author$project$Crossword$textDiv(
+					$elm$core$String$fromInt(clue.ai)),
+					$author$project$Crossword$textDiv(clue.cB)
 				]));
 	});
-var $author$project$Main$viewClueAndDataAndDirection = F3(
+var $author$project$Crossword$viewClueAndDataAndDirection = F3(
 	function (model, direction, clue) {
-		var backgroundColor = (_Utils_eq(model.b.I.ah, clue.ah) && _Utils_eq(direction, model.b.I.k)) ? 'yellow' : 'white';
-		return A3($elm$html$Html$Lazy$lazy2, $author$project$Main$viewClue, backgroundColor, clue);
+		var backgroundColor = (_Utils_eq(model.b.J.ai, clue.ai) && _Utils_eq(direction, model.b.J.k)) ? 'yellow' : 'white';
+		return A3($elm$html$Html$Lazy$lazy2, $author$project$Crossword$viewClue, backgroundColor, clue);
 	});
-var $author$project$Main$viewClues = F3(
+var $author$project$Crossword$viewClues = F3(
 	function (model, direction, clues) {
 		return A2(
 			$elm$html$Html$div,
@@ -7368,10 +7902,10 @@ var $author$project$Main$viewClues = F3(
 				]),
 			A2(
 				$elm$core$List$map,
-				A2($author$project$Main$viewClueAndDataAndDirection, model, direction),
+				A2($author$project$Crossword$viewClueAndDataAndDirection, model, direction),
 				clues));
 	});
-var $author$project$Main$viewCluesSection = F3(
+var $author$project$Crossword$viewCluesSection = F3(
 	function (model, direction, clues) {
 		return A2(
 			$elm$html$Html$div,
@@ -7382,9 +7916,9 @@ var $author$project$Main$viewCluesSection = F3(
 				]),
 			_List_fromArray(
 				[
-					$author$project$Main$textDiv(
-					$author$project$Main$directionToString(direction)),
-					A3($author$project$Main$viewClues, model, direction, clues)
+					$author$project$Crossword$textDiv(
+					$author$project$Crossword$directionToString(direction)),
+					A3($author$project$Crossword$viewClues, model, direction, clues)
 				]));
 	});
 var $elm$core$String$concat = function (strings) {
@@ -7428,14 +7962,14 @@ var $elm$html$Html$Events$onInput = function (tagger) {
 			$elm$html$Html$Events$alwaysStop,
 			A2($elm$json$Json$Decode$map, tagger, $elm$html$Html$Events$targetValue)));
 };
-var $author$project$Main$Change = F2(
+var $author$project$Crossword$Change = F2(
 	function (a, b) {
 		return {$: 0, a: a, b: b};
 	});
-var $author$project$Main$onTextInput = F2(
+var $author$project$Crossword$onTextInput = F2(
 	function (model, string) {
 		return A2(
-			$author$project$Main$Change,
+			$author$project$Crossword$Change,
 			model.b.g,
 			$elm$core$List$head(
 				$elm$core$List$reverse(
@@ -7444,7 +7978,7 @@ var $author$project$Main$onTextInput = F2(
 var $elm$html$Html$Attributes$value = $elm$html$Html$Attributes$stringProperty('value');
 var $elm$core$String$fromFloat = _String_fromNumber;
 var $elm$core$Basics$sqrt = _Basics_sqrt;
-var $author$project$Main$getGridTemplate = function (model) {
+var $author$project$Crossword$getGridTemplate = function (model) {
 	var rowCount = $elm$core$Basics$sqrt(
 		$elm$core$List$length(model.e.B));
 	var singleCellPercentage = 100 / rowCount;
@@ -7464,25 +7998,25 @@ var $author$project$Main$getGridTemplate = function (model) {
 };
 var $elm$virtual_dom$VirtualDom$lazy6 = _VirtualDom_lazy6;
 var $elm$html$Html$Lazy$lazy6 = $elm$virtual_dom$VirtualDom$lazy6;
-var $author$project$Main$shouldHighlight = F2(
+var $author$project$Crossword$shouldHighlight = F2(
 	function (model, cellData) {
-		var _v0 = cellData.ab;
+		var _v0 = cellData.ac;
 		if (!_v0.$) {
 			var clueId = _v0.a;
-			return (_Utils_eq(clueId, model.b.I) && _Utils_eq(clueId.k, model.b.k)) || _Utils_eq(cellData.A, model.b.I);
+			return (_Utils_eq(clueId, model.b.J) && _Utils_eq(clueId.k, model.b.k)) || _Utils_eq(cellData.A, model.b.J);
 		} else {
-			return _Utils_eq(cellData.A, model.b.I);
+			return _Utils_eq(cellData.A, model.b.J);
 		}
 	});
-var $author$project$Main$Click = F2(
+var $author$project$Crossword$Click = F2(
 	function (a, b) {
 		return {$: 2, a: a, b: b};
 	});
-var $author$project$Main$Focus = F2(
+var $author$project$Crossword$Focus = F2(
 	function (a, b) {
 		return {$: 1, a: a, b: b};
 	});
-var $author$project$Main$charToString = function (_char) {
+var $author$project$Crossword$charToString = function (_char) {
 	if (!_char.$) {
 		var c = _char.a;
 		return $elm$core$String$fromChar(c);
@@ -7528,17 +8062,17 @@ var $elm$core$Basics$always = F2(
 		return a;
 	});
 var $elm$html$Html$Events$keyCode = A2($elm$json$Json$Decode$field, 'keyCode', $elm$json$Json$Decode$int);
-var $author$project$Main$succeededIfTabKey = function (key) {
+var $author$project$Crossword$succeededIfTabKey = function (key) {
 	return (key === 9) ? $elm$json$Json$Decode$succeed(key) : $elm$json$Json$Decode$fail('non-tab');
 };
-var $author$project$Main$tabPressed = A2(
+var $author$project$Crossword$tabPressed = A2(
 	$elm$json$Json$Decode$map,
 	$elm$core$Basics$always(
 		_Utils_Tuple2(
-			$author$project$Main$KeyTouched(0),
+			$author$project$Crossword$KeyTouched(0),
 			true)),
-	A2($elm$json$Json$Decode$andThen, $author$project$Main$succeededIfTabKey, $elm$html$Html$Events$keyCode));
-var $author$project$Main$viewCell = F6(
+	A2($elm$json$Json$Decode$andThen, $author$project$Crossword$succeededIfTabKey, $elm$html$Html$Events$keyCode));
+var $author$project$Crossword$viewCell = F6(
 	function (cell, index, border, zIndex, backgroundColor, selected) {
 		if (!cell.$) {
 			var cellData = cell.a;
@@ -7561,7 +8095,7 @@ var $author$project$Main$viewCell = F6(
 							[
 								$elm$html$Html$text(
 								function () {
-									var _v1 = cellData.ah;
+									var _v1 = cellData.ai;
 									if (!_v1.$) {
 										var number = _v1.a;
 										return $elm$core$String$fromInt(number);
@@ -7579,12 +8113,12 @@ var $author$project$Main$viewCell = F6(
 								A2($elm$html$Html$Attributes$style, 'position', 'relative'),
 								$elm$html$Html$Attributes$placeholder(''),
 								$elm$html$Html$Attributes$value(
-								$author$project$Main$charToString(cellData.av)),
-								A2($elm$html$Html$Events$preventDefaultOn, 'keydown', $author$project$Main$tabPressed),
+								$author$project$Crossword$charToString(cellData.ay)),
+								A2($elm$html$Html$Events$preventDefaultOn, 'keydown', $author$project$Crossword$tabPressed),
 								$elm$html$Html$Events$onFocus(
-								A2($author$project$Main$Focus, index, cellData)),
+								A2($author$project$Crossword$Focus, index, cellData)),
 								$elm$html$Html$Events$onClick(
-								A2($author$project$Main$Click, index, cellData)),
+								A2($author$project$Crossword$Click, index, cellData)),
 								A2($elm$html$Html$Attributes$style, 'border', border),
 								A2($elm$html$Html$Attributes$style, 'z-index', zIndex),
 								A2($elm$html$Html$Attributes$style, 'text-transform', 'uppercase'),
@@ -7606,7 +8140,7 @@ var $author$project$Main$viewCell = F6(
 						_List_fromArray(
 							[
 								$elm$html$Html$text(
-								$author$project$Main$charToString(cellData.av))
+								$author$project$Crossword$charToString(cellData.ay))
 							]))
 					]));
 		} else {
@@ -7619,7 +8153,7 @@ var $author$project$Main$viewCell = F6(
 				_List_Nil);
 		}
 	});
-var $author$project$Main$viewCellAndData = F3(
+var $author$project$Crossword$viewCellAndData = F3(
 	function (model, index, cell) {
 		var selected = _Utils_eq(index, model.b.g);
 		var zIndex = selected ? '10' : '1';
@@ -7628,14 +8162,14 @@ var $author$project$Main$viewCellAndData = F3(
 				return false;
 			} else {
 				var cellData = cell.a;
-				return A2($author$project$Main$shouldHighlight, model, cellData);
+				return A2($author$project$Crossword$shouldHighlight, model, cellData);
 			}
 		}();
 		var border = selected ? '3px solid DodgerBlue' : '0px solid black';
 		var backgroundColor = highlight ? 'yellow' : 'white';
-		return A7($elm$html$Html$Lazy$lazy6, $author$project$Main$viewCell, cell, index, border, zIndex, backgroundColor, selected);
+		return A7($elm$html$Html$Lazy$lazy6, $author$project$Crossword$viewCell, cell, index, border, zIndex, backgroundColor, selected);
 	});
-var $author$project$Main$viewGrid = function (model) {
+var $author$project$Crossword$viewGrid = function (model) {
 	return A2(
 		$elm$html$Html$div,
 		_List_fromArray(
@@ -7649,15 +8183,15 @@ var $author$project$Main$viewGrid = function (model) {
 				A2(
 				$elm$html$Html$Attributes$style,
 				'grid-template',
-				$author$project$Main$getGridTemplate(model)),
+				$author$project$Crossword$getGridTemplate(model)),
 				A2($elm$html$Html$Attributes$style, 'list-style-type', 'none')
 			]),
 		A2(
 			$elm$core$List$indexedMap,
-			$author$project$Main$viewCellAndData(model),
+			$author$project$Crossword$viewCellAndData(model),
 			model.e.B));
 };
-var $author$project$Main$viewGridWithInput = function (model) {
+var $author$project$Crossword$viewGridWithInput = function (model) {
 	return A2(
 		$elm$html$Html$div,
 		_List_Nil,
@@ -7687,7 +8221,7 @@ var $author$project$Main$viewGridWithInput = function (model) {
 							_List_fromArray(
 								[
 									$elm$core$String$fromInt(
-									($author$project$Main$currentRowNumber(model) - 1) * 50),
+									($author$project$Crossword$currentRowNumber(model) - 1) * 50),
 									'px'
 								]))),
 						A2(
@@ -7697,18 +8231,18 @@ var $author$project$Main$viewGridWithInput = function (model) {
 							_List_fromArray(
 								[
 									$elm$core$String$fromInt(
-									($author$project$Main$currentColumnNumber(model) - 1) * 50),
+									($author$project$Crossword$currentColumnNumber(model) - 1) * 50),
 									'px'
 								]))),
 						$elm$html$Html$Events$onInput(
-						$author$project$Main$onTextInput(model)),
-						$elm$html$Html$Attributes$value(model.ae)
+						$author$project$Crossword$onTextInput(model)),
+						$elm$html$Html$Attributes$value(model.af)
 					]),
 				_List_Nil),
-				$author$project$Main$viewGrid(model)
+				$author$project$Crossword$viewGrid(model)
 			]));
 };
-var $author$project$Main$viewPuzzle = function (model) {
+var $author$project$Crossword$viewPuzzle = function (model) {
 	return A2(
 		$elm$html$Html$div,
 		_List_fromArray(
@@ -7717,14 +8251,16 @@ var $author$project$Main$viewPuzzle = function (model) {
 			]),
 		_List_fromArray(
 			[
-				$author$project$Main$viewGridWithInput(model),
-				A3($author$project$Main$viewCluesSection, model, 0, model.e.aO.bD),
-				A3($author$project$Main$viewCluesSection, model, 1, model.e.aO.bQ)
+				$author$project$Crossword$viewGridWithInput(model),
+				A3($author$project$Crossword$viewCluesSection, model, 0, model.e.aV.bK),
+				A3($author$project$Crossword$viewCluesSection, model, 1, model.e.aV.bX)
 			]));
 };
-var $author$project$Main$view = function (model) {
-	return {
-		bJ: _List_fromArray(
+var $author$project$Crossword$htmlView = function (model) {
+	return A2(
+		$elm$html$Html$div,
+		_List_Nil,
+		_List_fromArray(
 			[
 				function () {
 				switch (model.$) {
@@ -7736,7 +8272,7 @@ var $author$project$Main$view = function (model) {
 							_List_fromArray(
 								[
 									$elm$html$Html$text(
-									$author$project$Main$buildErrorMessage(err))
+									$author$project$Crossword$buildErrorMessage(err))
 								]));
 					case 1:
 						return A2(
@@ -7748,14 +8284,108 @@ var $author$project$Main$view = function (model) {
 								]));
 					default:
 						var data = model.a;
-						return $author$project$Main$viewPuzzle(data);
+						return $author$project$Crossword$viewPuzzle(data);
 				}
 			}()
+			]));
+};
+var $elm$virtual_dom$VirtualDom$map = _VirtualDom_map;
+var $elm$html$Html$map = $elm$virtual_dom$VirtualDom$map;
+var $elm$html$Html$h3 = _VirtualDom_node('h3');
+var $author$project$Main$notFoundView = A2(
+	$elm$html$Html$h3,
+	_List_Nil,
+	_List_fromArray(
+		[
+			$elm$html$Html$text('Oops! The page you requested was not found!')
+		]));
+var $elm$html$Html$li = _VirtualDom_node('li');
+var $elm$html$Html$a = _VirtualDom_node('a');
+var $elm$html$Html$Attributes$href = function (url) {
+	return A2(
+		$elm$html$Html$Attributes$stringProperty,
+		'href',
+		_VirtualDom_noJavaScriptUri(url));
+};
+var $author$project$CrosswordsList$viewLink = function (path) {
+	return A2(
+		$elm$html$Html$div,
+		_List_Nil,
+		_List_fromArray(
+			[
+				A2(
+				$elm$html$Html$a,
+				_List_fromArray(
+					[
+						$elm$html$Html$Attributes$href(path)
+					]),
+				_List_fromArray(
+					[
+						$elm$html$Html$text(path)
+					]))
+			]));
+};
+var $author$project$CrosswordsList$viewCrosswordLink = function (crossword) {
+	return A2(
+		$elm$html$Html$li,
+		_List_fromArray(
+			[
+				A2($elm$html$Html$Attributes$style, 'display', 'flex')
 			]),
-		cw: 'Crossword'
+		_List_fromArray(
+			[
+				$elm$html$Html$text(crossword.aJ),
+				$elm$html$Html$text(
+				$elm$core$String$fromInt(crossword.aK)),
+				$author$project$CrosswordsList$viewLink('/crossword/' + crossword.aC)
+			]));
+};
+var $author$project$CrosswordsList$view = function (model) {
+	return A2(
+		$elm$html$Html$div,
+		_List_Nil,
+		A2($elm$core$List$map, $author$project$CrosswordsList$viewCrosswordLink, model.an));
+};
+var $author$project$Main$htmlView = function (model) {
+	var _v0 = model.H;
+	switch (_v0.$) {
+		case 0:
+			return $author$project$Main$notFoundView;
+		case 1:
+			var pageModel = _v0.a;
+			return A2(
+				$elm$html$Html$map,
+				$author$project$Main$CrosswordMsg,
+				$author$project$Crossword$htmlView(pageModel));
+		default:
+			var pageModel = _v0.a;
+			return A2(
+				$elm$html$Html$map,
+				$author$project$Main$CrosswordsListMsg,
+				$author$project$CrosswordsList$view(pageModel));
+	}
+};
+var $author$project$Main$title = function (model) {
+	var _v0 = model.H;
+	switch (_v0.$) {
+		case 0:
+			return 'Not found';
+		case 1:
+			return 'Crossword';
+		default:
+			return 'Crosswords';
+	}
+};
+var $author$project$Main$view = function (model) {
+	return {
+		bQ: _List_fromArray(
+			[
+				$author$project$Main$htmlView(model)
+			]),
+		cD: $author$project$Main$title(model)
 	};
 };
-var $author$project$Main$main = $elm$browser$Browser$document(
-	{b_: $author$project$Main$init, cr: $author$project$Main$subscriptions, cy: $author$project$Main$update, cA: $author$project$Main$view});
+var $author$project$Main$main = $elm$browser$Browser$application(
+	{b5: $author$project$Main$init, cl: $author$project$Main$UrlChanged, cm: $author$project$Main$LinkClicked, cy: $author$project$Main$subscriptions, cF: $author$project$Main$update, cH: $author$project$Main$view});
 _Platform_export({'Main':{'init':$author$project$Main$main(
 	$elm$json$Json$Decode$succeed(0))(0)}});}(this));
