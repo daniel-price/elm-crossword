@@ -5369,6 +5369,9 @@ var $author$project$Crossword$GotCrossword = function (a) {
 	return {$: 4, a: a};
 };
 var $author$project$Types$Loading = {$: 1};
+var $elm$core$String$concat = function (strings) {
+	return A2($elm$core$String$join, '', strings);
+};
 var $author$project$Types$Crossword = F4(
 	function (grid, clues, numberOfColumns, numberOfRows) {
 		return {aV: clues, B: grid, bg: numberOfColumns, aq: numberOfRows};
@@ -6374,13 +6377,15 @@ var $elm$http$Http$get = function (r) {
 	return $elm$http$Http$request(
 		{bQ: $elm$http$Http$emptyBody, b_: r.b_, a4: _List_Nil, b9: 'GET', cC: $elm$core$Maybe$Nothing, bD: $elm$core$Maybe$Nothing, cG: r.cG});
 };
-var $author$project$Crossword$init = function (_v0) {
+var $author$project$Crossword$init = function (crosswordId) {
 	return _Utils_Tuple2(
 		$author$project$Types$Loading,
 		$elm$http$Http$get(
 			{
 				b_: A2($elm$http$Http$expectJson, $author$project$Crossword$GotCrossword, $author$project$Crossword$crosswordDecoder),
-				cG: 'http://localhost:8080/crossword/f5dae7b0-0366-47f2-b77e-51f316a14ea6'
+				cG: $elm$core$String$concat(
+					_List_fromArray(
+						['http://localhost:8080/crossword/', crosswordId]))
 			}));
 };
 var $author$project$CrosswordsList$GetCrosswordsList = $elm$core$Basics$identity;
@@ -6730,7 +6735,12 @@ var $author$project$Main$init = F3(
 		var model = {
 			aF: navKey,
 			H: $author$project$Main$CrosswordsListPage(
-				{an: _List_Nil}),
+				{
+					an: _List_fromArray(
+						[
+							{aC: '', aJ: '', aK: 1}
+						])
+				}),
 			ar: $author$project$Main$parseUrl(url)
 		};
 		return $author$project$Main$initCurrentPage(
@@ -7921,9 +7931,6 @@ var $author$project$Crossword$viewCluesSection = F3(
 					A3($author$project$Crossword$viewClues, model, direction, clues)
 				]));
 	});
-var $elm$core$String$concat = function (strings) {
-	return A2($elm$core$String$join, '', strings);
-};
 var $elm$json$Json$Encode$string = _Json_wrap;
 var $elm$html$Html$Attributes$stringProperty = F2(
 	function (key, string) {

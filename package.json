@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "elm-live": "^4.0.2",
     "eruda": "^3.0.0"
   },
   "devDependencies": {

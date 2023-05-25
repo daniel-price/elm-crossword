@@ -6,7 +6,7 @@ Install git commit hook:
 `run prepare` 
 
 # Debugging
-`elm reactor`
+`npx elm-live src/Main.elm`
 
 # Mobile Debugging
 Start a live server:

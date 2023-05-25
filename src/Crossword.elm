@@ -29,10 +29,10 @@ main =
 
 
 init : CrosswordId -> ( Model, Cmd Msg )
-init _ =
+init crosswordId =
     ( Loading
     , Http.get
-        { url = "http://localhost:8080/crossword/f5dae7b0-0366-47f2-b77e-51f316a14ea6"
+        { url = String.concat [ "http://localhost:8080/crossword/", crosswordId ]
         , expect = Http.expectJson GotCrossword crosswordDecoder
         }
     )

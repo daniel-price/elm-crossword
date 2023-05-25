@@ -49,7 +49,7 @@ init _ url navKey =
         model : { route : Route, page : Page, navKey : Nav.Key }
         model =
             { route = parseUrl url
-            , page = CrosswordsListPage { crosswords = [] }
+            , page = CrosswordsListPage { crosswords = [ { id = "", series = "", seriesNo = 1 } ] }
             , navKey = navKey
             }
     in
