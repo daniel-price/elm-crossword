@@ -784,11 +784,11 @@ function _Debug_crash_UNUSED(identifier, fact1, fact2, fact3, fact4)
 
 function _Debug_regionToString(region)
 {
-	if (region.aM.ag === region.a_.ag)
+	if (region.aN.ag === region.a$.ag)
 	{
-		return 'on line ' + region.aM.ag;
+		return 'on line ' + region.aN.ag;
 	}
-	return 'on lines ' + region.aM.ag + ' through ' + region.a_.ag;
+	return 'on lines ' + region.aN.ag + ' through ' + region.a$.ag;
 }
 
 
@@ -1857,9 +1857,9 @@ var _Platform_worker = F4(function(impl, flagDecoder, debugMetadata, args)
 	return _Platform_initialize(
 		flagDecoder,
 		args,
-		impl.b5,
-		impl.cF,
-		impl.cy,
+		impl.b3,
+		impl.cD,
+		impl.cw,
 		function() { return function() {} }
 	);
 });
@@ -2720,8 +2720,8 @@ var _VirtualDom_mapEventRecord = F2(function(func, record)
 {
 	return {
 		L: func(record.L),
-		aN: record.aN,
-		aI: record.aI
+		aO: record.aO,
+		aJ: record.aJ
 	}
 });
 
@@ -2990,10 +2990,10 @@ function _VirtualDom_makeCallback(eventNode, initialHandler)
 
 		var value = result.a;
 		var message = !tag ? value : tag < 3 ? value.a : value.L;
-		var stopPropagation = tag == 1 ? value.b : tag == 3 && value.aN;
+		var stopPropagation = tag == 1 ? value.b : tag == 3 && value.aO;
 		var currentEventNode = (
 			stopPropagation && event.stopPropagation(),
-			(tag == 2 ? value.b : tag == 3 && value.aI) && event.preventDefault(),
+			(tag == 2 ? value.b : tag == 3 && value.aJ) && event.preventDefault(),
 			eventNode
 		);
 		var tagger;
@@ -3943,11 +3943,11 @@ var _Browser_element = _Debugger_element || F4(function(impl, flagDecoder, debug
 	return _Platform_initialize(
 		flagDecoder,
 		args,
-		impl.b5,
-		impl.cF,
-		impl.cy,
+		impl.b3,
+		impl.cD,
+		impl.cw,
 		function(sendToApp, initialModel) {
-			var view = impl.cH;
+			var view = impl.cF;
 			/**/
 			var domNode = args['node'];
 			//*/
@@ -3979,12 +3979,12 @@ var _Browser_document = _Debugger_document || F4(function(impl, flagDecoder, deb
 	return _Platform_initialize(
 		flagDecoder,
 		args,
-		impl.b5,
-		impl.cF,
-		impl.cy,
+		impl.b3,
+		impl.cD,
+		impl.cw,
 		function(sendToApp, initialModel) {
-			var divertHrefToApp = impl.aL && impl.aL(sendToApp)
-			var view = impl.cH;
+			var divertHrefToApp = impl.aM && impl.aM(sendToApp)
+			var view = impl.cF;
 			var title = _VirtualDom_doc.title;
 			var bodyNode = _VirtualDom_doc.body;
 			var currNode = _VirtualDom_virtualize(bodyNode);
@@ -3992,12 +3992,12 @@ var _Browser_document = _Debugger_document || F4(function(impl, flagDecoder, deb
 			{
 				_VirtualDom_divertHrefToApp = divertHrefToApp;
 				var doc = view(model);
-				var nextNode = _VirtualDom_node('body')(_List_Nil)(doc.bQ);
+				var nextNode = _VirtualDom_node('body')(_List_Nil)(doc.bO);
 				var patches = _VirtualDom_diff(currNode, nextNode);
 				bodyNode = _VirtualDom_applyPatches(bodyNode, currNode, patches, sendToApp);
 				currNode = nextNode;
 				_VirtualDom_divertHrefToApp = 0;
-				(title !== doc.cD) && (_VirtualDom_doc.title = title = doc.cD);
+				(title !== doc.cB) && (_VirtualDom_doc.title = title = doc.cB);
 			});
 		}
 	);
@@ -4053,12 +4053,12 @@ function _Browser_makeAnimator(model, draw)
 
 function _Browser_application(impl)
 {
-	var onUrlChange = impl.cl;
-	var onUrlRequest = impl.cm;
+	var onUrlChange = impl.cj;
+	var onUrlRequest = impl.ck;
 	var key = function() { key.a(onUrlChange(_Browser_getUrl())); };
 
 	return _Browser_document({
-		aL: function(sendToApp)
+		aM: function(sendToApp)
 		{
 			key.a = sendToApp;
 			_Browser_window.addEventListener('popstate', key);
@@ -4075,7 +4075,7 @@ function _Browser_application(impl)
 					sendToApp(onUrlRequest(
 						(next
 							&& curr.bn === next.bn
-							&& curr.a6 === next.a6
+							&& curr.a7 === next.a7
 							&& curr.bk.a === next.bk.a
 						)
 							? $elm$browser$Browser$Internal(next)
@@ -4084,13 +4084,13 @@ function _Browser_application(impl)
 				}
 			});
 		},
-		b5: function(flags)
+		b3: function(flags)
 		{
-			return A3(impl.b5, flags, _Browser_getUrl(), key);
+			return A3(impl.b3, flags, _Browser_getUrl(), key);
 		},
-		cH: impl.cH,
 		cF: impl.cF,
-		cy: impl.cy
+		cD: impl.cD,
+		cw: impl.cw
 	});
 }
 
@@ -4156,17 +4156,17 @@ var _Browser_decodeEvent = F2(function(decoder, event)
 function _Browser_visibilityInfo()
 {
 	return (typeof _VirtualDom_doc.hidden !== 'undefined')
-		? { b3: 'hidden', bT: 'visibilitychange' }
+		? { b1: 'hidden', bR: 'visibilitychange' }
 		:
 	(typeof _VirtualDom_doc.mozHidden !== 'undefined')
-		? { b3: 'mozHidden', bT: 'mozvisibilitychange' }
+		? { b1: 'mozHidden', bR: 'mozvisibilitychange' }
 		:
 	(typeof _VirtualDom_doc.msHidden !== 'undefined')
-		? { b3: 'msHidden', bT: 'msvisibilitychange' }
+		? { b1: 'msHidden', bR: 'msvisibilitychange' }
 		:
 	(typeof _VirtualDom_doc.webkitHidden !== 'undefined')
-		? { b3: 'webkitHidden', bT: 'webkitvisibilitychange' }
-		: { b3: 'hidden', bT: 'visibilitychange' };
+		? { b1: 'webkitHidden', bR: 'webkitvisibilitychange' }
+		: { b1: 'hidden', bR: 'visibilitychange' };
 }
 
 
@@ -4249,10 +4249,10 @@ function _Browser_getViewport()
 	return {
 		bu: _Browser_getScene(),
 		bE: {
-			bH: _Browser_window.pageXOffset,
-			bI: _Browser_window.pageYOffset,
+			cH: _Browser_window.pageXOffset,
+			cI: _Browser_window.pageYOffset,
 			bG: _Browser_doc.documentElement.clientWidth,
-			a5: _Browser_doc.documentElement.clientHeight
+			a6: _Browser_doc.documentElement.clientHeight
 		}
 	};
 }
@@ -4263,7 +4263,7 @@ function _Browser_getScene()
 	var elem = _Browser_doc.documentElement;
 	return {
 		bG: Math.max(body.scrollWidth, body.offsetWidth, elem.scrollWidth, elem.offsetWidth, elem.clientWidth),
-		a5: Math.max(body.scrollHeight, body.offsetHeight, elem.scrollHeight, elem.offsetHeight, elem.clientHeight)
+		a6: Math.max(body.scrollHeight, body.offsetHeight, elem.scrollHeight, elem.offsetHeight, elem.clientHeight)
 	};
 }
 
@@ -4288,13 +4288,13 @@ function _Browser_getViewportOf(id)
 		return {
 			bu: {
 				bG: node.scrollWidth,
-				a5: node.scrollHeight
+				a6: node.scrollHeight
 			},
 			bE: {
-				bH: node.scrollLeft,
-				bI: node.scrollTop,
+				cH: node.scrollLeft,
+				cI: node.scrollTop,
 				bG: node.clientWidth,
-				a5: node.clientHeight
+				a6: node.clientHeight
 			}
 		};
 	});
@@ -4326,16 +4326,16 @@ function _Browser_getElement(id)
 		return {
 			bu: _Browser_getScene(),
 			bE: {
-				bH: x,
-				bI: y,
+				cH: x,
+				cI: y,
 				bG: _Browser_doc.documentElement.clientWidth,
-				a5: _Browser_doc.documentElement.clientHeight
+				a6: _Browser_doc.documentElement.clientHeight
 			},
-			bY: {
-				bH: x + rect.left,
-				bI: y + rect.top,
+			bW: {
+				cH: x + rect.left,
+				cI: y + rect.top,
 				bG: rect.width,
-				a5: rect.height
+				a6: rect.height
 			}
 		};
 	});
@@ -4380,25 +4380,25 @@ var _Http_toTask = F3(function(router, toTask, request)
 	return _Scheduler_binding(function(callback)
 	{
 		function done(response) {
-			callback(toTask(request.b_.a(response)));
+			callback(toTask(request.bY.a(response)));
 		}
 
 		var xhr = new XMLHttpRequest();
 		xhr.addEventListener('error', function() { done($elm$http$Http$NetworkError_); });
 		xhr.addEventListener('timeout', function() { done($elm$http$Http$Timeout_); });
-		xhr.addEventListener('load', function() { done(_Http_toResponse(request.b_.b, xhr)); });
+		xhr.addEventListener('load', function() { done(_Http_toResponse(request.bY.b, xhr)); });
 		$elm$core$Maybe$isJust(request.bD) && _Http_track(router, xhr, request.bD.a);
 
 		try {
-			xhr.open(request.b9, request.cG, true);
+			xhr.open(request.b7, request.cE, true);
 		} catch (e) {
-			return done($elm$http$Http$BadUrl_(request.cG));
+			return done($elm$http$Http$BadUrl_(request.cE));
 		}
 
 		_Http_configureRequest(xhr, request);
 
-		request.bQ.a && xhr.setRequestHeader('Content-Type', request.bQ.a);
-		xhr.send(request.bQ.b);
+		request.bO.a && xhr.setRequestHeader('Content-Type', request.bO.a);
+		xhr.send(request.bO.b);
 
 		return function() { xhr.c = true; xhr.abort(); };
 	});
@@ -4409,13 +4409,13 @@ var _Http_toTask = F3(function(router, toTask, request)
 
 function _Http_configureRequest(xhr, request)
 {
-	for (var headers = request.a4; headers.b; headers = headers.b) // WHILE_CONS
+	for (var headers = request.a5; headers.b; headers = headers.b) // WHILE_CONS
 	{
 		xhr.setRequestHeader(headers.a.a, headers.a.b);
 	}
-	xhr.timeout = request.cC.a || 0;
-	xhr.responseType = request.b_.d;
-	xhr.withCredentials = request.bM;
+	xhr.timeout = request.cA.a || 0;
+	xhr.responseType = request.bY.d;
+	xhr.withCredentials = request.bK;
 }
 
 
@@ -4436,10 +4436,10 @@ function _Http_toResponse(toBody, xhr)
 function _Http_toMetadata(xhr)
 {
 	return {
-		cG: xhr.responseURL,
-		cw: xhr.status,
-		cx: xhr.statusText,
-		a4: _Http_parseHeaders(xhr.getAllResponseHeaders())
+		cE: xhr.responseURL,
+		cu: xhr.status,
+		cv: xhr.statusText,
+		a5: _Http_parseHeaders(xhr.getAllResponseHeaders())
 	};
 }
 
@@ -4534,14 +4534,14 @@ function _Http_track(router, xhr, tracker)
 	xhr.upload.addEventListener('progress', function(event) {
 		if (xhr.c) { return; }
 		_Scheduler_rawSpawn(A2($elm$core$Platform$sendToSelf, router, _Utils_Tuple2(tracker, $elm$http$Http$Sending({
-			cv: event.loaded,
+			ct: event.loaded,
 			bw: event.total
 		}))));
 	});
 	xhr.addEventListener('progress', function(event) {
 		if (xhr.c) { return; }
 		_Scheduler_rawSpawn(A2($elm$core$Platform$sendToSelf, router, _Utils_Tuple2(tracker, $elm$http$Http$Receiving({
-			cp: event.loaded,
+			cn: event.loaded,
 			bw: event.lengthComputable ? $elm$core$Maybe$Just(event.total) : $elm$core$Maybe$Nothing
 		}))));
 	});
@@ -5072,7 +5072,7 @@ var $elm$url$Url$Http = 0;
 var $elm$url$Url$Https = 1;
 var $elm$url$Url$Url = F6(
 	function (protocol, host, port_, path, query, fragment) {
-		return {a0: fragment, a6: host, bi: path, bk: port_, bn: protocol, bo: query};
+		return {a1: fragment, a7: host, bi: path, bk: port_, bn: protocol, bo: query};
 	});
 var $elm$core$String$contains = _String_contains;
 var $elm$core$String$length = _String_length;
@@ -5374,15 +5374,15 @@ var $elm$core$String$concat = function (strings) {
 };
 var $author$project$Types$Crossword = F4(
 	function (grid, clues, numberOfColumns, numberOfRows) {
-		return {aV: clues, u: grid, bg: numberOfColumns, aq: numberOfRows};
+		return {aW: clues, u: grid, aj: numberOfColumns, as: numberOfRows};
 	});
 var $author$project$Types$Clues = F2(
 	function (across, down) {
-		return {bK: across, bX: down};
+		return {bI: across, bV: down};
 	});
 var $author$project$Types$Clue = F2(
 	function (text, number) {
-		return {ai: number, cB: text};
+		return {ai: number, cz: text};
 	});
 var $elm$json$Json$Decode$int = _Json_decodeInt;
 var $NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$custom = $elm$json$Json$Decode$map2($elm$core$Basics$apR);
@@ -5436,7 +5436,7 @@ var $author$project$Types$White = function (a) {
 };
 var $author$project$Types$CellData = F4(
 	function (clueId1, clueId2, value, number) {
-		return {r: clueId1, V: clueId2, ai: number, ay: value};
+		return {r: clueId1, V: clueId2, ai: number, ao: value};
 	});
 var $elm$core$List$head = function (list) {
 	if (list.b) {
@@ -6182,7 +6182,7 @@ var $elm$http$Http$resolve = F2(
 			case 3:
 				var metadata = response.a;
 				return $elm$core$Result$Err(
-					$elm$http$Http$BadStatus(metadata.cw));
+					$elm$http$Http$BadStatus(metadata.cu));
 			default:
 				var body = response.b;
 				return A2(
@@ -6341,14 +6341,14 @@ var $elm$http$Http$cmdMap = F2(
 			var r = cmd.a;
 			return $elm$http$Http$Request(
 				{
-					bM: r.bM,
-					bQ: r.bQ,
-					b_: A2(_Http_mapExpect, func, r.b_),
-					a4: r.a4,
-					b9: r.b9,
-					cC: r.cC,
+					bK: r.bK,
+					bO: r.bO,
+					bY: A2(_Http_mapExpect, func, r.bY),
+					a5: r.a5,
+					b7: r.b7,
+					cA: r.cA,
 					bD: r.bD,
-					cG: r.cG
+					cE: r.cE
 				});
 		}
 	});
@@ -6371,19 +6371,19 @@ var $elm$http$Http$subscription = _Platform_leaf('Http');
 var $elm$http$Http$request = function (r) {
 	return $elm$http$Http$command(
 		$elm$http$Http$Request(
-			{bM: false, bQ: r.bQ, b_: r.b_, a4: r.a4, b9: r.b9, cC: r.cC, bD: r.bD, cG: r.cG}));
+			{bK: false, bO: r.bO, bY: r.bY, a5: r.a5, b7: r.b7, cA: r.cA, bD: r.bD, cE: r.cE}));
 };
 var $elm$http$Http$get = function (r) {
 	return $elm$http$Http$request(
-		{bQ: $elm$http$Http$emptyBody, b_: r.b_, a4: _List_Nil, b9: 'GET', cC: $elm$core$Maybe$Nothing, bD: $elm$core$Maybe$Nothing, cG: r.cG});
+		{bO: $elm$http$Http$emptyBody, bY: r.bY, a5: _List_Nil, b7: 'GET', cA: $elm$core$Maybe$Nothing, bD: $elm$core$Maybe$Nothing, cE: r.cE});
 };
 var $author$project$Crossword$init = function (crosswordId) {
 	return _Utils_Tuple2(
 		$author$project$Types$Loading,
 		$elm$http$Http$get(
 			{
-				b_: A2($elm$http$Http$expectJson, $author$project$Crossword$GotCrossword, $author$project$Crossword$crosswordDecoder),
-				cG: $elm$core$String$concat(
+				bY: A2($elm$http$Http$expectJson, $author$project$Crossword$GotCrossword, $author$project$Crossword$crosswordDecoder),
+				cE: $elm$core$String$concat(
 					_List_fromArray(
 						['http://localhost:8080/crossword/', crosswordId]))
 			}));
@@ -6391,7 +6391,7 @@ var $author$project$Crossword$init = function (crosswordId) {
 var $author$project$CrosswordsList$GetCrosswordsList = $elm$core$Basics$identity;
 var $author$project$CrosswordsList$CrosswordMetadata = F3(
 	function (id, series, seriesNo) {
-		return {aC: id, aJ: series, aK: seriesNo};
+		return {aD: id, aK: series, aL: seriesNo};
 	});
 var $elm$json$Json$Decode$map3 = _Json_map3;
 var $author$project$CrosswordsList$crosswordMetadataDecoder = A4(
@@ -6402,17 +6402,17 @@ var $author$project$CrosswordsList$crosswordMetadataDecoder = A4(
 	A2($elm$json$Json$Decode$field, 'seriesNo', $elm$json$Json$Decode$int));
 var $author$project$CrosswordsList$getCrosswordList = $elm$http$Http$get(
 	{
-		b_: A2(
+		bY: A2(
 			$elm$http$Http$expectJson,
 			$elm$core$Basics$identity,
 			$elm$json$Json$Decode$list($author$project$CrosswordsList$crosswordMetadataDecoder)),
-		cG: 'http://localhost:8080/crosswords'
+		cE: 'http://localhost:8080/crosswords'
 	});
 var $author$project$CrosswordsList$init = _Utils_Tuple2(
 	{
-		an: _List_fromArray(
+		ap: _List_fromArray(
 			[
-				{aC: 'test', aJ: 'cryptic', aK: 123}
+				{aD: 'test', aK: 'cryptic', aL: 123}
 			])
 	},
 	$author$project$CrosswordsList$getCrosswordList);
@@ -6422,7 +6422,7 @@ var $author$project$Main$initCurrentPage = function (_v0) {
 	var model = _v0.a;
 	var existingCmds = _v0.b;
 	var _v1 = function () {
-		var _v2 = model.ar;
+		var _v2 = model.at;
 		switch (_v2.$) {
 			case 0:
 				var _v3 = $author$project$CrosswordsList$init;
@@ -6461,7 +6461,7 @@ var $author$project$Main$CrosswordsRoute = {$: 0};
 var $elm$url$Url$Parser$Parser = $elm$core$Basics$identity;
 var $elm$url$Url$Parser$State = F5(
 	function (visited, unvisited, params, frag, value) {
-		return {P: frag, R: params, N: unvisited, ay: value, U: visited};
+		return {P: frag, R: params, N: unvisited, ao: value, U: visited};
 	});
 var $elm$url$Url$Parser$mapState = F2(
 	function (func, _v0) {
@@ -6469,7 +6469,7 @@ var $elm$url$Url$Parser$mapState = F2(
 		var unvisited = _v0.N;
 		var params = _v0.R;
 		var frag = _v0.P;
-		var value = _v0.ay;
+		var value = _v0.ao;
 		return A5(
 			$elm$url$Url$Parser$State,
 			visited,
@@ -6486,7 +6486,7 @@ var $elm$url$Url$Parser$map = F2(
 			var unvisited = _v1.N;
 			var params = _v1.R;
 			var frag = _v1.P;
-			var value = _v1.ay;
+			var value = _v1.ao;
 			return A2(
 				$elm$core$List$map,
 				$elm$url$Url$Parser$mapState(value),
@@ -6527,7 +6527,7 @@ var $elm$url$Url$Parser$s = function (str) {
 		var unvisited = _v0.N;
 		var params = _v0.R;
 		var frag = _v0.P;
-		var value = _v0.ay;
+		var value = _v0.ao;
 		if (!unvisited.b) {
 			return _List_Nil;
 		} else {
@@ -6564,7 +6564,7 @@ var $elm$url$Url$Parser$custom = F2(
 			var unvisited = _v0.N;
 			var params = _v0.R;
 			var frag = _v0.P;
-			var value = _v0.ay;
+			var value = _v0.ao;
 			if (!unvisited.b) {
 				return _List_Nil;
 			} else {
@@ -6616,10 +6616,10 @@ var $elm$url$Url$Parser$getFirstMatch = function (states) {
 			var rest = states.b;
 			var _v1 = state.N;
 			if (!_v1.b) {
-				return $elm$core$Maybe$Just(state.ay);
+				return $elm$core$Maybe$Just(state.ao);
 			} else {
 				if ((_v1.a === '') && (!_v1.b.b)) {
-					return $elm$core$Maybe$Just(state.ay);
+					return $elm$core$Maybe$Just(state.ao);
 				} else {
 					var $temp$states = rest;
 					states = $temp$states;
@@ -6718,7 +6718,7 @@ var $elm$url$Url$Parser$parse = F2(
 					_List_Nil,
 					$elm$url$Url$Parser$preparePath(url.bi),
 					$elm$url$Url$Parser$prepareQuery(url.bo),
-					url.a0,
+					url.a1,
 					$elm$core$Basics$identity)));
 	});
 var $author$project$Main$parseUrl = function (url) {
@@ -6733,15 +6733,15 @@ var $author$project$Main$parseUrl = function (url) {
 var $author$project$Main$init = F3(
 	function (_v0, url, navKey) {
 		var model = {
-			aF: navKey,
+			aG: navKey,
 			I: $author$project$Main$CrosswordsListPage(
 				{
-					an: _List_fromArray(
+					ap: _List_fromArray(
 						[
-							{aC: '', aJ: '', aK: 1}
+							{aD: '', aK: '', aL: 1}
 						])
 				}),
-			ar: $author$project$Main$parseUrl(url)
+			at: $author$project$Main$parseUrl(url)
 		};
 		return $author$project$Main$initCurrentPage(
 			_Utils_Tuple2(model, $elm$core$Platform$Cmd$none));
@@ -6796,6 +6796,33 @@ var $author$project$Crossword$keyReleasedDecoder = A2(
 	$elm$json$Json$Decode$map,
 	A2($elm$core$Basics$composeR, $author$project$Crossword$keyReleasedToKeyEventMsg, $author$project$Crossword$KeyTouched),
 	A2($elm$json$Json$Decode$field, 'key', $elm$json$Json$Decode$string));
+var $author$project$Crossword$NoOp = {$: 6};
+var $author$project$Crossword$Recv = function (a) {
+	return {$: 5, a: a};
+};
+var $author$project$Types$WebsocketMessage = F3(
+	function (x, y, value) {
+		return {ao: value, cH: x, cI: y};
+	});
+var $author$project$Crossword$decode = A4(
+	$elm$json$Json$Decode$map3,
+	$author$project$Types$WebsocketMessage,
+	A2($elm$json$Json$Decode$field, 'x', $elm$json$Json$Decode$int),
+	A2($elm$json$Json$Decode$field, 'y', $elm$json$Json$Decode$int),
+	A2($elm$json$Json$Decode$field, 'value', $elm$json$Json$Decode$string));
+var $author$project$Crossword$decodeModel = function (modelJson) {
+	return A2($elm$json$Json$Decode$decodeValue, $author$project$Crossword$decode, modelJson);
+};
+var $author$project$Crossword$mapWorkerUpdated = function (modelJson) {
+	var _v0 = $author$project$Crossword$decodeModel(modelJson);
+	if (!_v0.$) {
+		var model = _v0.a;
+		return $author$project$Crossword$Recv(model);
+	} else {
+		return $author$project$Crossword$NoOp;
+	}
+};
+var $author$project$Ports$messageReceiver = _Platform_incomingPort('messageReceiver', $elm$json$Json$Decode$value);
 var $elm$browser$Browser$Events$Document = 0;
 var $elm$browser$Browser$Events$MySub = F3(
 	function (a, b, c) {
@@ -6923,7 +6950,7 @@ var $elm$core$Dict$merge = F6(
 	});
 var $elm$browser$Browser$Events$Event = F2(
 	function (key, event) {
-		return {a$: event, a8: key};
+		return {a0: event, a9: key};
 	});
 var $elm$browser$Browser$Events$spawn = F3(
 	function (router, key, _v0) {
@@ -7025,8 +7052,8 @@ var $elm$browser$Browser$Events$onEffects = F3(
 	});
 var $elm$browser$Browser$Events$onSelfMsg = F3(
 	function (router, _v0, state) {
-		var key = _v0.a8;
-		var event = _v0.a$;
+		var key = _v0.a9;
+		var event = _v0.a0;
 		var toMessage = function (_v2) {
 			var subKey = _v2.a;
 			var _v3 = _v2.b;
@@ -7072,7 +7099,8 @@ var $author$project$Crossword$subscriptions = function (_v0) {
 		_List_fromArray(
 			[
 				$elm$browser$Browser$Events$onKeyDown($author$project$Crossword$keyPressedDecoder),
-				$elm$browser$Browser$Events$onKeyUp($author$project$Crossword$keyReleasedDecoder)
+				$elm$browser$Browser$Events$onKeyUp($author$project$Crossword$keyReleasedDecoder),
+				$author$project$Ports$messageReceiver($author$project$Crossword$mapWorkerUpdated)
 			]));
 };
 var $author$project$Main$subscriptions = function (model) {
@@ -7126,7 +7154,7 @@ var $elm$url$Url$toString = function (url) {
 	return A3(
 		$elm$url$Url$addPrefixed,
 		'#',
-		url.a0,
+		url.a1,
 		A3(
 			$elm$url$Url$addPrefixed,
 			'?',
@@ -7135,7 +7163,7 @@ var $elm$url$Url$toString = function (url) {
 				A2(
 					$elm$url$Url$addPort,
 					url.bk,
-					_Utils_ap(http, url.a6)),
+					_Utils_ap(http, url.a7)),
 				url.bi)));
 };
 var $author$project$Types$Failure = function (a) {
@@ -7144,7 +7172,6 @@ var $author$project$Types$Failure = function (a) {
 var $author$project$Types$Success = function (a) {
 	return {$: 0, a: a};
 };
-var $author$project$Crossword$NoOp = {$: 5};
 var $elm$core$Basics$composeL = F3(
 	function (g, f, x) {
 		return g(
@@ -7330,12 +7357,48 @@ var $author$project$Crossword$dataFromCrossword = function (crossword) {
 		}
 	}();
 	var state = {C: clueId, h: clueId.h, g: index};
-	return {d: crossword, af: '', av: false, b: state};
+	return {d: crossword, af: '', ax: false, b: state};
 };
+var $elm$json$Json$Encode$int = _Json_wrap;
+var $elm$json$Json$Encode$object = function (pairs) {
+	return _Json_wrap(
+		A3(
+			$elm$core$List$foldl,
+			F2(
+				function (_v0, obj) {
+					var k = _v0.a;
+					var v = _v0.b;
+					return A3(_Json_addField, k, v, obj);
+				}),
+			_Json_emptyObject(0),
+			pairs));
+};
+var $elm$json$Json$Encode$string = _Json_wrap;
+var $author$project$Crossword$encode = F3(
+	function (x, y, value) {
+		return $elm$json$Json$Encode$object(
+			_List_fromArray(
+				[
+					_Utils_Tuple2(
+					'value',
+					$elm$json$Json$Encode$string(value)),
+					_Utils_Tuple2(
+					'x',
+					$elm$json$Json$Encode$int(x)),
+					_Utils_Tuple2(
+					'y',
+					$elm$json$Json$Encode$int(y))
+				]));
+	});
 var $elm$core$String$cons = _String_cons;
 var $elm$core$String$fromChar = function (_char) {
 	return A2($elm$core$String$cons, _char, '');
 };
+var $elm$core$Basics$modBy = _Basics_modBy;
+var $author$project$Crossword$getColumnNumber = F2(
+	function (numberOfColumns, index) {
+		return A2($elm$core$Basics$modBy, numberOfColumns, index) + 1;
+	});
 var $elm$core$Basics$ge = _Utils_ge;
 var $elm$core$List$takeReverse = F3(
 	function (n, list, kept) {
@@ -7475,25 +7538,20 @@ var $author$project$Crossword$getCurrentCellChar = function (model) {
 	var cell = A2($author$project$Crossword$elementAtIndex, model.b.g + 1, model.d.u);
 	if ((!cell.$) && (!cell.a.$)) {
 		var cellData = cell.a.a;
-		return cellData.ay;
+		return cellData.ao;
 	} else {
 		return $elm$core$Maybe$Nothing;
 	}
 };
-var $elm$core$Basics$modBy = _Basics_modBy;
-var $author$project$Crossword$getColumnNumber = F2(
-	function (numberOfColumns, index) {
-		return A2($elm$core$Basics$modBy, numberOfColumns, index) + 1;
-	});
 var $author$project$Crossword$currentColumnNumber = function (model) {
-	return A2($author$project$Crossword$getColumnNumber, model.d.bg, model.b.g);
+	return A2($author$project$Crossword$getColumnNumber, model.d.aj, model.b.g);
 };
 var $author$project$Crossword$getRowNumber = F2(
 	function (numberOfColumns, index) {
 		return $elm$core$Basics$floor(index / numberOfColumns) + 1;
 	});
 var $author$project$Crossword$currentRowNumber = function (model) {
-	return A2($author$project$Crossword$getRowNumber, model.d.bg, model.b.g);
+	return A2($author$project$Crossword$getRowNumber, model.d.aj, model.b.g);
 };
 var $author$project$Crossword$isWhiteSquare = function (cell) {
 	if (!cell.$) {
@@ -7529,12 +7587,12 @@ var $author$project$Crossword$takeEveryNthIndexesFromIndex = F3(
 var $author$project$Crossword$getDownWhiteIndex = function (model) {
 	var rowNumber = $author$project$Crossword$currentRowNumber(model);
 	var columnNumber = $author$project$Crossword$currentColumnNumber(model);
-	var columnSquares = A3($author$project$Crossword$takeEveryNthIndexesFromIndex, model.d.aq, columnNumber, model.d.u);
+	var columnSquares = A3($author$project$Crossword$takeEveryNthIndexesFromIndex, model.d.as, columnNumber, model.d.u);
 	var columnsDown = A2($elm_community$list_extra$List$Extra$splitAt, rowNumber, columnSquares).b;
 	var index = A2($elm_community$list_extra$List$Extra$findIndex, $author$project$Crossword$isWhiteSquare, columnsDown);
 	if (!index.$) {
 		var n = index.a;
-		return model.b.g + (model.d.aq * (n + 1));
+		return model.b.g + (model.d.as * (n + 1));
 	} else {
 		return model.b.g;
 	}
@@ -7565,13 +7623,13 @@ var $author$project$Crossword$getRightWhiteIndex = F2(
 var $author$project$Crossword$getUpWhiteIndex = function (model) {
 	var rowNumber = $author$project$Crossword$currentRowNumber(model);
 	var columnNumber = $author$project$Crossword$currentColumnNumber(model);
-	var columnSquares = A3($author$project$Crossword$takeEveryNthIndexesFromIndex, model.d.aq, columnNumber, model.d.u);
+	var columnSquares = A3($author$project$Crossword$takeEveryNthIndexesFromIndex, model.d.as, columnNumber, model.d.u);
 	var columnsUp = $elm$core$List$reverse(
 		A2($elm_community$list_extra$List$Extra$splitAt, rowNumber - 1, columnSquares).a);
 	var index = A2($elm_community$list_extra$List$Extra$findIndex, $author$project$Crossword$isWhiteSquare, columnsUp);
 	if (!index.$) {
 		var n = index.a;
-		return model.b.g - (model.d.aq * (n + 1));
+		return model.b.g - (model.d.as * (n + 1));
 	} else {
 		return model.b.g;
 	}
@@ -7621,6 +7679,7 @@ var $author$project$Crossword$moveToNextWhiteCell = F3(
 					{b: newState})),
 			$author$project$Crossword$focusTextInput);
 	});
+var $author$project$Ports$sendMessage = _Platform_outgoingPort('sendMessage', $elm$core$Basics$identity);
 var $elm_community$list_extra$List$Extra$updateIfIndex = F3(
 	function (predicate, update, list) {
 		return A2(
@@ -7642,7 +7701,7 @@ var $author$project$Crossword$updateGrid = F3(
 					return $author$project$Types$White(
 						_Utils_update(
 							cellData,
-							{ay: newChar}));
+							{ao: newChar}));
 				} else {
 					return $author$project$Types$Black;
 				}
@@ -7660,6 +7719,30 @@ var $author$project$Crossword$updateCrossword = F3(
 var $author$project$Crossword$update = F2(
 	function (msg, model) {
 		switch (msg.$) {
+			case 5:
+				var message = msg.a;
+				switch (model.$) {
+					case 2:
+						return _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
+					case 1:
+						return _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
+					default:
+						var data = model.a;
+						var index = (((message.cI - 1) * data.d.aj) + message.cH) - 1;
+						var newData = _Utils_update(
+							data,
+							{
+								d: A3(
+									$author$project$Crossword$updateCrossword,
+									data.d,
+									index,
+									$elm$core$List$head(
+										$elm$core$String$toList(message.ao)))
+							});
+						return _Utils_Tuple2(
+							$author$project$Types$Success(newData),
+							$author$project$Crossword$focusTextInput);
+				}
 			case 4:
 				var result = msg.a;
 				if (!result.$) {
@@ -7709,11 +7792,24 @@ var $author$project$Crossword$update = F2(
 								$author$project$Crossword$focusTextInput);
 						} else {
 							var _char = newContent.a;
+							var y = A2($author$project$Crossword$getRowNumber, data.d.aj, index);
+							var x = A2($author$project$Crossword$getColumnNumber, data.d.aj, index);
 							var state = data.b;
 							var nextIndex = (!data.b.h) ? A2($author$project$Crossword$getRightWhiteIndex, data.d.u, index) : $author$project$Crossword$getDownWhiteIndex(data);
 							var newState = _Utils_update(
 								state,
 								{g: nextIndex});
+							var commands = $elm$core$Platform$Cmd$batch(
+								_List_fromArray(
+									[
+										$author$project$Crossword$focusTextInput,
+										$author$project$Ports$sendMessage(
+										A3(
+											$author$project$Crossword$encode,
+											x,
+											y,
+											$elm$core$String$fromChar(_char)))
+									]));
 							return _Utils_Tuple2(
 								$author$project$Types$Success(
 									_Utils_update(
@@ -7723,7 +7819,7 @@ var $author$project$Crossword$update = F2(
 											af: $elm$core$String$fromChar(_char),
 											b: newState
 										})),
-								$author$project$Crossword$focusTextInput);
+								commands);
 						}
 				}
 			case 1:
@@ -7784,20 +7880,20 @@ var $author$project$Crossword$update = F2(
 											})),
 									$author$project$Crossword$focusTextInput);
 							case 1:
-								return A3($author$project$Crossword$moveToNextWhiteCell, data, data.b.h, data.av);
+								return A3($author$project$Crossword$moveToNextWhiteCell, data, data.b.h, data.ax);
 							case 3:
 								return _Utils_Tuple2(
 									$author$project$Types$Success(
 										_Utils_update(
 											data,
-											{av: true})),
+											{ax: true})),
 									$elm$core$Platform$Cmd$none);
 							case 4:
 								return _Utils_Tuple2(
 									$author$project$Types$Success(
 										_Utils_update(
 											data,
-											{av: false})),
+											{ax: false})),
 									$elm$core$Platform$Cmd$none);
 							case 5:
 								return A3($author$project$Crossword$moveToNextWhiteCell, data, 0, true);
@@ -7821,7 +7917,7 @@ var $author$project$CrosswordsList$update = F2(
 		if (!result.$) {
 			var crosswords = result.a;
 			return _Utils_Tuple2(
-				{an: crosswords},
+				{ap: crosswords},
 				$elm$core$Platform$Cmd$none);
 		} else {
 			return _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
@@ -7875,7 +7971,7 @@ var $author$project$Main$update = F2(
 							model,
 							A2(
 								$elm$browser$Browser$Navigation$pushUrl,
-								model.aF,
+								model.aG,
 								$elm$url$Url$toString(url)));
 					} else {
 						var url = urlRequest.a;
@@ -7890,7 +7986,7 @@ var $author$project$Main$update = F2(
 						_Utils_Tuple2(
 							_Utils_update(
 								model,
-								{ar: newRoute}),
+								{at: newRoute}),
 							$elm$core$Platform$Cmd$none));
 			}
 		}
@@ -7950,7 +8046,7 @@ var $author$project$Crossword$viewClue = F2(
 				[
 					$author$project$Crossword$textDiv(
 					$elm$core$String$fromInt(clue.ai)),
-					$author$project$Crossword$textDiv(clue.cB)
+					$author$project$Crossword$textDiv(clue.cz)
 				]));
 	});
 var $author$project$Crossword$viewClueAndDataAndDirection = F3(
@@ -7988,7 +8084,6 @@ var $author$project$Crossword$viewCluesSection = F3(
 					A3($author$project$Crossword$viewClues, model, direction, clues)
 				]));
 	});
-var $elm$json$Json$Encode$string = _Json_wrap;
 var $elm$html$Html$Attributes$stringProperty = F2(
 	function (key, string) {
 		return A2(
@@ -8177,7 +8272,7 @@ var $author$project$Crossword$viewCell = F6(
 								A2($elm$html$Html$Attributes$style, 'position', 'relative'),
 								$elm$html$Html$Attributes$placeholder(''),
 								$elm$html$Html$Attributes$value(
-								$author$project$Crossword$charToString(cellData.ay)),
+								$author$project$Crossword$charToString(cellData.ao)),
 								A2($elm$html$Html$Events$preventDefaultOn, 'keydown', $author$project$Crossword$tabPressed),
 								$elm$html$Html$Events$onFocus(
 								A2($author$project$Crossword$Focus, index, cellData)),
@@ -8204,7 +8299,7 @@ var $author$project$Crossword$viewCell = F6(
 						_List_fromArray(
 							[
 								$elm$html$Html$text(
-								$author$project$Crossword$charToString(cellData.ay))
+								$author$project$Crossword$charToString(cellData.ao))
 							]))
 					]));
 		} else {
@@ -8316,8 +8411,8 @@ var $author$project$Crossword$viewPuzzle = function (model) {
 		_List_fromArray(
 			[
 				$author$project$Crossword$viewGridWithInput(model),
-				A3($author$project$Crossword$viewCluesSection, model, 0, model.d.aV.bK),
-				A3($author$project$Crossword$viewCluesSection, model, 1, model.d.aV.bX)
+				A3($author$project$Crossword$viewCluesSection, model, 0, model.d.aW.bI),
+				A3($author$project$Crossword$viewCluesSection, model, 1, model.d.aW.bV)
 			]));
 };
 var $author$project$Crossword$htmlView = function (model) {
@@ -8398,17 +8493,17 @@ var $author$project$CrosswordsList$viewCrosswordLink = function (crossword) {
 			]),
 		_List_fromArray(
 			[
-				$elm$html$Html$text(crossword.aJ),
+				$elm$html$Html$text(crossword.aK),
 				$elm$html$Html$text(
-				$elm$core$String$fromInt(crossword.aK)),
-				$author$project$CrosswordsList$viewLink('/crossword/' + crossword.aC)
+				$elm$core$String$fromInt(crossword.aL)),
+				$author$project$CrosswordsList$viewLink('/crossword/' + crossword.aD)
 			]));
 };
 var $author$project$CrosswordsList$view = function (model) {
 	return A2(
 		$elm$html$Html$div,
 		_List_Nil,
-		A2($elm$core$List$map, $author$project$CrosswordsList$viewCrosswordLink, model.an));
+		A2($elm$core$List$map, $author$project$CrosswordsList$viewCrosswordLink, model.ap));
 };
 var $author$project$Main$htmlView = function (model) {
 	var _v0 = model.I;
@@ -8442,14 +8537,14 @@ var $author$project$Main$title = function (model) {
 };
 var $author$project$Main$view = function (model) {
 	return {
-		bQ: _List_fromArray(
+		bO: _List_fromArray(
 			[
 				$author$project$Main$htmlView(model)
 			]),
-		cD: $author$project$Main$title(model)
+		cB: $author$project$Main$title(model)
 	};
 };
 var $author$project$Main$main = $elm$browser$Browser$application(
-	{b5: $author$project$Main$init, cl: $author$project$Main$UrlChanged, cm: $author$project$Main$LinkClicked, cy: $author$project$Main$subscriptions, cF: $author$project$Main$update, cH: $author$project$Main$view});
+	{b3: $author$project$Main$init, cj: $author$project$Main$UrlChanged, ck: $author$project$Main$LinkClicked, cw: $author$project$Main$subscriptions, cD: $author$project$Main$update, cF: $author$project$Main$view});
 _Platform_export({'Main':{'init':$author$project$Main$main(
 	$elm$json$Json$Decode$succeed(0))(0)}});}(this));

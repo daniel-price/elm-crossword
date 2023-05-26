@@ -8,11 +8,13 @@ import Html.Attributes exposing (id, placeholder, style, value)
 import Html.Events exposing (keyCode, onClick, onFocus, onInput, preventDefaultOn)
 import Html.Lazy
 import Http
-import Json.Decode as Decode
+import Json.Decode as Decode exposing (Error)
 import Json.Decode.Pipeline as DecodePipeline
+import Json.Encode
 import List.Extra
+import Ports exposing (messageReceiver, sendMessage)
 import Task
-import Types exposing (Cell(..), CellData, Clue, ClueId, Crossword, CrosswordId, Data, Direction(..), Model(..), State)
+import Types exposing (Cell(..), CellData, Clue, ClueId, Crossword, CrosswordId, Data, Direction(..), Model(..), State, WebsocketMessage)
 
 
 
@@ -146,6 +148,7 @@ type Msg
     | Click Int CellData
     | KeyTouched KeyEventMsg
     | GotCrossword (Result Http.Error Crossword)
+    | Recv WebsocketMessage
     | NoOp
 
 
@@ -256,6 +259,26 @@ calculateDataAfterFocus model index cellData =
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
+        Recv message ->
+            case model of
+                Failure _ ->
+                    ( model, Cmd.none )
+
+                Loading ->
+                    ( model, Cmd.none )
+
+                Success data ->
+                    let
+                        index : Int
+                        index =
+                            (message.y - 1) * data.crossword.numberOfColumns + message.x - 1
+
+                        newData : Data
+                        newData =
+                            { data | crossword = updateCrossword data.crossword index (List.head (String.toList message.value)) }
+                    in
+                    ( Success newData, focusTextInput )
+
         GotCrossword result ->
             case result of
                 Ok crossword ->
@@ -325,8 +348,20 @@ update msg model =
                                 newState : State
                                 newState =
                                     { state | index = nextIndex }
+
+                                x : Int
+                                x =
+                                    getColumnNumber data.crossword.numberOfColumns index
+
+                                y : Int
+                                y =
+                                    getRowNumber data.crossword.numberOfColumns index
+
+                                commands : Cmd Msg
+                                commands =
+                                    Cmd.batch [ focusTextInput, sendMessage (encode x y (String.fromChar char)) ]
                             in
-                            ( Success { data | latestString = String.fromChar char, crossword = updateCrossword data.crossword index newContent, state = newState }, focusTextInput )
+                            ( Success { data | latestString = String.fromChar char, crossword = updateCrossword data.crossword index newContent, state = newState }, commands )
 
         Focus index cellData ->
             case model of
@@ -414,6 +449,23 @@ update msg model =
 
         NoOp ->
             ( model, Cmd.none )
+
+
+encode : Int -> Int -> String -> Json.Encode.Value
+encode x y value =
+    Json.Encode.object
+        [ ( "value", Json.Encode.string value )
+        , ( "x", Json.Encode.int x )
+        , ( "y", Json.Encode.int y )
+        ]
+
+
+decode : Decode.Decoder WebsocketMessage
+decode =
+    Decode.map3 WebsocketMessage
+        (Decode.field "x" Decode.int)
+        (Decode.field "y" Decode.int)
+        (Decode.field "value" Decode.string)
 
 
 isWhite : Cell -> Bool
@@ -1044,7 +1096,23 @@ subscriptions _ =
     Sub.batch
         [ Browser.Events.onKeyDown keyPressedDecoder
         , Browser.Events.onKeyUp keyReleasedDecoder
+        , messageReceiver mapWorkerUpdated
         ]
+
+
+decodeModel : Decode.Value -> Result Error WebsocketMessage
+decodeModel modelJson =
+    Decode.decodeValue decode modelJson
+
+
+mapWorkerUpdated : Decode.Value -> Msg
+mapWorkerUpdated modelJson =
+    case decodeModel modelJson of
+        Ok model ->
+            Recv model
+
+        Err _ ->
+            NoOp
 
 
 type KeyEventMsg

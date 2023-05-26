@@ -1,4 +1,4 @@
-module Types exposing (Cell(..), CellData, Clue, ClueId, Clues, Crossword, Data, Direction(..), Model(..), State, CrosswordId)
+module Types exposing (Cell(..), CellData, Clue, ClueId, Clues, Crossword, CrosswordId, Data, Direction(..), Model(..), State, WebsocketMessage)
 
 import Http
 
@@ -27,6 +27,10 @@ type alias CellData =
 type Cell
     = White CellData
     | Black
+
+
+type alias WebsocketMessage =
+    { x : Int, y : Int, value : String }
 
 
 type alias Clues =
@@ -63,4 +67,6 @@ type Model
     | Loading
     | Failure Http.Error
 
-type alias CrosswordId = String
+
+type alias CrosswordId =
+    String
