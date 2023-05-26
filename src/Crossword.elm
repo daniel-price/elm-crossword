@@ -127,11 +127,6 @@ decodeBlack =
     exactMatch (Decode.field "type" Decode.string) "Black" (Decode.succeed Black)
 
 
-
--- decodeP3 =
---     exactMatch (Decode.field "name" Decode.string) "provider3" (Decode.succeed Provider3)
-
-
 exactMatch : Decode.Decoder String -> String -> Decode.Decoder a -> Decode.Decoder a
 exactMatch matchDecoder match dec =
     matchDecoder
@@ -143,21 +138,6 @@ exactMatch matchDecoder match dec =
                 else
                     Decode.fail <| "[exactMatch] tgt: " ++ match ++ " /= " ++ str
             )
-
-
-
--- Success
---         { latestString = ""
---         , shiftHeld = False
---         , crossword = initCrossword
---         , state =
---             { clueId = { direction = Across, number = 1 }
---             , direction = Across
---             , index = 1
---             }
---         }
---     , focusTextInput
--- UPDATE
 
 
 type Msg
@@ -426,7 +406,7 @@ update msg model =
                         UpPressed ->
                             moveToNextWhiteCell data Down True
 
-                        KeyPressed ->
+                        DownPressed ->
                             moveToNextWhiteCell data Down False
 
                         _ ->
@@ -453,10 +433,19 @@ dataFromCrossword crossword =
         index =
             Maybe.withDefault 0 (List.Extra.findIndex isWhite crossword.grid)
 
+        clueId : ClueId
+        clueId =
+            case List.Extra.getAt index crossword.grid of
+                Just (White cell) ->
+                    cell.clueId1
+
+                _ ->
+                    { direction = Across, number = 1 }
+
         state : State
         state =
-            { clueId = { direction = Across, number = 1 }
-            , direction = Across
+            { clueId = clueId
+            , direction = clueId.direction
             , index = index
             }
     in
@@ -499,9 +488,44 @@ moveToNextWhiteCell model direction backwards =
         state =
             model.state
 
+        cell : Maybe Cell
+        cell =
+            List.Extra.getAt nextIndex model.crossword.grid
+
+        cellData : Maybe CellData
+        cellData =
+            case cell of
+                Just (White cd) ->
+                    Just cd
+
+                _ ->
+                    Nothing
+
+        clueId : ClueId
+        clueId =
+            case cellData of
+                Just cd1 ->
+                    if cd1.clueId1.direction == direction then
+                        cd1.clueId1
+
+                    else
+                        case cd1.clueId2 of
+                            Just clue ->
+                                clue
+
+                            Nothing ->
+                                cd1.clueId1
+
+                Nothing ->
+                    state.clueId
+
         newState : State
         newState =
-            { state | index = nextIndex, direction = direction }
+            { state
+                | index = nextIndex
+                , clueId = clueId
+                , direction = clueId.direction
+            }
     in
     ( Success { model | state = newState }, focusTextInput )
 
@@ -1032,7 +1056,7 @@ type KeyEventMsg
     | LeftPressed
     | RightPressed
     | UpPressed
-    | KeyPressed
+    | DownPressed
 
 
 keyReleasedDecoder : Decode.Decoder Msg
@@ -1081,7 +1105,7 @@ keyPressedToKeyEventMsg eventKeyString =
             UpPressed
 
         "ArrowDown" ->
-            KeyPressed
+            DownPressed
 
         _ ->
             KeyEventUnknown

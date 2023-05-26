@@ -6783,8 +6783,8 @@ var $author$project$Crossword$KeyTouched = function (a) {
 	return {$: 'KeyTouched', a: a};
 };
 var $author$project$Crossword$BackspacePressed = {$: 'BackspacePressed'};
+var $author$project$Crossword$DownPressed = {$: 'DownPressed'};
 var $author$project$Crossword$KeyEventUnknown = {$: 'KeyEventUnknown'};
-var $author$project$Crossword$KeyPressed = {$: 'KeyPressed'};
 var $author$project$Crossword$LeftPressed = {$: 'LeftPressed'};
 var $author$project$Crossword$RightPressed = {$: 'RightPressed'};
 var $author$project$Crossword$ShiftPressed = {$: 'ShiftPressed'};
@@ -6805,7 +6805,7 @@ var $author$project$Crossword$keyPressedToKeyEventMsg = function (eventKeyString
 		case 'ArrowUp':
 			return $author$project$Crossword$UpPressed;
 		case 'ArrowDown':
-			return $author$project$Crossword$KeyPressed;
+			return $author$project$Crossword$DownPressed;
 		default:
 			return $author$project$Crossword$KeyEventUnknown;
 	}
@@ -7304,6 +7304,32 @@ var $elm_community$list_extra$List$Extra$findIndexHelp = F3(
 		}
 	});
 var $elm_community$list_extra$List$Extra$findIndex = $elm_community$list_extra$List$Extra$findIndexHelp(0);
+var $elm$core$List$drop = F2(
+	function (n, list) {
+		drop:
+		while (true) {
+			if (n <= 0) {
+				return list;
+			} else {
+				if (!list.b) {
+					return list;
+				} else {
+					var x = list.a;
+					var xs = list.b;
+					var $temp$n = n - 1,
+						$temp$list = xs;
+					n = $temp$n;
+					list = $temp$list;
+					continue drop;
+				}
+			}
+		}
+	});
+var $elm_community$list_extra$List$Extra$getAt = F2(
+	function (idx, xs) {
+		return (idx < 0) ? $elm$core$Maybe$Nothing : $elm$core$List$head(
+			A2($elm$core$List$drop, idx, xs));
+	});
 var $author$project$Crossword$isWhite = function (cell) {
 	if (cell.$ === 'White') {
 		return true;
@@ -7325,11 +7351,16 @@ var $author$project$Crossword$dataFromCrossword = function (crossword) {
 		$elm$core$Maybe$withDefault,
 		0,
 		A2($elm_community$list_extra$List$Extra$findIndex, $author$project$Crossword$isWhite, crossword.grid));
-	var state = {
-		clueId: {direction: $author$project$Types$Across, number: 1},
-		direction: $author$project$Types$Across,
-		index: index
-	};
+	var clueId = function () {
+		var _v0 = A2($elm_community$list_extra$List$Extra$getAt, index, crossword.grid);
+		if ((_v0.$ === 'Just') && (_v0.a.$ === 'White')) {
+			var cell = _v0.a.a;
+			return cell.clueId1;
+		} else {
+			return {direction: $author$project$Types$Across, number: 1};
+		}
+	}();
+	var state = {clueId: clueId, direction: clueId.direction, index: index};
 	return {crossword: crossword, latestString: '', shiftHeld: false, state: state};
 };
 var $elm$core$String$cons = _String_cons;
@@ -7506,27 +7537,6 @@ var $elm$core$Tuple$second = function (_v0) {
 	var y = _v0.b;
 	return y;
 };
-var $elm$core$List$drop = F2(
-	function (n, list) {
-		drop:
-		while (true) {
-			if (n <= 0) {
-				return list;
-			} else {
-				if (!list.b) {
-					return list;
-				} else {
-					var x = list.a;
-					var xs = list.b;
-					var $temp$n = n - 1,
-						$temp$list = xs;
-					n = $temp$n;
-					list = $temp$list;
-					continue drop;
-				}
-			}
-		}
-	});
 var $elm_community$list_extra$List$Extra$splitAt = F2(
 	function (n, xs) {
 		return _Utils_Tuple2(
@@ -7601,13 +7611,42 @@ var $author$project$Crossword$getNextWhiteCell = F3(
 	function (model, direction, backwards) {
 		return _Utils_eq(direction, $author$project$Types$Across) ? (backwards ? A2($author$project$Crossword$getLeftWhiteIndex, model.crossword.grid, model.state.index) : A2($author$project$Crossword$getRightWhiteIndex, model.crossword.grid, model.state.index)) : (backwards ? $author$project$Crossword$getUpWhiteIndex(model) : $author$project$Crossword$getDownWhiteIndex(model));
 	});
+var $elm$core$Debug$log = _Debug_log;
 var $author$project$Crossword$moveToNextWhiteCell = F3(
 	function (model, direction, backwards) {
 		var state = model.state;
 		var nextIndex = A3($author$project$Crossword$getNextWhiteCell, model, direction, backwards);
+		var cell = A2($elm_community$list_extra$List$Extra$getAt, nextIndex, model.crossword.grid);
+		var cellData = function () {
+			if ((cell.$ === 'Just') && (cell.a.$ === 'White')) {
+				var cd = cell.a.a;
+				return $elm$core$Maybe$Just(cd);
+			} else {
+				return $elm$core$Maybe$Nothing;
+			}
+		}();
+		var clueId = function () {
+			if (cellData.$ === 'Just') {
+				var cd1 = cellData.a;
+				if (_Utils_eq(cd1.clueId1.direction, direction)) {
+					return cd1.clueId1;
+				} else {
+					var _v2 = cd1.clueId2;
+					if (_v2.$ === 'Just') {
+						var clue = _v2.a;
+						return clue;
+					} else {
+						return cd1.clueId1;
+					}
+				}
+			} else {
+				return state.clueId;
+			}
+		}();
 		var newState = _Utils_update(
 			state,
-			{direction: direction, index: nextIndex});
+			{clueId: clueId, direction: clueId.direction, index: nextIndex});
+		var _v0 = A2($elm$core$Debug$log, 'newState', newState);
 		return _Utils_Tuple2(
 			$author$project$Types$Success(
 				_Utils_update(
@@ -7799,7 +7838,7 @@ var $author$project$Crossword$update = F2(
 								return A3($author$project$Crossword$moveToNextWhiteCell, data, $author$project$Types$Across, false);
 							case 'UpPressed':
 								return A3($author$project$Crossword$moveToNextWhiteCell, data, $author$project$Types$Down, true);
-							case 'KeyPressed':
+							case 'DownPressed':
 								return A3($author$project$Crossword$moveToNextWhiteCell, data, $author$project$Types$Down, false);
 							default:
 								return _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
