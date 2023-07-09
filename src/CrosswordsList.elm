@@ -1,5 +1,6 @@
 module CrosswordsList exposing (CrosswordMetadata, Model, Msg(..), init, update, view)
 
+import Constants exposing (apiUrlCrosswords)
 import Html exposing (Html, a, div, li, text)
 import Html.Attributes
 import Http
@@ -84,7 +85,7 @@ viewLink path =
 getCrosswordList : Cmd Msg
 getCrosswordList =
     Http.get
-        { url = "http://localhost:8080/crosswords"
+        { url = apiUrlCrosswords
         , expect = Http.expectJson GetCrosswordsList (Decode.list crosswordMetadataDecoder)
         }
 

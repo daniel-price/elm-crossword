@@ -43,7 +43,7 @@ init crosswordId =
 crosswordDecoder : Decode.Decoder Crossword
 crosswordDecoder =
     Decode.succeed Crossword
-        |> DecodePipeline.required "grid" gridDecoder
+        |> DecodePipeline.required "grid" (Decode.list cellDecoder)
         |> DecodePipeline.required "clues" clueDecoder
         |> DecodePipeline.required "numberOfColumns" Decode.int
         |> DecodePipeline.required "numberOfRows" Decode.int
@@ -61,11 +61,6 @@ decodeClue =
     Decode.succeed Clue
         |> DecodePipeline.required "value" Decode.string
         |> DecodePipeline.required "number" Decode.int
-
-
-gridDecoder : Decode.Decoder (List Cell)
-gridDecoder =
-    Decode.list cellDecoder
 
 
 cellDecoder : Decode.Decoder Cell

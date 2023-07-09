@@ -5376,44 +5376,6 @@ var $author$project$Types$Crossword = F4(
 	function (grid, clues, numberOfColumns, numberOfRows) {
 		return {aW: clues, u: grid, aj: numberOfColumns, as: numberOfRows};
 	});
-var $author$project$Types$Clues = F2(
-	function (across, down) {
-		return {bI: across, bV: down};
-	});
-var $author$project$Types$Clue = F2(
-	function (text, number) {
-		return {ai: number, cz: text};
-	});
-var $elm$json$Json$Decode$int = _Json_decodeInt;
-var $NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$custom = $elm$json$Json$Decode$map2($elm$core$Basics$apR);
-var $elm$json$Json$Decode$field = _Json_decodeField;
-var $NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$required = F3(
-	function (key, valDecoder, decoder) {
-		return A2(
-			$NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$custom,
-			A2($elm$json$Json$Decode$field, key, valDecoder),
-			decoder);
-	});
-var $elm$json$Json$Decode$string = _Json_decodeString;
-var $author$project$Crossword$decodeClue = A3(
-	$NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$required,
-	'number',
-	$elm$json$Json$Decode$int,
-	A3(
-		$NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$required,
-		'value',
-		$elm$json$Json$Decode$string,
-		$elm$json$Json$Decode$succeed($author$project$Types$Clue)));
-var $elm$json$Json$Decode$list = _Json_decodeList;
-var $author$project$Crossword$clueDecoder = A3(
-	$NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$required,
-	'down',
-	$elm$json$Json$Decode$list($author$project$Crossword$decodeClue),
-	A3(
-		$NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$required,
-		'across',
-		$elm$json$Json$Decode$list($author$project$Crossword$decodeClue),
-		$elm$json$Json$Decode$succeed($author$project$Types$Clues)));
 var $author$project$Types$Black = {$: 1};
 var $elm$json$Json$Decode$andThen = _Json_andThen;
 var $elm$json$Json$Decode$fail = _Json_fail;
@@ -5426,6 +5388,8 @@ var $author$project$Crossword$exactMatch = F3(
 			},
 			matchDecoder);
 	});
+var $elm$json$Json$Decode$field = _Json_decodeField;
+var $elm$json$Json$Decode$string = _Json_decodeString;
 var $author$project$Crossword$decodeBlack = A3(
 	$author$project$Crossword$exactMatch,
 	A2($elm$json$Json$Decode$field, 'type', $elm$json$Json$Decode$string),
@@ -5476,6 +5440,15 @@ var $author$project$Crossword$decodeDirection = A2(
 		}
 	},
 	$elm$json$Json$Decode$string);
+var $elm$json$Json$Decode$int = _Json_decodeInt;
+var $NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$custom = $elm$json$Json$Decode$map2($elm$core$Basics$apR);
+var $NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$required = F3(
+	function (key, valDecoder, decoder) {
+		return A2(
+			$NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$custom,
+			A2($elm$json$Json$Decode$field, key, valDecoder),
+			decoder);
+	});
 var $author$project$Crossword$decodeClueId = A3(
 	$NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$required,
 	'number',
@@ -5572,7 +5545,33 @@ var $author$project$Crossword$decodeWhite = A3(
 var $author$project$Crossword$cellDecoder = $elm$json$Json$Decode$oneOf(
 	_List_fromArray(
 		[$author$project$Crossword$decodeWhite, $author$project$Crossword$decodeBlack]));
-var $author$project$Crossword$gridDecoder = $elm$json$Json$Decode$list($author$project$Crossword$cellDecoder);
+var $author$project$Types$Clues = F2(
+	function (across, down) {
+		return {bI: across, bV: down};
+	});
+var $author$project$Types$Clue = F2(
+	function (text, number) {
+		return {ai: number, cz: text};
+	});
+var $author$project$Crossword$decodeClue = A3(
+	$NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$required,
+	'number',
+	$elm$json$Json$Decode$int,
+	A3(
+		$NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$required,
+		'value',
+		$elm$json$Json$Decode$string,
+		$elm$json$Json$Decode$succeed($author$project$Types$Clue)));
+var $elm$json$Json$Decode$list = _Json_decodeList;
+var $author$project$Crossword$clueDecoder = A3(
+	$NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$required,
+	'down',
+	$elm$json$Json$Decode$list($author$project$Crossword$decodeClue),
+	A3(
+		$NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$required,
+		'across',
+		$elm$json$Json$Decode$list($author$project$Crossword$decodeClue),
+		$elm$json$Json$Decode$succeed($author$project$Types$Clues)));
 var $author$project$Crossword$crosswordDecoder = A3(
 	$NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$required,
 	'numberOfRows',
@@ -5588,7 +5587,7 @@ var $author$project$Crossword$crosswordDecoder = A3(
 			A3(
 				$NoRedInk$elm_json_decode_pipeline$Json$Decode$Pipeline$required,
 				'grid',
-				$author$project$Crossword$gridDecoder,
+				$elm$json$Json$Decode$list($author$project$Crossword$cellDecoder),
 				$elm$json$Json$Decode$succeed($author$project$Types$Crossword)))));
 var $elm$json$Json$Decode$decodeString = _Json_runOnString;
 var $elm$http$Http$BadStatus_ = F2(
@@ -6389,6 +6388,10 @@ var $author$project$Crossword$init = function (crosswordId) {
 			}));
 };
 var $author$project$CrosswordsList$GetCrosswordsList = $elm$core$Basics$identity;
+var $author$project$Constants$apiUrl = 'http://localhost:8080';
+var $author$project$Constants$apiUrlCrosswords = $elm$core$String$concat(
+	_List_fromArray(
+		[$author$project$Constants$apiUrl, '/crosswords']));
 var $author$project$CrosswordsList$CrosswordMetadata = F3(
 	function (id, series, seriesNo) {
 		return {aD: id, aK: series, aL: seriesNo};
@@ -6406,7 +6409,7 @@ var $author$project$CrosswordsList$getCrosswordList = $elm$http$Http$get(
 			$elm$http$Http$expectJson,
 			$elm$core$Basics$identity,
 			$elm$json$Json$Decode$list($author$project$CrosswordsList$crosswordMetadataDecoder)),
-		cE: 'http://localhost:8080/crosswords'
+		cE: $author$project$Constants$apiUrlCrosswords
 	});
 var $author$project$CrosswordsList$init = _Utils_Tuple2(
 	{
