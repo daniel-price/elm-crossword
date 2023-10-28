@@ -3,7 +3,7 @@ module Constants exposing (apiUrlCrosswords)
 
 apiUrl : String
 apiUrl =
-    "http://localhost:8080"
+    "https://cooperative-crosswords.onrender.com"
 
 
 apiUrlCrosswords : String
