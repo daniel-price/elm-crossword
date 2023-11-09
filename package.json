@@ -17,7 +17,7 @@
     "eruda": "^3.0.0"
   },
   "devDependencies": {
-    "elm-review": "^2.10.2",
+    "elm-review": "^2.10.3",
     "elm-test": "^0.19.1-revision12",
     "husky": "^8.0.3"
   }
