@@ -1,0 +1,3 @@
+bun run build
+bun run review
+bun run format
