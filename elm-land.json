@@ -8,7 +8,7 @@
         "debugger": false
       }
     },
-    "env": [],
+    "env": ["API_URL"],
     "html": {
       "attributes": {
         "html": {

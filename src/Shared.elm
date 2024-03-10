@@ -24,12 +24,14 @@ import Shared.Msg
 
 
 type alias Flags =
-    {}
+    { apiUrl : String
+    }
 
 
 decoder : Json.Decode.Decoder Flags
 decoder =
-    Json.Decode.succeed {}
+    Json.Decode.map Flags
+        (Json.Decode.field "apiUrl" Json.Decode.string)
 
 
 
@@ -41,10 +43,19 @@ type alias Model =
 
 
 init : Result Json.Decode.Error Flags -> Route () -> ( Model, Effect Msg )
-init _ _ =
-    ( {}
-    , Effect.none
-    )
+init flagsResult _ =
+    case flagsResult of
+        Ok flags ->
+            ( { apiUrl = flags.apiUrl
+              }
+            , Effect.none
+            )
+
+        Err _ ->
+            ( { apiUrl = "http://127.0.0.1:8080/"
+              }
+            , Effect.none
+            )
 
 
 
