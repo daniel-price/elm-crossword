@@ -2,6 +2,7 @@ module Pages.Home_ exposing (Model, Msg, page)
 
 import Effect exposing (Effect)
 import Html
+import Json.Decode
 import Page exposing (Page)
 import Route exposing (Route)
 import Shared
@@ -29,7 +30,7 @@ type alias Model =
 init : () -> ( Model, Effect Msg )
 init () =
     ( {}
-    , Effect.none
+    , Effect.sendGetRequest { endpoint = "/api/home", decoder = Json.Decode.succeed NoOp, onResponse = \_ -> NoOp }
     )
 
 
@@ -38,13 +39,13 @@ init () =
 
 
 type Msg
-    = NoOp Never
+    = NoOp
 
 
 update : Msg -> Model -> ( Model, Effect Msg )
 update msg model =
     case msg of
-        NoOp _ ->
+        NoOp ->
             ( model, Effect.none )
 
 

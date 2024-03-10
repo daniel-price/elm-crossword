@@ -4,6 +4,7 @@ module Effect exposing
     , sendCmd
     , pushRoute, replaceRoute
     , map, toCmd
+    , sendGetRequest
     )
 
 {-| This file was generated automatically by running elm-land customize effect
@@ -19,10 +20,15 @@ I then fixed the elm-review errors (mostly removing unused functions) - if you n
 
 @docs map, toCmd
 
+@docs sendGetRequest
+
 -}
 
 import Browser.Navigation
 import Dict exposing (Dict)
+import Http
+import Json.Decode
+import RemoteData exposing (WebData)
 import Route
 import Route.Path
 import Shared.Model
@@ -37,6 +43,7 @@ type Effect msg
       -- ROUTING
     | PushUrl String
     | ReplaceUrl String
+    | SendGetRequest { endpoint : String, decoder : Json.Decode.Decoder msg, onHttpError : Http.Error -> msg }
 
 
 
@@ -108,6 +115,13 @@ map fn effect =
         ReplaceUrl url ->
             ReplaceUrl url
 
+        SendGetRequest data ->
+            SendGetRequest
+                { endpoint = data.endpoint
+                , decoder = Json.Decode.map fn data.decoder
+                , onHttpError = data.onHttpError >> fn
+                }
+
 
 {-| Elm Land depends on this function to perform your effects.
 -}
@@ -134,3 +148,36 @@ toCmd options effect =
 
         ReplaceUrl url ->
             Browser.Navigation.replaceUrl options.key url
+
+        SendGetRequest data ->
+            Http.request
+                { method = "GET"
+                , url = options.shared.apiUrl ++ data.endpoint
+                , headers = []
+                , body = Http.emptyBody
+                , expect =
+                    Http.expectJson
+                        (\httpResult ->
+                            case httpResult of
+                                Ok msg ->
+                                    msg
+
+                                Err httpError ->
+                                    data.onHttpError httpError
+                        )
+                        data.decoder
+                , timeout = Just 15000
+                , tracker = Nothing
+                }
+
+
+sendGetRequest : { endpoint : String, decoder : Json.Decode.Decoder value, onResponse : WebData value -> msg } -> Effect msg
+sendGetRequest options =
+    SendGetRequest
+        { endpoint = options.endpoint
+        , decoder =
+            options.decoder
+                |> Json.Decode.map Ok
+                |> Json.Decode.map (RemoteData.fromResult >> options.onResponse)
+        , onHttpError = Err >> RemoteData.fromResult >> options.onResponse
+        }
