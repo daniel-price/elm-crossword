@@ -2,6 +2,7 @@ module Data.CrosswordInfo exposing (CrosswordInfo, decoder, fetch)
 
 import Effect exposing (Effect)
 import Json.Decode as JD
+import Json.Decode.Pipeline exposing (required)
 import RemoteData exposing (WebData)
 
 
@@ -18,11 +19,11 @@ type alias CrosswordInfo =
 -}
 decoder : JD.Decoder CrosswordInfo
 decoder =
-    JD.map4 CrosswordInfo
-        (JD.field "id" JD.string)
-        (JD.field "series" JD.string)
-        (JD.field "seriesNo" JD.int)
-        (JD.field "date" JD.int)
+    JD.succeed CrosswordInfo
+        |> required "id" JD.string
+        |> required "series" JD.string
+        |> required "seriesNo" JD.int
+        |> required "date" JD.int
 
 
 fetch : { onResponse : WebData (List CrosswordInfo) -> msg } -> Effect msg
