@@ -1,8 +1,8 @@
 module Pages.Home_ exposing (Model, Msg, page)
 
+import Data.CrosswordInfo as CrosswordInfo
 import Effect exposing (Effect)
 import Html
-import Json.Decode
 import Page exposing (Page)
 import Route exposing (Route)
 import Shared
@@ -29,9 +29,7 @@ type alias Model =
 
 init : () -> ( Model, Effect Msg )
 init () =
-    ( {}
-    , Effect.sendGetRequest { endpoint = "/api/home", decoder = Json.Decode.succeed NoOp, onResponse = \_ -> NoOp }
-    )
+    ( {}, CrosswordInfo.fetch { onResponse = \_ -> NoOp } )
 
 
 
