@@ -1,9 +1,11 @@
-module Pages.Home_ exposing (Model, Msg, page)
+module Pages.Home_ exposing (LoadedModel, Model, Msg, page)
 
-import Data.CrosswordInfo as CrosswordInfo
+import Data.CrosswordInfo as CrosswordInfo exposing (CrosswordInfo)
 import Effect exposing (Effect)
-import Html
+import Html exposing (a, div, text)
+import Html.Attributes exposing (href)
 import Page exposing (Page)
+import RemoteData exposing (RemoteData(..), WebData)
 import Route exposing (Route)
 import Shared
 import View exposing (View)
@@ -23,13 +25,20 @@ page _ _ =
 -- INIT
 
 
+type alias LoadedModel =
+    { crosswordInfos : List CrosswordInfo
+    }
+
+
 type alias Model =
-    {}
+    WebData LoadedModel
 
 
 init : () -> ( Model, Effect Msg )
 init () =
-    ( {}, CrosswordInfo.fetch { onResponse = \_ -> NoOp } )
+    ( Loading
+    , CrosswordInfo.fetch { onResponse = \result -> CrosswordInfoFetched result }
+    )
 
 
 
@@ -37,14 +46,16 @@ init () =
 
 
 type Msg
-    = NoOp
+    = CrosswordInfoFetched (WebData (List CrosswordInfo))
 
 
 update : Msg -> Model -> ( Model, Effect Msg )
-update msg model =
+update msg _ =
     case msg of
-        NoOp ->
-            ( model, Effect.none )
+        CrosswordInfoFetched response ->
+            response
+                |> RemoteData.map (\crosswordInfos -> { crosswordInfos = crosswordInfos })
+                |> (\newModel -> ( newModel, Effect.none ))
 
 
 
@@ -61,7 +72,23 @@ subscriptions _ =
 
 
 view : Model -> View Msg
-view _ =
-    { title = "Homepage"
-    , body = [ Html.text "Hello, world!" ]
+view model =
+    { title = "Crosswords"
+    , body =
+        case model of
+            NotAsked ->
+                [ text "Loading..." ]
+
+            Loading ->
+                [ text "Loading..." ]
+
+            Failure _ ->
+                [ text "Failed to load crosswords" ]
+
+            Success { crosswordInfos } ->
+                crosswordInfos
+                    |> List.map
+                        (\item ->
+                            div [] [ a [ href ("/crossword/" ++ item.id) ] [ text item.id ] ]
+                        )
     }
