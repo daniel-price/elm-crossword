@@ -22,7 +22,8 @@ suite =
     "numberOfRows":1,
     "cells":[
       {
-         "type":"White"
+         "type":"White",
+         "number":null
       },
       {
          "type":"Black"
@@ -39,7 +40,7 @@ suite =
                         (Ok
                             (Crossword
                                 (Grid.test_new 1
-                                    [ Cell.test_newWhite
+                                    [ Cell.test_newWhite Nothing
                                     , Cell.test_newBlack
                                     ]
                                 )

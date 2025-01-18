@@ -10,6 +10,7 @@ import Page exposing (Page)
 import RemoteData exposing (RemoteData(..), WebData)
 import Route exposing (Route)
 import Shared
+import Util.Build as Build
 import View exposing (View)
 
 
@@ -124,5 +125,20 @@ viewCell cell =
         children : List (Html Msg)
         children =
             []
+                |> Build.addMaybeMap viewCellNumber (Cell.getNumber cell)
+    in
+    div attributes children
+
+
+viewCellNumber : Int -> Html Msg
+viewCellNumber cellNumber =
+    let
+        attributes : List (Html.Attribute Msg)
+        attributes =
+            [ class "cell-number" ]
+
+        children : List (Html Msg)
+        children =
+            [ text (String.fromInt cellNumber) ]
     in
     div attributes children
