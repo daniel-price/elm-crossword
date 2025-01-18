@@ -5,13 +5,15 @@
     "dev": "elm-land server",
     "format": "elm-format --yes src && pretty-quick",
     "prepare": "husky",
-    "review": "elm-review --ignore-dirs .elm-land"
+    "review": "elm-review --ignore-dirs .elm-land",
+    "test": "elm-test"
   },
   "devDependencies": {
     "@types/bun": "latest",
     "elm-format": "^0.8.7",
     "elm-land": "^0.19.5",
     "elm-review": "^2.10.3",
+    "elm-test": "^0.19.1-revision12",
     "husky": "^9.0.9",
     "pretty-quick": "^4.0.0"
   }
