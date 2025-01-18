@@ -36,4 +36,15 @@ suite =
                     in
                     Expect.equal result [ "clueNumber", "clueName" ]
             ]
+        , describe "concat"
+            [ test "should concatenate the second list to the first list" <|
+                \_ ->
+                    let
+                        result : List String
+                        result =
+                            [ "clueNumber", "clueName" ]
+                                |> Build.concat [ "clue" ]
+                    in
+                    Expect.equal result [ "clueNumber", "clueName", "clue" ]
+            ]
         ]

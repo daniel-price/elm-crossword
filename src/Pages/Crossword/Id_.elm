@@ -1,7 +1,9 @@
 module Pages.Crossword.Id_ exposing (LoadedModel, Model, Msg, page)
 
 import Data.Cell as Cell exposing (Cell)
+import Data.Clue as Clue exposing (Clue)
 import Data.Crossword as Crossword exposing (Crossword)
+import Data.Direction as Direction exposing (Direction(..))
 import Data.Grid as Grid
 import Effect exposing (Effect)
 import Html exposing (Html, div, text)
@@ -102,7 +104,9 @@ viewCrossword crossword =
 
         children : List (Html Msg)
         children =
-            [ Grid.view [ id "class" ] viewCell crossword.grid ]
+            []
+                |> Build.add (Grid.view [ id "grid" ] viewCell crossword.grid)
+                |> Build.add (viewClues crossword.clues)
     in
     div attributes children
 
@@ -142,3 +146,73 @@ viewCellNumber cellNumber =
             [ text (String.fromInt cellNumber) ]
     in
     div attributes children
+
+
+viewClues : List Clue -> Html Msg
+viewClues clues =
+    let
+        acrossClues : List Clue
+        acrossClues =
+            Clue.getDirectionClues Across clues
+
+        downClues : List Clue
+        downClues =
+            Clue.getDirectionClues Down clues
+
+        attributes : List (Html.Attribute Msg)
+        attributes =
+            [ id "clues" ]
+
+        children : List (Html Msg)
+        children =
+            []
+                |> Build.add (viewCluesList Across acrossClues)
+                |> Build.add (viewCluesList Down downClues)
+    in
+    div attributes children
+
+
+viewCluesList : Direction -> List Clue -> Html Msg
+viewCluesList direction clues =
+    let
+        attributes : List (Html.Attribute Msg)
+        attributes =
+            [ class "clues-list" ]
+
+        children : List (Html Msg)
+        children =
+            []
+                |> Build.add (viewClueTitle direction)
+                |> Build.concat (List.map viewClue clues)
+    in
+    div attributes children
+
+
+viewClueTitle : Direction -> Html Msg
+viewClueTitle direction =
+    div
+        [ class "clue-title" ]
+        [ text (Direction.toString direction) ]
+
+
+viewClue : Clue -> Html Msg
+viewClue clue =
+    let
+        attributes : List (Html.Attribute Msg)
+        attributes =
+            [ class "clue" ]
+
+        children : List (Html Msg)
+        children =
+            []
+                |> Build.add (viewClueNumber (Clue.getClueNumberString clue))
+                |> Build.add (text (Clue.getClueText clue))
+    in
+    div attributes children
+
+
+viewClueNumber : String -> Html Msg
+viewClueNumber clueNumber =
+    div
+        [ class "clue-number" ]
+        [ text clueNumber ]

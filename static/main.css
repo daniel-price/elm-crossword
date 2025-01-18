@@ -3,6 +3,15 @@ body {
   padding: 0;
 }
 
+#crossword {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#grid {
+  width: min(99vw, 800px);
+}
+
 .cell {
   aspect-ratio: 1;
 }
@@ -13,4 +22,15 @@ body {
 
 .black {
   background-color: black;
+}
+
+#clues {
+  display: flex;
+  flex-direction: column;
+}
+
+.clue {
+  display: flex;
+  padding: 0.2em;
+  gap: 0.5em;
 }

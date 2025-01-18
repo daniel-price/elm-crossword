@@ -1,4 +1,4 @@
-module Util.Build exposing (add, addMaybeMap)
+module Util.Build exposing (add, addMaybeMap, concat)
 
 
 add : a -> List a -> List a
@@ -14,3 +14,8 @@ addMaybeMap fn maybe list =
 
         Nothing ->
             list
+
+
+concat : List a -> List a -> List a
+concat toConcat list =
+    list ++ toConcat
