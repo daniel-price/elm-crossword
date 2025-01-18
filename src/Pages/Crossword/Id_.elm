@@ -1,18 +1,22 @@
-module Pages.Crossword.Id_ exposing (Model, Msg, page)
+module Pages.Crossword.Id_ exposing (LoadedModel, Model, Msg, page)
 
+import Data.Cell as Cell exposing (Cell)
+import Data.Crossword as Crossword exposing (Crossword)
+import Data.Grid as Grid
 import Effect exposing (Effect)
-import Html
+import Html exposing (Html, div, text)
+import Html.Attributes exposing (class, id)
 import Page exposing (Page)
+import RemoteData exposing (RemoteData(..), WebData)
 import Route exposing (Route)
 import Shared
-import Task
 import View exposing (View)
 
 
 page : Shared.Model -> Route { id : String } -> Page Model Msg
-page _ _ =
+page _ route =
     Page.new
-        { init = init
+        { init = init route.params.id
         , update = update
         , subscriptions = subscriptions
         , view = view
@@ -23,16 +27,19 @@ page _ _ =
 -- INIT
 
 
+type alias LoadedModel =
+    { crossword : Crossword
+    }
+
+
 type alias Model =
-    {}
+    WebData LoadedModel
 
 
-init : () -> ( Model, Effect Msg )
-init () =
-    ( {}
-    , Task.succeed NoOp
-        |> Task.perform identity
-        |> Effect.sendCmd
+init : String -> () -> ( Model, Effect Msg )
+init id () =
+    ( Loading
+    , Crossword.fetch { id = id, onResponse = \result -> CrosswordFetched result }
     )
 
 
@@ -41,16 +48,16 @@ init () =
 
 
 type Msg
-    = NoOp
+    = CrosswordFetched (WebData Crossword)
 
 
 update : Msg -> Model -> ( Model, Effect Msg )
-update msg model =
+update msg _ =
     case msg of
-        NoOp ->
-            ( model
-            , Effect.none
-            )
+        CrosswordFetched response ->
+            response
+                |> RemoteData.map (\crossword -> { crossword = crossword })
+                |> (\newModel -> ( newModel, Effect.none ))
 
 
 
@@ -67,7 +74,55 @@ subscriptions _ =
 
 
 view : Model -> View Msg
-view _ =
+view model =
     { title = "Pages.Crossword.Id_"
-    , body = [ Html.text "/crossword/:id" ]
+    , body =
+        case model of
+            NotAsked ->
+                [ text "Loading..." ]
+
+            Loading ->
+                [ text "Loading..." ]
+
+            Failure _ ->
+                [ text "Failed to load crosswords" ]
+
+            Success { crossword } ->
+                [ viewCrossword crossword ]
     }
+
+
+viewCrossword : Crossword -> Html Msg
+viewCrossword crossword =
+    let
+        attributes : List (Html.Attribute Msg)
+        attributes =
+            [ id "crossword" ]
+
+        children : List (Html Msg)
+        children =
+            [ Grid.view [ id "class" ] viewCell crossword.grid ]
+    in
+    div attributes children
+
+
+viewCell : Cell -> Html Msg
+viewCell cell =
+    let
+        attributes : List (Html.Attribute Msg)
+        attributes =
+            [ class "cell"
+            , class
+                (if Cell.isWhite cell then
+                    "white"
+
+                 else
+                    "black"
+                )
+            ]
+
+        children : List (Html Msg)
+        children =
+            []
+    in
+    div attributes children

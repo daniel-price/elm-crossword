@@ -14,6 +14,10 @@ type alias CrosswordInfo =
     }
 
 
+
+-- DECODERS
+
+
 {-| TODO: ideally we wouldn't export this function just to unit test it - can we test the
 --| fetch function instead?
 -}

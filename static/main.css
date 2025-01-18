@@ -2,3 +2,15 @@ body {
   margin: 0;
   padding: 0;
 }
+
+.cell {
+  aspect-ratio: 1;
+}
+
+.white {
+  background-color: white;
+}
+
+.black {
+  background-color: black;
+}

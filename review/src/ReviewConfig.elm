@@ -22,6 +22,7 @@ import NoMissingTypeAnnotationInLetIn
 import NoMissingTypeExpose
 import NoPrematureLetComputation
 import NoSimpleLetBody
+import NoTestValuesInProductionCode
 import NoUnused.CustomTypeConstructorArgs
 import NoUnused.CustomTypeConstructors
 import NoUnused.Dependencies
@@ -55,4 +56,6 @@ config =
     , NoUnused.Patterns.rule
     , NoUnused.Variables.rule
     , Simplify.rule Simplify.defaults
+    , NoTestValuesInProductionCode.rule
+        (NoTestValuesInProductionCode.startsWith "test_")
     ]
