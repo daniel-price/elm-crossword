@@ -78,7 +78,7 @@ subscriptions _ =
 
 view : Model -> View Msg
 view model =
-    { title = "Pages.Crossword.Id_"
+    { title = "Crossword"
     , body =
         case model of
             NotAsked ->
