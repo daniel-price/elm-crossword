@@ -4,7 +4,7 @@ import Data.Cell as Cell exposing (Cell)
 import Data.Clue as Clue exposing (Clue)
 import Data.Crossword as Crossword exposing (Crossword)
 import Data.Direction as Direction exposing (Direction(..))
-import Data.Grid as Grid
+import Data.Grid as Grid exposing (Coordinate)
 import Effect exposing (Effect)
 import Html exposing (Html, div, text)
 import Html.Attributes exposing (class, id)
@@ -32,6 +32,7 @@ page _ route =
 
 type alias LoadedModel =
     { crossword : Crossword
+    , selectedCoordinate : ( Int, Int )
     }
 
 
@@ -59,7 +60,17 @@ update msg _ =
     case msg of
         CrosswordFetched response ->
             response
-                |> RemoteData.map (\crossword -> { crossword = crossword })
+                |> RemoteData.map
+                    (\crossword ->
+                        let
+                            selectedCoordinate : ( Int, Int )
+                            selectedCoordinate =
+                                crossword.grid
+                                    |> Grid.findCoordinate Cell.isWhite
+                                    |> Maybe.withDefault ( 0, 0 )
+                        in
+                        { crossword = crossword, selectedCoordinate = selectedCoordinate }
+                    )
                 |> (\newModel -> ( newModel, Effect.none ))
 
 
@@ -90,14 +101,17 @@ view model =
             Failure _ ->
                 [ text "Failed to load crosswords" ]
 
-            Success { crossword } ->
-                [ viewCrossword crossword ]
+            Success loadedModel ->
+                [ viewCrossword loadedModel ]
     }
 
 
-viewCrossword : Crossword -> Html Msg
-viewCrossword crossword =
+viewCrossword : LoadedModel -> Html Msg
+viewCrossword loadedModel =
     let
+        { crossword } =
+            loadedModel
+
         attributes : List (Html.Attribute Msg)
         attributes =
             [ id "crossword" ]
@@ -105,14 +119,14 @@ viewCrossword crossword =
         children : List (Html Msg)
         children =
             []
-                |> Build.add (Grid.view [ id "grid" ] viewCell crossword.grid)
+                |> Build.add (Grid.view [ id "grid" ] (viewCell loadedModel) crossword.grid)
                 |> Build.add (viewClues crossword.clues)
     in
     div attributes children
 
 
-viewCell : Cell -> Html Msg
-viewCell cell =
+viewCell : LoadedModel -> Coordinate -> Cell -> Html Msg
+viewCell loadedModel coordinate cell =
     let
         attributes : List (Html.Attribute Msg)
         attributes =
@@ -125,6 +139,7 @@ viewCell cell =
                     "black"
                 )
             ]
+                |> Build.addIf (coordinate == loadedModel.selectedCoordinate) (class "cell-selected")
 
         children : List (Html Msg)
         children =

@@ -47,4 +47,22 @@ suite =
                     in
                     Expect.equal result [ "clueNumber", "clueName", "clue" ]
             ]
+        , describe "addIf"
+            [ test "should add the value to the end of the list if the condition is true" <|
+                \_ ->
+                    let
+                        result : List String
+                        result =
+                            [ "clueNumber", "clueName" ] |> Build.addIf True "clue"
+                    in
+                    Expect.equal result [ "clueNumber", "clueName", "clue" ]
+            , test "should not add the value to the end of the list if the condition is false" <|
+                \_ ->
+                    let
+                        result : List String
+                        result =
+                            [ "clueNumber", "clueName" ] |> Build.addIf False "clue"
+                    in
+                    Expect.equal result [ "clueNumber", "clueName" ]
+            ]
         ]

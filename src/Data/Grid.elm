@@ -1,13 +1,32 @@
-module Data.Grid exposing (Grid, decoder, test_new, view)
+module Data.Grid exposing (Coordinate, Grid, decoder, findCoordinate, test_new, view)
 
 import Html exposing (Html, div)
 import Html.Attributes exposing (style)
 import Json.Decode as JD
 import Json.Decode.Pipeline exposing (required)
+import List.Extra
 
 
 type Grid a
     = Grid { numberOfRows : Int, items : List a }
+
+
+type alias Coordinate =
+    ( Int, Int )
+
+
+getIndexCoordinates : Grid a -> Int -> Coordinate
+getIndexCoordinates (Grid { numberOfRows }) index =
+    ( remainderBy numberOfRows index, index // numberOfRows )
+
+
+findCoordinate : (a -> Bool) -> Grid a -> Maybe Coordinate
+findCoordinate predicate grid =
+    let
+        (Grid { items }) =
+            grid
+    in
+    List.Extra.findIndex predicate items |> Maybe.map (getIndexCoordinates grid)
 
 
 
@@ -25,9 +44,12 @@ decoder field itemDecoder =
 -- VIEW
 
 
-view : List (Html.Attribute msg) -> (a -> Html msg) -> Grid a -> Html msg
-view additionalAttributes viewItem (Grid { numberOfRows, items }) =
+view : List (Html.Attribute msg) -> (Coordinate -> a -> Html msg) -> Grid a -> Html msg
+view additionalAttributes viewItem grid =
     let
+        (Grid { numberOfRows, items }) =
+            grid
+
         attributes : List (Html.Attribute msg)
         attributes =
             additionalAttributes
@@ -37,7 +59,16 @@ view additionalAttributes viewItem (Grid { numberOfRows, items }) =
 
         children : List (Html msg)
         children =
-            List.map viewItem items
+            List.indexedMap
+                (\i ->
+                    let
+                        coordinate : Coordinate
+                        coordinate =
+                            getIndexCoordinates (Grid { numberOfRows = numberOfRows, items = items }) i
+                    in
+                    viewItem coordinate
+                )
+                items
     in
     div attributes children
 

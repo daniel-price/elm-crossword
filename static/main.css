@@ -43,6 +43,15 @@ body {
   left: 0.1em;
 }
 
+.cell-selected {
+  anchor-name: --cell-selected;
+}
+
+:has(#input:focus) .cell-selected {
+  outline: 0.2em solid DodgerBlue;
+  z-index: 1;
+}
+
 #clues {
   display: flex;
   flex-direction: column;

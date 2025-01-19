@@ -35,4 +35,25 @@ suite =
                             )
                         )
             ]
+        , describe "findCoordinate"
+            [ test "should find first coordinate matching predicate" <|
+                \_ ->
+                    let
+                        grid : Grid Int
+                        grid =
+                            Grid.test_new 2
+                                [ 1
+                                , 1
+                                , 2
+                                , 2
+                                , 3
+                                , 3
+                                ]
+
+                        result : Maybe Grid.Coordinate
+                        result =
+                            Grid.findCoordinate ((==) 2) grid
+                    in
+                    Expect.equal result (Just ( 0, 1 ))
+            ]
         ]
