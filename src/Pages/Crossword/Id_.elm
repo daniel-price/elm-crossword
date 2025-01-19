@@ -8,6 +8,7 @@ import Data.Grid as Grid exposing (Coordinate)
 import Effect exposing (Effect)
 import Html exposing (Html, div, text)
 import Html.Attributes exposing (class, id)
+import Html.Events exposing (onClick)
 import Page exposing (Page)
 import RemoteData exposing (RemoteData(..), WebData)
 import Route exposing (Route)
@@ -51,14 +52,19 @@ init id () =
 -- UPDATE
 
 
+type CrosswordUpdatedMsg
+    = CellSelected Coordinate
+
+
 type Msg
     = CrosswordFetched (WebData Crossword)
+    | CrosswordUpdated CrosswordUpdatedMsg
 
 
 update : Msg -> Model -> ( Model, Effect Msg )
-update msg _ =
-    case msg of
-        CrosswordFetched response ->
+update msg model =
+    case ( msg, model ) of
+        ( CrosswordFetched response, Loading ) ->
             response
                 |> RemoteData.map
                     (\crossword ->
@@ -71,7 +77,33 @@ update msg _ =
                         in
                         { crossword = crossword, selectedCoordinate = selectedCoordinate }
                     )
-                |> (\newModel -> ( newModel, Effect.none ))
+                |> noEffect
+
+        ( CrosswordUpdated crosswordUpdatedMsg, Success loadedModel ) ->
+            updateCrossword crosswordUpdatedMsg loadedModel
+                |> Tuple.mapFirst Success
+
+        _ ->
+            model |> noEffect
+
+
+updateCrossword : CrosswordUpdatedMsg -> LoadedModel -> ( LoadedModel, Effect Msg )
+updateCrossword msg loadedModel =
+    case msg of
+        CellSelected coordinate ->
+            loadedModel
+                |> setSelectedCoordinate coordinate
+                |> noEffect
+
+
+noEffect : a -> ( a, Effect b )
+noEffect a =
+    ( a, Effect.none )
+
+
+setSelectedCoordinate : Coordinate -> LoadedModel -> LoadedModel
+setSelectedCoordinate selectedCoordinate model =
+    { model | selectedCoordinate = selectedCoordinate }
 
 
 
@@ -128,11 +160,15 @@ viewCrossword loadedModel =
 viewCell : LoadedModel -> Coordinate -> Cell -> Html Msg
 viewCell loadedModel coordinate cell =
     let
+        isWhite : Bool
+        isWhite =
+            Cell.isWhite cell
+
         attributes : List (Html.Attribute Msg)
         attributes =
             [ class "cell"
             , class
-                (if Cell.isWhite cell then
+                (if isWhite then
                     "white"
 
                  else
@@ -140,6 +176,7 @@ viewCell loadedModel coordinate cell =
                 )
             ]
                 |> Build.addIf (coordinate == loadedModel.selectedCoordinate) (class "cell-selected")
+                |> Build.addIf isWhite (onClick (CrosswordUpdated (CellSelected coordinate)))
 
         children : List (Html Msg)
         children =
