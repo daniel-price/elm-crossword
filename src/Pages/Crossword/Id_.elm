@@ -34,6 +34,7 @@ page _ route =
 type alias LoadedModel =
     { crossword : Crossword
     , selectedCoordinate : ( Int, Int )
+    , selectedDirection : Direction
     }
 
 
@@ -74,8 +75,25 @@ update msg model =
                                 crossword.grid
                                     |> Grid.findCoordinate Cell.isWhite
                                     |> Maybe.withDefault ( 0, 0 )
+
+                            selectedDirection : Direction
+                            selectedDirection =
+                                crossword.grid
+                                    |> Grid.get (Tuple.mapFirst ((+) 1) selectedCoordinate)
+                                    |> Maybe.andThen
+                                        (\cell ->
+                                            if Cell.isWhite cell then
+                                                Just Direction.Across
+
+                                            else
+                                                Nothing
+                                        )
+                                    |> Maybe.withDefault Direction.Down
                         in
-                        { crossword = crossword, selectedCoordinate = selectedCoordinate }
+                        { crossword = crossword
+                        , selectedCoordinate = selectedCoordinate
+                        , selectedDirection = selectedDirection
+                        }
                     )
                 |> noEffect
 

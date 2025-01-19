@@ -56,4 +56,23 @@ suite =
                     in
                     Expect.equal result (Just ( 0, 1 ))
             ]
+        , describe "get"
+            [ test "should get item at coordinate" <|
+                \_ ->
+                    let
+                        grid : Grid Int
+                        grid =
+                            Grid.test_new 2
+                                [ 1
+                                , 2
+                                , 3
+                                , 4
+                                ]
+
+                        result : Maybe Int
+                        result =
+                            Grid.get ( 1, 0 ) grid
+                    in
+                    Expect.equal result (Just 2)
+            ]
         ]

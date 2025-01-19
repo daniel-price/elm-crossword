@@ -1,4 +1,4 @@
-module Data.Grid exposing (Coordinate, Grid, decoder, findCoordinate, test_new, view)
+module Data.Grid exposing (Coordinate, Grid, decoder, findCoordinate, get, test_new, view)
 
 import Html exposing (Html, div)
 import Html.Attributes exposing (style)
@@ -27,6 +27,16 @@ findCoordinate predicate grid =
             grid
     in
     List.Extra.findIndex predicate items |> Maybe.map (getIndexCoordinates grid)
+
+
+get : Coordinate -> Grid a -> Maybe a
+get ( x, y ) (Grid { numberOfRows, items }) =
+    let
+        index : Int
+        index =
+            y * numberOfRows + x
+    in
+    List.Extra.getAt index items
 
 
 
