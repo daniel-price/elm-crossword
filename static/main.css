@@ -1,19 +1,32 @@
 body {
   margin: 0;
   padding: 0;
+  font-family: Roboto;
 }
 
 #crossword {
   display: flex;
   flex-wrap: wrap;
+  padding: min(0.5vw, 3px);
+  gap: 1em;
+  font-size: min(1vw, 6px);
 }
 
 #grid {
   width: min(99vw, 800px);
+  max-height: 800px;
+  border: 0.05em solid black;
+  background-color: black;
+  gap: 0.05em;
+  font-size: 4em;
 }
 
 .cell {
   aspect-ratio: 1;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .white {
@@ -24,13 +37,32 @@ body {
   background-color: black;
 }
 
+.cell-number {
+  position: absolute;
+  font-size: 0.75em;
+  left: 0.1em;
+}
+
 #clues {
   display: flex;
   flex-direction: column;
+  gap: 1em;
+  font-size: 3em;
+}
+
+.clue-title {
+  color: #696969;
 }
 
 .clue {
   display: flex;
   padding: 0.2em;
   gap: 0.5em;
+  font-size: 1.5em;
+}
+
+.clue-number {
+  width: 1em;
+  text-align: right;
+  color: #696969;
 }
