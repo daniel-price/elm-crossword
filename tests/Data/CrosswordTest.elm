@@ -70,4 +70,32 @@ suite =
                             )
                         )
             ]
+        , describe "getClueCoordinates"
+            [ test "should return coordinates for a clue" <|
+                \_ ->
+                    let
+                        crossword : Crossword
+                        crossword =
+                            Crossword
+                                (Grid.test_new 3
+                                    [ Cell.test_newWhite (Just 1)
+                                    , Cell.test_newWhite Nothing
+                                    , Cell.test_newWhite Nothing
+                                    , Cell.test_newBlack
+                                    , Cell.test_newWhite (Just 2)
+                                    , Cell.test_newWhite Nothing
+                                    , Cell.test_newWhite Nothing
+                                    , Cell.test_newWhite Nothing
+                                    , Cell.test_newBlack
+                                    ]
+                                )
+                                []
+
+                        result : List Grid.Coordinate
+                        result =
+                            Crossword.getClueCoordinates ( 1, 1 ) Across crossword
+                    in
+                    Expect.equal result
+                        [ ( 1, 1 ), ( 2, 1 ) ]
+            ]
         ]

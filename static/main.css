@@ -52,6 +52,10 @@ body {
   z-index: 1;
 }
 
+.cell-highlighted {
+  background-color: yellow;
+}
+
 #clues {
   display: flex;
   flex-direction: column;

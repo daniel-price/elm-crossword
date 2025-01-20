@@ -1,4 +1,4 @@
-module Data.Grid exposing (Coordinate, Grid, decoder, findCoordinate, get, test_new, view)
+module Data.Grid exposing (Coordinate, Grid, decoder, findCoordinate, get, getColumnCoordinates, getRowCoordinates, test_new, view)
 
 import Html exposing (Html, div)
 import Html.Attributes exposing (style)
@@ -18,6 +18,30 @@ type alias Coordinate =
 getIndexCoordinates : Grid a -> Int -> Coordinate
 getIndexCoordinates (Grid { numberOfRows }) index =
     ( remainderBy numberOfRows index, index // numberOfRows )
+
+
+getRowCoordinates : Coordinate -> Grid a -> List Coordinate
+getRowCoordinates ( _, y ) (Grid { numberOfRows }) =
+    let
+        indexes : List Int
+        indexes =
+            List.range 0 (numberOfRows - 1)
+    in
+    List.map (\i -> ( i, y )) indexes
+
+
+getColumnCoordinates : Coordinate -> Grid a -> List Coordinate
+getColumnCoordinates ( x, _ ) (Grid { numberOfRows, items }) =
+    let
+        numberOfColumns : Int
+        numberOfColumns =
+            List.length items // numberOfRows
+
+        indexes : List Int
+        indexes =
+            List.range 0 (numberOfColumns - 1)
+    in
+    List.map (\i -> ( x, i )) indexes
 
 
 findCoordinate : (a -> Bool) -> Grid a -> Maybe Coordinate

@@ -110,8 +110,50 @@ updateCrossword msg loadedModel =
     case msg of
         CellSelected coordinate ->
             loadedModel
-                |> setSelectedCoordinate coordinate
+                |> updateCellSelected coordinate
                 |> noEffect
+
+
+updateCellSelected : Coordinate -> LoadedModel -> LoadedModel
+updateCellSelected coordinate loadedModel =
+    let
+        isDirection : Direction -> Bool
+        isDirection direction =
+            loadedModel.crossword
+                |> Crossword.getClueCoordinates coordinate direction
+                |> List.any (\c -> c /= coordinate)
+
+        isAcross : Bool
+        isAcross =
+            isDirection Across
+
+        isDown : Bool
+        isDown =
+            isDirection Down
+
+        updatedDirection : Direction
+        updatedDirection =
+            if isAcross && isDown then
+                if loadedModel.selectedCoordinate == coordinate then
+                    case loadedModel.selectedDirection of
+                        Across ->
+                            Down
+
+                        Down ->
+                            Across
+
+                else
+                    loadedModel.selectedDirection
+
+            else if isAcross then
+                Across
+
+            else
+                Down
+    in
+    loadedModel
+        |> setSelectedCoordinate coordinate
+        |> setSelectedDirection updatedDirection
 
 
 noEffect : a -> ( a, Effect b )
@@ -122,6 +164,11 @@ noEffect a =
 setSelectedCoordinate : Coordinate -> LoadedModel -> LoadedModel
 setSelectedCoordinate selectedCoordinate model =
     { model | selectedCoordinate = selectedCoordinate }
+
+
+setSelectedDirection : Direction -> LoadedModel -> LoadedModel
+setSelectedDirection selectedDirection model =
+    { model | selectedDirection = selectedDirection }
 
 
 
@@ -159,8 +206,13 @@ view model =
 viewCrossword : LoadedModel -> Html Msg
 viewCrossword loadedModel =
     let
-        { crossword } =
+        { crossword, selectedCoordinate, selectedDirection } =
             loadedModel
+
+        highlightedCoordinates : List Coordinate
+        highlightedCoordinates =
+            loadedModel.crossword
+                |> Crossword.getClueCoordinates selectedCoordinate selectedDirection
 
         attributes : List (Html.Attribute Msg)
         attributes =
@@ -169,18 +221,22 @@ viewCrossword loadedModel =
         children : List (Html Msg)
         children =
             []
-                |> Build.add (Grid.view [ id "grid" ] (viewCell loadedModel) crossword.grid)
+                |> Build.add (Grid.view [ id "grid" ] (viewCell highlightedCoordinates loadedModel) crossword.grid)
                 |> Build.add (viewClues crossword.clues)
     in
     div attributes children
 
 
-viewCell : LoadedModel -> Coordinate -> Cell -> Html Msg
-viewCell loadedModel coordinate cell =
+viewCell : List Coordinate -> LoadedModel -> Coordinate -> Cell -> Html Msg
+viewCell highlightedCoordinates loadedModel coordinate cell =
     let
         isWhite : Bool
         isWhite =
             Cell.isWhite cell
+
+        isHighlighted : Bool
+        isHighlighted =
+            List.member coordinate highlightedCoordinates
 
         attributes : List (Html.Attribute Msg)
         attributes =
@@ -195,6 +251,7 @@ viewCell loadedModel coordinate cell =
             ]
                 |> Build.addIf (coordinate == loadedModel.selectedCoordinate) (class "cell-selected")
                 |> Build.addIf isWhite (onClick (CrosswordUpdated (CellSelected coordinate)))
+                |> Build.addIf isHighlighted (class "cell-highlighted")
 
         children : List (Html Msg)
         children =

@@ -75,4 +75,48 @@ suite =
                     in
                     Expect.equal result (Just 2)
             ]
+        , describe "getRowCoordinates"
+            [ test "should get coordinates for row" <|
+                \_ ->
+                    let
+                        grid : Grid Int
+                        grid =
+                            Grid.test_new 2
+                                [ 1
+                                , 2
+                                , 3
+                                , 4
+                                ]
+
+                        result : List Grid.Coordinate
+                        result =
+                            Grid.getRowCoordinates ( 0, 1 ) grid
+                    in
+                    Expect.equal result
+                        [ ( 0, 1 )
+                        , ( 1, 1 )
+                        ]
+            ]
+        , describe "getColumnCoordinates"
+            [ test "should get coordinates for column" <|
+                \_ ->
+                    let
+                        grid : Grid Int
+                        grid =
+                            Grid.test_new 2
+                                [ 1
+                                , 2
+                                , 3
+                                , 4
+                                ]
+
+                        result : List Grid.Coordinate
+                        result =
+                            Grid.getColumnCoordinates ( 0, 1 ) grid
+                    in
+                    Expect.equal result
+                        [ ( 0, 0 )
+                        , ( 0, 1 )
+                        ]
+            ]
         ]
