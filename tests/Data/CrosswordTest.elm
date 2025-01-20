@@ -98,4 +98,49 @@ suite =
                     Expect.equal result
                         [ ( 1, 1 ), ( 2, 1 ) ]
             ]
+        , let
+            grid : Grid.Grid Cell.Cell
+            grid =
+                Grid.test_new 3
+                    [ Cell.test_newWhite (Just 1)
+                    , Cell.test_newWhite Nothing
+                    , Cell.test_newWhite Nothing
+                    , Cell.test_newBlack
+                    , Cell.test_newWhite (Just 2)
+                    , Cell.test_newWhite Nothing
+                    , Cell.test_newWhite Nothing
+                    , Cell.test_newWhite Nothing
+                    , Cell.test_newBlack
+                    ]
+          in
+          describe "getNextClueCoordinate"
+            [ test "should get next coordinate in across clue" <|
+                \_ ->
+                    let
+                        result : Grid.Coordinate
+                        result =
+                            Crossword.getNextClueCoordinate ( 1, 1 )
+                                Across
+                                (Crossword
+                                    grid
+                                    []
+                                )
+                    in
+                    Expect.equal result
+                        ( 2, 1 )
+            , test "should get next coordinate in down clue" <|
+                \_ ->
+                    let
+                        result : Grid.Coordinate
+                        result =
+                            Crossword.getNextClueCoordinate ( 1, 1 )
+                                Down
+                                (Crossword
+                                    grid
+                                    []
+                                )
+                    in
+                    Expect.equal result
+                        ( 1, 2 )
+            ]
         ]

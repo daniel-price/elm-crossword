@@ -1,4 +1,4 @@
-module Data.Crossword exposing (Crossword, decoder, fetch, getClueCoordinates)
+module Data.Crossword exposing (Crossword, decoder, fetch, getClueCoordinates, getNextClueCoordinate)
 
 import Data.Cell as Cell exposing (Cell)
 import Data.Clue as Clue
@@ -9,6 +9,7 @@ import Json.Decode as JD
 import Json.Decode.Pipeline exposing (required)
 import List.Extra exposing (Step(..))
 import RemoteData exposing (WebData)
+import Util.List
 
 
 type alias Crossword =
@@ -51,6 +52,15 @@ getClueCoordinates coordinate direction crossword =
                         Stop acc
             )
             []
+
+
+getNextClueCoordinate : Coordinate -> Direction -> Crossword -> Coordinate
+getNextClueCoordinate coordinate direction crossword =
+    crossword
+        |> getClueCoordinates coordinate direction
+        |> Util.List.dropUntilMember coordinate
+        |> List.head
+        |> Maybe.withDefault coordinate
 
 
 

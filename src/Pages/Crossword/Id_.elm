@@ -1,18 +1,22 @@
-module Pages.Crossword.Id_ exposing (LoadedModel, Model, Msg, page)
+module Pages.Crossword.Id_ exposing (FilledLetters, LoadedModel, Model, Msg, page)
 
+import Browser.Dom as Dom
 import Data.Cell as Cell exposing (Cell)
 import Data.Clue as Clue exposing (Clue)
 import Data.Crossword as Crossword exposing (Crossword)
 import Data.Direction as Direction exposing (Direction(..))
 import Data.Grid as Grid exposing (Coordinate)
+import Dict exposing (Dict)
 import Effect exposing (Effect)
-import Html exposing (Html, div, text)
-import Html.Attributes exposing (class, id)
-import Html.Events exposing (onClick)
+import Html exposing (Attribute, Html, div, input, text)
+import Html.Attributes exposing (class, id, value)
+import Html.Events exposing (on, onClick, targetValue)
+import Json.Decode as JD
 import Page exposing (Page)
 import RemoteData exposing (RemoteData(..), WebData)
 import Route exposing (Route)
 import Shared
+import Task
 import Util.Build as Build
 import View exposing (View)
 
@@ -31,10 +35,15 @@ page _ route =
 -- INIT
 
 
+type alias FilledLetters =
+    Dict Coordinate Char
+
+
 type alias LoadedModel =
     { crossword : Crossword
     , selectedCoordinate : ( Int, Int )
     , selectedDirection : Direction
+    , filledLetters : FilledLetters
     }
 
 
@@ -55,10 +64,12 @@ init id () =
 
 type CrosswordUpdatedMsg
     = CellSelected Coordinate
+    | CellLetterAdded Coordinate Char
 
 
 type Msg
-    = CrosswordFetched (WebData Crossword)
+    = NoOp
+    | CrosswordFetched (WebData Crossword)
     | CrosswordUpdated CrosswordUpdatedMsg
 
 
@@ -93,9 +104,10 @@ update msg model =
                         { crossword = crossword
                         , selectedCoordinate = selectedCoordinate
                         , selectedDirection = selectedDirection
+                        , filledLetters = Dict.empty
                         }
                     )
-                |> noEffect
+                |> focusInputEffect
 
         ( CrosswordUpdated crosswordUpdatedMsg, Success loadedModel ) ->
             updateCrossword crosswordUpdatedMsg loadedModel
@@ -111,6 +123,18 @@ updateCrossword msg loadedModel =
         CellSelected coordinate ->
             loadedModel
                 |> updateCellSelected coordinate
+                |> focusInputEffect
+
+        CellLetterAdded coordinate letter ->
+            loadedModel
+                |> (loadedModel.crossword
+                        |> Crossword.getNextClueCoordinate loadedModel.selectedCoordinate loadedModel.selectedDirection
+                        |> setSelectedCoordinate
+                   )
+                |> (loadedModel.filledLetters
+                        |> Dict.insert coordinate letter
+                        |> setFilledLetters
+                   )
                 |> noEffect
 
 
@@ -161,6 +185,15 @@ noEffect a =
     ( a, Effect.none )
 
 
+focusInputEffect : model -> ( model, Effect Msg )
+focusInputEffect model =
+    ( model
+    , Dom.focus "input"
+        |> Task.attempt (\_ -> NoOp)
+        |> Effect.sendCmd
+    )
+
+
 setSelectedCoordinate : Coordinate -> LoadedModel -> LoadedModel
 setSelectedCoordinate selectedCoordinate model =
     { model | selectedCoordinate = selectedCoordinate }
@@ -169,6 +202,11 @@ setSelectedCoordinate selectedCoordinate model =
 setSelectedDirection : Direction -> LoadedModel -> LoadedModel
 setSelectedDirection selectedDirection model =
     { model | selectedDirection = selectedDirection }
+
+
+setFilledLetters : FilledLetters -> LoadedModel -> LoadedModel
+setFilledLetters filledLetters model =
+    { model | filledLetters = filledLetters }
 
 
 
@@ -221,10 +259,47 @@ viewCrossword loadedModel =
         children : List (Html Msg)
         children =
             []
+                |> Build.add (viewInput selectedCoordinate)
                 |> Build.add (Grid.view [ id "grid" ] (viewCell highlightedCoordinates loadedModel) crossword.grid)
                 |> Build.add (viewClues crossword.clues)
     in
     div attributes children
+
+
+{-| Have an input floating on top of the grid so that the user can type.
+
+    We can't just use onInput on the currently selected cell as switching focus
+    isn't fast enough to keep up with the user typing fast.
+
+    Don't use Html.Events.onInput as it stops propogation which leads to weird backspace behaviour on mobile
+
+-}
+viewInput : Coordinate -> Html Msg
+viewInput selectedCoordinate =
+    let
+        onInput : (String -> msg) -> Attribute msg
+        onInput tagger =
+            on "input" (JD.map tagger targetValue)
+    in
+    input
+        [ id "input"
+        , onInput
+            (\string ->
+                String.toList string
+                    |> List.reverse
+                    |> List.head
+                    |> Maybe.map
+                        (\char ->
+                            char
+                                |> Char.toUpper
+                                |> CellLetterAdded selectedCoordinate
+                                |> CrosswordUpdated
+                        )
+                    |> Maybe.withDefault NoOp
+            )
+        , value ""
+        ]
+        []
 
 
 viewCell : List Coordinate -> LoadedModel -> Coordinate -> Cell -> Html Msg
@@ -237,6 +312,11 @@ viewCell highlightedCoordinates loadedModel coordinate cell =
         isHighlighted : Bool
         isHighlighted =
             List.member coordinate highlightedCoordinates
+
+        maybeLetter : Maybe String
+        maybeLetter =
+            Dict.get coordinate loadedModel.filledLetters
+                |> Maybe.map String.fromChar
 
         attributes : List (Html.Attribute Msg)
         attributes =
@@ -257,6 +337,7 @@ viewCell highlightedCoordinates loadedModel coordinate cell =
         children =
             []
                 |> Build.addMaybeMap viewCellNumber (Cell.getNumber cell)
+                |> Build.addMaybeMap text maybeLetter
     in
     div attributes children
 
