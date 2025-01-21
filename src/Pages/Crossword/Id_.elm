@@ -73,6 +73,18 @@ type Msg
     | CrosswordUpdated CrosswordUpdatedMsg
 
 
+focusInput : Effect Msg
+focusInput =
+    Dom.focus "input"
+        |> Task.attempt (\_ -> NoOp)
+        |> Effect.sendCmd
+
+
+setEffect : Effect msg -> model -> ( model, Effect msg )
+setEffect effect model =
+    ( model, effect )
+
+
 update : Msg -> Model -> ( Model, Effect Msg )
 update msg model =
     case ( msg, model ) of
@@ -107,14 +119,14 @@ update msg model =
                         , filledLetters = Dict.empty
                         }
                     )
-                |> focusInputEffect
+                |> setEffect Effect.none
 
         ( CrosswordUpdated crosswordUpdatedMsg, Success loadedModel ) ->
             updateCrossword crosswordUpdatedMsg loadedModel
                 |> Tuple.mapFirst Success
 
         _ ->
-            model |> noEffect
+            model |> setEffect Effect.none
 
 
 updateCrossword : CrosswordUpdatedMsg -> LoadedModel -> ( LoadedModel, Effect Msg )
@@ -123,7 +135,7 @@ updateCrossword msg loadedModel =
         CellSelected coordinate ->
             loadedModel
                 |> updateCellSelected coordinate
-                |> focusInputEffect
+                |> setEffect focusInput
 
         CellLetterAdded coordinate letter ->
             loadedModel
@@ -135,7 +147,7 @@ updateCrossword msg loadedModel =
                         |> Dict.insert coordinate letter
                         |> setFilledLetters
                    )
-                |> noEffect
+                |> setEffect Effect.none
 
 
 updateCellSelected : Coordinate -> LoadedModel -> LoadedModel
@@ -178,20 +190,6 @@ updateCellSelected coordinate loadedModel =
     loadedModel
         |> setSelectedCoordinate coordinate
         |> setSelectedDirection updatedDirection
-
-
-noEffect : a -> ( a, Effect b )
-noEffect a =
-    ( a, Effect.none )
-
-
-focusInputEffect : model -> ( model, Effect Msg )
-focusInputEffect model =
-    ( model
-    , Dom.focus "input"
-        |> Task.attempt (\_ -> NoOp)
-        |> Effect.sendCmd
-    )
 
 
 setSelectedCoordinate : Coordinate -> LoadedModel -> LoadedModel
