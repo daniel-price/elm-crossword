@@ -1,12 +1,13 @@
-module Pages.Crossword.Id_ exposing (FilledLetters, LoadedModel, Model, Msg, page)
+module Pages.Crossword.Id_ exposing (LoadedModel, Model, Msg, page)
 
 import Browser.Dom as Dom
 import Data.Cell as Cell exposing (Cell)
 import Data.Clue as Clue exposing (Clue)
 import Data.Crossword as Crossword exposing (Crossword)
 import Data.Direction as Direction exposing (Direction(..))
+import Data.FilledLetters exposing (FilledLetters)
 import Data.Grid as Grid exposing (Coordinate)
-import Dict exposing (Dict)
+import Dict
 import Effect exposing (Effect)
 import Html exposing (Attribute, Html, div, input, text)
 import Html.Attributes exposing (class, id, value)
@@ -35,10 +36,6 @@ page _ route =
 -- INIT
 
 
-type alias FilledLetters =
-    Dict Coordinate Char
-
-
 type alias LoadedModel =
     { crossword : Crossword
     , selectedCoordinate : ( Int, Int )
@@ -54,7 +51,7 @@ type alias Model =
 init : String -> () -> ( Model, Effect Msg )
 init id () =
     ( Loading
-    , Crossword.fetch { id = id, onResponse = \result -> CrosswordFetched result }
+    , Crossword.fetch { id = id, onResponse = \result -> CrosswordFetched id result }
     )
 
 
@@ -65,11 +62,12 @@ init id () =
 type CrosswordUpdatedMsg
     = CellSelected Coordinate
     | CellLetterAdded Coordinate Char
+    | FilledLettersUpdated FilledLetters
 
 
 type Msg
     = NoOp
-    | CrosswordFetched (WebData Crossword)
+    | CrosswordFetched String (WebData Crossword)
     | CrosswordUpdated CrosswordUpdatedMsg
 
 
@@ -88,7 +86,7 @@ setEffect effect model =
 update : Msg -> Model -> ( Model, Effect Msg )
 update msg model =
     case ( msg, model ) of
-        ( CrosswordFetched response, Loading ) ->
+        ( CrosswordFetched id response, Loading ) ->
             response
                 |> RemoteData.map
                     (\crossword ->
@@ -119,7 +117,7 @@ update msg model =
                         , filledLetters = Dict.empty
                         }
                     )
-                |> setEffect Effect.none
+                |> setEffect (Effect.batch [ Effect.createWebsocket id, focusInput ])
 
         ( CrosswordUpdated crosswordUpdatedMsg, Success loadedModel ) ->
             updateCrossword crosswordUpdatedMsg loadedModel
@@ -147,6 +145,11 @@ updateCrossword msg loadedModel =
                         |> Dict.insert coordinate letter
                         |> setFilledLetters
                    )
+                |> setEffect (Effect.sendWebsocketMessage coordinate letter)
+
+        FilledLettersUpdated filledLetters ->
+            loadedModel
+                |> setFilledLetters (Dict.union filledLetters loadedModel.filledLetters)
                 |> setEffect Effect.none
 
 
@@ -213,7 +216,7 @@ setFilledLetters filledLetters model =
 
 subscriptions : Model -> Sub Msg
 subscriptions _ =
-    Sub.none
+    Effect.subscribeToWebsocket (CrosswordUpdated << FilledLettersUpdated) NoOp
 
 
 

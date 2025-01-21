@@ -8,7 +8,7 @@
         "debugger": false
       }
     },
-    "env": ["API_URL"],
+    "env": ["API_URL", "WEBSOCKET_URL"],
     "html": {
       "attributes": {
         "html": {

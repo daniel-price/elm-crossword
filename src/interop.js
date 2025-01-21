@@ -3,3 +3,57 @@ export const flags = ({ env }) => {
     apiUrl: env.API_URL,
   };
 };
+
+export const onReady = ({ app, env }) => {
+  if (app.ports && app.ports.outgoing) {
+    app.ports.outgoing.subscribe(({ tag, data }) => {
+      switch (tag) {
+        case "CREATE_WEBSOCKET":
+          createWebSocket(app, env, data);
+          return;
+        case "SEND_WEBSOCKET_MESSAGE":
+          sendWebSocketMessage(data);
+          return;
+        default:
+          console.warn(`Unhandled outgoing port: "${tag}"`);
+          return;
+      }
+    });
+  }
+};
+
+let ws;
+
+function createWebSocket(app, env, data) {
+  const { WEBSOCKET_URL = "ws://127.0.0.1:8080/" } = env;
+
+  if (!WEBSOCKET_URL) {
+    console.error("Websocket url is required to create websocket");
+    return;
+  }
+
+  const { crosswordId } = data;
+
+  if (!crosswordId) {
+    console.error("Crossword id is required to create websocket");
+    return;
+  }
+
+  const teamId = 1; //TODO
+  const userId = 1; //TODO
+
+  ws = new WebSocket(`${WEBSOCKET_URL}move/${teamId}/${crosswordId}/${userId}`);
+
+  ws.addEventListener("message", function (event) {
+    app.ports.messageReceiver.send(event.data);
+  });
+}
+
+function sendWebSocketMessage(data) {
+  if (!ws) {
+    console.error("Websocket is not initialized");
+    return;
+  }
+
+  ws.send(JSON.stringify([data]));
+}

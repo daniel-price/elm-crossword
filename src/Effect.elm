@@ -1,10 +1,13 @@
-module Effect exposing
+port module Effect exposing
     ( Effect
-    , none
+    , none, batch
     , sendCmd
     , pushRoute, replaceRoute
     , map, toCmd
     , sendGetRequest
+    , createWebsocket
+    , sendWebsocketMessage
+    , subscribeToWebsocket
     )
 
 {-| This file was generated automatically by running elm-land customize effect
@@ -13,7 +16,7 @@ I then fixed the elm-review errors (mostly removing unused functions) - if you n
 
 @docs Effect
 
-@docs none
+@docs none, batch
 @docs sendCmd
 
 @docs pushRoute, replaceRoute
@@ -21,13 +24,19 @@ I then fixed the elm-review errors (mostly removing unused functions) - if you n
 @docs map, toCmd
 
 @docs sendGetRequest
+@docs createWebsocket
+@docs sendWebsocketMessage
+@docs subscribeToWebsocket
 
 -}
 
 import Browser.Navigation
+import Data.FilledLetters exposing (FilledLetters)
+import Data.Grid exposing (Coordinate)
 import Dict exposing (Dict)
 import Http
 import Json.Decode
+import Json.Encode
 import RemoteData exposing (WebData)
 import Route
 import Route.Path
@@ -39,11 +48,13 @@ import Url exposing (Url)
 type Effect msg
     = -- BASICS
       None
+    | Batch (List (Effect msg))
     | SendCmd (Cmd msg)
       -- ROUTING
     | PushUrl String
     | ReplaceUrl String
     | SendGetRequest { endpoint : String, decoder : Json.Decode.Decoder msg, onHttpError : Http.Error -> msg }
+    | SendMessageToJavaScript { tag : String, data : Json.Encode.Value }
 
 
 
@@ -55,6 +66,13 @@ type Effect msg
 none : Effect msg
 none =
     None
+
+
+{-| Send multiple effects at once.
+-}
+batch : List (Effect msg) -> Effect msg
+batch =
+    Batch
 
 
 {-| Send a normal `Cmd msg` as an effect, something like `Http.get` or `Random.generate`.
@@ -106,6 +124,9 @@ map fn effect =
         None ->
             None
 
+        Batch list ->
+            Batch (List.map (map fn) list)
+
         SendCmd cmd ->
             SendCmd (Cmd.map fn cmd)
 
@@ -121,6 +142,9 @@ map fn effect =
                 , decoder = Json.Decode.map fn data.decoder
                 , onHttpError = data.onHttpError >> fn
                 }
+
+        SendMessageToJavaScript message ->
+            SendMessageToJavaScript message
 
 
 {-| Elm Land depends on this function to perform your effects.
@@ -139,6 +163,9 @@ toCmd options effect =
     case effect of
         None ->
             Cmd.none
+
+        Batch list ->
+            Cmd.batch (List.map (toCmd options) list)
 
         SendCmd cmd ->
             cmd
@@ -170,6 +197,9 @@ toCmd options effect =
                 , tracker = Nothing
                 }
 
+        SendMessageToJavaScript message ->
+            outgoing message
+
 
 sendGetRequest : { endpoint : String, decoder : Json.Decode.Decoder value, onResponse : WebData value -> msg } -> Effect msg
 sendGetRequest options =
@@ -181,3 +211,66 @@ sendGetRequest options =
                 |> Json.Decode.map (RemoteData.fromResult >> options.onResponse)
         , onHttpError = Err >> RemoteData.fromResult >> options.onResponse
         }
+
+
+sendWebsocketMessage : Coordinate -> Char -> Effect msg
+sendWebsocketMessage ( x, y ) value =
+    SendMessageToJavaScript
+        { tag = "SEND_WEBSOCKET_MESSAGE"
+        , data =
+            Json.Encode.object
+                [ ( "value", Json.Encode.string (String.fromChar value) )
+                , ( "x", Json.Encode.int x )
+                , ( "y", Json.Encode.int y )
+                ]
+        }
+
+
+createWebsocket : String -> Effect msg
+createWebsocket crosswordId =
+    SendMessageToJavaScript
+        { tag = "CREATE_WEBSOCKET"
+        , data = Json.Encode.object [ ( "crosswordId", Json.Encode.string crosswordId ) ]
+        }
+
+
+subscribeToWebsocket : (FilledLetters -> msg) -> msg -> Sub msg
+subscribeToWebsocket successMsg failureMsg =
+    messageReceiver
+        (\string ->
+            string
+                |> Json.Decode.decodeString
+                    (Json.Decode.map Dict.fromList <|
+                        Json.Decode.list
+                            (Json.Decode.map3
+                                (\x y value ->
+                                    let
+                                        coordinate : Coordinate
+                                        coordinate =
+                                            ( x, y )
+
+                                        letter : Char
+                                        letter =
+                                            List.head (String.toList value)
+                                                |> Maybe.withDefault ' '
+                                    in
+                                    ( coordinate, letter )
+                                )
+                                (Json.Decode.field "x" Json.Decode.int)
+                                (Json.Decode.field "y" Json.Decode.int)
+                                (Json.Decode.field "value" Json.Decode.string)
+                            )
+                    )
+                |> Result.map successMsg
+                |> Result.withDefault failureMsg
+        )
+
+
+
+-- PORTS
+
+
+port outgoing : { tag : String, data : Json.Encode.Value } -> Cmd msg
+
+
+port messageReceiver : (String -> msg) -> Sub msg
