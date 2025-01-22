@@ -64,7 +64,7 @@ body {
   anchor-name: --cell-selected;
 }
 
-:has(#input:focus) .cell-selected {
+:has(#input:focus, .cell-selected:active) .cell-selected {
   outline: 0.2em solid DodgerBlue;
   z-index: 1;
 }
