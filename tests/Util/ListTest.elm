@@ -8,22 +8,22 @@ import Util.List as List
 suite : Test
 suite =
     describe "List"
-        [ describe "dropUntilMember"
-            [ test "should remove items up to and including the member if member is found" <|
+        [ describe "getNextItem"
+            [ test "should get the next item after the passed in item if it is in the list" <|
                 \_ ->
                     let
-                        result : List String
+                        result : String
                         result =
-                            List.dropUntilMember "clueName" [ "clueNumber", "clueName", "clue" ]
+                            List.getNextItem "clueName" [ "clueNumber", "clueName", "clue" ]
                     in
-                    Expect.equal result [ "clue" ]
-            , test "should not remove any items if the member is not found" <|
+                    Expect.equal result "clue"
+            , test "should get the original item if it is the last in the list" <|
                 \_ ->
                     let
-                        result : List String
+                        result : String
                         result =
-                            List.dropUntilMember "clue" [ "clueNumber", "clueName" ]
+                            List.getNextItem "clue" [ "clueNumber", "clueName", "clue" ]
                     in
-                    Expect.equal result [ "clueNumber", "clueName" ]
+                    Expect.equal result "clue"
             ]
         ]

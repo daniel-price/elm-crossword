@@ -1,6 +1,7 @@
 module Pages.Crossword.Id_ exposing (LoadedModel, Model, Msg, page)
 
 import Browser.Dom as Dom
+import Browser.Events
 import Data.Cell as Cell exposing (Cell)
 import Data.Clue as Clue exposing (Clue)
 import Data.Crossword as Crossword exposing (Crossword)
@@ -59,10 +60,16 @@ init id () =
 -- UPDATE
 
 
+type Key
+    = Unknown
+    | Backspace
+
+
 type CrosswordUpdatedMsg
     = CellSelected Coordinate
     | CellLetterAdded Coordinate Char
     | FilledLettersUpdated FilledLetters
+    | KeyDown Key
 
 
 type Msg
@@ -152,6 +159,27 @@ updateCrossword msg loadedModel =
                 |> setFilledLetters (Dict.union filledLetters loadedModel.filledLetters)
                 |> setEffect Effect.none
 
+        KeyDown key ->
+            case key of
+                Backspace ->
+                    case Dict.get loadedModel.selectedCoordinate loadedModel.filledLetters of
+                        Just _ ->
+                            loadedModel
+                                |> setFilledLetters (Dict.remove loadedModel.selectedCoordinate loadedModel.filledLetters)
+                                |> setEffect (Effect.sendWebsocketMessage loadedModel.selectedCoordinate ' ')
+
+                        Nothing ->
+                            loadedModel
+                                |> setSelectedCoordinate
+                                    (loadedModel.crossword
+                                        |> Crossword.getPreviousClueCoordinate loadedModel.selectedCoordinate loadedModel.selectedDirection
+                                    )
+                                |> setEffect Effect.none
+
+                Unknown ->
+                    loadedModel
+                        |> setEffect Effect.none
+
 
 updateCellSelected : Coordinate -> LoadedModel -> LoadedModel
 updateCellSelected coordinate loadedModel =
@@ -207,7 +235,7 @@ setSelectedDirection selectedDirection model =
 
 setFilledLetters : FilledLetters -> LoadedModel -> LoadedModel
 setFilledLetters filledLetters model =
-    { model | filledLetters = filledLetters }
+    { model | filledLetters = filledLetters |> Dict.filter (\_ letter -> letter /= ' ') }
 
 
 
@@ -216,7 +244,31 @@ setFilledLetters filledLetters model =
 
 subscriptions : Model -> Sub Msg
 subscriptions _ =
-    Effect.subscribeToWebsocket (CrosswordUpdated << FilledLettersUpdated) NoOp
+    Sub.batch
+        [ Effect.subscribeToWebsocket (CrosswordUpdated << FilledLettersUpdated) NoOp
+        , keyDownSubscription
+        ]
+
+
+keyDownSubscription : Sub Msg
+keyDownSubscription =
+    let
+        keyDownToMsg : String -> Msg
+        keyDownToMsg eventKeyString =
+            (case eventKeyString of
+                "Backspace" ->
+                    Backspace
+
+                _ ->
+                    Unknown
+            )
+                |> KeyDown
+                |> CrosswordUpdated
+    in
+    JD.string
+        |> JD.field "key"
+        |> JD.map keyDownToMsg
+        |> Browser.Events.onKeyDown
 
 
 

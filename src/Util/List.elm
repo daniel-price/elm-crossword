@@ -1,4 +1,4 @@
-module Util.List exposing (dropUntilMember)
+module Util.List exposing (getNextItem)
 
 import List.Extra
 
@@ -11,3 +11,11 @@ dropUntilMember item list =
 
         Nothing ->
             list
+
+
+getNextItem : a -> List a -> a
+getNextItem currentItem list =
+    list
+        |> dropUntilMember currentItem
+        |> List.head
+        |> Maybe.withDefault currentItem

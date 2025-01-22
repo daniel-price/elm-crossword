@@ -1,4 +1,4 @@
-module Data.Crossword exposing (Crossword, decoder, fetch, getClueCoordinates, getNextClueCoordinate)
+module Data.Crossword exposing (Crossword, decoder, fetch, getClueCoordinates, getNextClueCoordinate, getPreviousClueCoordinate)
 
 import Data.Cell as Cell exposing (Cell)
 import Data.Clue as Clue
@@ -54,13 +54,19 @@ getClueCoordinates coordinate direction crossword =
             []
 
 
+getPreviousClueCoordinate : Coordinate -> Direction -> Crossword -> Coordinate
+getPreviousClueCoordinate coordinate direction crossword =
+    crossword
+        |> getClueCoordinates coordinate direction
+        |> List.reverse
+        |> Util.List.getNextItem coordinate
+
+
 getNextClueCoordinate : Coordinate -> Direction -> Crossword -> Coordinate
 getNextClueCoordinate coordinate direction crossword =
     crossword
         |> getClueCoordinates coordinate direction
-        |> Util.List.dropUntilMember coordinate
-        |> List.head
-        |> Maybe.withDefault coordinate
+        |> Util.List.getNextItem coordinate
 
 
 
