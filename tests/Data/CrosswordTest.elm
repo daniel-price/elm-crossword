@@ -188,4 +188,108 @@ suite =
                     Expect.equal result
                         ( 1, 0 )
             ]
+        , describe "getNextWhiteCoordinate"
+            [ test "should get next white coordinate down" <|
+                \_ ->
+                    let
+                        result : Grid.Coordinate
+                        result =
+                            Crossword.getNextWhiteCoordinate ( 1, 1 )
+                                Down
+                                (Crossword
+                                    (Grid.test_new 3
+                                        [ Cell.test_newWhite (Just 1)
+                                        , Cell.test_newWhite Nothing
+                                        , Cell.test_newWhite Nothing
+                                        , Cell.test_newBlack
+                                        , Cell.test_newWhite (Just 2)
+                                        , Cell.test_newWhite Nothing
+                                        , Cell.test_newWhite Nothing
+                                        , Cell.test_newWhite Nothing
+                                        , Cell.test_newBlack
+                                        ]
+                                    )
+                                    []
+                                )
+                    in
+                    Expect.equal result
+                        ( 1, 2 )
+            , test "should get next white coordinate accross" <|
+                \_ ->
+                    let
+                        result : Grid.Coordinate
+                        result =
+                            Crossword.getNextWhiteCoordinate ( 1, 1 )
+                                Across
+                                (Crossword
+                                    (Grid.test_new 3
+                                        [ Cell.test_newWhite (Just 1)
+                                        , Cell.test_newWhite Nothing
+                                        , Cell.test_newWhite Nothing
+                                        , Cell.test_newBlack
+                                        , Cell.test_newWhite (Just 2)
+                                        , Cell.test_newWhite Nothing
+                                        , Cell.test_newWhite Nothing
+                                        , Cell.test_newWhite Nothing
+                                        , Cell.test_newBlack
+                                        ]
+                                    )
+                                    []
+                                )
+                    in
+                    Expect.equal result
+                        ( 2, 1 )
+            ]
+        , describe "getPreviousWhiteCoordinate"
+            [ test "should get previous white coordinate down" <|
+                \_ ->
+                    let
+                        result : Grid.Coordinate
+                        result =
+                            Crossword.getPreviousClueCoordinate ( 1, 1 )
+                                Down
+                                (Crossword
+                                    (Grid.test_new 3
+                                        [ Cell.test_newWhite (Just 1)
+                                        , Cell.test_newWhite Nothing
+                                        , Cell.test_newWhite Nothing
+                                        , Cell.test_newBlack
+                                        , Cell.test_newWhite (Just 2)
+                                        , Cell.test_newWhite Nothing
+                                        , Cell.test_newWhite Nothing
+                                        , Cell.test_newWhite Nothing
+                                        , Cell.test_newBlack
+                                        ]
+                                    )
+                                    []
+                                )
+                    in
+                    Expect.equal result
+                        ( 1, 0 )
+            , test "should get previous white coordinate accross" <|
+                \_ ->
+                    let
+                        result : Grid.Coordinate
+                        result =
+                            Crossword.getPreviousClueCoordinate ( 1, 1 )
+                                Across
+                                (Crossword
+                                    (Grid.test_new 3
+                                        [ Cell.test_newWhite (Just 1)
+                                        , Cell.test_newWhite Nothing
+                                        , Cell.test_newWhite Nothing
+                                        , Cell.test_newBlack
+                                        , Cell.test_newWhite (Just 2)
+                                        , Cell.test_newWhite Nothing
+                                        , Cell.test_newWhite Nothing
+                                        , Cell.test_newWhite Nothing
+                                        , Cell.test_newBlack
+                                        ]
+                                    )
+                                    []
+                                )
+                    in
+                    Expect.equal result
+                        ( 1, 1 )
+            ]
         ]

@@ -60,9 +60,17 @@ init id () =
 -- UPDATE
 
 
+type ArrowDirection
+    = ArrowLeft
+    | ArrowRight
+    | ArrowUp
+    | ArrowDown
+
+
 type Key
     = Unknown
     | Backspace
+    | Arrow ArrowDirection
 
 
 type CrosswordUpdatedMsg
@@ -180,6 +188,24 @@ updateCrossword msg loadedModel =
                     loadedModel
                         |> setEffect Effect.none
 
+                Arrow arrowDirection ->
+                    loadedModel
+                        |> updateCellSelected
+                            (case arrowDirection of
+                                ArrowLeft ->
+                                    Crossword.getPreviousWhiteCoordinate loadedModel.selectedCoordinate Across loadedModel.crossword
+
+                                ArrowRight ->
+                                    Crossword.getNextWhiteCoordinate loadedModel.selectedCoordinate Across loadedModel.crossword
+
+                                ArrowUp ->
+                                    Crossword.getPreviousWhiteCoordinate loadedModel.selectedCoordinate Down loadedModel.crossword
+
+                                ArrowDown ->
+                                    Crossword.getNextWhiteCoordinate loadedModel.selectedCoordinate Down loadedModel.crossword
+                            )
+                        |> setEffect Effect.none
+
 
 updateCellSelected : Coordinate -> LoadedModel -> LoadedModel
 updateCellSelected coordinate loadedModel =
@@ -258,6 +284,18 @@ keyDownSubscription =
             (case eventKeyString of
                 "Backspace" ->
                     Backspace
+
+                "ArrowLeft" ->
+                    Arrow ArrowLeft
+
+                "ArrowRight" ->
+                    Arrow ArrowRight
+
+                "ArrowUp" ->
+                    Arrow ArrowUp
+
+                "ArrowDown" ->
+                    Arrow ArrowDown
 
                 _ ->
                     Unknown

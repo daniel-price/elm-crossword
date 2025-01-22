@@ -13,9 +13,25 @@ dropUntilMember item list =
             list
 
 
-getNextItem : a -> List a -> a
-getNextItem currentItem list =
+startingAtMember : a -> List a -> List a
+startingAtMember item list =
+    case List.Extra.findIndex ((==) item) list of
+        Just index ->
+            List.drop (index + 1) list
+                ++ List.take index list
+
+        Nothing ->
+            list
+
+
+getNextItem : Bool -> a -> List a -> a
+getNextItem loopList currentItem list =
     list
-        |> dropUntilMember currentItem
+        |> (if loopList then
+                startingAtMember currentItem
+
+            else
+                dropUntilMember currentItem
+           )
         |> List.head
         |> Maybe.withDefault currentItem

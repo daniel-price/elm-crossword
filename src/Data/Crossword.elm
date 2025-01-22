@@ -1,4 +1,4 @@
-module Data.Crossword exposing (Crossword, decoder, fetch, getClueCoordinates, getNextClueCoordinate, getPreviousClueCoordinate)
+module Data.Crossword exposing (Crossword, decoder, fetch, getClueCoordinates, getNextClueCoordinate, getNextWhiteCoordinate, getPreviousClueCoordinate, getPreviousWhiteCoordinate)
 
 import Data.Cell as Cell exposing (Cell)
 import Data.Clue as Clue
@@ -54,19 +54,52 @@ getClueCoordinates coordinate direction crossword =
             []
 
 
+getNextClueCoordinate : Coordinate -> Direction -> Crossword -> Coordinate
+getNextClueCoordinate coordinate direction crossword =
+    crossword
+        |> getClueCoordinates coordinate direction
+        |> Util.List.getNextItem False coordinate
+
+
 getPreviousClueCoordinate : Coordinate -> Direction -> Crossword -> Coordinate
 getPreviousClueCoordinate coordinate direction crossword =
     crossword
         |> getClueCoordinates coordinate direction
         |> List.reverse
-        |> Util.List.getNextItem coordinate
+        |> Util.List.getNextItem False coordinate
 
 
-getNextClueCoordinate : Coordinate -> Direction -> Crossword -> Coordinate
-getNextClueCoordinate coordinate direction crossword =
+getWhiteRowOrColumnCoordinates : Coordinate -> Direction -> Crossword -> List Coordinate
+getWhiteRowOrColumnCoordinates coordinate direction crossword =
+    crossword.grid
+        |> (case direction of
+                Across ->
+                    Grid.getRowCoordinates coordinate
+
+                Down ->
+                    Grid.getColumnCoordinates coordinate
+           )
+        |> List.filter
+            (\coord ->
+                Grid.get coord crossword.grid
+                    |> Maybe.map Cell.isWhite
+                    |> Maybe.withDefault False
+            )
+
+
+getNextWhiteCoordinate : Coordinate -> Direction -> Crossword -> Coordinate
+getNextWhiteCoordinate coordinate direction crossword =
     crossword
-        |> getClueCoordinates coordinate direction
-        |> Util.List.getNextItem coordinate
+        |> getWhiteRowOrColumnCoordinates coordinate direction
+        |> Util.List.getNextItem True coordinate
+
+
+getPreviousWhiteCoordinate : Coordinate -> Direction -> Crossword -> Coordinate
+getPreviousWhiteCoordinate coordinate direction crossword =
+    crossword
+        |> getWhiteRowOrColumnCoordinates coordinate direction
+        |> List.reverse
+        |> Util.List.getNextItem True coordinate
 
 
 

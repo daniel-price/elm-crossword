@@ -9,20 +9,36 @@ suite : Test
 suite =
     describe "List"
         [ describe "getNextItem"
-            [ test "should get the next item after the passed in item if it is in the list" <|
+            [ test "no looping - should get the next item after the passed in item if it is in the list" <|
                 \_ ->
                     let
                         result : String
                         result =
-                            List.getNextItem "clueName" [ "clueNumber", "clueName", "clue" ]
+                            List.getNextItem False "clueName" [ "clueNumber", "clueName", "clue" ]
                     in
                     Expect.equal result "clue"
-            , test "should get the original item if it is the last in the list" <|
+            , test "no looping - should get the original item if it is the last in the list" <|
                 \_ ->
                     let
                         result : String
                         result =
-                            List.getNextItem "clue" [ "clueNumber", "clueName", "clue" ]
+                            List.getNextItem False "clue" [ "clueNumber", "clueName", "clue" ]
+                    in
+                    Expect.equal result "clue"
+            , test "looping - should get the first item in the list if the passed in item is the last in the list" <|
+                \_ ->
+                    let
+                        result : String
+                        result =
+                            List.getNextItem True "clue" [ "clueNumber", "clueName", "clue" ]
+                    in
+                    Expect.equal result "clueNumber"
+            , test "looping - should get the next item after the passed in item if it is in the list" <|
+                \_ ->
+                    let
+                        result : String
+                        result =
+                            List.getNextItem True "clueName" [ "clueNumber", "clueName", "clue" ]
                     in
                     Expect.equal result "clue"
             ]
