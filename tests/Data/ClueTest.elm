@@ -42,7 +42,7 @@ suite =
                         clue =
                             Clue.test_new 1 Down "Cross-talking Liam's chance to act in Shakespearean troupe (4,11)" [ 15 ]
                     in
-                    Expect.equal (Clue.getClueNumber clue) 1
+                    Expect.equal (Clue.getNumber clue) 1
             ]
         , describe
             "getClueNumberString"
@@ -53,7 +53,7 @@ suite =
                         clue =
                             Clue.test_new 1 Down "Cross-talking Liam's chance to act in Shakespearean troupe (4,11)" [ 15 ]
                     in
-                    Expect.equal (Clue.getClueNumberString clue) "1"
+                    Expect.equal (Clue.getNumberString clue) "1"
             ]
         , describe
             "getClueText"
@@ -64,7 +64,7 @@ suite =
                         clue =
                             Clue.test_new 1 Down "Cross-talking Liam's chance to act in Shakespearean troupe (4,11)" [ 15 ]
                     in
-                    Expect.equal (Clue.getClueText clue) "Cross-talking Liam's chance to act in Shakespearean troupe (4,11)"
+                    Expect.equal (Clue.getText clue) "Cross-talking Liam's chance to act in Shakespearean troupe (4,11)"
             ]
         , describe
             "getDirection"

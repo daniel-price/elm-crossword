@@ -210,7 +210,7 @@ updateCrossword msg loadedModel =
         ClueSelected clue ->
             loadedModel
                 |> (loadedModel.crossword.grid
-                        |> Grid.findCoordinate (\cell -> Cell.getNumber cell == Just (Clue.getClueNumber clue))
+                        |> Grid.findCoordinate (\cell -> Cell.getNumber cell == Just (Clue.getNumber clue))
                         |> Maybe.withDefault loadedModel.selectedCoordinate
                         |> setSelectedCoordinate
                    )
@@ -521,8 +521,8 @@ viewClue maybeHighlightedClue clue =
         children : List (Html Msg)
         children =
             []
-                |> Build.add (viewClueNumber (Clue.getClueNumberString clue))
-                |> Build.add (text (Clue.getClueText clue))
+                |> Build.add (viewClueNumber (Clue.getNumberString clue))
+                |> Build.add (text (Clue.getText clue))
     in
     div attributes children
 

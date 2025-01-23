@@ -63,7 +63,7 @@ getCurrentClue coordinate direction crossword =
         |> Maybe.andThen Cell.getNumber
         |> Maybe.andThen
             (\cellNumber ->
-                List.Extra.find (\clue -> Clue.getClueNumber clue == cellNumber)
+                List.Extra.find (\clue -> Clue.getNumber clue == cellNumber)
                     crossword.clues
             )
 

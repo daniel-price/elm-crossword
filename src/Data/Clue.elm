@@ -1,4 +1,4 @@
-module Data.Clue exposing (Clue, decoder, getClueNumber, getClueNumberString, getClueText, getDirection, getDirectionClues, test_new)
+module Data.Clue exposing (Clue, decoder, getDirection, getDirectionClues, getNumber, getNumberString, getText, test_new)
 
 import Data.Direction as Direction exposing (Direction)
 import Json.Decode as JD
@@ -21,18 +21,18 @@ getDirectionClues cluesDirection clues =
         |> List.sortBy (\(Clue { id }) -> id)
 
 
-getClueNumberString : Clue -> String
-getClueNumberString (Clue { id }) =
+getNumberString : Clue -> String
+getNumberString (Clue { id }) =
     String.fromInt id
 
 
-getClueNumber : Clue -> Int
-getClueNumber (Clue { id }) =
+getNumber : Clue -> Int
+getNumber (Clue { id }) =
     id
 
 
-getClueText : Clue -> String
-getClueText (Clue { text }) =
+getText : Clue -> String
+getText (Clue { text }) =
     text
 
 
