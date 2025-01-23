@@ -1,4 +1,4 @@
-module Data.Clue exposing (Clue, decoder, getClueNumber, getClueNumberString, getClueText, getDirectionClues, test_new)
+module Data.Clue exposing (Clue, decoder, getClueNumber, getClueNumberString, getClueText, getDirection, getDirectionClues, test_new)
 
 import Data.Direction as Direction exposing (Direction)
 import Json.Decode as JD
@@ -34,6 +34,11 @@ getClueNumber (Clue { id }) =
 getClueText : Clue -> String
 getClueText (Clue { text }) =
     text
+
+
+getDirection : Clue -> Direction
+getDirection (Clue { direction }) =
+    direction
 
 
 

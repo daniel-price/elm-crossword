@@ -78,6 +78,7 @@ type CrosswordUpdatedMsg
     | CellLetterAdded Coordinate Char
     | FilledLettersUpdated FilledLetters
     | KeyDown Key
+    | ClueSelected Clue
 
 
 type Msg
@@ -205,6 +206,16 @@ updateCrossword msg loadedModel =
                                     Crossword.getNextWhiteCoordinate loadedModel.selectedCoordinate Down loadedModel.crossword
                             )
                         |> setEffect Effect.none
+
+        ClueSelected clue ->
+            loadedModel
+                |> (loadedModel.crossword.grid
+                        |> Grid.findCoordinate (\cell -> Cell.getNumber cell == Just (Clue.getClueNumber clue))
+                        |> Maybe.withDefault loadedModel.selectedCoordinate
+                        |> setSelectedCoordinate
+                   )
+                |> setSelectedDirection (Clue.getDirection clue)
+                |> setEffect focusInput
 
 
 updateCellSelected : Coordinate -> LoadedModel -> LoadedModel
@@ -505,6 +516,7 @@ viewClue maybeHighlightedClue clue =
         attributes =
             [ class "clue" ]
                 |> Build.addIf (maybeHighlightedClue == Just clue) (id "clue-selected")
+                |> Build.add (onClick (CrosswordUpdated (ClueSelected clue)))
 
         children : List (Html Msg)
         children =
