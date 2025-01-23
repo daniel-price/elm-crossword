@@ -91,6 +91,10 @@ body {
   font-size: 1.5em;
 }
 
+#clue-selected {
+  background-color: yellow;
+}
+
 .clue-number {
   width: 1em;
   text-align: right;

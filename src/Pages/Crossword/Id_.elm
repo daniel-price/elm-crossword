@@ -343,6 +343,10 @@ viewCrossword loadedModel =
             loadedModel.crossword
                 |> Crossword.getClueCoordinates selectedCoordinate selectedDirection
 
+        maybeHighlightedClue : Maybe Clue
+        maybeHighlightedClue =
+            loadedModel.crossword |> Crossword.getCurrentClue selectedCoordinate selectedDirection
+
         attributes : List (Html.Attribute Msg)
         attributes =
             [ id "crossword" ]
@@ -352,7 +356,7 @@ viewCrossword loadedModel =
             []
                 |> Build.add (viewInput selectedCoordinate)
                 |> Build.add (Grid.view [ id "grid" ] (viewCell highlightedCoordinates loadedModel) crossword.grid)
-                |> Build.add (viewClues crossword.clues)
+                |> Build.add (viewClues maybeHighlightedClue crossword.clues)
     in
     div attributes children
 
@@ -447,8 +451,8 @@ viewCellNumber cellNumber =
     div attributes children
 
 
-viewClues : List Clue -> Html Msg
-viewClues clues =
+viewClues : Maybe Clue -> List Clue -> Html Msg
+viewClues maybeHighlightedClue clues =
     let
         acrossClues : List Clue
         acrossClues =
@@ -465,14 +469,14 @@ viewClues clues =
         children : List (Html Msg)
         children =
             []
-                |> Build.add (viewCluesList Across acrossClues)
-                |> Build.add (viewCluesList Down downClues)
+                |> Build.add (viewCluesList Across maybeHighlightedClue acrossClues)
+                |> Build.add (viewCluesList Down maybeHighlightedClue downClues)
     in
     div attributes children
 
 
-viewCluesList : Direction -> List Clue -> Html Msg
-viewCluesList direction clues =
+viewCluesList : Direction -> Maybe Clue -> List Clue -> Html Msg
+viewCluesList direction maybeHighlightedClue clues =
     let
         attributes : List (Html.Attribute Msg)
         attributes =
@@ -482,7 +486,7 @@ viewCluesList direction clues =
         children =
             []
                 |> Build.add (viewClueTitle direction)
-                |> Build.concat (List.map viewClue clues)
+                |> Build.concat (List.map (viewClue maybeHighlightedClue) clues)
     in
     div attributes children
 
@@ -494,12 +498,13 @@ viewClueTitle direction =
         [ text (Direction.toString direction) ]
 
 
-viewClue : Clue -> Html Msg
-viewClue clue =
+viewClue : Maybe Clue -> Clue -> Html Msg
+viewClue maybeHighlightedClue clue =
     let
         attributes : List (Html.Attribute Msg)
         attributes =
             [ class "clue" ]
+                |> Build.addIf (maybeHighlightedClue == Just clue) (id "clue-selected")
 
         children : List (Html Msg)
         children =

@@ -1,8 +1,8 @@
 module Data.CrosswordTest exposing (suite)
 
 import Data.Cell as Cell
-import Data.Clue as Clue
-import Data.Crossword as Crossword exposing (Crossword)
+import Data.Clue as Clue exposing (Clue)
+import Data.Crossword as Crossword exposing (Crossword, getCurrentClue)
 import Data.Direction exposing (Direction(..))
 import Data.Grid as Grid
 import Expect
@@ -291,5 +291,35 @@ suite =
                     in
                     Expect.equal result
                         ( 1, 1 )
+            ]
+        , describe "getCurrentClue"
+            [ test "should return the current clue" <|
+                \_ ->
+                    let
+                        crossword : Crossword
+                        crossword =
+                            Crossword
+                                (Grid.test_new 3
+                                    [ Cell.test_newWhite (Just 1)
+                                    , Cell.test_newWhite Nothing
+                                    , Cell.test_newWhite Nothing
+                                    , Cell.test_newBlack
+                                    , Cell.test_newWhite (Just 2)
+                                    , Cell.test_newWhite Nothing
+                                    , Cell.test_newWhite Nothing
+                                    , Cell.test_newWhite Nothing
+                                    , Cell.test_newBlack
+                                    ]
+                                )
+                                [ Clue.test_new 1 Down "Clue 1" [ 1 ]
+                                , Clue.test_new 2 Across "Clue 2" [ 1 ]
+                                ]
+
+                        result : Maybe Clue
+                        result =
+                            getCurrentClue ( 1, 1 ) Across crossword
+                    in
+                    Expect.equal result
+                        (Just (Clue.test_new 2 Across "Clue 2" [ 1 ]))
             ]
         ]

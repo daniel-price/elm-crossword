@@ -1,7 +1,7 @@
-module Data.Crossword exposing (Crossword, decoder, fetch, getClueCoordinates, getNextClueCoordinate, getNextWhiteCoordinate, getPreviousClueCoordinate, getPreviousWhiteCoordinate)
+module Data.Crossword exposing (Crossword, decoder, fetch, getClueCoordinates, getCurrentClue, getNextClueCoordinate, getNextWhiteCoordinate, getPreviousClueCoordinate, getPreviousWhiteCoordinate)
 
 import Data.Cell as Cell exposing (Cell)
-import Data.Clue as Clue
+import Data.Clue as Clue exposing (Clue)
 import Data.Direction exposing (Direction(..))
 import Data.Grid as Grid exposing (Coordinate, Grid)
 import Effect exposing (Effect)
@@ -14,7 +14,7 @@ import Util.List
 
 type alias Crossword =
     { grid : Grid Cell
-    , clues : List Clue.Clue
+    , clues : List Clue
     }
 
 
@@ -52,6 +52,20 @@ getClueCoordinates coordinate direction crossword =
                         Stop acc
             )
             []
+
+
+getCurrentClue : Coordinate -> Direction -> Crossword -> Maybe Clue
+getCurrentClue coordinate direction crossword =
+    crossword
+        |> getClueCoordinates coordinate direction
+        |> List.head
+        |> Maybe.andThen (\c -> Grid.get c crossword.grid)
+        |> Maybe.andThen Cell.getNumber
+        |> Maybe.andThen
+            (\cellNumber ->
+                List.Extra.find (\clue -> Clue.getClueNumber clue == cellNumber)
+                    crossword.clues
+            )
 
 
 getNextClueCoordinate : Coordinate -> Direction -> Crossword -> Coordinate

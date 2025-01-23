@@ -33,4 +33,15 @@ suite =
                     in
                     Expect.equal result (Ok (Clue.test_new 1 Down "Cross-talking Liam's chance to act in Shakespearean troupe (4,11)" [ 15 ]))
             ]
+        , describe
+            "getClueNumber"
+            [ test "should return the clue number" <|
+                \_ ->
+                    let
+                        clue : Clue
+                        clue =
+                            Clue.test_new 1 Down "Cross-talking Liam's chance to act in Shakespearean troupe (4,11)" [ 15 ]
+                    in
+                    Expect.equal (Clue.getClueNumber clue) 1
+            ]
         ]
