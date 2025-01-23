@@ -37,6 +37,22 @@ body {
   font-size: 4em;
 }
 
+#current-clue {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background-color: white;
+  text-align: center;
+  font-size: 4em;
+  margin-bottom: 0.1em;
+}
+
+@media screen and (min-width: 1500px) {
+  #current-clue {
+    display: none;
+  }
+}
+
 .cell {
   aspect-ratio: 1;
   position: relative;

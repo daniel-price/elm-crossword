@@ -366,14 +366,14 @@ viewCrossword loadedModel =
         children =
             []
                 |> Build.add (viewInput selectedCoordinate)
-                |> Build.add (viewGridContainer highlightedCoordinates loadedModel)
+                |> Build.add (viewGridContainer highlightedCoordinates maybeHighlightedClue loadedModel)
                 |> Build.add (viewClues maybeHighlightedClue crossword.clues)
     in
     div attributes children
 
 
-viewGridContainer : List Coordinate -> LoadedModel -> Html Msg
-viewGridContainer highlightedCoordinates loadedModel =
+viewGridContainer : List Coordinate -> Maybe Clue -> LoadedModel -> Html Msg
+viewGridContainer highlightedCoordinates maybeHighlightedClue loadedModel =
     let
         attributes : List (Html.Attribute Msg)
         attributes =
@@ -382,7 +382,23 @@ viewGridContainer highlightedCoordinates loadedModel =
         children : List (Html Msg)
         children =
             []
+                |> Build.addMaybeMap viewCurrentClue maybeHighlightedClue
                 |> Build.add (Grid.view [ id "grid" ] (viewCell highlightedCoordinates loadedModel) loadedModel.crossword.grid)
+    in
+    div attributes children
+
+
+viewCurrentClue : Clue -> Html Msg
+viewCurrentClue clue =
+    let
+        attributes : List (Html.Attribute Msg)
+        attributes =
+            [ id "current-clue" ]
+
+        children : List (Html msg)
+        children =
+            []
+                |> Build.add (text (String.fromInt (Clue.getNumber clue) ++ ". " ++ Clue.getText clue))
     in
     div attributes children
 
