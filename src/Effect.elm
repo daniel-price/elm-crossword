@@ -1,9 +1,10 @@
 port module Effect exposing
     ( Effect
     , none, batch
-    , sendCmd
+    , sendCmd, sendMsg
     , pushRoute, replaceRoute
     , map, toCmd
+    , set
     , sendGetRequest
     , createWebsocket
     , sendWebsocketMessage
@@ -17,11 +18,13 @@ I then fixed the elm-review errors (mostly removing unused functions) - if you n
 @docs Effect
 
 @docs none, batch
-@docs sendCmd
+@docs sendCmd, sendMsg
 
 @docs pushRoute, replaceRoute
 
 @docs map, toCmd
+
+@docs set
 
 @docs sendGetRequest
 @docs createWebsocket
@@ -42,6 +45,7 @@ import Route
 import Route.Path
 import Shared.Model
 import Shared.Msg
+import Task
 import Url exposing (Url)
 
 
@@ -59,6 +63,11 @@ type Effect msg
 
 
 -- BASICS
+
+
+set : Effect msg -> model -> ( model, Effect msg )
+set effect model =
+    ( model, effect )
 
 
 {-| Don't send any effect.
@@ -80,6 +89,15 @@ batch =
 sendCmd : Cmd msg -> Effect msg
 sendCmd =
     SendCmd
+
+
+{-| Send a message as an effect. Useful when emitting events from UI components.
+-}
+sendMsg : msg -> Effect msg
+sendMsg msg =
+    Task.succeed msg
+        |> Task.perform identity
+        |> SendCmd
 
 
 

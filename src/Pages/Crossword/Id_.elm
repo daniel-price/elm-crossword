@@ -2,6 +2,7 @@ module Pages.Crossword.Id_ exposing (LoadedModel, Model, Msg, page)
 
 import Browser.Dom as Dom
 import Browser.Events
+import Components.CountdownButton as CountdownButton
 import Data.Cell as Cell exposing (Cell)
 import Data.Clue as Clue exposing (Clue)
 import Data.Crossword as Crossword exposing (Crossword)
@@ -42,6 +43,7 @@ type alias LoadedModel =
     , selectedCoordinate : ( Int, Int )
     , selectedDirection : Direction
     , filledLetters : FilledLetters
+    , countdownButtonCheckModel : CountdownButton.Model
     }
 
 
@@ -79,6 +81,10 @@ type CrosswordUpdatedMsg
     | FilledLettersUpdated FilledLetters
     | KeyDown Key
     | ClueSelected Clue
+    | Check
+    | CheckAll
+      --Button messages
+    | CountdownButtonCheckMsg (CountdownButton.Msg Msg)
 
 
 type Msg
@@ -92,11 +98,6 @@ focusInput =
     Dom.focus "input"
         |> Task.attempt (\_ -> NoOp)
         |> Effect.sendCmd
-
-
-setEffect : Effect msg -> model -> ( model, Effect msg )
-setEffect effect model =
-    ( model, effect )
 
 
 update : Msg -> Model -> ( Model, Effect Msg )
@@ -131,16 +132,17 @@ update msg model =
                         , selectedCoordinate = selectedCoordinate
                         , selectedDirection = selectedDirection
                         , filledLetters = Dict.empty
+                        , countdownButtonCheckModel = CountdownButton.init
                         }
                     )
-                |> setEffect (Effect.batch [ Effect.createWebsocket id, focusInput ])
+                |> Effect.set (Effect.batch [ Effect.createWebsocket id, focusInput ])
 
         ( CrosswordUpdated crosswordUpdatedMsg, Success loadedModel ) ->
             updateCrossword crosswordUpdatedMsg loadedModel
                 |> Tuple.mapFirst Success
 
         _ ->
-            model |> setEffect Effect.none
+            model |> Effect.set Effect.none
 
 
 updateCrossword : CrosswordUpdatedMsg -> LoadedModel -> ( LoadedModel, Effect Msg )
@@ -149,7 +151,7 @@ updateCrossword msg loadedModel =
         CellSelected coordinate ->
             loadedModel
                 |> updateCellSelected coordinate
-                |> setEffect focusInput
+                |> Effect.set focusInput
 
         CellLetterAdded coordinate letter ->
             loadedModel
@@ -161,12 +163,12 @@ updateCrossword msg loadedModel =
                         |> Dict.insert coordinate letter
                         |> setFilledLetters
                    )
-                |> setEffect (Effect.sendWebsocketMessage coordinate letter)
+                |> Effect.set (Effect.sendWebsocketMessage coordinate letter)
 
         FilledLettersUpdated filledLetters ->
             loadedModel
                 |> setFilledLetters (Dict.union filledLetters loadedModel.filledLetters)
-                |> setEffect Effect.none
+                |> Effect.set Effect.none
 
         KeyDown key ->
             case key of
@@ -175,7 +177,7 @@ updateCrossword msg loadedModel =
                         Just _ ->
                             loadedModel
                                 |> setFilledLetters (Dict.remove loadedModel.selectedCoordinate loadedModel.filledLetters)
-                                |> setEffect (Effect.sendWebsocketMessage loadedModel.selectedCoordinate ' ')
+                                |> Effect.set (Effect.sendWebsocketMessage loadedModel.selectedCoordinate ' ')
 
                         Nothing ->
                             loadedModel
@@ -183,11 +185,11 @@ updateCrossword msg loadedModel =
                                     (loadedModel.crossword
                                         |> Crossword.getPreviousClueCoordinate loadedModel.selectedCoordinate loadedModel.selectedDirection
                                     )
-                                |> setEffect Effect.none
+                                |> Effect.set Effect.none
 
                 Unknown ->
                     loadedModel
-                        |> setEffect Effect.none
+                        |> Effect.set Effect.none
 
                 Arrow arrowDirection ->
                     loadedModel
@@ -205,7 +207,7 @@ updateCrossword msg loadedModel =
                                 ArrowDown ->
                                     Crossword.getNextWhiteCoordinate loadedModel.selectedCoordinate Down loadedModel.crossword
                             )
-                        |> setEffect Effect.none
+                        |> Effect.set Effect.none
 
         ClueSelected clue ->
             loadedModel
@@ -215,7 +217,23 @@ updateCrossword msg loadedModel =
                         |> setSelectedCoordinate
                    )
                 |> setSelectedDirection (Clue.getDirection clue)
-                |> setEffect focusInput
+                |> Effect.set focusInput
+
+        Check ->
+            loadedModel
+                |> Effect.set Effect.none
+
+        CheckAll ->
+            loadedModel
+                |> Effect.set Effect.none
+
+        CountdownButtonCheckMsg buttonMsg ->
+            CountdownButton.update
+                { model =
+                    loadedModel.countdownButtonCheckModel
+                , msg = buttonMsg
+                , toParentModel = \model -> { loadedModel | countdownButtonCheckModel = model }
+                }
 
 
 updateCellSelected : Coordinate -> LoadedModel -> LoadedModel
@@ -280,11 +298,17 @@ setFilledLetters filledLetters model =
 
 
 subscriptions : Model -> Sub Msg
-subscriptions _ =
-    Sub.batch
-        [ Effect.subscribeToWebsocket (CrosswordUpdated << FilledLettersUpdated) NoOp
-        , keyDownSubscription
-        ]
+subscriptions model =
+    model
+        |> RemoteData.map
+            (\loadedModel ->
+                Sub.batch
+                    [ Effect.subscribeToWebsocket (CrosswordUpdated << FilledLettersUpdated) NoOp
+                    , keyDownSubscription
+                    , CountdownButton.subscriptions loadedModel.countdownButtonCheckModel (CountdownButtonCheckMsg >> CrosswordUpdated)
+                    ]
+            )
+        |> RemoteData.withDefault Sub.none
 
 
 keyDownSubscription : Sub Msg
@@ -384,6 +408,38 @@ viewGridContainer highlightedCoordinates maybeHighlightedClue loadedModel =
             []
                 |> Build.addMaybeMap viewCurrentClue maybeHighlightedClue
                 |> Build.add (Grid.view [ id "grid" ] (viewCell highlightedCoordinates loadedModel) loadedModel.crossword.grid)
+                |> Build.add (viewButtons loadedModel)
+    in
+    div attributes children
+
+
+viewButtons : LoadedModel -> Html Msg
+viewButtons loadedModel =
+    let
+        attributes : List (Html.Attribute Msg)
+        attributes =
+            [ class "buttons" ]
+
+        children : List (Html Msg)
+        children =
+            []
+                |> Build.add
+                    (CountdownButton.view
+                        { model = loadedModel.countdownButtonCheckModel
+                        , initial =
+                            { text = "Check"
+                            , color = "#2b945a"
+                            , onClick = CrosswordUpdated Check
+                            }
+                        , clicked =
+                            { text = "Check All"
+                            , color = "#006400"
+                            , onClick = CrosswordUpdated CheckAll
+                            }
+                        , toParentMsg = CountdownButtonCheckMsg >> CrosswordUpdated
+                        , additionalAttributes = [ class "button" ]
+                        }
+                    )
     in
     div attributes children
 
