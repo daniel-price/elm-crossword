@@ -211,11 +211,11 @@ updateCrossword msg loadedModel =
 
         ClueSelected clue ->
             loadedModel
-                |> (loadedModel.crossword.grid
+                |> setSelectedCoordinate
+                    (loadedModel.crossword.grid
                         |> Grid.findCoordinate (\cell -> Cell.getNumber cell == Just (Clue.getNumber clue))
                         |> Maybe.withDefault loadedModel.selectedCoordinate
-                        |> setSelectedCoordinate
-                   )
+                    )
                 |> setSelectedDirection (Clue.getDirection clue)
                 |> Effect.set focusInput
 
