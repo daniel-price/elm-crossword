@@ -44,6 +44,8 @@ type alias LoadedModel =
     , selectedDirection : Direction
     , filledLetters : FilledLetters
     , countdownButtonCheckModel : CountdownButton.Model
+    , countdownButtonRevealModel : CountdownButton.Model
+    , countdownButtonClearModel : CountdownButton.Model
     }
 
 
@@ -83,8 +85,14 @@ type CrosswordUpdatedMsg
     | ClueSelected Clue
     | Check
     | CheckAll
+    | Clear
+    | ClearAll
+    | Reveal
+    | RevealAll
       --Button messages
     | CountdownButtonCheckMsg (CountdownButton.Msg Msg)
+    | CountdownButtonRevealMsg (CountdownButton.Msg Msg)
+    | CountdownButtonClearMsg (CountdownButton.Msg Msg)
 
 
 type Msg
@@ -133,6 +141,8 @@ update msg model =
                         , selectedDirection = selectedDirection
                         , filledLetters = Dict.empty
                         , countdownButtonCheckModel = CountdownButton.init
+                        , countdownButtonRevealModel = CountdownButton.init
+                        , countdownButtonClearModel = CountdownButton.init
                         }
                     )
                 |> Effect.set (Effect.batch [ Effect.createWebsocket id, focusInput ])
@@ -229,6 +239,26 @@ updateCrossword msg loadedModel =
                 |> Crossword.getAllWhiteCoordinates
                 |> handleCheck loadedModel
 
+        Reveal ->
+            loadedModel.crossword
+                |> Crossword.getClueCoordinates loadedModel.selectedCoordinate loadedModel.selectedDirection
+                |> handleReveal loadedModel
+
+        RevealAll ->
+            loadedModel.crossword
+                |> Crossword.getAllWhiteCoordinates
+                |> handleReveal loadedModel
+
+        Clear ->
+            loadedModel.crossword
+                |> Crossword.getClueCoordinates loadedModel.selectedCoordinate loadedModel.selectedDirection
+                |> handleClear loadedModel
+
+        ClearAll ->
+            loadedModel.crossword
+                |> Crossword.getAllWhiteCoordinates
+                |> handleClear loadedModel
+
         CountdownButtonCheckMsg buttonMsg ->
             CountdownButton.update
                 { model =
@@ -237,29 +267,91 @@ updateCrossword msg loadedModel =
                 , toParentModel = \model -> { loadedModel | countdownButtonCheckModel = model }
                 }
 
+        CountdownButtonRevealMsg buttonMsg ->
+            CountdownButton.update
+                { model =
+                    loadedModel.countdownButtonRevealModel
+                , msg = buttonMsg
+                , toParentModel = \model -> { loadedModel | countdownButtonRevealModel = model }
+                }
+
+        CountdownButtonClearMsg buttonMsg ->
+            CountdownButton.update
+                { model =
+                    loadedModel.countdownButtonClearModel
+                , msg = buttonMsg
+                , toParentModel = \model -> { loadedModel | countdownButtonClearModel = model }
+                }
+
+
+handleClear : LoadedModel -> List Coordinate -> ( LoadedModel, Effect Msg )
+handleClear loadedModel coordinates =
+    let
+        changedLetters : List ( Coordinate, Char )
+        changedLetters =
+            coordinates
+                |> List.map (\coord -> ( coord, ' ' ))
+    in
+    updateCoordinateLetters loadedModel changedLetters
+
+
+handleReveal : LoadedModel -> List Coordinate -> ( LoadedModel, Effect Msg )
+handleReveal loadedModel coordinates =
+    let
+        changedLetters : List ( Coordinate, Char )
+        changedLetters =
+            coordinates
+                |> List.map
+                    (\coord ->
+                        loadedModel.crossword.grid
+                            |> Grid.get coord
+                            |> Maybe.andThen (\cell -> Cell.getLetter cell)
+                            |> Maybe.map (\letter -> ( coord, letter ))
+                            |> Maybe.withDefault ( coord, ' ' )
+                    )
+    in
+    updateCoordinateLetters loadedModel changedLetters
+
 
 handleCheck : LoadedModel -> List Coordinate -> ( LoadedModel, Effect Msg )
-handleCheck loadedModel coordinatesToCheck =
+handleCheck loadedModel coordinates =
     let
         incorrectCoordinates : List Coordinate
         incorrectCoordinates =
-            coordinatesToCheck
+            coordinates
                 |> getIncorrectCoordinates loadedModel.crossword.grid loadedModel.filledLetters
 
+        changedLetters : List ( Coordinate, Char )
+        changedLetters =
+            incorrectCoordinates
+                |> List.map (\coord -> ( coord, ' ' ))
+    in
+    updateCoordinateLetters loadedModel changedLetters
+
+
+updateCoordinateLetters : LoadedModel -> List ( Coordinate, Char ) -> ( LoadedModel, Effect Msg )
+updateCoordinateLetters loadedModel changedLetters =
+    let
         newFilledLetters : FilledLetters
         newFilledLetters =
-            incorrectCoordinates
+            changedLetters
                 |> List.foldl
-                    (\coordinate filledLetters -> Dict.remove coordinate filledLetters)
+                    (\( coordinate, letter ) filledLetters ->
+                        if letter == ' ' then
+                            Dict.remove coordinate filledLetters
+
+                        else
+                            Dict.insert coordinate letter filledLetters
+                    )
                     loadedModel.filledLetters
 
         batchEffect : Effect Msg
         batchEffect =
             Effect.batch
-                (incorrectCoordinates
+                (changedLetters
                     |> List.map
-                        (\coordinate ->
-                            Effect.sendWebsocketMessage coordinate ' '
+                        (\( coordinate, letter ) ->
+                            Effect.sendWebsocketMessage coordinate letter
                         )
                 )
     in
@@ -354,6 +446,8 @@ subscriptions model =
                     [ Effect.subscribeToWebsocket (CrosswordUpdated << FilledLettersUpdated) NoOp
                     , keyDownSubscription
                     , CountdownButton.subscriptions loadedModel.countdownButtonCheckModel (CountdownButtonCheckMsg >> CrosswordUpdated)
+                    , CountdownButton.subscriptions loadedModel.countdownButtonRevealModel (CountdownButtonRevealMsg >> CrosswordUpdated)
+                    , CountdownButton.subscriptions loadedModel.countdownButtonClearModel (CountdownButtonClearMsg >> CrosswordUpdated)
                     ]
             )
         |> RemoteData.withDefault Sub.none
@@ -485,6 +579,40 @@ viewButtons loadedModel =
                             , onClick = CrosswordUpdated CheckAll
                             }
                         , toParentMsg = CountdownButtonCheckMsg >> CrosswordUpdated
+                        , additionalAttributes = [ class "button" ]
+                        }
+                    )
+                |> Build.add
+                    (CountdownButton.view
+                        { model = loadedModel.countdownButtonRevealModel
+                        , initial =
+                            { text = "Reveal"
+                            , color = "#4078c0"
+                            , onClick = CrosswordUpdated Reveal
+                            }
+                        , clicked =
+                            { text = "Reveal All"
+                            , color = "#174175"
+                            , onClick = CrosswordUpdated RevealAll
+                            }
+                        , toParentMsg = CountdownButtonRevealMsg >> CrosswordUpdated
+                        , additionalAttributes = [ class "button" ]
+                        }
+                    )
+                |> Build.add
+                    (CountdownButton.view
+                        { model = loadedModel.countdownButtonClearModel
+                        , initial =
+                            { text = "Clear"
+                            , color = "#db3535"
+                            , onClick = CrosswordUpdated Clear
+                            }
+                        , clicked =
+                            { text = "Clear All"
+                            , color = "#9c1f1f"
+                            , onClick = CrosswordUpdated ClearAll
+                            }
+                        , toParentMsg = CountdownButtonClearMsg >> CrosswordUpdated
                         , additionalAttributes = [ class "button" ]
                         }
                     )
