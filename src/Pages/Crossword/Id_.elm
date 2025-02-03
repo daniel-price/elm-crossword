@@ -148,11 +148,54 @@ update msg model =
                 |> Effect.set (Effect.batch [ Effect.createWebsocket id, focusInput ])
 
         ( CrosswordUpdated crosswordUpdatedMsg, Success loadedModel ) ->
-            updateCrossword crosswordUpdatedMsg loadedModel
+            loadedModel
+                |> resetFields crosswordUpdatedMsg
+                |> updateCrossword crosswordUpdatedMsg
                 |> Tuple.mapFirst Success
 
         _ ->
             model |> Effect.set Effect.none
+
+
+resetFields : CrosswordUpdatedMsg -> LoadedModel -> LoadedModel
+resetFields msg loadedModel =
+    case msg of
+        FilledLettersUpdated _ ->
+            loadedModel
+
+        _ ->
+            { loadedModel
+                | countdownButtonCheckModel =
+                    case msg of
+                        Check ->
+                            loadedModel.countdownButtonCheckModel
+
+                        CountdownButtonCheckMsg _ ->
+                            loadedModel.countdownButtonCheckModel
+
+                        _ ->
+                            CountdownButton.init
+                , countdownButtonRevealModel =
+                    case msg of
+                        Reveal ->
+                            loadedModel.countdownButtonRevealModel
+
+                        CountdownButtonRevealMsg _ ->
+                            loadedModel.countdownButtonRevealModel
+
+                        _ ->
+                            CountdownButton.init
+                , countdownButtonClearModel =
+                    case msg of
+                        Clear ->
+                            loadedModel.countdownButtonClearModel
+
+                        CountdownButtonClearMsg _ ->
+                            loadedModel.countdownButtonClearModel
+
+                        _ ->
+                            CountdownButton.init
+            }
 
 
 updateCrossword : CrosswordUpdatedMsg -> LoadedModel -> ( LoadedModel, Effect Msg )
