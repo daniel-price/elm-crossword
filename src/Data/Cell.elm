@@ -1,4 +1,4 @@
-module Data.Cell exposing (Cell, decoder, getNumber, isWhite, test_newBlack, test_newWhite)
+module Data.Cell exposing (Cell, decoder, getLetter, getNumber, isWhite, test_newBlack, test_newWhite)
 
 import Json.Decode as JD
 import Json.Decode.Pipeline exposing (required)
@@ -6,13 +6,13 @@ import Json.Decode.Pipeline exposing (required)
 
 type Cell
     = Black
-    | White (Maybe Int)
+    | White (Maybe Int) Char
 
 
 isWhite : Cell -> Bool
 isWhite cell =
     case cell of
-        White _ ->
+        White _ _ ->
             True
 
         Black ->
@@ -22,8 +22,18 @@ isWhite cell =
 getNumber : Cell -> Maybe Int
 getNumber cell =
     case cell of
-        White number ->
+        White number _ ->
             number
+
+        Black ->
+            Nothing
+
+
+getLetter : Cell -> Maybe Char
+getLetter cell =
+    case cell of
+        White _ letter ->
+            Just letter
 
         Black ->
             Nothing
@@ -41,8 +51,18 @@ decoder =
                 case t of
                     "White" ->
                         JD.succeed
-                            (\number -> White number)
+                            (\number letterString ->
+                                let
+                                    letter : Char
+                                    letter =
+                                        String.toList letterString
+                                            |> List.head
+                                            |> Maybe.withDefault ' '
+                                in
+                                White number letter
+                            )
                             |> required "number" (JD.maybe JD.int)
+                            |> required "letter" JD.string
 
                     "Black" ->
                         JD.succeed Black
@@ -56,9 +76,9 @@ decoder =
 -- TEST HELPERS
 
 
-test_newWhite : Maybe Int -> Cell
-test_newWhite maybeNumber =
-    White maybeNumber
+test_newWhite : Maybe Int -> Char -> Cell
+test_newWhite maybeNumber letter =
+    White maybeNumber letter
 
 
 test_newBlack : Cell

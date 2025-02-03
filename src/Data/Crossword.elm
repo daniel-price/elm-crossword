@@ -1,4 +1,4 @@
-module Data.Crossword exposing (Crossword, decoder, fetch, getClueCoordinates, getCurrentClue, getNextClueCoordinate, getNextWhiteCoordinate, getPreviousClueCoordinate, getPreviousWhiteCoordinate)
+module Data.Crossword exposing (Crossword, decoder, fetch, getAllWhiteCoordinates, getClueCoordinates, getCurrentClue, getNextClueCoordinate, getNextWhiteCoordinate, getPreviousClueCoordinate, getPreviousWhiteCoordinate)
 
 import Data.Cell as Cell exposing (Cell)
 import Data.Clue as Clue exposing (Clue)
@@ -114,6 +114,12 @@ getPreviousWhiteCoordinate coordinate direction crossword =
         |> getWhiteRowOrColumnCoordinates coordinate direction
         |> List.reverse
         |> Util.List.getNextItem True coordinate
+
+
+getAllWhiteCoordinates : Crossword -> List Coordinate
+getAllWhiteCoordinates crossword =
+    crossword.grid
+        |> Grid.filterCoordinates Cell.isWhite
 
 
 

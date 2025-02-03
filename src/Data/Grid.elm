@@ -1,4 +1,4 @@
-module Data.Grid exposing (Coordinate, Grid, decoder, findCoordinate, get, getColumnCoordinates, getRowCoordinates, test_new, view)
+module Data.Grid exposing (Coordinate, Grid, decoder, filterCoordinates, findCoordinate, get, getColumnCoordinates, getRowCoordinates, test_new, view)
 
 import Html exposing (Html, div)
 import Html.Attributes exposing (style)
@@ -61,6 +61,24 @@ get ( x, y ) (Grid { numberOfRows, items }) =
             y * numberOfRows + x
     in
     List.Extra.getAt index items
+
+
+filterCoordinates : (a -> Bool) -> Grid a -> List Coordinate
+filterCoordinates predicate grid =
+    let
+        (Grid { items }) =
+            grid
+    in
+    items
+        |> List.Extra.indexedFoldl
+            (\index item acc ->
+                if predicate item then
+                    acc ++ [ getIndexCoordinates grid index ]
+
+                else
+                    acc
+            )
+            []
 
 
 

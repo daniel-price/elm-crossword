@@ -25,7 +25,8 @@ suite =
     "cells":[
       {
          "type":"White",
-         "number":null
+         "number":null,
+         "letter":"A"
       },
       {
          "type":"Black"
@@ -60,7 +61,7 @@ suite =
                         (Ok
                             (Crossword
                                 (Grid.test_new 1
-                                    [ Cell.test_newWhite Nothing
+                                    [ Cell.test_newWhite Nothing 'A'
                                     , Cell.test_newBlack
                                     ]
                                 )
@@ -78,14 +79,14 @@ suite =
                         crossword =
                             Crossword
                                 (Grid.test_new 3
-                                    [ Cell.test_newWhite (Just 1)
-                                    , Cell.test_newWhite Nothing
-                                    , Cell.test_newWhite Nothing
+                                    [ Cell.test_newWhite (Just 1) 'A'
+                                    , Cell.test_newWhite Nothing 'A'
+                                    , Cell.test_newWhite Nothing 'A'
                                     , Cell.test_newBlack
-                                    , Cell.test_newWhite (Just 2)
-                                    , Cell.test_newWhite Nothing
-                                    , Cell.test_newWhite Nothing
-                                    , Cell.test_newWhite Nothing
+                                    , Cell.test_newWhite (Just 2) 'A'
+                                    , Cell.test_newWhite Nothing 'A'
+                                    , Cell.test_newWhite Nothing 'A'
+                                    , Cell.test_newWhite Nothing 'A'
                                     , Cell.test_newBlack
                                     ]
                                 )
@@ -102,14 +103,14 @@ suite =
             grid : Grid.Grid Cell.Cell
             grid =
                 Grid.test_new 3
-                    [ Cell.test_newWhite (Just 1)
-                    , Cell.test_newWhite Nothing
-                    , Cell.test_newWhite Nothing
+                    [ Cell.test_newWhite (Just 1) 'A'
+                    , Cell.test_newWhite Nothing 'A'
+                    , Cell.test_newWhite Nothing 'A'
                     , Cell.test_newBlack
-                    , Cell.test_newWhite (Just 2)
-                    , Cell.test_newWhite Nothing
-                    , Cell.test_newWhite Nothing
-                    , Cell.test_newWhite Nothing
+                    , Cell.test_newWhite (Just 2) 'A'
+                    , Cell.test_newWhite Nothing 'A'
+                    , Cell.test_newWhite Nothing 'A'
+                    , Cell.test_newWhite Nothing 'A'
                     , Cell.test_newBlack
                     ]
           in
@@ -147,14 +148,14 @@ suite =
             grid : Grid.Grid Cell.Cell
             grid =
                 Grid.test_new 3
-                    [ Cell.test_newWhite (Just 1)
-                    , Cell.test_newWhite Nothing
-                    , Cell.test_newWhite Nothing
+                    [ Cell.test_newWhite (Just 1) 'A'
+                    , Cell.test_newWhite Nothing 'A'
+                    , Cell.test_newWhite Nothing 'A'
                     , Cell.test_newBlack
-                    , Cell.test_newWhite (Just 2)
-                    , Cell.test_newWhite Nothing
-                    , Cell.test_newWhite Nothing
-                    , Cell.test_newWhite Nothing
+                    , Cell.test_newWhite (Just 2) 'A'
+                    , Cell.test_newWhite Nothing 'A'
+                    , Cell.test_newWhite Nothing 'A'
+                    , Cell.test_newWhite Nothing 'A'
                     , Cell.test_newBlack
                     ]
           in
@@ -198,14 +199,14 @@ suite =
                                 Down
                                 (Crossword
                                     (Grid.test_new 3
-                                        [ Cell.test_newWhite (Just 1)
-                                        , Cell.test_newWhite Nothing
-                                        , Cell.test_newWhite Nothing
+                                        [ Cell.test_newWhite (Just 1) 'A'
+                                        , Cell.test_newWhite Nothing 'A'
+                                        , Cell.test_newWhite Nothing 'A'
                                         , Cell.test_newBlack
-                                        , Cell.test_newWhite (Just 2)
-                                        , Cell.test_newWhite Nothing
-                                        , Cell.test_newWhite Nothing
-                                        , Cell.test_newWhite Nothing
+                                        , Cell.test_newWhite (Just 2) 'A'
+                                        , Cell.test_newWhite Nothing 'A'
+                                        , Cell.test_newWhite Nothing 'A'
+                                        , Cell.test_newWhite Nothing 'A'
                                         , Cell.test_newBlack
                                         ]
                                     )
@@ -223,14 +224,14 @@ suite =
                                 Across
                                 (Crossword
                                     (Grid.test_new 3
-                                        [ Cell.test_newWhite (Just 1)
-                                        , Cell.test_newWhite Nothing
-                                        , Cell.test_newWhite Nothing
+                                        [ Cell.test_newWhite (Just 1) 'A'
+                                        , Cell.test_newWhite Nothing 'A'
+                                        , Cell.test_newWhite Nothing 'A'
                                         , Cell.test_newBlack
-                                        , Cell.test_newWhite (Just 2)
-                                        , Cell.test_newWhite Nothing
-                                        , Cell.test_newWhite Nothing
-                                        , Cell.test_newWhite Nothing
+                                        , Cell.test_newWhite (Just 2) 'A'
+                                        , Cell.test_newWhite Nothing 'A'
+                                        , Cell.test_newWhite Nothing 'A'
+                                        , Cell.test_newWhite Nothing 'A'
                                         , Cell.test_newBlack
                                         ]
                                     )
@@ -250,14 +251,14 @@ suite =
                                 Down
                                 (Crossword
                                     (Grid.test_new 3
-                                        [ Cell.test_newWhite (Just 1)
-                                        , Cell.test_newWhite Nothing
-                                        , Cell.test_newWhite Nothing
+                                        [ Cell.test_newWhite (Just 1) 'A'
+                                        , Cell.test_newWhite Nothing 'A'
+                                        , Cell.test_newWhite Nothing 'A'
                                         , Cell.test_newBlack
-                                        , Cell.test_newWhite (Just 2)
-                                        , Cell.test_newWhite Nothing
-                                        , Cell.test_newWhite Nothing
-                                        , Cell.test_newWhite Nothing
+                                        , Cell.test_newWhite (Just 2) 'A'
+                                        , Cell.test_newWhite Nothing 'A'
+                                        , Cell.test_newWhite Nothing 'A'
+                                        , Cell.test_newWhite Nothing 'A'
                                         , Cell.test_newBlack
                                         ]
                                     )
@@ -275,14 +276,14 @@ suite =
                                 Across
                                 (Crossword
                                     (Grid.test_new 3
-                                        [ Cell.test_newWhite (Just 1)
-                                        , Cell.test_newWhite Nothing
-                                        , Cell.test_newWhite Nothing
+                                        [ Cell.test_newWhite (Just 1) 'A'
+                                        , Cell.test_newWhite Nothing 'A'
+                                        , Cell.test_newWhite Nothing 'A'
                                         , Cell.test_newBlack
-                                        , Cell.test_newWhite (Just 2)
-                                        , Cell.test_newWhite Nothing
-                                        , Cell.test_newWhite Nothing
-                                        , Cell.test_newWhite Nothing
+                                        , Cell.test_newWhite (Just 2) 'A'
+                                        , Cell.test_newWhite Nothing 'A'
+                                        , Cell.test_newWhite Nothing 'A'
+                                        , Cell.test_newWhite Nothing 'A'
                                         , Cell.test_newBlack
                                         ]
                                     )
@@ -300,14 +301,14 @@ suite =
                         crossword =
                             Crossword
                                 (Grid.test_new 3
-                                    [ Cell.test_newWhite (Just 1)
-                                    , Cell.test_newWhite Nothing
-                                    , Cell.test_newWhite Nothing
+                                    [ Cell.test_newWhite (Just 1) 'A'
+                                    , Cell.test_newWhite Nothing 'A'
+                                    , Cell.test_newWhite Nothing 'A'
                                     , Cell.test_newBlack
-                                    , Cell.test_newWhite (Just 2)
-                                    , Cell.test_newWhite Nothing
-                                    , Cell.test_newWhite Nothing
-                                    , Cell.test_newWhite Nothing
+                                    , Cell.test_newWhite (Just 2) 'A'
+                                    , Cell.test_newWhite Nothing 'A'
+                                    , Cell.test_newWhite Nothing 'A'
+                                    , Cell.test_newWhite Nothing 'A'
                                     , Cell.test_newBlack
                                     ]
                                 )

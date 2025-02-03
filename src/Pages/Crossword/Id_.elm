@@ -8,7 +8,7 @@ import Data.Clue as Clue exposing (Clue)
 import Data.Crossword as Crossword exposing (Crossword)
 import Data.Direction as Direction exposing (Direction(..))
 import Data.FilledLetters exposing (FilledLetters)
-import Data.Grid as Grid exposing (Coordinate)
+import Data.Grid as Grid exposing (Coordinate, Grid)
 import Dict
 import Effect exposing (Effect)
 import Html exposing (Attribute, Html, div, input, text)
@@ -220,12 +220,14 @@ updateCrossword msg loadedModel =
                 |> Effect.set focusInput
 
         Check ->
-            loadedModel
-                |> Effect.set Effect.none
+            loadedModel.crossword
+                |> Crossword.getClueCoordinates loadedModel.selectedCoordinate loadedModel.selectedDirection
+                |> handleCheck loadedModel
 
         CheckAll ->
-            loadedModel
-                |> Effect.set Effect.none
+            loadedModel.crossword
+                |> Crossword.getAllWhiteCoordinates
+                |> handleCheck loadedModel
 
         CountdownButtonCheckMsg buttonMsg ->
             CountdownButton.update
@@ -234,6 +236,52 @@ updateCrossword msg loadedModel =
                 , msg = buttonMsg
                 , toParentModel = \model -> { loadedModel | countdownButtonCheckModel = model }
                 }
+
+
+handleCheck : LoadedModel -> List Coordinate -> ( LoadedModel, Effect Msg )
+handleCheck loadedModel coordinatesToCheck =
+    let
+        incorrectCoordinates : List Coordinate
+        incorrectCoordinates =
+            coordinatesToCheck
+                |> getIncorrectCoordinates loadedModel.crossword.grid loadedModel.filledLetters
+
+        newFilledLetters : FilledLetters
+        newFilledLetters =
+            incorrectCoordinates
+                |> List.foldl
+                    (\coordinate filledLetters -> Dict.remove coordinate filledLetters)
+                    loadedModel.filledLetters
+
+        batchEffect : Effect Msg
+        batchEffect =
+            Effect.batch
+                (incorrectCoordinates
+                    |> List.map
+                        (\coordinate ->
+                            Effect.sendWebsocketMessage coordinate ' '
+                        )
+                )
+    in
+    loadedModel
+        |> setFilledLetters newFilledLetters
+        |> Effect.set batchEffect
+
+
+getIncorrectCoordinates : Grid Cell -> FilledLetters -> List Coordinate -> List Coordinate
+getIncorrectCoordinates grid filledLetters coordinates =
+    coordinates
+        |> List.filter
+            (\coord ->
+                grid
+                    |> Grid.get coord
+                    |> Maybe.andThen (\cell -> Cell.getLetter cell)
+                    |> Maybe.andThen
+                        (\cellLetter ->
+                            filledLetters |> Dict.get coord |> Maybe.map (\filledLetter -> filledLetter /= cellLetter)
+                        )
+                    |> Maybe.withDefault True
+            )
 
 
 updateCellSelected : Coordinate -> LoadedModel -> LoadedModel

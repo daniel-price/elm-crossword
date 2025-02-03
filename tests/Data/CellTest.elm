@@ -18,7 +18,8 @@ suite =
                             """
 {
     "type":"White",
-    "number":null
+    "number":null,
+    "letter":"A"
 }
 """
 
@@ -26,7 +27,7 @@ suite =
                         result =
                             JD.decodeString Cell.decoder input
                     in
-                    Expect.equal result (Ok (Cell.test_newWhite Nothing))
+                    Expect.equal result (Ok (Cell.test_newWhite Nothing 'A'))
             , test "should decode numbered white cell json" <|
                 \_ ->
                     let
@@ -35,7 +36,8 @@ suite =
                             """
 {
     "type":"White",
-    "number":1
+    "number":1,
+    "letter":"A"
 }
 """
 
@@ -43,7 +45,7 @@ suite =
                         result =
                             JD.decodeString Cell.decoder input
                     in
-                    Expect.equal result (Ok (Cell.test_newWhite (Just 1)))
+                    Expect.equal result (Ok (Cell.test_newWhite (Just 1) 'A'))
             , test "should decode black cell json" <|
                 \_ ->
                     let
@@ -64,7 +66,7 @@ suite =
         , describe "isWhite"
             [ test "should return true for White cell" <|
                 \_ ->
-                    Expect.equal (Cell.isWhite (Cell.test_newWhite (Just 1))) True
+                    Expect.equal (Cell.isWhite (Cell.test_newWhite (Just 1) 'A')) True
             , test "should return false for Black cell" <|
                 \_ ->
                     Expect.equal (Cell.isWhite Cell.test_newBlack) False
