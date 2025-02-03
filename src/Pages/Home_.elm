@@ -87,8 +87,48 @@ view model =
 
             Success { crosswordInfos } ->
                 crosswordInfos
+                    |> splitBySeries
                     |> List.map
-                        (\item ->
-                            div [] [ a [ href ("/crossword/" ++ item.id) ] [ text item.id ] ]
+                        (\( series, items ) ->
+                            div []
+                                [ div [] [ text series ]
+                                , div [] (viewLinks items)
+                                ]
                         )
     }
+
+
+viewLinks : List CrosswordInfo -> List (Html.Html Msg)
+viewLinks items =
+    items
+        |> List.map viewLink
+
+
+viewLink : CrosswordInfo -> Html.Html Msg
+viewLink item =
+    div [] [ a [ href ("/crossword/" ++ item.id) ] [ text item.id ] ]
+
+
+splitBySeries : List CrosswordInfo -> List ( String, List CrosswordInfo )
+splitBySeries crosswordInfos =
+    crosswordInfos
+        |> List.foldl
+            (\crosswordInfo acc ->
+                let
+                    series : String
+                    series =
+                        crosswordInfo.series
+                in
+                case List.head acc of
+                    Just ( currentSeries, currentCrosswordInfos ) ->
+                        if series == currentSeries then
+                            ( series, crosswordInfo :: currentCrosswordInfos ) :: Maybe.withDefault [] (List.tail acc)
+
+                        else
+                            ( series, [ crosswordInfo ] ) :: acc
+
+                    Nothing ->
+                        [ ( series, [ crosswordInfo ] ) ]
+            )
+            []
+        |> List.reverse
