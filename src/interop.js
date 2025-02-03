@@ -32,21 +32,33 @@ function createWebSocket(app, env, data) {
     return;
   }
 
-  const { crosswordId } = data;
+  const createWebSocket = () => {
+    const { crosswordId } = data;
 
-  if (!crosswordId) {
-    console.error("Crossword id is required to create websocket");
-    return;
-  }
+    if (!crosswordId) {
+      console.error("Crossword id is required to create websocket");
+      return;
+    }
 
-  const teamId = 1; //TODO
-  const userId = 1; //TODO
+    const teamId = 1; //TODO
+    const userId = 1; //TODO
 
-  ws = new WebSocket(`${WEBSOCKET_URL}move/${teamId}/${crosswordId}/${userId}`);
+    const url = `${WEBSOCKET_URL}move/${teamId}/${crosswordId}/${userId}`;
+    ws = new WebSocket(url);
 
-  ws.addEventListener("message", function (event) {
-    app.ports.messageReceiver.send(event.data);
-  });
+    ws.addEventListener("message", function (event) {
+      app.ports.messageReceiver.send(event.data);
+    });
+    ws.onopen = function () {
+      console.log(`Connected to websocket ${url}`);
+    };
+    ws.onclose = function () {
+      console.log("Disconnected from websocket");
+      createWebSocket();
+    };
+  };
+  createWebSocket();
+  console.log("Websocket created");
 }
 
 function sendWebSocketMessage(data) {
