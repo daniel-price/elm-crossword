@@ -216,7 +216,7 @@ updateCrossword msg loadedModel =
                         |> Dict.insert coordinate letter
                         |> setFilledLetters
                    )
-                |> Effect.set (Effect.sendWebsocketMessage coordinate letter)
+                |> Effect.set (Effect.sendWebsocketMessage [ ( coordinate, letter ) ])
 
         FilledLettersUpdated filledLetters ->
             loadedModel
@@ -230,7 +230,7 @@ updateCrossword msg loadedModel =
                         Just _ ->
                             loadedModel
                                 |> setFilledLetters (Dict.remove loadedModel.selectedCoordinate loadedModel.filledLetters)
-                                |> Effect.set (Effect.sendWebsocketMessage loadedModel.selectedCoordinate ' ')
+                                |> Effect.set (Effect.sendWebsocketMessage [ ( loadedModel.selectedCoordinate, ' ' ) ])
 
                         Nothing ->
                             loadedModel
@@ -387,20 +387,10 @@ updateCoordinateLetters loadedModel changedLetters =
                             Dict.insert coordinate letter filledLetters
                     )
                     loadedModel.filledLetters
-
-        batchEffect : Effect Msg
-        batchEffect =
-            Effect.batch
-                (changedLetters
-                    |> List.map
-                        (\( coordinate, letter ) ->
-                            Effect.sendWebsocketMessage coordinate letter
-                        )
-                )
     in
     loadedModel
         |> setFilledLetters newFilledLetters
-        |> Effect.set batchEffect
+        |> Effect.set (Effect.sendWebsocketMessage changedLetters)
 
 
 getIncorrectCoordinates : Grid Cell -> FilledLetters -> List Coordinate -> List Coordinate

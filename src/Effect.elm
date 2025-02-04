@@ -231,16 +231,20 @@ sendGetRequest options =
         }
 
 
-sendWebsocketMessage : Coordinate -> Char -> Effect msg
-sendWebsocketMessage ( x, y ) value =
+sendWebsocketMessage : List ( Coordinate, Char ) -> Effect msg
+sendWebsocketMessage messages =
     SendMessageToJavaScript
         { tag = "SEND_WEBSOCKET_MESSAGE"
         , data =
-            Json.Encode.object
-                [ ( "value", Json.Encode.string (String.fromChar value) )
-                , ( "x", Json.Encode.int x )
-                , ( "y", Json.Encode.int y )
-                ]
+            Json.Encode.list
+                (\( ( x, y ), value ) ->
+                    Json.Encode.object
+                        [ ( "value", Json.Encode.string (String.fromChar value) )
+                        , ( "x", Json.Encode.int x )
+                        , ( "y", Json.Encode.int y )
+                        ]
+                )
+                messages
         }
 
 

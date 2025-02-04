@@ -67,5 +67,5 @@ function sendWebSocketMessage(data) {
     return;
   }
 
-  ws.send(JSON.stringify([data]));
+  ws.send(JSON.stringify(data));
 }
