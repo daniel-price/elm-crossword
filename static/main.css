@@ -116,6 +116,10 @@ body {
   background-color: yellow;
 }
 
+.clue-filled {
+  text-decoration: line-through;
+}
+
 .clue-number {
   width: 1em;
   text-align: right;

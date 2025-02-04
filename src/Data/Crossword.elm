@@ -1,4 +1,4 @@
-module Data.Crossword exposing (Crossword, decoder, fetch, getAllWhiteCoordinates, getClueCoordinates, getCurrentClue, getNextClueCoordinate, getNextWhiteCoordinate, getPreviousClueCoordinate, getPreviousWhiteCoordinate)
+module Data.Crossword exposing (Crossword, decoder, fetch, getAllWhiteCoordinates, getClueCoordinates, getCurrentClue, getFirstClueCoordinate, getNextClueCoordinate, getNextWhiteCoordinate, getPreviousClueCoordinate, getPreviousWhiteCoordinate)
 
 import Data.Cell as Cell exposing (Cell)
 import Data.Clue as Clue exposing (Clue)
@@ -63,7 +63,7 @@ getCurrentClue coordinate direction crossword =
         |> Maybe.andThen Cell.getNumber
         |> Maybe.andThen
             (\cellNumber ->
-                List.Extra.find (\clue -> Clue.getNumber clue == cellNumber)
+                List.Extra.find (\clue -> Clue.getNumber clue == cellNumber && Clue.getDirection clue == direction)
                     crossword.clues
             )
 
@@ -143,3 +143,8 @@ fetch options =
         , onResponse = options.onResponse
         , decoder = decoder
         }
+
+
+getFirstClueCoordinate : Clue -> Crossword -> Maybe Coordinate
+getFirstClueCoordinate clue crossword =
+    Grid.findCoordinate (\cell -> Cell.getNumber cell == Just (Clue.getNumber clue)) crossword.grid

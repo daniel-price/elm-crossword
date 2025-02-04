@@ -15,6 +15,7 @@ import Html exposing (Attribute, Html, div, input, text)
 import Html.Attributes exposing (class, id, value)
 import Html.Events exposing (on, onClick, targetValue)
 import Json.Decode as JD
+import List.Extra
 import Page exposing (Page)
 import RemoteData exposing (RemoteData(..), WebData)
 import Route exposing (Route)
@@ -555,7 +556,8 @@ viewCrossword loadedModel =
 
         maybeHighlightedClue : Maybe Clue
         maybeHighlightedClue =
-            loadedModel.crossword |> Crossword.getCurrentClue selectedCoordinate selectedDirection
+            loadedModel.crossword
+                |> Crossword.getCurrentClue selectedCoordinate selectedDirection
 
         attributes : List (Html.Attribute Msg)
         attributes =
@@ -566,7 +568,7 @@ viewCrossword loadedModel =
             []
                 |> Build.add (viewInput selectedCoordinate)
                 |> Build.add (viewGridContainer highlightedCoordinates maybeHighlightedClue loadedModel)
-                |> Build.add (viewClues maybeHighlightedClue crossword.clues)
+                |> Build.add (viewClues loadedModel.crossword loadedModel.filledLetters maybeHighlightedClue crossword.clues)
     in
     div attributes children
 
@@ -758,8 +760,8 @@ viewCellNumber cellNumber =
     div attributes children
 
 
-viewClues : Maybe Clue -> List Clue -> Html Msg
-viewClues maybeHighlightedClue clues =
+viewClues : Crossword -> FilledLetters -> Maybe Clue -> List Clue -> Html Msg
+viewClues crossword filledLetters maybeHighlightedClue clues =
     let
         acrossClues : List Clue
         acrossClues =
@@ -776,14 +778,14 @@ viewClues maybeHighlightedClue clues =
         children : List (Html Msg)
         children =
             []
-                |> Build.add (viewCluesList Across maybeHighlightedClue acrossClues)
-                |> Build.add (viewCluesList Down maybeHighlightedClue downClues)
+                |> Build.add (viewCluesList Across crossword filledLetters maybeHighlightedClue acrossClues)
+                |> Build.add (viewCluesList Down crossword filledLetters maybeHighlightedClue downClues)
     in
     div attributes children
 
 
-viewCluesList : Direction -> Maybe Clue -> List Clue -> Html Msg
-viewCluesList direction maybeHighlightedClue clues =
+viewCluesList : Direction -> Crossword -> FilledLetters -> Maybe Clue -> List Clue -> Html Msg
+viewCluesList direction crossword filledLetters maybeHighlightedClue clues =
     let
         attributes : List (Html.Attribute Msg)
         attributes =
@@ -793,7 +795,7 @@ viewCluesList direction maybeHighlightedClue clues =
         children =
             []
                 |> Build.add (viewClueTitle direction)
-                |> Build.concat (List.map (viewClue maybeHighlightedClue) clues)
+                |> Build.concat (List.map (viewClue crossword filledLetters maybeHighlightedClue) clues)
     in
     div attributes children
 
@@ -805,13 +807,37 @@ viewClueTitle direction =
         [ text (Direction.toString direction) ]
 
 
-viewClue : Maybe Clue -> Clue -> Html Msg
-viewClue maybeHighlightedClue clue =
+viewClue : Crossword -> FilledLetters -> Maybe Clue -> Clue -> Html Msg
+viewClue crossword filledLetters maybeHighlightedClue clue =
     let
+        isClueFilled : Bool
+        isClueFilled =
+            Crossword.getFirstClueCoordinate clue crossword
+                |> Maybe.map
+                    (\coordinate ->
+                        Crossword.getClueCoordinates coordinate (Clue.getDirection clue) crossword
+                            |> List.Extra.findMap
+                                (\coord ->
+                                    let
+                                        filledLetter : Char
+                                        filledLetter =
+                                            filledLetters |> Dict.get coord |> Maybe.withDefault ' '
+                                    in
+                                    if filledLetter == ' ' then
+                                        Just False
+
+                                    else
+                                        Nothing
+                                )
+                            |> Maybe.withDefault True
+                    )
+                |> Maybe.withDefault False
+
         attributes : List (Html.Attribute Msg)
         attributes =
             [ class "clue" ]
                 |> Build.addIf (maybeHighlightedClue == Just clue) (id "clue-selected")
+                |> Build.addIf isClueFilled (class "clue-filled")
                 |> Build.add (onClick (CrosswordUpdated (ClueSelected clue)))
 
         children : List (Html Msg)
