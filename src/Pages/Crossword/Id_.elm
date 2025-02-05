@@ -1,6 +1,5 @@
 module Pages.Crossword.Id_ exposing (LoadedModel, Model, Msg, page)
 
-import Browser.Dom as Dom
 import Browser.Events
 import Components.CountdownButton as CountdownButton
 import Data.Cell as Cell exposing (Cell)
@@ -20,7 +19,6 @@ import Page exposing (Page)
 import RemoteData exposing (RemoteData(..), WebData)
 import Route exposing (Route)
 import Shared
-import Task
 import Util.Build as Build
 import View exposing (View)
 
@@ -102,51 +100,57 @@ type Msg
     | CrosswordUpdated CrosswordUpdatedMsg
 
 
-focusInput : Effect Msg
-focusInput =
-    Dom.focus "input"
-        |> Task.attempt (\_ -> NoOp)
-        |> Effect.sendCmd
-
-
 update : Msg -> Model -> ( Model, Effect Msg )
 update msg model =
     case ( msg, model ) of
         ( CrosswordFetched id response, Loading ) ->
-            response
-                |> RemoteData.map
-                    (\crossword ->
-                        let
-                            selectedCoordinate : ( Int, Int )
-                            selectedCoordinate =
-                                crossword.grid
-                                    |> Grid.findCoordinate Cell.isWhite
-                                    |> Maybe.withDefault ( 0, 0 )
+            let
+                loadedModel : WebData LoadedModel
+                loadedModel =
+                    response
+                        |> RemoteData.map
+                            (\crossword ->
+                                let
+                                    selectedCoordinate : ( Int, Int )
+                                    selectedCoordinate =
+                                        crossword.grid
+                                            |> Grid.findCoordinate Cell.isWhite
+                                            |> Maybe.withDefault ( 0, 0 )
 
-                            selectedDirection : Direction
-                            selectedDirection =
-                                crossword.grid
-                                    |> Grid.get (Tuple.mapFirst ((+) 1) selectedCoordinate)
-                                    |> Maybe.andThen
-                                        (\cell ->
-                                            if Cell.isWhite cell then
-                                                Just Direction.Across
+                                    selectedDirection : Direction
+                                    selectedDirection =
+                                        crossword.grid
+                                            |> Grid.get (Tuple.mapFirst ((+) 1) selectedCoordinate)
+                                            |> Maybe.andThen
+                                                (\cell ->
+                                                    if Cell.isWhite cell then
+                                                        Just Direction.Across
 
-                                            else
-                                                Nothing
-                                        )
-                                    |> Maybe.withDefault Direction.Down
-                        in
-                        { crossword = crossword
-                        , selectedCoordinate = selectedCoordinate
-                        , selectedDirection = selectedDirection
-                        , filledLetters = Dict.empty
-                        , countdownButtonCheckModel = CountdownButton.init
-                        , countdownButtonRevealModel = CountdownButton.init
-                        , countdownButtonClearModel = CountdownButton.init
-                        }
-                    )
-                |> Effect.set (Effect.batch [ Effect.createWebsocket id, focusInput ])
+                                                    else
+                                                        Nothing
+                                                )
+                                            |> Maybe.withDefault Direction.Down
+                                in
+                                { crossword = crossword
+                                , selectedCoordinate = selectedCoordinate
+                                , selectedDirection = selectedDirection
+                                , filledLetters = Dict.empty
+                                , countdownButtonCheckModel = CountdownButton.init
+                                , countdownButtonRevealModel = CountdownButton.init
+                                , countdownButtonClearModel = CountdownButton.init
+                                }
+                            )
+
+                effect : Effect Msg
+                effect =
+                    case loadedModel of
+                        Success _ ->
+                            Effect.batch [ Effect.createWebsocket id, Effect.setupFocusInputOnClick ]
+
+                        _ ->
+                            Effect.none
+            in
+            loadedModel |> Effect.set effect
 
         ( CrosswordUpdated crosswordUpdatedMsg, Success loadedModel ) ->
             loadedModel
@@ -205,7 +209,7 @@ updateCrossword msg loadedModel =
         CellSelected coordinate ->
             loadedModel
                 |> updateCellSelected coordinate
-                |> Effect.set focusInput
+                |> Effect.set Effect.none
 
         CellLetterAdded coordinate letter ->
             loadedModel
@@ -271,7 +275,7 @@ updateCrossword msg loadedModel =
                         |> Maybe.withDefault loadedModel.selectedCoordinate
                     )
                 |> setSelectedDirection (Clue.getDirection clue)
-                |> Effect.set focusInput
+                |> Effect.set Effect.none
 
         Check ->
             loadedModel.crossword

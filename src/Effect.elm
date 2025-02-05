@@ -9,6 +9,7 @@ port module Effect exposing
     , createWebsocket
     , sendWebsocketMessage
     , subscribeToWebsocket
+    , setupFocusInputOnClick
     )
 
 {-| This file was generated automatically by running elm-land customize effect
@@ -30,6 +31,7 @@ I then fixed the elm-review errors (mostly removing unused functions) - if you n
 @docs createWebsocket
 @docs sendWebsocketMessage
 @docs subscribeToWebsocket
+@docs setupFocusInputOnClick
 
 -}
 
@@ -228,6 +230,14 @@ sendGetRequest options =
                 |> Json.Decode.map Ok
                 |> Json.Decode.map (RemoteData.fromResult >> options.onResponse)
         , onHttpError = Err >> RemoteData.fromResult >> options.onResponse
+        }
+
+
+setupFocusInputOnClick : Effect msg
+setupFocusInputOnClick =
+    SendMessageToJavaScript
+        { tag = "SETUP_FOCUS_INPUT_ON_CLICK"
+        , data = Json.Encode.null
         }
 
 
