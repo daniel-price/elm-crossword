@@ -1,4 +1,4 @@
-module Data.Grid exposing (Coordinate, Grid, decoder, filterCoordinates, findCoordinate, get, getColumnCoordinates, getRowCoordinates, test_new, view)
+module Data.Grid exposing (Coordinate, Grid, decoder, filterCoordinates, findCoordinate, get, getColumnCoordinates, getNumberOfRows, getRowCoordinates, test_new, view)
 
 import Html exposing (Html, div)
 import Html.Attributes exposing (style)
@@ -42,6 +42,11 @@ getColumnCoordinates ( x, _ ) (Grid { numberOfRows, items }) =
             List.range 0 (numberOfColumns - 1)
     in
     List.map (\i -> ( x, i )) indexes
+
+
+getNumberOfRows : Grid a -> Int
+getNumberOfRows (Grid { numberOfRows }) =
+    numberOfRows
 
 
 findCoordinate : (a -> Bool) -> Grid a -> Maybe Coordinate
@@ -96,8 +101,8 @@ decoder field itemDecoder =
 -- VIEW
 
 
-view : List (Html.Attribute msg) -> (Coordinate -> a -> Html msg) -> Grid a -> Html msg
-view additionalAttributes viewItem grid =
+view : List (Html.Attribute msg) -> List (Html msg) -> (Coordinate -> a -> Html msg) -> Grid a -> Html msg
+view additionalAttributes additionalChildren viewItem grid =
     let
         (Grid { numberOfRows, items }) =
             grid
@@ -111,16 +116,17 @@ view additionalAttributes viewItem grid =
 
         children : List (Html msg)
         children =
-            List.indexedMap
-                (\i ->
-                    let
-                        coordinate : Coordinate
-                        coordinate =
-                            getIndexCoordinates (Grid { numberOfRows = numberOfRows, items = items }) i
-                    in
-                    viewItem coordinate
-                )
-                items
+            additionalChildren
+                ++ List.indexedMap
+                    (\i ->
+                        let
+                            coordinate : Coordinate
+                            coordinate =
+                                getIndexCoordinates (Grid { numberOfRows = numberOfRows, items = items }) i
+                        in
+                        viewItem coordinate
+                    )
+                    items
     in
     div attributes children
 

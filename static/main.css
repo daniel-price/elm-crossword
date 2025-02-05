@@ -14,15 +14,13 @@ body {
 
 #input {
   position: absolute;
-  position-anchor: --cell-selected;
-
-  top: anchor(top);
-  left: anchor(left);
 
   height: 1px;
   width: 1px;
 
   z-index: 0;
+
+  caret-color: transparent;
 }
 
 #grid-container {
@@ -33,6 +31,7 @@ body {
 }
 
 #grid {
+  position: relative;
   max-height: 800px;
   border: 0.05em solid black;
   background-color: black;
@@ -82,10 +81,6 @@ body {
 }
 
 .cell-selected {
-  anchor-name: --cell-selected;
-}
-
-:has(#input:focus, .cell-selected:active) .cell-selected {
   outline: 0.2em solid DodgerBlue;
   z-index: 1;
 }

@@ -11,7 +11,7 @@ import Data.Grid as Grid exposing (Coordinate, Grid)
 import Dict
 import Effect exposing (Effect)
 import Html exposing (Attribute, Html, div, input, text)
-import Html.Attributes exposing (class, id, value)
+import Html.Attributes exposing (class, id, style, value)
 import Html.Events exposing (on, onClick, targetValue)
 import Json.Decode as JD
 import List.Extra
@@ -570,7 +570,6 @@ viewCrossword loadedModel =
         children : List (Html Msg)
         children =
             []
-                |> Build.add (viewInput selectedCoordinate)
                 |> Build.add (viewGridContainer highlightedCoordinates maybeHighlightedClue loadedModel)
                 |> Build.add (viewClues loadedModel.crossword loadedModel.filledLetters maybeHighlightedClue crossword.clues)
     in
@@ -588,7 +587,7 @@ viewGridContainer highlightedCoordinates maybeHighlightedClue loadedModel =
         children =
             []
                 |> Build.addMaybeMap viewCurrentClue maybeHighlightedClue
-                |> Build.add (Grid.view [ id "grid" ] (viewCell highlightedCoordinates loadedModel) loadedModel.crossword.grid)
+                |> Build.add (Grid.view [ id "grid" ] [ viewInput loadedModel.selectedCoordinate (Grid.getNumberOfRows loadedModel.crossword.grid) ] (viewCell highlightedCoordinates loadedModel) loadedModel.crossword.grid)
                 |> Build.add (viewButtons loadedModel)
     in
     div attributes children
@@ -682,15 +681,35 @@ viewCurrentClue clue =
     Don't use Html.Events.onInput as it stops propogation which leads to weird backspace behaviour on mobile
 
 -}
-viewInput : Coordinate -> Html Msg
-viewInput selectedCoordinate =
+viewInput : Coordinate -> Int -> Html Msg
+viewInput selectedCoordinate numberOfRows =
     let
         onInput : (String -> msg) -> Attribute msg
         onInput tagger =
             on "input" (JD.map tagger targetValue)
+
+        xString : String
+        xString =
+            Tuple.first selectedCoordinate
+                |> String.fromInt
+
+        yString : String
+        yString =
+            Tuple.second selectedCoordinate
+                |> String.fromInt
+
+        numberOfRowsString : String
+        numberOfRowsString =
+            String.fromInt numberOfRows
+
+        calcExpression : String -> String
+        calcExpression coordinate =
+            "calc(min(99vw, 800px) * " ++ coordinate ++ ".5 / " ++ numberOfRowsString
     in
     input
         [ id "input"
+        , style "top" (calcExpression yString)
+        , style "left" (calcExpression xString)
         , onInput
             (\string ->
                 String.toList string
