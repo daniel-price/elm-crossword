@@ -611,6 +611,12 @@ viewCrosswordGrid highlightedCoordinates maybeHighlightedClue loadedModel =
 viewButtons : LoadedModel -> Html Msg
 viewButtons loadedModel =
     let
+        shouldShowCheckAndReveal : Bool
+        shouldShowCheckAndReveal =
+            loadedModel.crossword.grid
+                |> Grid.filterCoordinates (\cell -> Cell.getLetter cell == Just ' ')
+                |> List.isEmpty
+
         attributes : List (Html.Attribute Msg)
         attributes =
             [ class "buttons" ]
@@ -618,7 +624,7 @@ viewButtons loadedModel =
         children : List (Html Msg)
         children =
             []
-                |> Build.add
+                |> Build.addIf shouldShowCheckAndReveal
                     (CountdownButton.view
                         { model = loadedModel.countdownButtonCheckModel
                         , initial =
@@ -635,7 +641,7 @@ viewButtons loadedModel =
                         , additionalAttributes = [ class "button" ]
                         }
                     )
-                |> Build.add
+                |> Build.addIf shouldShowCheckAndReveal
                     (CountdownButton.view
                         { model = loadedModel.countdownButtonRevealModel
                         , initial =
