@@ -20,7 +20,8 @@ suite =
    "id":"b854d0a4-cea1-4a6e-b655-84247001958d",
    "series":"cryptic",
    "seriesNo":29128,
-   "date":1689897600000
+   "date":1689897600000,
+   "humanDate":"9 February 2025"
 }
 """
 
@@ -34,6 +35,7 @@ suite =
                             , series = "cryptic"
                             , seriesNo = 29128
                             , date = 1689897600000
+                            , humanDate = "9 February 2025"
                             }
                         )
             ]

@@ -11,6 +11,7 @@ type alias CrosswordInfo =
     , series : String
     , seriesNo : Int
     , date : Int
+    , humanDate : String
     }
 
 
@@ -28,6 +29,7 @@ decoder =
         |> required "series" JD.string
         |> required "seriesNo" JD.int
         |> required "date" JD.int
+        |> required "humanDate" JD.string
 
 
 fetch : { onResponse : WebData (List CrosswordInfo) -> msg } -> Effect msg

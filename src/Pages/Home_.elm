@@ -106,7 +106,7 @@ viewLinks items =
 
 viewLink : CrosswordInfo -> Html.Html Msg
 viewLink item =
-    div [] [ a [ href ("/crossword/" ++ item.series ++ "/" ++ item.id) ] [ text item.id ] ]
+    div [] [ a [ href ("/crossword/" ++ item.series ++ "/" ++ item.id) ] [ text item.humanDate ] ]
 
 
 splitBySeries : List CrosswordInfo -> List ( String, List CrosswordInfo )
@@ -131,4 +131,4 @@ splitBySeries crosswordInfos =
                         [ ( series, [ crosswordInfo ] ) ]
             )
             []
-        |> List.reverse
+        |> List.map (\( series, items ) -> ( series, items |> List.sortBy (\i -> i.date) |> List.reverse ))
