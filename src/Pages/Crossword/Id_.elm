@@ -586,9 +586,24 @@ viewGridContainer highlightedCoordinates maybeHighlightedClue loadedModel =
         children : List (Html Msg)
         children =
             []
+                |> Build.add (viewCrosswordGrid highlightedCoordinates maybeHighlightedClue loadedModel)
+                |> Build.add (viewButtons loadedModel)
+    in
+    div attributes children
+
+
+viewCrosswordGrid : List Coordinate -> Maybe Clue -> LoadedModel -> Html Msg
+viewCrosswordGrid highlightedCoordinates maybeHighlightedClue loadedModel =
+    let
+        attributes : List (Attribute msg)
+        attributes =
+            [ id "crossword-grid" ]
+
+        children : List (Html Msg)
+        children =
+            []
                 |> Build.addMaybeMap viewCurrentClue maybeHighlightedClue
                 |> Build.add (Grid.view [ id "grid" ] [ viewInput loadedModel.selectedCoordinate (Grid.getNumberOfRows loadedModel.crossword.grid) ] (viewCell highlightedCoordinates loadedModel) loadedModel.crossword.grid)
-                |> Build.add (viewButtons loadedModel)
     in
     div attributes children
 

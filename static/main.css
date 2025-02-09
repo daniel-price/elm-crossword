@@ -30,6 +30,11 @@ body {
   gap: 1em;
 }
 
+#crossword-grid {
+  display: flex;
+  flex-direction: column;
+}
+
 #grid {
   position: relative;
   max-height: 800px;
@@ -39,9 +44,12 @@ body {
   font-size: 4em;
 }
 
-#current-clue {
+#current-clue,
+#current-clue-duplicate {
   position: sticky;
+
   top: 0;
+  width: 100%;
   z-index: 2;
   background-color: white;
   text-align: center;

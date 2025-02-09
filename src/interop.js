@@ -1,3 +1,4 @@
+import { iosSafariPositionSticky } from "./ios-safari-position-sticky";
 export const flags = ({ env }) => {
   return {
     apiUrl: env.API_URL,
@@ -112,11 +113,20 @@ async function setupFocusInputOnClick() {
 
   const isTouchDevice = "ontouchstart" in document.documentElement;
   if (isTouchDevice) {
-    console.log("isTouchDevice");
+    /**
+      *
+#current-clue-wrap {
+  position: sticky;
+  top: 0px;
+  width: 100%;
+  z-index: 2;
+}*/
     setOnClickToFocusInput(".cell, .clue");
+    iosSafariPositionSticky();
     return;
   }
 
+  iosSafariPositionSticky();
   setOnClickToFocusInput("body");
   focusInput();
 }
