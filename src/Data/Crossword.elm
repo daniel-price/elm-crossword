@@ -136,10 +136,10 @@ decoder =
         |> required "clues" (JD.list Clue.decoder)
 
 
-fetch : { id : String, onResponse : WebData Crossword -> msg } -> Effect msg
+fetch : { series : String, id : String, onResponse : WebData Crossword -> msg } -> Effect msg
 fetch options =
     Effect.sendGetRequest
-        { endpoint = "crossword/" ++ options.id
+        { endpoint = "crossword/" ++ options.series ++ "/" ++ options.id
         , onResponse = options.onResponse
         , decoder = decoder
         }

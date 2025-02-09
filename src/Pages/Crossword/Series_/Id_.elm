@@ -1,4 +1,4 @@
-module Pages.Crossword.Id_ exposing (LoadedModel, Model, Msg, page)
+module Pages.Crossword.Series_.Id_ exposing (LoadedModel, Model, Msg, page)
 
 import Browser.Events
 import Components.CountdownButton as CountdownButton
@@ -23,10 +23,10 @@ import Util.Build as Build
 import View exposing (View)
 
 
-page : Shared.Model -> Route { id : String } -> Page Model Msg
+page : Shared.Model -> Route { series : String, id : String } -> Page Model Msg
 page _ route =
     Page.new
-        { init = init route.params.id
+        { init = init route.params.series route.params.id
         , update = update
         , subscriptions = subscriptions
         , view = view
@@ -52,10 +52,10 @@ type alias Model =
     WebData LoadedModel
 
 
-init : String -> () -> ( Model, Effect Msg )
-init id () =
+init : String -> String -> () -> ( Model, Effect Msg )
+init series id () =
     ( Loading
-    , Crossword.fetch { id = id, onResponse = \result -> CrosswordFetched id result }
+    , Crossword.fetch { series = series, id = id, onResponse = \result -> CrosswordFetched id result }
     )
 
 
