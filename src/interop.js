@@ -1,7 +1,9 @@
 import { iosSafariPositionSticky } from "./ios-safari-position-sticky";
+
 export const flags = ({ env }) => {
   return {
     apiUrl: env.API_URL,
+    sessionId: window.crypto.randomUUID(),
   };
 };
 
@@ -38,17 +40,20 @@ function createWebSocket(app, env, data) {
   }
 
   const createWebSocket = () => {
-    const { crosswordId } = data;
+    const { crosswordId, sessionId } = data;
 
     if (!crosswordId) {
       console.error("Crossword id is required to create websocket");
       return;
     }
+    if (!sessionId) {
+      console.error("User id is required to create websocket");
+      return;
+    }
 
     const teamId = 1; //TODO
-    const userId = 1; //TODO
 
-    const url = `${WEBSOCKET_URL}move/${teamId}/${crosswordId}/${userId}`;
+    const url = `${WEBSOCKET_URL}move/${teamId}/${crosswordId}/${sessionId}`;
     ws = new WebSocket(url);
 
     ws.addEventListener("message", function (event) {

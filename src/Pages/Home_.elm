@@ -12,12 +12,12 @@ import View exposing (View)
 
 
 page : Shared.Model -> Route () -> Page Model Msg
-page _ _ =
+page sharedModel _ =
     Page.new
         { init = init
         , update = update
         , subscriptions = subscriptions
-        , view = view
+        , view = view sharedModel.sessionId
         }
 
 
@@ -71,8 +71,8 @@ subscriptions _ =
 -- VIEW
 
 
-view : Model -> View Msg
-view model =
+view : String -> Model -> View Msg
+view sessionId model =
     { title = "Crosswords"
     , body =
         case model of
@@ -92,21 +92,21 @@ view model =
                         (\( series, items ) ->
                             div []
                                 [ div [] [ text series ]
-                                , div [] (viewLinks items)
+                                , div [] (viewLinks sessionId items)
                                 ]
                         )
     }
 
 
-viewLinks : List CrosswordInfo -> List (Html.Html Msg)
-viewLinks items =
+viewLinks : String -> List CrosswordInfo -> List (Html.Html Msg)
+viewLinks sessionId items =
     items
-        |> List.map viewLink
+        |> List.map (viewLink sessionId)
 
 
-viewLink : CrosswordInfo -> Html.Html Msg
-viewLink item =
-    div [] [ a [ href ("/crossword/" ++ item.series ++ "/" ++ item.id) ] [ text item.humanDate ] ]
+viewLink : String -> CrosswordInfo -> Html.Html Msg
+viewLink sessionId item =
+    div [] [ a [ href ("/crossword/" ++ item.series ++ "/" ++ item.id ++ "/" ++ sessionId) ] [ text item.humanDate ] ]
 
 
 splitBySeries : List CrosswordInfo -> List ( String, List CrosswordInfo )

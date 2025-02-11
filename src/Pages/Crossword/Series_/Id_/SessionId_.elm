@@ -1,4 +1,4 @@
-module Pages.Crossword.Series_.Id_ exposing (LoadedModel, Model, Msg, page)
+module Pages.Crossword.Series_.Id_.SessionId_ exposing (LoadedModel, Model, Msg, page)
 
 import Browser.Events
 import Components.CountdownButton as CountdownButton
@@ -23,10 +23,10 @@ import Util.Build as Build
 import View exposing (View)
 
 
-page : Shared.Model -> Route { series : String, id : String } -> Page Model Msg
+page : Shared.Model -> Route { series : String, id : String, sessionId : String } -> Page Model Msg
 page _ route =
     Page.new
-        { init = init route.params.series route.params.id
+        { init = init route.params.series route.params.id route.params.sessionId
         , update = update
         , subscriptions = subscriptions
         , view = view
@@ -52,10 +52,10 @@ type alias Model =
     WebData LoadedModel
 
 
-init : String -> String -> () -> ( Model, Effect Msg )
-init series id () =
+init : String -> String -> String -> () -> ( Model, Effect Msg )
+init series id sessionId () =
     ( Loading
-    , Crossword.fetch { series = series, id = id, onResponse = \result -> CrosswordFetched id result }
+    , Crossword.fetch { series = series, id = id, onResponse = \result -> CrosswordFetched id sessionId result }
     )
 
 
@@ -96,14 +96,14 @@ type CrosswordUpdatedMsg
 
 type Msg
     = NoOp
-    | CrosswordFetched String (WebData Crossword)
+    | CrosswordFetched String String (WebData Crossword)
     | CrosswordUpdated CrosswordUpdatedMsg
 
 
 update : Msg -> Model -> ( Model, Effect Msg )
 update msg model =
     case ( msg, model ) of
-        ( CrosswordFetched id response, Loading ) ->
+        ( CrosswordFetched id sessionId response, Loading ) ->
             let
                 loadedModel : WebData LoadedModel
                 loadedModel =
@@ -145,7 +145,7 @@ update msg model =
                 effect =
                     case loadedModel of
                         Success _ ->
-                            Effect.batch [ Effect.createWebsocket id, Effect.setupFocusInputOnClick ]
+                            Effect.batch [ Effect.createWebsocket id sessionId, Effect.setupFocusInputOnClick ]
 
                         _ ->
                             Effect.none

@@ -25,13 +25,15 @@ import Shared.Msg
 
 type alias Flags =
     { apiUrl : String
+    , sessionId : String
     }
 
 
 decoder : Json.Decode.Decoder Flags
 decoder =
-    Json.Decode.map Flags
+    Json.Decode.map2 Flags
         (Json.Decode.field "apiUrl" Json.Decode.string)
+        (Json.Decode.field "sessionId" Json.Decode.string)
 
 
 
@@ -47,12 +49,14 @@ init flagsResult _ =
     case flagsResult of
         Ok flags ->
             ( { apiUrl = flags.apiUrl
+              , sessionId = flags.sessionId
               }
             , Effect.none
             )
 
         Err _ ->
             ( { apiUrl = "http://127.0.0.1:8080/"
+              , sessionId = "session-id"
               }
             , Effect.none
             )
