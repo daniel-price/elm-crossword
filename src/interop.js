@@ -3,7 +3,9 @@ import { iosSafariPositionSticky } from "./ios-safari-position-sticky";
 export const flags = ({ env }) => {
   return {
     apiUrl: env.API_URL,
-    sessionId: window.crypto.randomUUID(),
+    sessionId: window.crypto
+      .getRandomValues(new Uint32Array(1))[0]
+      .toString(36),
   };
 };
 
