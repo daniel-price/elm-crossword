@@ -106,7 +106,7 @@ viewLinks sessionId items =
 
 viewLink : String -> CrosswordInfo -> Html.Html Msg
 viewLink sessionId item =
-    div [] [ a [ href ("/crossword/" ++ item.series ++ "/" ++ item.id ++ "/" ++ sessionId) ] [ text item.humanDate ] ]
+    div [] [ a [ href ("/crossword/" ++ item.series ++ "/" ++ String.fromInt item.seriesNo ++ "/" ++ sessionId) ] [ text item.humanDate ] ]
 
 
 splitBySeries : List CrosswordInfo -> List ( String, List CrosswordInfo )

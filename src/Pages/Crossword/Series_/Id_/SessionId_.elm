@@ -53,9 +53,9 @@ type alias Model =
 
 
 init : String -> String -> String -> () -> ( Model, Effect Msg )
-init series id sessionId () =
+init series seriesNo sessionId () =
     ( Loading
-    , Crossword.fetch { series = series, id = id, onResponse = \result -> CrosswordFetched id sessionId result }
+    , Crossword.fetch { series = series, id = seriesNo, onResponse = \result -> CrosswordFetched seriesNo sessionId result }
     )
 
 
