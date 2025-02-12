@@ -15,6 +15,10 @@ import Util.List
 type alias Crossword =
     { grid : Grid Cell
     , clues : List Clue
+    , series : String
+    , seriesNo : String
+    , date : String
+    , setter : String
     }
 
 
@@ -132,8 +136,12 @@ getAllWhiteCoordinates crossword =
 decoder : JD.Decoder Crossword
 decoder =
     Grid.decoder "cells" Cell.decoder
-        |> JD.map (\grid clues -> { grid = grid, clues = clues })
+        |> JD.map (\grid clues series seriesNo date setter -> { grid = grid, clues = clues, series = series, seriesNo = seriesNo, date = date, setter = setter })
         |> required "clues" (JD.list Clue.decoder)
+        |> required "series" JD.string
+        |> required "seriesNo" JD.string
+        |> required "date" JD.string
+        |> required "setter" JD.string
 
 
 fetch : { series : String, id : String, onResponse : WebData Crossword -> msg } -> Effect msg

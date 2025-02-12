@@ -49,7 +49,11 @@ suite =
             8
          ]
       }
-    ]
+    ],
+    "series":"cryptic",
+    "seriesNo":"123",
+    "date":"16 February 2025",
+    "setter":""
 }
 """
 
@@ -68,6 +72,10 @@ suite =
                                 [ Clue.test_new 1 Down "Cross-talking Liam's chance to act in Shakespearean troupe (4,11)" [ 15 ]
                                 , Clue.test_new 2 Across "Saw the end of Raab â€” appreciate that's uplifting, basically (2,6)" [ 8 ]
                                 ]
+                                "cryptic"
+                                "123"
+                                "16 February 2025"
+                                ""
                             )
                         )
             ]
@@ -91,6 +99,10 @@ suite =
                                     ]
                                 )
                                 []
+                                "cryptic"
+                                "123"
+                                "16 February 2025"
+                                ""
 
                         result : List Grid.Coordinate
                         result =
@@ -125,6 +137,10 @@ suite =
                                 (Crossword
                                     grid
                                     []
+                                    "cryptic"
+                                    "123"
+                                    "16 February 2025"
+                                    ""
                                 )
                     in
                     Expect.equal result
@@ -139,6 +155,10 @@ suite =
                                 (Crossword
                                     grid
                                     []
+                                    "cryptic"
+                                    "123"
+                                    "16 February 2025"
+                                    ""
                                 )
                     in
                     Expect.equal result
@@ -170,6 +190,10 @@ suite =
                                 (Crossword
                                     grid
                                     []
+                                    "cryptic"
+                                    "123"
+                                    "16 February 2025"
+                                    ""
                                 )
                     in
                     Expect.equal result
@@ -184,6 +208,10 @@ suite =
                                 (Crossword
                                     grid
                                     []
+                                    "cryptic"
+                                    "123"
+                                    "16 February 2025"
+                                    ""
                                 )
                     in
                     Expect.equal result
@@ -211,6 +239,10 @@ suite =
                                         ]
                                     )
                                     []
+                                    "cryptic"
+                                    "123"
+                                    "16 February 2025"
+                                    ""
                                 )
                     in
                     Expect.equal result
@@ -236,6 +268,10 @@ suite =
                                         ]
                                     )
                                     []
+                                    "cryptic"
+                                    "123"
+                                    "16 February 2025"
+                                    ""
                                 )
                     in
                     Expect.equal result
@@ -263,6 +299,10 @@ suite =
                                         ]
                                     )
                                     []
+                                    "cryptic"
+                                    "123"
+                                    "16 February 2025"
+                                    ""
                                 )
                     in
                     Expect.equal result
@@ -288,6 +328,10 @@ suite =
                                         ]
                                     )
                                     []
+                                    "cryptic"
+                                    "123"
+                                    "16 February 2025"
+                                    ""
                                 )
                     in
                     Expect.equal result
@@ -315,6 +359,10 @@ suite =
                                 [ Clue.test_new 1 Down "Clue 1" [ 1 ]
                                 , Clue.test_new 2 Across "Clue 2" [ 1 ]
                                 ]
+                                "cryptic"
+                                "123"
+                                "16 February 2025"
+                                ""
 
                         result : Maybe Clue
                         result =

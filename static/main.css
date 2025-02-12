@@ -49,7 +49,8 @@ body {
   position: sticky;
 
   top: 0;
-  width: 100%;
+  width: fit-content;
+  align-self: center;
   z-index: 2;
   background-color: white;
   text-align: center;
@@ -154,4 +155,10 @@ body {
   padding: 0.5em;
   width: 8em;
   height: 2.5em;
+}
+
+#info {
+  text-align: center;
+  gap: 1em;
+  font-size: 3em;
 }

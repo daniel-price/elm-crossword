@@ -10,8 +10,8 @@ import Data.FilledLetters exposing (FilledLetters)
 import Data.Grid as Grid exposing (Coordinate, Grid)
 import Dict
 import Effect exposing (Effect)
-import Html exposing (Attribute, Html, div, input, text)
-import Html.Attributes exposing (class, id, style, value)
+import Html exposing (Attribute, Html, a, div, input, text)
+import Html.Attributes exposing (class, href, id, style, value)
 import Html.Events exposing (on, onClick, targetValue)
 import Json.Decode as JD
 import List.Extra
@@ -540,7 +540,7 @@ view model =
                 [ text "Loading..." ]
 
             Failure _ ->
-                [ text "Failed to load crosswords" ]
+                [ text "Failed to load crossword" ]
 
             Success loadedModel ->
                 [ viewCrossword loadedModel ]
@@ -576,6 +576,37 @@ viewCrossword loadedModel =
     div attributes children
 
 
+viewInfo : Crossword -> Html Msg
+viewInfo crossword =
+    let
+        attributes : List (Html.Attribute Msg)
+        attributes =
+            [ id "info" ]
+
+        capitalizeFirstLetter : String -> String
+        capitalizeFirstLetter string =
+            String.uncons string
+                |> Maybe.map (\( head, tail ) -> String.cons (Char.toUpper head) tail)
+                |> Maybe.withDefault ""
+
+        setByString : String
+        setByString =
+            if crossword.setter == "" then
+                ""
+
+            else
+                " set by " ++ crossword.setter
+
+        children : List (Html Msg)
+        children =
+            []
+                |> Build.add (text (capitalizeFirstLetter crossword.series ++ " " ++ crossword.seriesNo ++ " - " ++ crossword.date ++ " -" ++ setByString ++ " for "))
+                |> Build.add
+                    (a [ href ("https://www.theguardian.com/crosswords/" ++ crossword.series ++ "/" ++ crossword.seriesNo) ] [ text "the Guardian" ])
+    in
+    div attributes children
+
+
 viewGridContainer : List Coordinate -> Maybe Clue -> LoadedModel -> Html Msg
 viewGridContainer highlightedCoordinates maybeHighlightedClue loadedModel =
     let
@@ -588,6 +619,7 @@ viewGridContainer highlightedCoordinates maybeHighlightedClue loadedModel =
             []
                 |> Build.add (viewCrosswordGrid highlightedCoordinates maybeHighlightedClue loadedModel)
                 |> Build.add (viewButtons loadedModel)
+                |> Build.add (viewInfo loadedModel.crossword)
     in
     div attributes children
 
