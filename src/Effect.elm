@@ -259,13 +259,13 @@ sendWebsocketMessage messages =
 
 
 createWebsocket : String -> String -> Effect msg
-createWebsocket crosswordId sessionId =
+createWebsocket crosswordId teamId =
     SendMessageToJavaScript
         { tag = "CREATE_WEBSOCKET"
         , data =
             Json.Encode.object
                 [ ( "crosswordId", Json.Encode.string crosswordId )
-                , ( "sessionId", Json.Encode.string sessionId )
+                , ( "teamId", Json.Encode.string teamId )
                 ]
         }
 

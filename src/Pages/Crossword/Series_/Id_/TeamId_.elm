@@ -1,4 +1,4 @@
-module Pages.Crossword.Series_.Id_.SessionId_ exposing (LoadedModel, Model, Msg, page)
+module Pages.Crossword.Series_.Id_.TeamId_ exposing (LoadedModel, Model, Msg, page)
 
 import Browser.Events
 import Components.CountdownButton as CountdownButton
@@ -23,10 +23,10 @@ import Util.Build as Build
 import View exposing (View)
 
 
-page : Shared.Model -> Route { series : String, id : String, sessionId : String } -> Page Model Msg
+page : Shared.Model -> Route { series : String, id : String, teamId : String } -> Page Model Msg
 page _ route =
     Page.new
-        { init = init route.params.series route.params.id route.params.sessionId
+        { init = init route.params.series route.params.id route.params.teamId
         , update = update
         , subscriptions = subscriptions
         , view = view
@@ -53,9 +53,9 @@ type alias Model =
 
 
 init : String -> String -> String -> () -> ( Model, Effect Msg )
-init series seriesNo sessionId () =
+init series seriesNo teamId () =
     ( Loading
-    , Crossword.fetch { series = series, id = seriesNo, onResponse = \result -> CrosswordFetched seriesNo sessionId result }
+    , Crossword.fetch { series = series, id = seriesNo, onResponse = \result -> CrosswordFetched seriesNo teamId result }
     )
 
 
@@ -103,7 +103,7 @@ type Msg
 update : Msg -> Model -> ( Model, Effect Msg )
 update msg model =
     case ( msg, model ) of
-        ( CrosswordFetched id sessionId response, Loading ) ->
+        ( CrosswordFetched id teamId response, Loading ) ->
             let
                 loadedModel : WebData LoadedModel
                 loadedModel =
@@ -145,7 +145,7 @@ update msg model =
                 effect =
                     case loadedModel of
                         Success _ ->
-                            Effect.batch [ Effect.createWebsocket id sessionId, Effect.setupFocusInputOnClick ]
+                            Effect.batch [ Effect.createWebsocket id teamId, Effect.setupFocusInputOnClick ]
 
                         _ ->
                             Effect.none

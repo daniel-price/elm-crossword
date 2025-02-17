@@ -162,3 +162,9 @@ body {
   gap: 1em;
   font-size: 3em;
 }
+
+/*Home*/
+#crosswords {
+  display: flex;
+  flex-direction: row;
+}

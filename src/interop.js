@@ -2,8 +2,8 @@ import { iosSafariPositionSticky } from "./ios-safari-position-sticky";
 
 export const flags = ({ env }) => {
   return {
-    apiUrl: env.API_URL,
-    sessionId: randomFourLetters(),
+    apiUrl: env.API_URL || "https://cooperative-crosswords-be.fly.dev/",
+    teamId: randomFourLetters(),
   };
 };
 
@@ -49,20 +49,20 @@ function createWebSocket(app, env, data) {
   }
 
   const createWebSocket = () => {
-    const { crosswordId, sessionId } = data;
+    const { crosswordId, teamId } = data;
 
     if (!crosswordId) {
       console.error("Crossword id is required to create websocket");
       return;
     }
-    if (!sessionId) {
+    if (!teamId) {
       console.error("User id is required to create websocket");
       return;
     }
 
-    const teamId = 1; //TODO
+    const userId = 1; //TODO
 
-    const url = `${WEBSOCKET_URL}move/${teamId}/${crosswordId}/${sessionId}`;
+    const url = `${WEBSOCKET_URL}move/${teamId}/${crosswordId}/${userId}`;
     ws = new WebSocket(url);
 
     ws.addEventListener("message", function (event) {

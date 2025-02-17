@@ -2,8 +2,8 @@ module Pages.Home_ exposing (LoadedModel, Model, Msg, page)
 
 import Data.CrosswordInfo as CrosswordInfo exposing (CrosswordInfo)
 import Effect exposing (Effect)
-import Html exposing (a, div, text)
-import Html.Attributes exposing (href)
+import Html exposing (Html, a, div, text)
+import Html.Attributes exposing (href, id)
 import Page exposing (Page)
 import RemoteData exposing (RemoteData(..), WebData)
 import Route exposing (Route)
@@ -17,7 +17,7 @@ page sharedModel _ =
         { init = init
         , update = update
         , subscriptions = subscriptions
-        , view = view sharedModel.sessionId
+        , view = view sharedModel.teamId
         }
 
 
@@ -72,7 +72,7 @@ subscriptions _ =
 
 
 view : String -> Model -> View Msg
-view sessionId model =
+view teamId model =
     { title = "Crosswords"
     , body =
         case model of
@@ -86,27 +86,32 @@ view sessionId model =
                 [ text "Failed to load crosswords" ]
 
             Success { crosswordInfos } ->
-                crosswordInfos
-                    |> splitBySeries
-                    |> List.map
-                        (\( series, items ) ->
-                            div []
-                                [ div [] [ text series ]
-                                , div [] (viewLinks sessionId items)
-                                ]
-                        )
+                [ div [ id "crosswords" ]
+                    (crosswordInfos
+                        |> splitBySeries
+                        |> List.map (viewSeries teamId)
+                    )
+                ]
     }
 
 
+viewSeries : String -> ( String, List CrosswordInfo ) -> Html Msg
+viewSeries teamId ( series, items ) =
+    div []
+        [ div [] [ text series ]
+        , div [] (viewLinks teamId items)
+        ]
+
+
 viewLinks : String -> List CrosswordInfo -> List (Html.Html Msg)
-viewLinks sessionId items =
+viewLinks teamId items =
     items
-        |> List.map (viewLink sessionId)
+        |> List.map (viewLink teamId)
 
 
 viewLink : String -> CrosswordInfo -> Html.Html Msg
-viewLink sessionId item =
-    div [] [ a [ href ("/crossword/" ++ item.series ++ "/" ++ String.fromInt item.seriesNo ++ "/" ++ sessionId) ] [ text item.humanDate ] ]
+viewLink teamId item =
+    div [] [ a [ href ("/crossword/" ++ item.series ++ "/" ++ String.fromInt item.seriesNo ++ "/" ++ teamId) ] [ text item.humanDate ] ]
 
 
 splitBySeries : List CrosswordInfo -> List ( String, List CrosswordInfo )
