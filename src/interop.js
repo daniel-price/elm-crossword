@@ -3,7 +3,7 @@ import { iosSafariPositionSticky } from "./ios-safari-position-sticky";
 export const flags = ({ env }) => {
   return {
     apiUrl: env.API_URL || "https://cooperative-crosswords-be.fly.dev/",
-    teamId: randomFourLetters(),
+    teamId: getTeamId(),
   };
 };
 
@@ -28,6 +28,16 @@ export const onReady = ({ app, env }) => {
     });
   }
 };
+
+function getTeamId() {
+  const storedTeamId = localStorage.getItem("teamId");
+  if (storedTeamId) {
+    return storedTeamId;
+  }
+  const teamId = randomFourLetters();
+  localStorage.setItem("teamId", teamId);
+  return teamId;
+}
 
 function randomFourLetters() {
   const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -62,7 +72,7 @@ function createWebSocket(app, env, data) {
 
     const userId = 1; //TODO
 
-    const url = `${WEBSOCKET_URL}move/${teamId}/${crosswordId}/${userId}`;
+    const url = `${WEBSOCKET_URL}move/${teamId.toUpperCase()}/${crosswordId}/${userId}`;
     ws = new WebSocket(url);
 
     ws.addEventListener("message", function (event) {
