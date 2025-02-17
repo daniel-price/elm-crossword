@@ -3,9 +3,7 @@ import { iosSafariPositionSticky } from "./ios-safari-position-sticky";
 export const flags = ({ env }) => {
   return {
     apiUrl: env.API_URL,
-    sessionId: window.crypto
-      .getRandomValues(new Uint32Array(1))[0]
-      .toString(36),
+    sessionId: randomFourLetters(),
   };
 };
 
@@ -30,6 +28,15 @@ export const onReady = ({ app, env }) => {
     });
   }
 };
+
+function randomFourLetters() {
+  const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  let result = "";
+  for (let i = 0; i < 4; i++) {
+    result += alphabet.charAt(Math.floor(Math.random() * alphabet.length));
+  }
+  return result;
+}
 
 let ws;
 
