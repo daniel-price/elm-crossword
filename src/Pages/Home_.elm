@@ -3,11 +3,12 @@ module Pages.Home_ exposing (LoadedModel, Model, Msg, page)
 import Data.CrosswordInfo as CrosswordInfo exposing (CrosswordInfo)
 import Effect exposing (Effect)
 import Html exposing (Html, a, div, text)
-import Html.Attributes exposing (href, id)
+import Html.Attributes exposing (class, href, id)
 import Page exposing (Page)
 import RemoteData exposing (RemoteData(..), WebData)
 import Route exposing (Route)
 import Shared
+import Util.String
 import View exposing (View)
 
 
@@ -97,9 +98,9 @@ view teamId model =
 
 viewSeries : String -> ( String, List CrosswordInfo ) -> Html Msg
 viewSeries teamId ( series, items ) =
-    div []
-        [ div [] [ text series ]
-        , div [] (viewLinks teamId items)
+    div [ class "series" ]
+        [ div [ class "header" ] [ text (Util.String.capitalizeFirstLetter series) ]
+        , div [ class "links" ] (viewLinks teamId items)
         ]
 
 
@@ -111,7 +112,7 @@ viewLinks teamId items =
 
 viewLink : String -> CrosswordInfo -> Html.Html Msg
 viewLink teamId item =
-    div [] [ a [ href ("/crossword/" ++ item.series ++ "/" ++ String.fromInt item.seriesNo ++ "/" ++ teamId) ] [ text item.humanDate ] ]
+    div [ class "link" ] [ a [ href ("/crossword/" ++ item.series ++ "/" ++ String.fromInt item.seriesNo ++ "/" ++ teamId) ] [ text (String.fromInt item.seriesNo ++ " - " ++ item.humanDate) ] ]
 
 
 splitBySeries : List CrosswordInfo -> List ( String, List CrosswordInfo )

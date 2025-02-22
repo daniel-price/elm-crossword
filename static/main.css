@@ -167,4 +167,33 @@ body {
 #crosswords {
   display: flex;
   flex-direction: row;
+  gap: 1em;
+  flex-wrap: wrap;
+}
+
+.series {
+  border: 0.05em solid black;
+  padding: 1em;
+  margin: 0.5em;
+  border-radius: 0.5em;
+}
+
+.header {
+  display: flex;
+  justify-content: center;
+  gap: 1em;
+  font-size: 1.5em;
+  padding: 0.5em;
+}
+
+.links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  height: 18em;
+  overflow: auto;
+}
+
+.link {
+  line-height: 1.5em;
 }
