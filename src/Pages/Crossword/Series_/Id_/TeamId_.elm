@@ -20,6 +20,7 @@ import RemoteData exposing (RemoteData(..), WebData)
 import Route exposing (Route)
 import Shared
 import Util.Build as Build
+import Util.String
 import View exposing (View)
 
 
@@ -583,12 +584,6 @@ viewInfo crossword =
         attributes =
             [ id "info" ]
 
-        capitalizeFirstLetter : String -> String
-        capitalizeFirstLetter string =
-            String.uncons string
-                |> Maybe.map (\( head, tail ) -> String.cons (Char.toUpper head) tail)
-                |> Maybe.withDefault ""
-
         setByString : String
         setByString =
             if crossword.setter == "" then
@@ -600,7 +595,7 @@ viewInfo crossword =
         children : List (Html Msg)
         children =
             []
-                |> Build.add (text (capitalizeFirstLetter crossword.series ++ " " ++ crossword.seriesNo ++ " - " ++ crossword.date ++ " -" ++ setByString ++ " for "))
+                |> Build.add (text (Util.String.capitalizeFirstLetter crossword.series ++ " " ++ crossword.seriesNo ++ " - " ++ crossword.date ++ " -" ++ setByString ++ " for "))
                 |> Build.add
                     (a [ href ("https://www.theguardian.com/crosswords/" ++ crossword.series ++ "/" ++ crossword.seriesNo) ] [ text "the Guardian" ])
     in
