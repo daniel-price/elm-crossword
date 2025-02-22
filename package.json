@@ -9,12 +9,12 @@
     "test": "elm-test"
   },
   "devDependencies": {
-    "@types/bun": "latest",
+    "@types/bun": "^1.2.3",
     "elm-format": "^0.8.7",
-    "elm-land": "^0.19.5",
-    "elm-review": "^2.10.3",
-    "elm-test": "^0.19.1-revision12",
-    "husky": "^9.0.9",
+    "elm-land": "^0.20.1",
+    "elm-review": "^2.13.1",
+    "elm-test": "^0.19.1-revision15",
+    "husky": "^9.1.7",
     "pretty-quick": "^4.0.0"
   }
 }
