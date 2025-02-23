@@ -32,7 +32,7 @@ export const onReady = ({ app, env }) => {
 let ws;
 
 function createWebSocket(app, env, data) {
-  const { WEBSOCKET_URL = "ws://127.0.0.1:8080/" } = env;
+  const { WEBSOCKET_URL = "wss://cooperative-crosswords-be.fly.dev/" } = env;
 
   if (!WEBSOCKET_URL) {
     console.error("Websocket url is required to create websocket");

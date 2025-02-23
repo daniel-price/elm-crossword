@@ -55,7 +55,7 @@ init flagsResult _ =
             )
 
         Err _ ->
-            ( { apiUrl = "http://127.0.0.1:8080/"
+            ( { apiUrl = "https://cooperative-crosswords-be.fly.dev/" --"http://127.0.0.1:8080/"
               , sessionId = "session-id"
               }
             , Effect.none
