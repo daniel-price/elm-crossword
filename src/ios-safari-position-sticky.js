@@ -46,7 +46,6 @@ export const iosSafariPositionSticky = () => {
     }
     currentClueDuplicate.style["position"] = "absolute";
     currentClueDuplicate.style["margin-top"] = Math.abs(bodyTop) + "px";
-    currentClueDuplicate.style["display"] = "block";
   };
 
   const setMarginWithDebounce = debounce(setMargin, 250);
@@ -57,7 +56,7 @@ export const iosSafariPositionSticky = () => {
     );
 
     if (currentClueDuplicate) {
-      currentClueDuplicate.style.display = "none";
+      currentClueDuplicate.remove();
     }
 
     setMarginWithDebounce();
