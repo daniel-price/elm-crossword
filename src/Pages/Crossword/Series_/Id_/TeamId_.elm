@@ -13,6 +13,8 @@ import Effect exposing (Effect)
 import Html exposing (Attribute, Html, a, div, input, text)
 import Html.Attributes exposing (class, href, id, style, value)
 import Html.Events exposing (on, onClick, targetValue)
+import Html.Parser
+import Html.Parser.Util
 import Json.Decode as JD
 import List.Extra
 import Page exposing (Page)
@@ -713,10 +715,11 @@ viewCurrentClue clue =
         attributes =
             [ id "current-clue" ]
 
-        children : List (Html msg)
+        children : List (Html Msg)
         children =
             []
-                |> Build.add (text (String.fromInt (Clue.getNumber clue) ++ ". " ++ Clue.getText clue))
+                |> Build.add (text (Clue.getNumberString clue ++ " "))
+                |> Build.concat (viewClueText clue)
     in
     div attributes children
 
@@ -915,9 +918,24 @@ viewClue crossword filledLetters maybeHighlightedClue clue =
         children =
             []
                 |> Build.add (viewClueNumber (Clue.getNumberString clue))
-                |> Build.add (text (Clue.getText clue))
+                |> Build.concat (viewClueText clue)
     in
     div attributes children
+
+
+viewClueText : Clue -> List (Html Msg)
+viewClueText clue =
+    let
+        clueText : String
+        clueText =
+            Clue.getText clue
+    in
+    case Html.Parser.run clueText of
+        Ok nodes ->
+            Html.Parser.Util.toVirtualDom nodes
+
+        Err _ ->
+            [ text clueText ]
 
 
 viewClueNumber : String -> Html Msg
